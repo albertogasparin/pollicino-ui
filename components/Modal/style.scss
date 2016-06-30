@@ -1,0 +1,53 @@
+@import '../../scss/core';
+
+.Modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(#000, 0.3);
+  z-index: $Modal-zIndex;
+
+  @include transition-fade-in-out();
+}
+
+.Modal .Modal {
+
+  &-box {
+    min-width: 20rem;
+    max-width: 30rem;
+    background: #FFF;
+    border-radius: 3px;
+    box-shadow: 0 0 15px 1px rgba(#000, 0.3);
+  }
+
+  &-header {
+    padding: 1rem 1rem 0 1.2rem;
+    font-size: rem(18px);
+    font-weight: bold;
+  }
+
+  &-title { 
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  &-message {
+    padding: 0.5rem 1.2rem 2rem;
+
+    p { margin: 0; }
+  }
+
+  &-footer {
+    text-align: right;
+    padding: 0 1rem 1rem;
+
+    .Btn + .Btn { margin-left: 1rem; }
+  }
+
+}

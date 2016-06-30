@@ -1,0 +1,94 @@
+@import '../../scss/core';
+
+.Btn {
+  @include button-reset;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 3px;
+  
+  &[disabled] {
+    opacity: 0.2;
+  }
+
+  &[data-tip]:not([data-tip=""]):after {
+    @include text-clip;
+    content: attr(data-tip);
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateX(-1em);
+    max-height: 0;
+    margin: -(($FormField-height - 0.6rem) / 2) 0.5em 0;
+    padding: 0 1em;
+    border-radius: 2em;
+    background: rgba(#000, 0.8);
+    color: #FFF;
+    font-size: calc(1em - 3px);
+    line-height: $FormField-height - 0.6rem;
+    opacity: 0;
+    pointer-events: none;
+    backface-visibility: hidden;
+  }
+
+  &[data-tip][data-tip-right]:after {
+    left: auto;
+    right: 100%;
+    transform: translateX(1em);
+  }
+
+  &[data-tip]:hover {
+    z-index: $FormField-overlay-zIndex + 1; // over other stuff
+
+    &:after {
+      transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
+      max-height: none;
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+.Btn--plain {
+  line-height: $FormField-height;
+}
+
+.Btn--primary {
+  padding: 0 1rem;
+  background: $color-primary;
+  color: #FFF;
+  line-height: $FormField-height;
+
+  &[disabled] { background: $color-text; }
+}
+
+.Btn--secondary {
+  padding: 0 1rem;
+  background: $color-secondary;
+  color: #FFF;
+  line-height: $FormField-height;
+}
+
+.Btn--outline {
+  padding: 0 1rem;
+  border: 1px solid;
+  line-height: $FormField-height;
+}
+
+.Btn--square {
+  width: $FormField-height;
+  padding: 0;
+  line-height: $FormField-height;
+  text-align: center;
+}
+
+.Btn--clip {
+  @include text-clip;
+  max-width: 100%;
+}
+
+.Btn--gap {
+  margin: rem(2px);
+}
+
+

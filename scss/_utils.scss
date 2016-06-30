@@ -1,0 +1,15 @@
+/* stylelint-disable number-zero-length-no-unit */
+/* UTILS
+   =============================================== */
+
+// rem conversion
+@function rem($size) {
+  $remSize: $size / $base-font-size;
+  @return $remSize + 0rem;
+}
+
+// em conversion
+@function em($size, $context-size: $base-font-size) {
+  $emSize: $size / $context-size;
+  @return $emSize + 0em;
+}

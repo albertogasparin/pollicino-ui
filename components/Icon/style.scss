@@ -1,0 +1,51 @@
+@import '../../scss/core';
+
+.Icon {
+  display: inline-block;
+  width: em(24px);
+  height: em(24px);
+  font-size: 1em;
+  line-height: 1;
+  vertical-align: middle;
+  fill: currentColor;
+}
+
+.Icon--btn { // increase clickable area
+  box-sizing: content-box;
+  padding: em(6px);
+  margin: em(-6px);
+}
+
+.Icon--mR {
+  margin-right: em(6px);
+}
+
+.Icon--chevron-right {
+  transform: rotate(180deg);
+}
+
+
+@keyframes Icon--loading {
+  10% { transform: scale(1); }
+  20% { transform: scale(0.5); }
+}
+
+.Icon--loading {
+  width: auto;
+  white-space: nowrap;
+
+  b {
+    display: inline-block;
+    width: em(20px);
+    height: em(20px);
+    transform: scale(0.5);
+    margin: em(2px) 0;
+    background: currentColor;
+    border-radius: 50%;
+    animation: Icon--loading 3.5s linear 0s infinite both;
+  }
+
+  b:nth-child(2) { animation-delay: 0.15s; }
+  b:nth-child(3) { animation-delay: 0.30s; }
+
+}

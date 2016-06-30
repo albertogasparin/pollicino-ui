@@ -1,0 +1,99 @@
+@import '../../scss/core';
+
+.Dropdown {
+  position: relative;
+
+  &.isOpen {
+    cursor: pointer; // needed by iOS
+
+    &:after { // overlay backdrop
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: $FormField-overlay-zIndex - 1;
+      cursor: default;
+    }
+  }
+
+  &.isDisabled {
+    .Dropdown-btn {
+      opacity: 0.5;
+
+      &:after { opacity: 0.5; }
+    }
+  }
+}
+
+.Dropdown .Dropdown {
+
+  &-btn {
+    @include button-reset;
+    @include text-clip;
+    position: relative;
+    max-width: 100%;
+    min-height: 1.1em;
+    padding-right: 1.4em;
+
+    &:after {
+      content: '▼';
+      position: absolute;
+      top: 0.04rem;
+      right: 0.1em;
+      opacity: 0.8;
+      transform: scale(0.8, 0.5);
+    }
+  }
+
+  &-overlay {
+    position: absolute;
+    top: 100%;
+    min-width: 12rem;
+    padding: 0.3rem 0.8rem;
+    background: #FFF;
+    box-shadow: 0 0 0 1px rgba(#000, 0.1), 0 0 15px 1px rgba(#000, 0.3);
+    border-radius: 3px;
+    color: $color-text;
+    z-index: $FormField-overlay-zIndex;
+    cursor: auto;
+
+    &[data-align="left"] { left: -0.4em; }
+    &[data-align="right"] { right: -0.75rem; }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: -13px;
+      height: 0;
+      border: 6px solid transparent;
+      border-bottom-color: rgba(#000, 0.3);
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: -12px;
+      height: 0;
+      border: 6px solid transparent;
+      border-bottom-color: #FFF;
+    }
+
+    &[data-align="left"]:before,
+    &[data-align="left"]:after { left: 0.75rem; }
+
+    &[data-align="right"]:before,
+    &[data-align="right"]:after { right: 0.95rem; }
+  }
+}
+
+
+.Dropdown--field {}
+
+.Dropdown--field .Dropdown {
+  &-overlay {
+    min-width: 17rem;
+  }
+}
+

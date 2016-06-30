@@ -1,0 +1,28 @@
+@import '../scss/core';
+// @import '../scss/reset';
+
+
+/* PLAIN ELEMENTS STYLE
+   =============================================== */
+
+html {
+  font-family: Helvetica, sans-serif;
+  font-size: 15px;
+  // color: $color-text;
+  // touch-action: manipulation; // iOS fast tap
+  // background: $color-background;
+}
+
+h2 {
+  clear: both;
+  margin: 0 0 1rem;
+  padding: 2rem 0 0.5rem;
+  font-weight: 400;
+  border-bottom: 1px solid #EEE;
+}
+
+
+.left { float: left; }
+.w1 { width: 10rem; }
+.w2 { width: 20rem; }
+.dark { background: #222225; color: #FFF; padding: 1rem; }

@@ -1,0 +1,83 @@
+@import '../../scss/core';
+
+/**
+ * FormField generic styles
+ */
+
+.FormField {
+  @include FormField;
+}
+
+/**
+ * FormField range
+ */
+
+.FormField--range {
+
+  &.isDisabled .FormField-control {
+    @include FormField-isDisabled;
+    color: #F4F4F4;
+  }
+
+}
+
+.FormField--range .FormField {
+
+  &-control {
+    max-width: 100%;
+    margin: rem(8px) 0;
+    background: none;
+    appearance: none;
+    vertical-align: middle;
+    color: #FFF;
+
+    &:focus { outline: none; }
+
+    &::-webkit-slider-runnable-track {
+      @include FormField--range-track();
+      width: 100%;
+      height: rem(8px);
+    }
+    &::-webkit-slider-thumb {
+      @include FormField--range-thumb();
+      margin-top: rem(-8px);
+      appearance: none;
+    }
+    &::-moz-range-track {
+      @include FormField--range-track();
+      width: 100%;
+      height: rem(8px);
+    }
+    &::-moz-range-thumb {
+      @include FormField--range-thumb();
+    }
+    &::-ms-track {
+      width: 100%;
+      height: rem(8px);
+      background: transparent;
+      border-color: transparent;
+      color: transparent;
+    }
+    &::-ms-fill-lower {
+      @include FormField--range-track();
+    }
+    &::-ms-fill-upper {
+      @include FormField--range-track();
+    }
+    &::-ms-thumb {
+      @include FormField--range-thumb();
+    }
+
+  }
+}
+
+/**
+ * Field modifiers
+ */
+
+.FormField--range {
+  &.FormField--block {
+    @include FormField--block;
+  }
+}
+

@@ -1,0 +1,42 @@
+@import '../../scss/core';
+
+/**
+ * FormField generic styles
+ */
+
+.FormField {
+  @include FormField;
+}
+
+/**
+ * FormField input text
+ */
+
+.FormField--text {
+  &.isDisabled .FormField-field {
+    @include FormField-isDisabled;
+  }
+}
+
+.FormField--text .FormField {
+  &-control {
+    @include FormField-control;
+  }
+}
+
+
+/**
+ * Field modifiers
+ */
+
+.FormField--text {
+  &.FormField--block {
+    @include FormField--block;
+  }
+
+  &.FormField--invert {
+    .FormField-control {
+      @include FormField-control--inverted;
+    }
+  }
+}

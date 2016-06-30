@@ -11,8 +11,6 @@
   justify-content: center;
   background: rgba(#000, 0.3);
   z-index: $Modal-zIndex;
-
-  @include transition-fade-in-out();
 }
 
 .Modal .Modal {
@@ -31,7 +29,7 @@
     font-weight: bold;
   }
 
-  &-title { 
+  &-title {
     margin: 0;
     font-size: 1rem;
     font-weight: 700;

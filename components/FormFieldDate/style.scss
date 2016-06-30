@@ -1,0 +1,85 @@
+@import '../../scss/core';
+@import '~react-day-picker/lib/style';
+
+/**
+ * FormField generic styles
+ */
+
+.FormField {
+  @include FormField;
+}
+
+/**
+ * Field styles
+ */
+
+.FormField--date {}
+
+.FormField--date .FormField {
+
+  &-overlay {
+    width: 18rem;
+  }
+
+  &-datePicker {
+    padding: 0 0 0.6rem;
+    line-height: 1.35;
+
+    &:focus,
+    [tabindex]:focus { outline: none; }
+
+    &:first-child {
+      padding-top: 0.6rem;
+    }
+
+    .DayPicker-Month {
+      width: 100%;
+      margin: 0;
+    }
+
+    .DayPicker-NavButton {
+      border: 0.3rem solid transparent;
+      box-sizing: border-box;
+    }
+
+    .DayPicker-Caption {
+      line-height: 1.5rem;
+    }
+
+    .DayPicker-yearField {
+      display: inline-block;
+      line-height: inherit;
+      vertical-align: top;
+
+      .FormField-field { height: 1.5rem; }
+    }
+
+    .DayPicker-Day {
+
+      &--today { color: $color-secondary; }
+      &--outside { color: $color-lighter; }
+
+      &--isDisabled {
+        background: #F4F4F4;
+        color: $color-lighter;
+      }
+
+      &--isSelected {
+        background: $color-primary;
+        color: #FFF;
+      }
+
+      &--isSelected.DayPicker-Day--outside {
+        opacity: 0.4;
+      }
+    }
+  }
+}
+
+/**
+ * Field modifiers
+ */
+
+.FormField--date.FormField--block {
+  @include FormField--block;
+}

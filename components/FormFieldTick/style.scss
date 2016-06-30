@@ -1,0 +1,67 @@
+@import '../../scss/core';
+
+/**
+ * FormField generic styles
+ */
+
+.FormField {
+  @include FormField;
+}
+
+/**
+ * FormField tick (aka radio / checkbox)
+ */
+
+.FormField--radiobox,
+.FormField--checkbox {
+  overflow: hidden;
+
+  &.isDisabled {
+    @include FormField-isDisabled;
+
+    .FormField-label { opacity: 0.6; }
+  }
+}
+
+.FormField--radiobox .FormField,
+.FormField--checkbox .FormField {
+
+  &-field {
+    cursor: pointer;
+  }
+
+  &-tick {
+    float: left;
+    margin-top: -1px; // align fix
+    padding-right: 0.4rem;
+    font-size: 86%;
+  }
+
+  &-control {
+    position: absolute;
+    top: -2rem;
+    left: 0;
+
+    &:focus ~ .FormField-field .FormField-tick {
+      animation: blinkColor 0.5s ease 0s;
+    }
+  }
+
+  &-value {
+    display: block;
+    @include text-clip();
+  }
+}
+
+/**
+ * Field modifiers
+ */
+
+.FormField--radiobox,
+.FormField--checkbox {
+  &.FormField--block {
+    @include FormField--block;
+  }
+}
+
+

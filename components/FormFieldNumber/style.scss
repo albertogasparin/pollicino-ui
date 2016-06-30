@@ -1,0 +1,85 @@
+@import '../../scss/core';
+
+/**
+ * FormField generic styles
+ */
+
+.FormField {
+  @include FormField;
+}
+
+
+/**
+ * Field styles
+ */
+
+.FormField--number {
+  &.isDisabled .FormField-field {
+    @include FormField-isDisabled;
+  }
+}
+
+.FormField--number .FormField {
+  &-control {
+    @include FormField-control;
+    appearance: textfield;
+    padding-right: 1.5rem;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      appearance: none;
+    }
+  }
+
+  &-spin {
+    @include button-reset;
+    position: absolute;
+    right: 1px;
+    height: 50%;
+    padding: 0 rem(5px);
+    border-left: 1px solid $color-lighter;
+    opacity: 0.8;
+
+    &:before {
+      content: '';
+      display: block;
+      border: rem(4px) solid transparent;
+    }
+
+    &[disabled]:before { opacity: 0.4; }
+
+    &--plus {
+      top: 1px;
+
+      &:before { border-bottom-color: currentColor; }
+    }
+
+    &--minus {
+      bottom: 1px;
+
+      &:before { border-top-color: currentColor; }
+    }
+  }
+
+}
+
+
+/**
+ * Field modifiers
+ */
+
+.FormField--number {
+
+  &.FormField--block {
+    @include FormField--block;
+  }
+
+  &.FormField--invert {
+
+    .FormField-control {
+      @include FormField-control--inverted;
+    }
+
+    .FormField-spin { border-color: rgba(#FFF, 0.25); }
+  }
+}

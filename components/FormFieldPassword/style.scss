@@ -1,0 +1,53 @@
+@import '../../scss/core';
+
+/**
+ * FormField generic styles
+ */
+
+.FormField {
+  @include FormField;
+}
+
+
+/**
+ * FormField input password
+ */
+
+.FormField--password {
+  &.isDisabled {
+    .FormField-field { @include FormField-isDisabled; }
+    .FormField-togglePsw { display: none; }
+  }
+}
+
+.FormField--password .FormField {
+  &-control {
+    @include FormField-control;
+    padding-right: $FormField-height;
+  }
+
+  &-togglePsw {
+    position: absolute;
+    top: -1px;
+    right: 0;
+
+    .Icon { opacity: 0.8; }
+    &.isVisible .Icon { opacity: 0.2; }
+  }
+}
+
+/**
+ * Field modifiers
+ */
+
+.FormField--password {
+  &.FormField--block {
+    @include FormField--block;
+  }
+
+  &.FormField--invert {
+    .FormField-control {
+      @include FormField-control--inverted;
+    }
+  }
+}

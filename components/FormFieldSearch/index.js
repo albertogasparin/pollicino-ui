@@ -1,0 +1,85 @@
+import React, { Component } from 'react';
+import _ from 'lodash';
+
+import { Icon } from '../Icon';
+
+import './style.scss';
+
+class FormFieldSearch extends Component {
+  constructor(props) {
+    super(props);
+    this.assignPropsToState(props);
+    this.triggerOnChange = _.debounce(this.triggerOnChange, props.debounce);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.assignPropsToState(nextProps);
+  }
+
+  assignPropsToState(props) {
+    this.state = {
+      id: props.id || 'input-' + Math.random().toString(16).substr(8),
+      focused: false,
+      ...this.state,
+      val: props.value,
+    };
+  }
+
+  handleChange(ev) {
+    let val = ev.target.value;
+    this.setState({ val });
+    this.triggerOnChange(val);
+  }
+
+  handleFocus(ev) {
+    this.setState({ focused: true });
+    this.props.onFocus(ev);
+  }
+
+  handleBlur(ev) {
+    this.setState({ focused: false });
+    this.props.onBlur(ev);
+  }
+
+  triggerOnChange(...args) {
+    this.props.onChange(...args);
+  }
+
+  render() {
+    let { className, disabled, size } = this.props;
+    let { id, focused } = this.state;
+    className += disabled ? ' isDisabled' : '';
+    className += focused ? ' isFocused' : '';
+    return (
+      <div className={'FormField FormField--search ' + className}>
+        <div className="FormField-field">
+          <Icon className="FormField-icon" glyph="magnify" />
+          <input id={id} className="FormField-control" type="text"
+            style={{ width: size + 'em' }}
+            value={this.state.val}
+            {..._.pick(this.props, 'id', 'name', 'disabled', 'placeholder')}
+            onChange={this.handleChange.bind(this)}
+            onFocus={(ev) => this.handleFocus(ev)}
+            onBlur={(ev) => this.handleBlur(ev)}
+          />
+        </div>
+      </div>
+    );
+  }
+}
+
+FormFieldSearch.defaultProps = {
+  className: '',
+  value: '',
+  placeholder: 'Search',
+  disabled: false,
+
+  debounce: 200,
+  size: 100,
+
+  onChange() {},
+  onFocus() {},
+  onBlur() {},
+};
+
+export { FormFieldSearch };

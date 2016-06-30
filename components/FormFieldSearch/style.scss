@@ -1,0 +1,56 @@
+@import '../../scss/core';
+
+/**
+ * FormField generic styles
+ */
+
+.FormField {
+  @include FormField;
+}
+
+/**
+ * FormField search
+ */
+
+.FormField--search {
+  &.isDisabled .FormField-field {
+    @include FormField-isDisabled;
+  }
+}
+
+.FormField--search .FormField {
+  &-field {
+    display: block;
+  }
+
+  &-control {
+    @include FormField-control;
+    padding-left: $FormField-height;
+  }
+
+  &-icon {
+    position: absolute;
+    top: 1px;
+    left: 0.5rem;
+    height: $FormField-height;
+    color: $color-lighter;
+  }
+}
+
+
+/**
+ * Field modifiers
+ */
+
+.FormField--search {
+  &.FormField--block {
+    @include FormField--block;
+  }
+
+  &.FormField--invert {
+    .FormField-control {
+      @include FormField-control--inverted;
+    }
+  }
+}
+

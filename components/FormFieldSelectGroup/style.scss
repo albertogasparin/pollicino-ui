@@ -1,0 +1,62 @@
+@import '../../scss/core';
+
+/**
+ * FormField generic styles
+ */
+
+.FormField {
+  @include FormField;
+}
+
+/**
+ * Field style
+ */
+
+.FormField--selectGroup {}
+
+.FormField--selectGroup .FormField {
+
+  &-group {
+    @include clearfix;
+  }
+
+  &-groupSearch {
+    padding: 0.5em 0;
+  }
+
+  &-groupList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &-groupList--overflow {
+    max-height: 21.5rem;
+    margin-right: -0.8rem;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+
+    &:first-child { // if not preceded by search
+      overflow-y: auto;
+    }
+  }
+
+  &-groupItem {
+    float: left;
+    box-sizing: border-box;
+    padding-right: 1rem;
+  }
+}
+
+
+/**
+ * Field modifiers
+ */
+
+.FormField--selectGroup {
+  &.FormField--block {
+    @include FormField--block;
+  }
+}
+
+

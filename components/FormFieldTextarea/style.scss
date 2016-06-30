@@ -1,0 +1,47 @@
+@import '../../scss/core';
+
+/**
+ * FormField generic styles
+ */
+
+.FormField {
+  @include FormField;
+}
+
+
+/**
+ * FormField textarea
+ */
+
+.FormField--textarea {
+  &.isDisabled .FormField-field {
+    @include FormField-isDisabled;
+  }
+}
+
+.FormField--textarea .FormField {
+  &-control {
+    @include FormField-control;
+    display: block;
+    max-width: 100%; // allow Y resizing only
+    height: auto;
+    padding: 0.4rem 0.7rem;
+  }
+}
+
+
+/**
+ * Field modifiers
+ */
+
+.FormField--textarea {
+  &.FormField--block {
+    @include FormField--block;
+  }
+
+  &.FormField--invert {
+    .FormField-control {
+      @include FormField-control--inverted;
+    }
+  }
+}

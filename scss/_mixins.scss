@@ -12,7 +12,7 @@
 @mixin button-reset {
   overflow: visible;
   box-sizing: border-box;
-  
+
   appearance: none;
   padding: 0;
   border: none;
@@ -41,13 +41,13 @@
 
 
 // text ellipsis
-@mixin text-clip() {
+@mixin text-clip {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-@mixin center() {
+@mixin center {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -55,11 +55,129 @@
 }
 
 
+@mixin FormField {
+  position: relative;
+  display: flex;
+  line-height: $FormField-height;
 
-@mixin transition-fade-in-out() {
-  &.to-enter { opacity: 0; will-change: opacity; }
-  &.to-enter-active { opacity: 1; transition: opacity 0.4s ease 0s; }
+  .FormField {
 
-  &.to-leave { opacity: 1; will-change: opacity; }
-  &.to-leave-active { opacity: 0; transition: opacity 0.4s ease 0s; }
+    &-label {
+      font-weight: bold;
+      padding-right: 0.8rem;
+      flex: 0 1 auto;
+      white-space: nowrap;
+    }
+
+    &-field {
+      position: relative;
+      flex: 0 1 auto;
+      min-width: 0; // makes text overflow ellip work
+    }
+
+    &-error {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin: 0.2em 0 0 0;
+      padding: 0.4em 0.7em 0.45em;
+      background: $color-error;
+      color: #FFF;
+      font-size: calc(1rem - 2px);
+      line-height: 1.4;
+
+      &:before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: 1em;
+        top: -1em;
+        border: 0.6em solid transparent;
+        border-bottom-color: $color-error;
+      }
+    }
+
+    &-control {
+      line-height: 1.4;
+    }
+
+  }
 }
+
+
+@mixin FormField--block {
+  display: block;
+
+  .FormField {
+    &-label {
+      display: block;
+      margin-bottom: -0.3em;
+    }
+    &-control {
+      width: 100% !important;
+    }
+  }
+}
+
+
+@mixin FormField-control {
+  display: block;
+  max-width: 100%;
+  height: $FormField-height;
+  box-sizing: border-box;
+  padding: 0 0.7rem;
+  border: 1px solid $color-lighter;
+  border-radius: 3px;
+  background: #FFF;
+  box-shadow: inset 0 3px 5px rgba($color-light, 0.15);
+  appearance: none;
+  font: inherit;
+  color: inherit;
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+    box-shadow: inset 0 3px 5px rgba($color-light, 0.15), 0 0 0 1px $color-primary;
+  }
+}
+
+
+@mixin FormField-control--inverted {
+  background: rgba(#FFF, 0.15);
+  border-color: rgba(#FFF, 0.25);
+  box-shadow: inset 0 3px 5px rgba(#000, 0.15);
+
+  &:focus {
+    box-shadow: inset 0 3px 5px rgba(#000, 0.15), 0 0 0 1px $color-primary;
+  }
+}
+
+
+@mixin FormField-isDisabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@mixin FormField--range-thumb {
+  height: rem(24px);
+  width: rem(24px);
+  background: currentColor;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(#000, 0.15), 0 0 8px rgba(#000, 0.3);
+  cursor: pointer;
+}
+
+@mixin FormField--range-track {
+  background: rgba($color-light, 0.5);
+  border: none;
+  border-radius: 10px;
+}
+
+
+
+
+
+
+

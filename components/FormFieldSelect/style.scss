@@ -1,0 +1,69 @@
+@import '../../scss/core';
+
+/**
+ * FormField generic styles
+ */
+
+.FormField {
+  @include FormField;
+}
+
+/**
+ * Field styles
+ */
+
+.FormField--select {
+
+  &.isDisabled .FormField-field {
+    @include FormField-isDisabled;
+  }
+}
+
+.FormField--select .FormField {
+
+  &-field {
+    height: $FormField-height;
+  }
+
+  &-value {
+    @include text-clip;
+    position: relative;
+    display: inline-block;
+    padding-right: 1.3rem;
+    max-width: 100%;
+    height: 100%;
+    cursor: pointer;
+    box-sizing: border-box;
+
+    &:after {
+      content: '▼';
+      position: absolute;
+      top: 0;
+      right: -1px;
+      opacity: 0.8;
+      transform: scale(0.8, 0.5);
+    }
+  }
+
+  &-control {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    appearance: none;
+    font: inherit;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
+/**
+ * Field modifiers
+ */
+
+.FormField--select {
+  &.FormField--block {
+    @include FormField--block;
+  }
+}

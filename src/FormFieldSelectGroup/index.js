@@ -15,7 +15,7 @@ class FormFieldSelectGroup extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.assignPropsToState(nextProps);
-    if (!this.state.focused) { // validation: punish late
+    if (this.state.touched) { // validation: punish late
       this.validate();
     }
   }
@@ -29,6 +29,7 @@ class FormFieldSelectGroup extends Component {
     this.state = {
       searchValue: '',
       focused: false,
+      touched: false,
       errors: null,
       opts,
       ...this.state,
@@ -97,7 +98,7 @@ class FormFieldSelectGroup extends Component {
   }
 
   handleBlur(ev) {
-    this.setState({ focused: false });
+    this.setState({ focused: false, touched: true }, this.validate);
     this.props.onBlur(ev);
   }
 
@@ -109,7 +110,7 @@ class FormFieldSelectGroup extends Component {
    * @public
    */
   validate(val = this.state.val) {
-    let errors = this.props.validation(this.returnValue(val));
+    let errors = this.props.validation(this.returnValue(val)) || null;
     this.setState({ errors });
     return errors;
   }

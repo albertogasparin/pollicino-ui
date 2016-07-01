@@ -19,6 +19,7 @@ class FormFieldSearch extends Component {
     this.state = {
       id: props.id || props.name && 'ff-search-' + props.name,
       focused: false,
+      touched: false,
       ...this.state,
       val: props.value,
     };
@@ -36,7 +37,7 @@ class FormFieldSearch extends Component {
   }
 
   handleBlur(ev) {
-    this.setState({ focused: false });
+    this.setState({ focused: false, touched: true });
     this.props.onBlur(ev);
   }
 

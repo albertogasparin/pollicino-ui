@@ -20,7 +20,7 @@ class FormFieldTick extends Component {
     this.state = {
       id: props.id || 'ff-tick-' + props.name + props.value,
       focused: false,
-      errors: null,
+      touched: false,
       ...this.state,
       checked: props.checked,
     };
@@ -40,7 +40,7 @@ class FormFieldTick extends Component {
   }
 
   handleBlur(ev) {
-    this.setState({ focused: false });
+    this.setState({ focused: false, touched: true });
     this.props.onBlur(ev);
   }
 

@@ -31,7 +31,7 @@ class FormFieldDate extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.assignPropsToState(nextProps);
-    if (!this.state.focused) { // validation: punish late
+    if (this.state.touched) { // validation: punish late
       this.validate();
     }
   }
@@ -46,6 +46,9 @@ class FormFieldDate extends Component {
     this.state = {
       showPicker: props.options.length === 0,
       initialMonth: val[0] ? new Date(val[0]) : new Date(),
+      touched: false,
+      focused: false,
+      errors: null,
       opts: [
         ...(props.hidePlaceholder ? [] : [{ label: props.placeholder, value: '' }]),
         ...opts,
@@ -141,7 +144,7 @@ class FormFieldDate extends Component {
 
   handleBlur(ev) {
     let { val } = this.state;
-    this.setState({ focused: false });
+    this.setState({ focused: false, touched: true }, this.validate);
     this.triggerOnChange(this.returnValue(val));
     this.props.onBlur(ev);
   }
@@ -154,7 +157,7 @@ class FormFieldDate extends Component {
    * @public
    */
   validate(val = this.state.val) {
-    let errors = this.props.validation(this.returnValue(val));
+    let errors = this.props.validation(this.returnValue(val)) || null;
     this.setState({ errors });
     return errors;
   }

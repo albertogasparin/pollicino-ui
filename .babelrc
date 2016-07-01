@@ -5,6 +5,5 @@
     "stage-2"
   ],
   "plugins": [],
-  "retainLines": true,
-  "sourceMaps": "inline"
+  "sourceMaps": true
 }

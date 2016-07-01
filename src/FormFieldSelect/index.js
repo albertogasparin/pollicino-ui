@@ -11,7 +11,7 @@ class FormFieldSelect extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.assignPropsToState(nextProps);
-    if (!this.state.focused) { // validation: punish late
+    if (this.state.touched) { // validation: punish late
       this.validate();
     }
   }
@@ -20,6 +20,7 @@ class FormFieldSelect extends Component {
     this.state = {
       id: props.id || props.name && 'ff-select-' + props.name,
       focused: false,
+      touched: false,
       errors: null,
       opts: [
         { label: props.placeholder, value: '' },
@@ -55,7 +56,7 @@ class FormFieldSelect extends Component {
   }
 
   handleBlur(ev) {
-    this.setState({ focused: false });
+    this.setState({ focused: false, touched: true }, this.validate);
     this.props.onBlur(ev);
   }
 
@@ -67,7 +68,7 @@ class FormFieldSelect extends Component {
    * @public
    */
   validate(val = this.state.val) {
-    let errors = this.props.validation(val);
+    let errors = this.props.validation(val) || null;
     this.setState({ errors });
     return errors;
   }

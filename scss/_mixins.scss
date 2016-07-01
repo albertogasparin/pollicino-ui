@@ -85,6 +85,7 @@
       color: #FFF;
       font-size: calc(1rem - 2px);
       line-height: 1.4;
+      z-index: 10;
 
       &:before {
         content: '';

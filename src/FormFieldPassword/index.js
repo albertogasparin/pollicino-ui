@@ -14,7 +14,7 @@ class FormFieldPassword extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.assignPropsToState(nextProps);
-    if (!this.state.focused) { // validation: punish late
+    if (this.state.touched) { // validation: punish late
       this.validate();
     }
   }
@@ -22,6 +22,7 @@ class FormFieldPassword extends Component {
   assignPropsToState(props) {
     this.state = {
       id: props.id || props.name && 'ff-password-' + props.name,
+      touched: false,
       focused: false,
       errors: null,
       type: 'password',
@@ -52,7 +53,7 @@ class FormFieldPassword extends Component {
   }
 
   handleBlur(ev) {
-    this.setState({ focused: false });
+    this.setState({ focused: false, touched: true }, this.validate);
     this.props.onBlur(ev);
   }
 
@@ -64,7 +65,7 @@ class FormFieldPassword extends Component {
    * @public
    */
   validate(val = this.state.val) {
-    let errors = this.props.validation(val);
+    let errors = this.props.validation(val) || null;
     this.setState({ errors });
     return errors;
   }

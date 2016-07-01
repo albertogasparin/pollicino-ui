@@ -1,5 +1,8 @@
 @import '../../scss/core';
 
+@import '../Btn/style';
+@import '../Icon/style';
+
 /**
  * FormField generic styles
  */
@@ -23,7 +26,7 @@
 .FormField--password .FormField {
   &-control {
     @include FormField-control;
-    padding-right: $FormField-height;
+    padding-right: $Pollicino-FormField-height;
   }
 
   &-togglePsw {
@@ -40,7 +43,7 @@
  * Field modifiers
  */
 
-.FormField--password {
+.FormField--password { /* stylelint-disable-line no-duplicate-selectors */
   &.FormField--block {
     @include FormField--block;
   }

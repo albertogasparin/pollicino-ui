@@ -34,7 +34,7 @@
  * Field modifiers
  */
 
-.FormField--textarea {
+.FormField--textarea { /* stylelint-disable-line no-duplicate-selectors */
   &.FormField--block {
     @include FormField--block;
   }

@@ -1,5 +1,9 @@
 @import '../../scss/core';
-@import '~react-day-picker/lib/style';
+
+@import '../Dropdown/style';
+@import '../FormFieldTick/style';
+@import '../FormFieldSelect/style';
+@import '../../node_modules/react-day-picker/lib/style';
 
 /**
  * FormField generic styles
@@ -56,16 +60,16 @@
 
     .DayPicker-Day {
 
-      &--today { color: $color-secondary; }
-      &--outside { color: $color-lighter; }
+      &--today { color: $Pollicino-color-secondary; }
+      &--outside { color: $Pollicino-color-lighter; }
 
       &--isDisabled {
         background: #F4F4F4;
-        color: $color-lighter;
+        color: $Pollicino-color-lighter;
       }
 
       &--isSelected {
-        background: $color-primary;
+        background: $Pollicino-color-primary;
         color: #FFF;
       }
 

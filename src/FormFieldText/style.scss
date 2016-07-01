@@ -29,7 +29,7 @@
  * Field modifiers
  */
 
-.FormField--text {
+.FormField--text { /* stylelint-disable-line no-duplicate-selectors */
   &.FormField--block {
     @include FormField--block;
   }

@@ -1,5 +1,7 @@
 @import '../../scss/core';
 
+@import '../Btn/style';
+
 .Modal {
   position: fixed;
   top: 0;
@@ -10,7 +12,7 @@
   align-items: center;
   justify-content: center;
   background: rgba(#000, 0.3);
-  z-index: $Modal-zIndex;
+  z-index: $Pollicino-Modal-zIndex;
 }
 
 .Modal .Modal {

@@ -1,5 +1,9 @@
 @import '../../scss/core';
 
+@import '../Dropdown/style';
+@import '../FormFieldTick/style';
+@import '../FormFieldSearch/style';
+
 /**
  * FormField generic styles
  */
@@ -53,7 +57,7 @@
  * Field modifiers
  */
 
-.FormField--selectGroup {
+.FormField--selectGroup { /* stylelint-disable-line no-duplicate-selectors */
   &.FormField--block {
     @include FormField--block;
   }

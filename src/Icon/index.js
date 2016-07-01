@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './style.scss';
-
 const Icon = ({ glyph, className = '', width = 24, height = 24 }) => {
   if (glyph === 'loading') {
     return (

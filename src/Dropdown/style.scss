@@ -13,7 +13,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: $FormField-overlay-zIndex - 1;
+      z-index: $Pollicino-FormField-overlay-zIndex - 1;
       cursor: default;
     }
   }
@@ -55,8 +55,8 @@
     background: #FFF;
     box-shadow: 0 0 0 1px rgba(#000, 0.1), 0 0 15px 1px rgba(#000, 0.3);
     border-radius: 3px;
-    color: $color-text;
-    z-index: $FormField-overlay-zIndex;
+    color: $Pollicino-color-text;
+    z-index: $Pollicino-FormField-overlay-zIndex;
     cursor: auto;
 
     &[data-align="left"] { left: -0.4em; }

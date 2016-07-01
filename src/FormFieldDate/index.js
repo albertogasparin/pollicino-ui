@@ -7,8 +7,6 @@ import Dropdown from '../Dropdown';
 import FormFieldTick from '../FormFieldTick';
 import FormFieldSelect from '../FormFieldSelect';
 
-import './style.scss';
-
 const DAYS_SHORT = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 const DAYS_LONG = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const FIRST_DAY = 1;

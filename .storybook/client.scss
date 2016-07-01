@@ -1,6 +1,4 @@
 @import '../scss/core';
-// @import '../scss/reset';
-
 
 /* PLAIN ELEMENTS STYLE
    =============================================== */
@@ -28,3 +26,27 @@ h2 {
 .w1 { width: 10rem; }
 .w2 { width: 20rem; }
 .dark { background: #222225; color: #FFF; padding: 1rem; }
+
+
+/* Modules imports
+   =============================================== */
+
+@import '../src/Btn/style';
+@import '../src/Dropdown/style';
+@import '../src/FormFieldColor/style';
+@import '../src/FormFieldDate/style';
+@import '../src/FormFieldNumber/style';
+@import '../src/FormFieldPassword/style';
+@import '../src/FormFieldRange/style';
+@import '../src/FormFieldSearch/style';
+@import '../src/FormFieldSelect/style';
+@import '../src/FormFieldSelectGroup/style';
+@import '../src/FormFieldText/style';
+@import '../src/FormFieldTextarea/style';
+@import '../src/FormFieldTick/style';
+@import '../src/Icon/style';
+@import '../src/Modal/style';
+@import '../src/Sortable/style';
+@import '../src/StickyHeader/style';
+@import '../src/Toast/style';
+

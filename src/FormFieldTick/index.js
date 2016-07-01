@@ -4,8 +4,6 @@ import _pick from 'lodash/pick';
 
 import Icon from '../Icon';
 
-import './style.scss';
-
 class FormFieldTick extends Component {
 
   constructor(props) {
@@ -20,7 +18,7 @@ class FormFieldTick extends Component {
 
   assignPropsToState(props) {
     this.state = {
-      id: props.id || 'input-' + Math.random().toString(16).substr(8),
+      id: props.id || 'ff-tick-' + props.name + props.value,
       focused: false,
       errors: null,
       ...this.state,

@@ -22,7 +22,7 @@
 .FormField--select .FormField {
 
   &-field {
-    height: $FormField-height;
+    height: $Pollicino-FormField-height;
   }
 
   &-value {
@@ -62,7 +62,7 @@
  * Field modifiers
  */
 
-.FormField--select {
+.FormField--select { /* stylelint-disable-line no-duplicate-selectors */
   &.FormField--block {
     @include FormField--block;
   }

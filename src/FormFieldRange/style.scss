@@ -69,9 +69,9 @@
     &:focus {
       outline: none;
 
-      &::-webkit-slider-thumb { box-shadow: 0 0 0 2px $color-primary, 0 0 8px $color-primary; }
-      &::-moz-range-thumb { box-shadow: 0 0 0 2px $color-primary, 0 0 8px $color-primary; }
-      &::-ms-thumb { box-shadow: 0 0 0 2px $color-primary, 0 0 8px $color-primary; }
+      &::-webkit-slider-thumb { box-shadow: 0 0 0 2px $Pollicino-color-primary, 0 0 8px $Pollicino-color-primary; }
+      &::-moz-range-thumb { box-shadow: 0 0 0 2px $Pollicino-color-primary, 0 0 8px $Pollicino-color-primary; }
+      &::-ms-thumb { box-shadow: 0 0 0 2px $Pollicino-color-primary, 0 0 8px $Pollicino-color-primary; }
     }
 
   }
@@ -81,7 +81,7 @@
  * Field modifiers
  */
 
-.FormField--range {
+.FormField--range { /* stylelint-disable-line no-duplicate-selectors */
   &.FormField--block {
     @include FormField--block;
   }

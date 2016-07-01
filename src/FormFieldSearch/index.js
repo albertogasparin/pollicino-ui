@@ -4,8 +4,6 @@ import _pick from 'lodash/pick';
 
 import Icon from '../Icon';
 
-import './style.scss';
-
 class FormFieldSearch extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +17,7 @@ class FormFieldSearch extends Component {
 
   assignPropsToState(props) {
     this.state = {
-      id: props.id || 'input-' + Math.random().toString(16).substr(8),
+      id: props.id || props.name && 'ff-search-' + props.name,
       focused: false,
       ...this.state,
       val: props.value,

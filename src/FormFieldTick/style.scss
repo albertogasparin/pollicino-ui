@@ -1,5 +1,7 @@
 @import '../../scss/core';
 
+@import '../Icon/style';
+
 /**
  * FormField generic styles
  */
@@ -43,7 +45,7 @@
     left: 0;
 
     &:focus ~ .FormField-field .FormField-tick {
-      color: $color-primary;
+      color: $Pollicino-color-primary;
     }
   }
 
@@ -57,8 +59,7 @@
  * Field modifiers
  */
 
-.FormField--radiobox,
-.FormField--checkbox {
+.FormField--radiobox, .FormField--checkbox { /* stylelint-disable-line no-duplicate-selectors */
   &.FormField--block {
     @include FormField--block;
   }

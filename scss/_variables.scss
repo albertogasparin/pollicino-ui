@@ -2,23 +2,23 @@
 /* COLORS
    =============================================== */
 
-$color-text: #333339;
-$color-light: #88888C;
-$color-lighter: #C3C3C7;
-$color-error: #F12A33;
-$color-primary: #1EA0F5;
-$color-secondary: #E84C09;
+$Pollicino-color-text: #333339 !default;
+$Pollicino-color-light: #88888C !default;
+$Pollicino-color-lighter: #C3C3C7 !default;
+$Pollicino-color-error: #F12A33 !default;
+$Pollicino-color-primary: #1EA0F5 !default;
+$Pollicino-color-secondary: #E84C09 !default;
 
 
 /* TYPOGRAPHY
    =============================================== */
 
-$base-font-size: 15px;
+$Pollicino-font-size: 15px !default;
 
 
 /* COMPONENTS VARIABLES
    =============================================== */
 
-$FormField-height: rem(34px);
-$FormField-overlay-zIndex: 5000;
-$Modal-zIndex: 9999;
+$Pollicino-FormField-height: rem(34px) !default;
+$Pollicino-FormField-overlay-zIndex: 5000 !default;
+$Pollicino-Modal-zIndex: 9999 !default;

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
-import './style.scss';
-
 class FormFieldNumber extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +18,7 @@ class FormFieldNumber extends Component {
 
   assignPropsToState(props) {
     this.state = {
-      id: props.id || 'input-' + Math.random().toString(16).substr(8),
+      id: props.id || props.name && 'ff-number-' + props.name,
       focused: false,
       errors: null,
       ...this.state,

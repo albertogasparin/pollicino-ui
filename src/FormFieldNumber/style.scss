@@ -37,7 +37,7 @@
     right: 1px;
     height: 50%;
     padding: 0 rem(5px);
-    border-left: 1px solid $color-lighter;
+    border-left: 1px solid $Pollicino-color-lighter;
     opacity: 0.8;
 
     &:before {
@@ -68,7 +68,7 @@
  * Field modifiers
  */
 
-.FormField--number {
+.FormField--number { /* stylelint-disable-line no-duplicate-selectors */
 
   &.FormField--block {
     @include FormField--block;

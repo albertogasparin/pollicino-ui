@@ -5,8 +5,6 @@ import _pick from 'lodash/pick';
 import Btn from '../Btn';
 import Icon from '../Icon';
 
-import './style.scss';
-
 class FormFieldPassword extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +21,7 @@ class FormFieldPassword extends Component {
 
   assignPropsToState(props) {
     this.state = {
-      id: props.id || 'input-' + Math.random().toString(16).substr(8),
+      id: props.id || props.name && 'ff-password-' + props.name,
       focused: false,
       errors: null,
       type: 'password',

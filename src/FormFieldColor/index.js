@@ -4,8 +4,6 @@ import ColorPicker from 'react-simple-colorpicker';
 
 import Dropdown from '../Dropdown';
 
-import './style.scss';
-
 class FormFieldColor extends Component {
   constructor(props) {
     super(props);

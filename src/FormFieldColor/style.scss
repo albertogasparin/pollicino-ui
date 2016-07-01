@@ -1,5 +1,7 @@
 @import '../../scss/core';
 
+@import '../Dropdown/style';
+
 /**
  * FormField generic styles
  */
@@ -18,7 +20,7 @@
     display: inline-block;
     width: rem(24px);
     height: rem(24px);
-    border: 1px solid $color-light;
+    border: 1px solid $Pollicino-color-light;
     vertical-align: middle;
   }
 

@@ -6,8 +6,6 @@ import Dropdown from '../Dropdown';
 import FormFieldTick from '../FormFieldTick';
 import FormFieldSearch from '../FormFieldSearch';
 
-import './style.scss';
-
 class FormFieldSelectGroup extends Component {
   constructor(props) {
     super(props);

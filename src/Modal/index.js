@@ -2,8 +2,6 @@ import React from 'react';
 
 import Btn from '../Btn';
 
-import './style.scss';
-
 const Modal = ({
   className = '',
   title,

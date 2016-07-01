@@ -6,7 +6,8 @@
   display: inline-block;
   vertical-align: middle;
   border-radius: 3px;
-  
+  text-align: center;
+
   &[disabled] {
     opacity: 0.2;
   }
@@ -19,13 +20,13 @@
     left: 100%;
     transform: translateX(-1em);
     max-height: 0;
-    margin: -(($FormField-height - 0.6rem) / 2) 0.5em 0;
+    margin: -(($Pollicino-FormField-height - 0.6rem) / 2) 0.5em 0;
     padding: 0 1em;
     border-radius: 2em;
     background: rgba(#000, 0.8);
     color: #FFF;
     font-size: calc(1em - 3px);
-    line-height: $FormField-height - 0.6rem;
+    line-height: $Pollicino-FormField-height - 0.6rem;
     opacity: 0;
     pointer-events: none;
     backface-visibility: hidden;
@@ -38,7 +39,7 @@
   }
 
   &[data-tip]:hover {
-    z-index: $FormField-overlay-zIndex + 1; // over other stuff
+    z-index: $Pollicino-FormField-overlay-zIndex + 1; // over other stuff
 
     &:after {
       transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
@@ -50,35 +51,35 @@
 }
 
 .Btn--plain {
-  line-height: $FormField-height;
+  line-height: $Pollicino-FormField-height;
 }
 
 .Btn--primary {
   padding: 0 1rem;
-  background: $color-primary;
+  background: $Pollicino-color-primary;
   color: #FFF;
-  line-height: $FormField-height;
+  line-height: $Pollicino-FormField-height;
 
-  &[disabled] { background: $color-text; }
+  &[disabled] { background: $Pollicino-color-text; }
 }
 
 .Btn--secondary {
   padding: 0 1rem;
-  background: $color-secondary;
+  background: $Pollicino-color-secondary;
   color: #FFF;
-  line-height: $FormField-height;
+  line-height: $Pollicino-FormField-height;
 }
 
 .Btn--outline {
   padding: 0 1rem;
   border: 1px solid;
-  line-height: $FormField-height;
+  line-height: $Pollicino-FormField-height;
 }
 
 .Btn--square {
-  width: $FormField-height;
+  width: $Pollicino-FormField-height;
   padding: 0;
-  line-height: $FormField-height;
+  line-height: $Pollicino-FormField-height;
   text-align: center;
 }
 
@@ -90,5 +91,3 @@
 .Btn--gap {
   margin: rem(2px);
 }
-
-

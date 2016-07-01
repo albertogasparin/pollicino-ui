@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
+import _debounce from 'lodash/debounce';
+import _pick from 'lodash/pick';
 
 import './style.scss';
 
@@ -7,7 +8,7 @@ class FormFieldText extends Component {
   constructor(props) {
     super(props);
     this.assignPropsToState(props);
-    this.triggerOnChange = _.debounce(this.triggerOnChange, props.debounce);
+    this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -76,7 +77,7 @@ class FormFieldText extends Component {
           <input id={id} className="FormField-control"
             style={{ width: size + 'em' }}
             value={val}
-            {..._.pick(this.props, 'type', 'name', 'disabled', 'placeholder')}
+            {..._pick(this.props, 'type', 'name', 'disabled', 'placeholder')}
             onChange={(ev) => this.handleChange(ev)}
             onFocus={(ev) => this.handleFocus(ev)}
             onBlur={(ev) => this.handleBlur(ev)}

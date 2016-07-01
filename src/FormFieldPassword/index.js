@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
+import _debounce from 'lodash/debounce';
+import _pick from 'lodash/pick';
 
 import { Icon } from '../Icon';
 
@@ -9,7 +10,7 @@ class FormFieldPassword extends Component {
   constructor(props) {
     super(props);
     this.assignPropsToState(props);
-    this.triggerOnChange = _.debounce(this.triggerOnChange, props.debounce);
+    this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -97,7 +98,7 @@ class FormFieldPassword extends Component {
           <input id={id} className="FormField-control" type={type}
             style={{ width: size + 'em' }}
             value={val}
-            {..._.pick(this.props, 'name', 'disabled', 'placeholder')}
+            {..._pick(this.props, 'name', 'disabled', 'placeholder')}
             onChange={this.handleChange.bind(this)}
             onFocus={(ev) => this.handleFocus(ev)}
             onBlur={(ev) => this.handleBlur(ev)}

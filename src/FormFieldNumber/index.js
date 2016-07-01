@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
+import _debounce from 'lodash/debounce';
+import _pick from 'lodash/pick';
 
 import './style.scss';
 
@@ -7,7 +8,7 @@ class FormFieldNumber extends Component {
   constructor(props) {
     super(props);
     this.assignPropsToState(props);
-    this.triggerOnChange = _.debounce(this.triggerOnChange, props.debounce);
+    this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -88,7 +89,7 @@ class FormFieldNumber extends Component {
           <input id={id} className="FormField-control" type="number" pattern="[0-9]*"
             style={{ width: size + 'em' }}
             value={val}
-            {..._.pick(this.props, 'name', 'disabled', 'min', 'max')}
+            {..._pick(this.props, 'name', 'disabled', 'min', 'max')}
             onChange={this.handleChange.bind(this)}
             onFocus={(ev) => this.handleFocus(ev)}
             onBlur={(ev) => this.handleBlur(ev)}
@@ -115,7 +116,7 @@ class FormFieldNumber extends Component {
 FormFieldNumber.defaultProps = {
   className: '',
   label: false,
-  value: '',
+  value: 0,
   name: '',
   disabled: false,
 

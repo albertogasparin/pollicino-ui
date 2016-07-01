@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
+import _debounce from 'lodash/debounce';
 import ColorPicker from 'react-simple-colorpicker';
 
 import { Dropdown } from '../Dropdown';
@@ -10,7 +10,7 @@ class FormFieldColor extends Component {
   constructor(props) {
     super(props);
     this.assignPropsToState(props);
-    this.triggerOnChange = _.debounce(this.triggerOnChange, props.debounce);
+    this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
+import _debounce from 'lodash/debounce';
+import _pick from 'lodash/pick';
 
 import { Dropdown } from '../Dropdown';
 import { FormFieldTick } from '../FormFieldTick';
@@ -11,7 +12,7 @@ class FormFieldSelectGroup extends Component {
   constructor(props) {
     super(props);
     this.assignPropsToState(props);
-    this.triggerOnChange = _.debounce(this.triggerOnChange, props.debounce);
+    this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -52,8 +53,8 @@ class FormFieldSelectGroup extends Component {
   }
 
   findOptions(val) {
-    let matched = _.filter(this.state.opts, (o) => val.indexOf(o.value) !== -1);
-    return matched.length ? matched : null;
+    let options = this.state.opts.filter((o) => val.indexOf(o.value) !== -1);
+    return options.length ? options : null;
   }
 
   isOptionVisible(o) {
@@ -117,7 +118,7 @@ class FormFieldSelectGroup extends Component {
 
   renderSelectGroup(checkedOpts) {
     let { opts, searchValue } = this.state;
-    let { name, withSearch, inline, multiple, optionsPerRow, disabled } = this.props;
+    let { withSearch, inline, multiple, optionsPerRow } = this.props;
 
     return (
       <div className="FormField-group">
@@ -131,14 +132,15 @@ class FormFieldSelectGroup extends Component {
           </div>
         }
         <ul className={'FormField-groupList ' + (inline ? '' : 'FormField-groupList--overflow')}>
-          {_.map(_.filter(opts, (o) => this.isOptionVisible(o)), (o, i) => (
+          {opts.filter((o) => this.isOptionVisible(o)).map((o, i) => (
             <li key={i} className="FormField-groupItem"
               style={{ width: 100 / optionsPerRow + '%' }}
             >
-              <FormFieldTick name={name} type={multiple ? 'checkbox' : 'radio'}
-                label={o.label} debounce={50} disabled={disabled}
+              <FormFieldTick type={multiple ? 'checkbox' : 'radio'}
+                label={o.label} debounce={50}
                 checked={checkedOpts.indexOf(o) !== -1}
                 value={o.value}
+                {..._pick(this.props, 'name', 'disabled')}
                 onChange={this.handleChange.bind(this)}
                 onFocus={(ev) => inline && this.handleFocus(ev)}
                 onBlur={(ev) => inline && this.handleBlur(ev)}
@@ -151,7 +153,7 @@ class FormFieldSelectGroup extends Component {
   }
 
   render() { // eslint-disable-line complexity
-    let { className, label, disabled, align, valueRenderer, placeholder, multiple } = this.props;
+    let { className, label, disabled, valueRenderer, placeholder, multiple } = this.props;
     let { val, errors, focused } = this.state;
     let checkedOpts = this.findOptions(val) || [{ label: placeholder, value: val }];
 
@@ -168,8 +170,8 @@ class FormFieldSelectGroup extends Component {
           {this.props.inline
             ? this.renderSelectGroup(checkedOpts)
             : <Dropdown className="Dropdown--field" ref="dropdown"
-                align={align} disabled={disabled}
                 label={valueRenderer(multiple ? checkedOpts : checkedOpts[0])}
+                {..._pick(this.props, 'align', 'disabled')}
                 onOpen={(ev) => this.handleFocus(ev)}
                 onClose={(ev) => this.handleBlur(ev)}
               >
@@ -195,7 +197,7 @@ FormFieldSelectGroup.defaultProps = {
 
   hidePlaceholder: false,
   options: [],
-  valueRenderer: (op) => op.map ? op.map((o) => o.label).join(', ') : op.label,
+  valueRenderer: (op) => Array.isArray(op) ? op.map((o) => o.label).join(', ') : op.label,
   align: 'left',
   inline: false,
   withSearch: false,

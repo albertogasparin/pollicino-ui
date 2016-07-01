@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DayPicker, { DateUtils, LocaleUtils } from 'react-day-picker';
-import _ from 'lodash';
+import _debounce from 'lodash/debounce';
+import _range from 'lodash/range';
 
 import { Dropdown } from '../Dropdown';
 import { FormFieldTick } from '../FormFieldTick';
@@ -27,7 +28,7 @@ class FormFieldDate extends Component {
   constructor(props) {
     super(props);
     this.assignPropsToState(props);
-    this.triggerOnChange = _.debounce(this.triggerOnChange, props.debounce);
+    this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,7 +39,7 @@ class FormFieldDate extends Component {
   }
 
   assignPropsToState(props) {
-    let opts = _.map(props.options, (o) => ({
+    let opts = props.options.map((o) => ({
       label: o.label,
       value: this.normalizeValue(o.value),
     }));
@@ -81,10 +82,11 @@ class FormFieldDate extends Component {
   }
 
   findOption(value) {
-    let { opts } = this.state;
-    return _.find(opts, (o) => (
-      o.value[0] === value[0] && o.value[1] === value[1]
+    let option = null;
+    this.state.opts.some((o) => (
+      (o.value[0] === value[0] && o.value[1] === value[1]) ? (option = o) : false
     ));
+    return option;
   }
 
   handleChange(showPicker, value) {
@@ -184,7 +186,7 @@ class FormFieldDate extends Component {
 
     return (
       <div className="FormField-options" data-align={align}>
-        {_.map(opts, (o, i) => (
+        {opts.map((o, i) => (
           <FormFieldTick key={i} type="radio" name={name}
             label={o.label} delay={50}
             checked={o === checkedOpt}
@@ -229,7 +231,7 @@ class FormFieldDate extends Component {
         {yearDropdown && minYear !== maxYear
           ? <FormFieldSelect className="DayPicker-yearField"
               value={date.getFullYear()}
-              options={_.map(_.range(minYear, maxYear + 1), (v) => ({ label: v, value: v }))}
+              options={_range(minYear, maxYear + 1).map((v) => ({ label: v, value: v }))}
               onChange={this.handleYearChange.bind(this, date)}
             />
           : date.getFullYear()

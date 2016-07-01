@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
+import _debounce from 'lodash/debounce';
+import _pick from 'lodash/pick';
 
 import './style.scss';
 
@@ -7,7 +8,7 @@ class FormFieldTextarea extends Component {
   constructor(props) {
     super(props);
     this.assignPropsToState(props);
-    this.triggerOnChange = _.debounce(this.triggerOnChange, props.debounce);
+    this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -76,7 +77,7 @@ class FormFieldTextarea extends Component {
           <textarea id={id} className="FormField-control"
             style={{ width: cols + 'em', height: rows * 1.6 + 'em' }}
             value={val}
-            {..._.pick(this.props, 'name', 'disabled', 'placeholder')}
+            {..._pick(this.props, 'name', 'disabled', 'placeholder')}
             onChange={this.handleChange.bind(this)}
             onFocus={(ev) => this.handleFocus(ev)}
             onBlur={(ev) => this.handleBlur(ev)}

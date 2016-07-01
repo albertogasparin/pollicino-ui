@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
+import _debounce from 'lodash/debounce';
+import _pick from 'lodash/pick';
 
 import './style.scss';
 
@@ -7,7 +8,7 @@ class FormFieldSelect extends Component {
   constructor(props) {
     super(props);
     this.assignPropsToState(props);
-    this.triggerOnChange = _.debounce(this.triggerOnChange, props.debounce);
+    this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,7 +33,11 @@ class FormFieldSelect extends Component {
   }
 
   findOption(val) {
-    return _.find(this.state.opts, (o) => String(o.value) === String(val));
+    let option = null;
+    this.state.opts.some((o) => (
+      String(o.value) === String(val) ? (option = o) : false
+    ));
+    return option;
   }
 
   handleChange(ev) {
@@ -88,12 +93,12 @@ class FormFieldSelect extends Component {
           </span>
           <select id={id} className="FormField-control"
             value={selectedOpts.value}
-            {..._.pick(this.props, 'name', 'disabled')}
+            {..._pick(this.props, 'name', 'disabled')}
             onChange={this.handleChange.bind(this)}
             onFocus={(ev) => this.handleFocus(ev)}
             onBlur={(ev) => this.handleBlur(ev)}
           >
-            {_.map(opts, (o, i) => <option key={i} value={o.value}>{o.label}</option>)}
+            {opts.map((o, i) => <option key={i} value={o.value}>{o.label}</option>)}
           </select>
           {errors &&
             <p className="FormField-error">{errors}</p>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
+import _debounce from 'lodash/debounce';
+import _pick from 'lodash/pick';
 
 import { Icon } from '../Icon';
 
@@ -10,7 +11,7 @@ class FormFieldTick extends Component {
   constructor(props) {
     super(props);
     this.assignPropsToState(props);
-    this.triggerOnChange = _.debounce(this.triggerOnChange, props.debounce);
+    this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -58,8 +59,8 @@ class FormFieldTick extends Component {
     return (
       <div className={'FormField FormField--' + boxtype + ' ' + className}>
         <input id={id} className="FormField-control"
-          {..._.pick(this.props, 'name', 'type', 'disabled')}
           checked={checked}
+          {..._pick(this.props, 'name', 'type', 'disabled')}
           onChange={this.handleChange.bind(this)}
           onFocus={(ev) => this.handleFocus(ev)}
           onBlur={(ev) => this.handleBlur(ev)}

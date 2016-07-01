@@ -6,6 +6,9 @@
 .storybook
 webpack.config.js
 
+# Ignore source files
+src
+
 # Ignore assets
 assets
 

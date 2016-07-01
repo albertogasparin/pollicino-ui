@@ -10,3 +10,6 @@ coverage
 
 # ignore node error log
 npm-debug.log
+
+# ignore dist folder
+lib

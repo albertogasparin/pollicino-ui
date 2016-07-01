@@ -6,20 +6,22 @@
   "keywords": [],
   "config": {
     "testfiles": "find . -name unit*.js ! -path */node_modules/*",
-    "mochaargs": "--compilers js:babel-polyfill,js:babel-register --require ./lib/react-compat --require ./tests/helpers/unit.boot"
+    "mochaargs": "--compilers js:babel-polyfill,js:babel-register --require ./tests/helpers/react-compat --require ./tests/helpers/unit.boot"
   },
   "scripts": {
+    "prepublish": "npm run build -s",
     "prebuild": "npm run clean -s && npm run test -s",
-    "build": "npm run build:assets -s",
-    "build:assets": "NODE_ENV=production webpack -p --progress --colors --display-error-details --display-modules --sort-modules-by name",
-    "pretest": "npm run lint -s && npm run build:assets -s",
-    "test": "npm run test:unit -s && npm run test:int -s",
+    "build": "npm run build:js -s && npm run build:css -s",
+    "build:js": "babel src -d lib --ignore **/__tests__",
+    "build:css": "for dir in ./src/*; do cp \"$dir/style.scss\" \"${dir/\/src//lib}/style.scss\";done",
+    "pretest": "npm run lint -s",
+    "test": "npm run test:unit -s",
     "test:unit": "NODE_ENV=test mocha $($npm_package_config_testfiles) $npm_package_config_mochaargs",
     "test:unit:watch": "npm run test:unit -- --watch --watch-extensions jsx,json --reporter min",
     "test:int": "rm -rf ./shots/error && NODE_ENV=test PORT=3003 wdio wdio.conf.js",
-    "coverage": "NODE_ENV=test nyc -i babel-polyfill -i babel-register -i ./lib/react-compat --all mocha $npm_package_config_mochaargs $($npm_package_config_testfiles)",
-    "lint": "eslint --ext .js,.jsx --ignore-path .gitignore . && stylelint --syntax scss \"app/**/*.scss\"",
-    "clean": "rm -rf ./public/assets && rm -rf ./coverage && rm -rf ./.nyc_output",
+    "coverage": "NODE_ENV=test nyc -i babel-polyfill -i babel-register -i ./tests/helpers/react-compat --all mocha $npm_package_config_mochaargs $($npm_package_config_testfiles)",
+    "lint": "eslint --ext .js,.jsx --ignore-path .gitignore . && stylelint --syntax scss \"src/**/*.scss\"",
+    "clean": "rm -rf ./lib && rm -rf ./coverage && rm -rf ./.nyc_output",
     "prewatch": "npm run clean -s",
     "watch": "start-storybook -p 9001"
   },
@@ -44,6 +46,7 @@
   "devDependencies": {
     "@kadira/storybook": "^1.36.0",
     "autoprefixer": "^6.3.0",
+    "babel-cli": "^6.10.1",
     "babel-core": "^6.9.0",
     "babel-loader": "^6.2.0",
     "babel-polyfill": "^6.9.0",
@@ -63,6 +66,7 @@
     "nyc": "^6.4.0",
     "postcss-loader": "^0.9.0",
     "react-addons-test-utils": "~15.1.0",
+    "require-hacker": "^2.1.3",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
     "stylelint": "^6.5.0",

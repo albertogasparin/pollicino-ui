@@ -131,4 +131,4 @@ FormFieldNumber.defaultProps = {
   onBlur() {},
 };
 
-export { FormFieldNumber };
+export default FormFieldNumber;

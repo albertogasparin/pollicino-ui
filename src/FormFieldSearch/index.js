@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
-import { Icon } from '../Icon';
+import Icon from '../Icon';
 
 import './style.scss';
 
@@ -83,4 +83,4 @@ FormFieldSearch.defaultProps = {
   onBlur() {},
 };
 
-export { FormFieldSearch };
+export default FormFieldSearch;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
-import { Modal } from '..';
-import { Icon } from '../../Icon';
+import Modal from '..';
+import Icon from '../../Icon';
 
 storiesOf('Modal', module)
   .add('examples', () => (

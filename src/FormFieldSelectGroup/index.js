@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
-import { Dropdown } from '../Dropdown';
-import { FormFieldTick } from '../FormFieldTick';
-import { FormFieldSearch } from '../FormFieldSearch';
+import Dropdown from '../Dropdown';
+import FormFieldTick from '../FormFieldTick';
+import FormFieldSearch from '../FormFieldSearch';
 
 import './style.scss';
 
@@ -211,4 +211,4 @@ FormFieldSelectGroup.defaultProps = {
   onBlur() {},
 };
 
-export { FormFieldSelectGroup };
+export default FormFieldSelectGroup;

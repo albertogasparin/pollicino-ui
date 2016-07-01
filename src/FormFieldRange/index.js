@@ -110,4 +110,4 @@ FormFieldRange.defaultProps = {
   onBlur() {},
 };
 
-export { FormFieldRange };
+export default FormFieldRange;

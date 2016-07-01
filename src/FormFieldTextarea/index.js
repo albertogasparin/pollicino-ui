@@ -109,4 +109,4 @@ FormFieldTextarea.defaultProps = {
   onBlur() {},
 };
 
-export { FormFieldTextarea };
+export default FormFieldTextarea;

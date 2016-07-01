@@ -21,6 +21,4 @@ const Icon = ({ glyph, className = '', width = 24, height = 24 }) => {
   );
 };
 
-export {
-  Icon,
-};
+export default Icon;

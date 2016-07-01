@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _debounce from 'lodash/debounce';
 import ColorPicker from 'react-simple-colorpicker';
 
-import { Dropdown } from '../Dropdown';
+import Dropdown from '../Dropdown';
 
 import './style.scss';
 
@@ -86,4 +86,4 @@ FormFieldColor.defaultProps = {
   onChange() {},
 };
 
-export { FormFieldColor };
+export default FormFieldColor;

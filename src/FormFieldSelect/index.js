@@ -126,4 +126,4 @@ FormFieldSelect.defaultProps = {
   onBlur() {},
 };
 
-export { FormFieldSelect };
+export default FormFieldSelect;

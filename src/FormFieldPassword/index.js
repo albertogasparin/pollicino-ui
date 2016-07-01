@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
-import { Icon } from '../Icon';
+import Btn from '../Btn';
+import Icon from '../Icon';
 
 import './style.scss';
 
@@ -73,12 +74,12 @@ class FormFieldPassword extends Component {
   renderToggleButton(type) {
     return (
       <span className={'FormField-togglePsw ' + (!type ? 'isVisible' : '')}>
-        <button className="Btn Btn--square"
-          type="button" data-tip={type ? 'Show' : 'Hide'} data-tip-right
+        <Btn className="Btn--square"
+          data-tip={type ? 'Show' : 'Hide'} data-tip-right
           onClick={() => this.handleTypeToggle()}
         >
           <Icon glyph="eye" />
-        </button>
+        </Btn>
       </span>
     );
   }
@@ -130,4 +131,4 @@ FormFieldPassword.defaultProps = {
   onBlur() {},
 };
 
-export { FormFieldPassword };
+export default FormFieldPassword;

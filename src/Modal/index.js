@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Btn from '../Btn';
+
 import './style.scss';
 
 const Modal = ({
@@ -20,16 +22,16 @@ const Modal = ({
         <div className="Modal-message">
           {typeof message === 'string'
             ? message.split(/\s*\n\s*/).map((line, i) => <p key={i}>{line}</p>)
-            : message 
+            : message
           }
         </div>
         <footer className="Modal-footer">
           {buttons.map((btn, i) => (
-            <button key={i} className={'Btn Btn--plain ' + (btn.className || '')}
+            <Btn key={i} className={'Btn--plain ' + (btn.className || '')}
               onClick={() => { btn.action && btn.action(); onClose(); }}
             >
               {btn.label}
-            </button>
+            </Btn>
           ))}
         </footer>
       </div>
@@ -37,6 +39,4 @@ const Modal = ({
   );
 };
 
-export {
-  Modal,
-};
+export default Modal;

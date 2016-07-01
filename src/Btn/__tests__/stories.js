@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 
-import { Icon } from '../../Icon';
-import '..';
+import Icon from '../../Icon';
+import Btn from '..';
 
 storiesOf('Btn', module)
   .add('examples', () => (
@@ -13,7 +13,7 @@ storiesOf('Btn', module)
           transform: translateX(0); max-height: none; opacity: 1;
         }`
       }</style>
-      <button className="Btn Btn--primary" data-tip="Tooltip">Button</button>
+      <Btn className="Btn--primary" data-tip="Tooltip">Button</Btn>
 
       <h2>Secondary and clipped</h2>
       <p style={{ width: 120 }}>

@@ -3,9 +3,9 @@ import DayPicker, { DateUtils, LocaleUtils } from 'react-day-picker';
 import _debounce from 'lodash/debounce';
 import _range from 'lodash/range';
 
-import { Dropdown } from '../Dropdown';
-import { FormFieldTick } from '../FormFieldTick';
-import { FormFieldSelect } from '../FormFieldSelect';
+import Dropdown from '../Dropdown';
+import FormFieldTick from '../FormFieldTick';
+import FormFieldSelect from '../FormFieldSelect';
 
 import './style.scss';
 
@@ -302,4 +302,4 @@ FormFieldDate.defaultProps = {
   onBlur() {},
 };
 
-export { FormFieldDate };
+export default FormFieldDate;

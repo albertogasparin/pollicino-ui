@@ -80,4 +80,4 @@ Dropdown.defaultProps = {
   onClose() {},
 };
 
-export { Dropdown };
+export default Dropdown;

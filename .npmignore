@@ -1,0 +1,14 @@
+# Ignore dev files
+.babelrc
+.editorconfig
+.stylelintrc
+.eslintrc.yml
+.storybook
+webpack.config.js
+
+# Ignore assets
+assets
+
+# Ignore tests
+**/__tests__
+tests

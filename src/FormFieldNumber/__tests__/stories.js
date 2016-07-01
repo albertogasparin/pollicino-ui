@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
-import { FormFieldNumber } from '..';
+import FormFieldNumber from '..';
 
 storiesOf('FormFieldNumber', module)
 

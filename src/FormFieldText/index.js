@@ -109,4 +109,4 @@ FormFieldText.defaultProps = {
   onBlur() {},
 };
 
-export { FormFieldText };
+export default FormFieldText;

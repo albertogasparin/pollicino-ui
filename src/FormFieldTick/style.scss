@@ -43,7 +43,7 @@
     left: 0;
 
     &:focus ~ .FormField-field .FormField-tick {
-      animation: blinkColor 0.5s ease 0s;
+      color: $color-primary;
     }
   }
 

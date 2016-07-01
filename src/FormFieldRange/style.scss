@@ -31,8 +31,6 @@
     vertical-align: middle;
     color: #FFF;
 
-    &:focus { outline: none; }
-
     &::-webkit-slider-runnable-track {
       @include FormField--range-track();
       width: 100%;
@@ -66,6 +64,14 @@
     }
     &::-ms-thumb {
       @include FormField--range-thumb();
+    }
+
+    &:focus {
+      outline: none;
+
+      &::-webkit-slider-thumb { box-shadow: 0 0 0 2px $color-primary, 0 0 8px $color-primary; }
+      &::-moz-range-thumb { box-shadow: 0 0 0 2px $color-primary, 0 0 8px $color-primary; }
+      &::-ms-thumb { box-shadow: 0 0 0 2px $color-primary, 0 0 8px $color-primary; }
     }
 
   }

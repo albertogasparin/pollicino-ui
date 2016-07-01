@@ -17,6 +17,7 @@ module.exports = {
     alias: {
       assets: path.join(root, 'assets'),
       tests: path.join(root, 'tests'),
+      'pollicino-ui': path.join(root),
     },
   },
   module: {

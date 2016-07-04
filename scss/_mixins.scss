@@ -104,6 +104,12 @@
     }
 
   }
+
+  &.isInvalid .FormField {
+
+    &-label { color: $Pollicino-color-error; }
+
+  }
 }
 
 

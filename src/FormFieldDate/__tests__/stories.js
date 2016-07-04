@@ -37,7 +37,9 @@ storiesOf('FormFieldDate', module)
       </div>
 
       <h2>Invalid</h2>
-      <FormFieldDate ref={(c) => c && c.validate()} placeholder="Not set"
+      <FormFieldDate ref={(c) => c && c.validate()}
+        label="Label"
+        placeholder="Not set"
         validation={(v) => !v && 'Required' }
         onChange={action('change')}
       /><br />

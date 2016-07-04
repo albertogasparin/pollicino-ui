@@ -27,8 +27,9 @@ storiesOf('FormFieldSelect', module)
       <h2>Invalid</h2>
       <FormFieldSelect
         ref={(c) => c && c.validate()}
-        validation={(v) => !v && 'Please select an option'}
+        label="Label"
         options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
+        validation={(v) => !v && 'Please select an option'}
         onChange={action('change')}
       /><br />
 

@@ -24,8 +24,9 @@ storiesOf('FormFieldTextarea', module)
       </div>
 
       <h2>Invalid, custom size</h2>
-      <FormFieldTextarea value="" rows="2" cols="14"
+      <FormFieldTextarea value=""
         ref={(c) => c && c.validate()}
+        label="Label" rows="2" cols="14"
         validation={(v) => !v && 'Please provide a value'}
         onChange={action('change')}
       /><br />

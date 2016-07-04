@@ -41,7 +41,8 @@ storiesOf('FormFieldSelectGroup', module)
 
         <h2>Invalid, hidden placeholder</h2>
         <FormFieldSelectGroup
-          ref={(c) => c && c.validate()} hidePlaceholder
+          ref={(c) => c && c.validate()}
+          label="Label" hidePlaceholder
           options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
           validation={(v) => !v && 'Required'}
           onChange={action('change')}

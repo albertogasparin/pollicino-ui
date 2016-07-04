@@ -31,8 +31,9 @@ storiesOf('FormFieldNumber', module)
       </div>
 
       <h2>Invalid, custom size</h2>
-      <FormFieldNumber size="4"
+      <FormFieldNumber
         ref={(c) => c && c.validate()}
+        label="Label" size="4"
         validation={(v) => v === 0 && 'Required' }
         onChange={action('change')}
       /><br />

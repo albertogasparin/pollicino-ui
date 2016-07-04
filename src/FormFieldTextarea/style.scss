@@ -22,10 +22,9 @@
 .FormField--textarea .FormField {
   &-control {
     @include FormField-control;
-    display: block;
-    max-width: 100%; // allow Y resizing only
     height: auto;
-    padding: 0.4rem 0.7rem;
+    padding-top: 0.4rem;
+    line-height: 1.5;
   }
 }
 

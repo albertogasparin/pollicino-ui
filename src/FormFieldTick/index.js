@@ -4,6 +4,8 @@ import _pick from 'lodash/pick';
 
 import Icon from '../Icon';
 
+const INPUT_PROPS = ['name', 'disabled', 'type'];
+
 class FormFieldTick extends Component {
 
   constructor(props) {
@@ -58,7 +60,7 @@ class FormFieldTick extends Component {
       <div className={'FormField FormField--' + boxtype + ' ' + className}>
         <input id={id} className="FormField-control"
           checked={checked}
-          {..._pick(this.props, 'name', 'type', 'disabled')}
+          {..._pick(this.props, INPUT_PROPS)}
           onChange={this.handleChange.bind(this)}
           onFocus={(ev) => this.handleFocus(ev)}
           onBlur={(ev) => this.handleBlur(ev)}

@@ -4,6 +4,8 @@ import _pick from 'lodash/pick';
 
 import Icon from '../Icon';
 
+const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoComplete', 'autoFocus'];
+
 class FormFieldSearch extends Component {
   constructor(props) {
     super(props);
@@ -57,7 +59,7 @@ class FormFieldSearch extends Component {
           <input id={id} className="FormField-control" type="text"
             style={{ width: size + 'em' }}
             value={this.state.val}
-            {..._pick(this.props, 'id', 'name', 'disabled', 'placeholder')}
+            {..._pick(this.props, INPUT_PROPS)}
             onChange={this.handleChange.bind(this)}
             onFocus={(ev) => this.handleFocus(ev)}
             onBlur={(ev) => this.handleBlur(ev)}

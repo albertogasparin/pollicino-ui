@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
+const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoComplete', 'autoFocus'];
+
 class FormFieldText extends Component {
   constructor(props) {
     super(props);
@@ -76,7 +78,7 @@ class FormFieldText extends Component {
           <input id={id} className="FormField-control"
             style={{ width: size + 'em' }}
             value={val}
-            {..._pick(this.props, 'type', 'name', 'disabled', 'placeholder')}
+            {..._pick(this.props, INPUT_PROPS)}
             onChange={(ev) => this.handleChange(ev)}
             onFocus={(ev) => this.handleFocus(ev)}
             onBlur={(ev) => this.handleBlur(ev)}

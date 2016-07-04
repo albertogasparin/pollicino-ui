@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
+const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoFocus'];
+
 class FormFieldTextarea extends Component {
   constructor(props) {
     super(props);
@@ -76,7 +78,7 @@ class FormFieldTextarea extends Component {
           <textarea id={id} className="FormField-control"
             style={{ width: cols + 'em', height: rows * 1.6 + 'em' }}
             value={val}
-            {..._pick(this.props, 'name', 'disabled', 'placeholder')}
+            {..._pick(this.props, INPUT_PROPS)}
             onChange={this.handleChange.bind(this)}
             onFocus={(ev) => this.handleFocus(ev)}
             onBlur={(ev) => this.handleBlur(ev)}

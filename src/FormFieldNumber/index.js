@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
+const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'autoFocus', 'autoComplete'];
+
 class FormFieldNumber extends Component {
   constructor(props) {
     super(props);
@@ -86,9 +88,9 @@ class FormFieldNumber extends Component {
         }
         <div className="FormField-field">
           <input id={id} className="FormField-control" type="number" pattern="[0-9]*"
-            style={{ width: size + 'em' }}
+            style={{ width: size + 'em' }} autoComplete="off"
             value={val}
-            {..._pick(this.props, 'name', 'disabled', 'min', 'max')}
+            {..._pick(this.props, INPUT_PROPS)}
             onChange={this.handleChange.bind(this)}
             onFocus={(ev) => this.handleFocus(ev)}
             onBlur={(ev) => this.handleBlur(ev)}

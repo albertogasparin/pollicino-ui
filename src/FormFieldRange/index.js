@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
+const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'step'];
+
 class FormFieldRange extends Component {
   constructor(props) {
     super(props);
@@ -77,7 +79,7 @@ class FormFieldRange extends Component {
           <input id={id} className="FormField-control" type="range"
             style={{ width: size + 'em' }}
             value={val}
-            {..._pick(this.props, 'name', 'disabled', 'min', 'max', 'step')}
+            {..._pick(this.props, INPUT_PROPS)}
             onChange={this.handleChange.bind(this)}
             onFocus={(ev) => this.handleFocus(ev)}
             onBlur={(ev) => this.handleBlur(ev)}

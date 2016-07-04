@@ -5,7 +5,7 @@
 
 This UI components are meant to be used independently.
 
-The recommended way of adding it to your project is to create a dedicated file, re-exporting all components that you need.  
+The recommended way of adding them to your project is to create a dedicated file, re-exporting all components that you need.  
 
 ```js
 export { default as Btn } from 'pollicino-ui/lib/Btn';
@@ -13,7 +13,7 @@ export { default as Dropdown } from 'pollicino-ui/lib/Dropdown';
 //...
 ```
 
-Moreover, you will also need to include relevant scss files. So, in your main scss file, add:
+Moreover, you will also need to include relevant scss styles. So, in your main scss file, add:
 
 ``` scss
 @import '~pollicino-ui/lib/Btn/style';
@@ -25,8 +25,8 @@ Moreover, you will also need to include relevant scss files. So, in your main sc
 
 ## Providing icons
 
-Some components (Icon, FormFieldPassword, ...) require SVG icons to work. In the implementation examples I'm using some Material Design icons, but you are free to use whatever set you like.
-You just need to configure Webpack to load the icons. For instance:
+Some components (Icon, FormFieldPassword, ...) require SVG icons to work. In the examples, I'm using some Material Design icons, but you are free to use whatever set you like.
+Just configure Webpack to alias `assets/icons` and add an svg loader like `svg-sprite-loader` to ensure `require` works:
 
 ```js
 // webpack.config.js
@@ -49,18 +49,19 @@ module.exports = {
 
 ## Overriding styles
 
-Colors and some over scss variables can be overridden. To do that, just define them before importing the component scss. 
+Colors and some other SCSS variables can be overridden. Just define them before importing the component’s styles. 
 
 ``` scss
 $Pollicino-color-primary: pink;
 @import '~pollicino-ui/lib/Btn/style';
 // now Btn--primary will be pink 
 ```
+  
 
 
+## Contributing
 
-
-## Development
+### Development
 
 To start react storybook server (watching) run:
 ``` sh
@@ -70,7 +71,7 @@ The browser entry point is `127.0.0.1:9001`.
 
 
 
-## Testing
+### Testing
 
 Unit tests run with Mocha + Expect for both client and server:
 ``` sh

@@ -15,7 +15,12 @@ storiesOf('Icon', module)
       </div>
 
       <h2>Icon loading</h2>
-      <Icon glyph="loading" />
+      <div>
+        <Icon glyph="loading" />
+      </div>
+      <div style={{ fontSize: '1.8rem' }}>
+        <Icon glyph="loading" />
+      </div>
 
     </div>
   ));

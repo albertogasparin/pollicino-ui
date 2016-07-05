@@ -4,7 +4,6 @@
   display: inline-block;
   width: em(24px);
   height: em(24px);
-  font-size: 1em;
   line-height: 1;
   vertical-align: middle;
   fill: currentColor;
@@ -26,8 +25,8 @@
 
 
 @keyframes Icon--loading {
-  10% { transform: scale(1); }
-  20% { transform: scale(0.5); }
+  10% { transform: scale(1.1); }
+  20% { transform: scale(0.6); }
 }
 
 .Icon--loading {
@@ -36,16 +35,16 @@
 
   b {
     display: inline-block;
-    width: em(20px);
-    height: em(20px);
-    transform: scale(0.5);
-    margin: em(2px) 0;
+    width: 0.8em;
+    height: 0.8em;
+    transform: scale(0.6);
+    margin: #{(1.6em - 0.8em) / 2} 0.03em;
     background: currentColor;
     border-radius: 50%;
     animation: Icon--loading 3.5s linear 0s infinite both;
   }
 
-  b:nth-child(2) { animation-delay: 0.15s; }
-  b:nth-child(3) { animation-delay: 0.30s; }
+  b:nth-child(2) { animation-delay: 0.2s; }
+  b:nth-child(3) { animation-delay: 0.4s; }
 
 }

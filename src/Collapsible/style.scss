@@ -1,0 +1,66 @@
+@import '../../scss/core';
+
+@keyframes Collapsible-expand {
+  0% { max-height: 0; }
+  100% { max-height: 99em; }
+}
+
+@keyframes Collapsible-collapse {
+  0% { max-height: 99em; }
+  100% { max-height: 0; }
+}
+
+.Collapsible {
+  position: relative;
+
+  &.isExpanded {
+    .Collapsible-btn .Icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  &.isAnimating {
+
+    &.isExpanded .Collapsible-content {
+      animation: Collapsible-expand 0.7s ease 0s both;
+    }
+
+    &.isCollapsed .Collapsible-content {
+      animation: Collapsible-collapse 0.7s ease 0s both;
+    }
+
+  }
+
+  &.isDisabled {
+    .Collapsible-btn { opacity: 0.2; }
+  }
+}
+
+.Collapsible .Collapsible {
+
+  &-header {
+    position: relative;
+  }
+
+  &-btn {
+    @include button-reset;
+    text-align: right;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+
+    .Icon {
+      transform: rotate(0);
+      transition: transform 0.3s ease 0s;
+    }
+  }
+
+  &-content {
+    overflow: hidden;
+  }
+
+}
+
+
+

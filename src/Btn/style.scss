@@ -1,5 +1,7 @@
 @import '../../scss/core';
 
+$Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // stylelint-disable-line length-zero-no-unit
+
 .Btn {
   @include button-reset;
   position: relative;
@@ -18,15 +20,15 @@
     position: absolute;
     top: 50%;
     left: 100%;
-    transform: translateX(-1em);
+    transform: translate(-1em, -50%);
     max-height: 0;
-    margin: -(($Pollicino-FormField-height - 0.6rem) / 2) 0.5em 0;
+    margin: 0 0.5em;
     padding: 0 1em;
     border-radius: 2em;
     background: rgba(#000, 0.8);
     color: #FFF;
     font-size: calc(1em - 3px);
-    line-height: $Pollicino-FormField-height - 0.6rem;
+    line-height: $Pollicino-Btn-height - 0.6em;
     opacity: 0;
     pointer-events: none;
     backface-visibility: hidden;
@@ -35,7 +37,7 @@
   &[data-tip][data-tip-right]:after {
     left: auto;
     right: 100%;
-    transform: translateX(1em);
+    transform: translate(1em, -50%);
   }
 
   &[data-tip]:hover {
@@ -45,20 +47,20 @@
       transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
       max-height: none;
       opacity: 1;
-      transform: translateX(0);
+      transform: translate(0, -50%);
     }
   }
 }
 
 .Btn--plain {
-  line-height: $Pollicino-FormField-height;
+  line-height: $Pollicino-Btn-height;
 }
 
 .Btn--primary {
   padding: 0 1rem;
   background: $Pollicino-color-primary;
   color: #FFF;
-  line-height: $Pollicino-FormField-height;
+  line-height: $Pollicino-Btn-height;
 
   &[disabled] { background: $Pollicino-color-text; }
 }
@@ -67,27 +69,24 @@
   padding: 0 1rem;
   background: $Pollicino-color-secondary;
   color: #FFF;
-  line-height: $Pollicino-FormField-height;
+  line-height: $Pollicino-Btn-height;
 }
 
 .Btn--outline {
   padding: 0 1rem;
   border: 1px solid;
-  line-height: $Pollicino-FormField-height;
+  line-height: $Pollicino-Btn-height;
 }
 
 .Btn--square {
-  width: $Pollicino-FormField-height;
+  box-sizing: content-box; // fix outline border
+  width: $Pollicino-Btn-height;
   padding: 0;
-  line-height: $Pollicino-FormField-height;
+  line-height: $Pollicino-Btn-height;
   text-align: center;
 }
 
 .Btn--clip {
   @include text-clip;
   max-width: 100%;
-}
-
-.Btn--gap {
-  margin: rem(2px);
 }

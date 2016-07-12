@@ -10,7 +10,7 @@ storiesOf('Btn', module)
       <h2>Primary with tooltip</h2>
       <style>{`
         .Btn.Btn--primary[data-tip]:after {
-          transform: translateX(0); max-height: none; opacity: 1;
+          transform: translate(0, -50%); max-height: none; opacity: 1;
         }`
       }</style>
       <Btn className="Btn--primary" data-tip="Tooltip">Button</Btn>

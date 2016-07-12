@@ -11,6 +11,7 @@ storiesOf('Dropdown', module)
       <div className="left">
         <Dropdown
           label="Click here to open the dropdown"
+          onOpen={action('open')}
           onClose={action('close')}
         >
           <p>Click here<br />will not close</p>
@@ -20,7 +21,8 @@ storiesOf('Dropdown', module)
       <h2>Left, autoClose, no label</h2>
       <div className="w1 dark">
         <Dropdown align="left"
-          autoClose
+          autoClose opened
+          onOpen={action('open')}
           onClose={action('close')}
         >
           <p>Click anywhere to close this dropdown</p>

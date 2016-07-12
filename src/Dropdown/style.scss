@@ -56,6 +56,9 @@
     box-shadow: 0 0 0 1px rgba(#000, 0.1), 0 0 15px 1px rgba(#000, 0.3);
     border-radius: 3px;
     color: $Pollicino-color-text;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: left;
     z-index: $Pollicino-FormField-overlay-zIndex;
     cursor: auto;
 
@@ -96,4 +99,32 @@
     min-width: 17rem;
   }
 }
+
+
+
+.Dropdown--noArrow {}
+
+.Dropdown--noArrow .Dropdown {
+
+  &-btn {
+    padding-right: 0;
+
+    &:after { display: none; }
+  }
+
+  &-overlay {
+    &[data-align="left"] { left: -0.1em; }
+    &[data-align="right"] { right: -0.2rem; }
+  }
+
+}
+
+
+.Dropdown--cover .Dropdown {
+  &-overlay[data-align] {
+    left: 0;
+    right: 0;
+  }
+}
+
 

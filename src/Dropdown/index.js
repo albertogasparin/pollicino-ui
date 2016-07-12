@@ -10,6 +10,22 @@ class Dropdown extends Component {
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
+  componentDidMount() {
+    if (this.props.opened) {
+      this.handleOpen();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.opened !== this.props.opened) {
+      if (nextProps.opened) {
+        this.handleOpen();
+      } else {
+        this.handleClose();
+      }
+    }
+  }
+
   handleClickOutside(ev) {
     let { dropdown } = this.refs;
     if (this.props.autoClose
@@ -38,7 +54,10 @@ class Dropdown extends Component {
     this.props.onClose();
 
     setTimeout(() => { // allow content update
-      this.setState({ isOpen: false });
+      let { dropdown } = this.refs;
+      if (dropdown) { // still mounted
+        this.setState({ isOpen: false });
+      }
     }, 20);
   }
 
@@ -50,12 +69,14 @@ class Dropdown extends Component {
 
     return (
       <div className={'Dropdown ' + className} ref="dropdown">
-        <button className="Dropdown-btn"
-          type="button" disabled={disabled}
-          onClick={this.handleOpen.bind(this)}
-        >
-          {label}
-        </button>
+        {label !== false &&
+          <button className="Dropdown-btn"
+            type="button" disabled={disabled}
+            onClick={this.handleOpen.bind(this)}
+          >
+            {label}
+          </button>
+        }
 
         {isOpen &&
           <div className="Dropdown-overlay" data-align={align}>
@@ -73,6 +94,7 @@ Dropdown.defaultProps = {
   disabled: false,
   align: 'right',
   autoClose: false,
+  opened: false,
 
   onOpen() {},
   onClose() {},

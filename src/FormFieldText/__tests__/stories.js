@@ -5,7 +5,7 @@ import FormFieldText from '..';
 
 storiesOf('FormFieldText', module)
 
-  .add('Text', () => (
+  .add('examples', () => (
     <div>
       <h2>Default style</h2>
       <div className="w2">

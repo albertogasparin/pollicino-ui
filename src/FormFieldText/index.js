@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
-const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoComplete', 'autoFocus'];
+const INPUT_PROPS = [
+  'name', 'disabled', 'placeholder', 'type', 'pattern', 'autoComplete', 'autoFocus',
+];
 
 class FormFieldText extends Component {
   constructor(props) {

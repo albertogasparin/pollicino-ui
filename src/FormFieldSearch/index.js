@@ -56,7 +56,8 @@ class FormFieldSearch extends Component {
       <div className={'FormField FormField--search ' + className}>
         <div className="FormField-field">
           <Icon className="FormField-icon" glyph="magnify" />
-          <input id={id} className="FormField-control" type="text"
+
+          <input id={id} className="FormField-control FormField-control--iconL" type="text"
             style={{ width: size + 'em' }}
             value={this.state.val}
             {..._pick(this.props, INPUT_PROPS)}

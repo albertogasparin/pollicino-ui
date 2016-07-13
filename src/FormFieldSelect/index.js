@@ -78,7 +78,7 @@ class FormFieldSelect extends Component {
   render() {
     let { className, label, valueRenderer, disabled } = this.props;
     let { id, opts, val, errors, focused } = this.state;
-    let selectedOpts = this.findOption(val) || {};
+    let selectedOpt = this.findOption(val) || {};
     className += disabled ? ' isDisabled' : '';
     className += errors ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
@@ -90,10 +90,10 @@ class FormFieldSelect extends Component {
         }
         <div className="FormField-field">
           <span className="FormField-value">
-            {valueRenderer(selectedOpts.label)}
+            {valueRenderer(selectedOpt.label)}
           </span>
           <select id={id} className="FormField-control"
-            value={selectedOpts.value}
+            value={selectedOpt.value}
             {..._pick(this.props, INPUT_PROPS)}
             onChange={this.handleChange.bind(this)}
             onFocus={(ev) => this.handleFocus(ev)}

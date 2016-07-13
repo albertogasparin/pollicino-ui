@@ -97,7 +97,7 @@ class FormFieldPassword extends Component {
           <label className="FormField-label" htmlFor={id}>{label}</label>
         }
         <div className="FormField-field">
-          <input id={id} className="FormField-control" type={type}
+          <input id={id} className="FormField-control FormField-control--iconR" type={type}
             style={{ width: size + 'em' }}
             value={val}
             {..._pick(this.props, INPUT_PROPS)}

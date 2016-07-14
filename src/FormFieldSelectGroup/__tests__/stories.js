@@ -59,7 +59,7 @@ storiesOf('FormFieldSelectGroup', module)
       <div className="left" style={{ width: '50%' }}>
         <h2>Inline, optionsPerRow</h2>
         <div className="w2">
-          <FormFieldSelectGroup
+          <FormFieldSelectGroup name="i1"
             label="Label" inline
             optionsPerRow="3"
             options={[
@@ -72,7 +72,7 @@ storiesOf('FormFieldSelectGroup', module)
 
         <h2>Inline, zero optionsPerRow, block level, inverted</h2>
         <div className="w2 dark">
-          <FormFieldSelectGroup className="FormField--invert FormField--block"
+          <FormFieldSelectGroup className="FormField--invert FormField--block" name="i2"
             label="Label:" placeholder="Any number" inline
             optionsPerRow="0"
             options={[{ label: 'One', value: 1 }]}
@@ -80,7 +80,7 @@ storiesOf('FormFieldSelectGroup', module)
         </div>
 
         <h2>Inline, multiple, invalid, hide placeholder</h2>
-        <FormFieldSelectGroup
+        <FormFieldSelectGroup name="i3"
           ref={(c) => c && c.validate()}
           label="Label:" hidePlaceholder inline multiple
           value={[1]}

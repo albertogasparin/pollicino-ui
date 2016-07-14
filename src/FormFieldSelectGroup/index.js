@@ -9,32 +9,34 @@ import FormFieldSearch from '../FormFieldSearch';
 class FormFieldSelectGroup extends Component {
   constructor(props) {
     super(props);
-    this.assignPropsToState(props);
+    this.state = this.getFieldState(props);
     this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.assignPropsToState(nextProps);
+    this.setState(this.getFieldState(nextProps));
     if (this.state.touched) { // validation: punish late
       this.validate();
     }
   }
 
-  assignPropsToState(props) {
+  getFieldState(props) {
     let opts = [
       ...(props.hidePlaceholder ? [] : [{ label: props.placeholder, value: '' }]),
       ...props.options,
     ];
 
-    this.state = {
+    let nextState = {
       searchValue: '',
       focused: false,
       touched: false,
       errors: null,
-      opts,
       ...this.state,
+      opts,
       val: this.normalizeValue(props.value),
     };
+
+    return nextState;
   }
 
   normalizeValue(value) {

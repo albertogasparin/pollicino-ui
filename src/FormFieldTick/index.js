@@ -10,22 +10,23 @@ class FormFieldTick extends Component {
 
   constructor(props) {
     super(props);
-    this.assignPropsToState(props);
+    this.state = this.getFieldState(props);
     this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.assignPropsToState(nextProps);
+    this.setState(this.getFieldState(nextProps));
   }
 
-  assignPropsToState(props) {
-    this.state = {
-      id: props.id || 'ff-tick-' + props.name + props.value,
+  getFieldState(props) {
+    let newState = {
+      id: props.id || 'ff-tick-' + props.name + String(props.value).replace(/[^\w]/g,''),
       focused: false,
       touched: false,
       ...this.state,
       checked: props.checked,
     };
+    return newState;
   }
 
   handleChange(ev) {

@@ -9,13 +9,13 @@ storiesOf('FormFieldTick', module)
     <div>
       <h2>Default style, radiobox</h2>
       <div className="left w1">
-        <FormFieldTick
+        <FormFieldTick name="t1"
           label="Label" debounce={1000}
           onChange={action('change')}
         />
       </div>
       <div>
-        <FormFieldTick checked
+        <FormFieldTick name="t2" checked
           label="Label"
           onChange={action('change')}
         />
@@ -23,13 +23,13 @@ storiesOf('FormFieldTick', module)
 
       <h2>Default style, checkbox, truncated</h2>
       <div className="left w1">
-        <FormFieldTick type="checkbox"
+        <FormFieldTick type="checkbox" name="t3"
           label="Label really really long"
           onChange={action('change')}
         />
       </div>
       <div>
-        <FormFieldTick className="col-w1" type="checkbox" checked
+        <FormFieldTick className="col-w1" type="checkbox" checked name="t4"
           label="Label really really long"
           onChange={action('change')}
         />

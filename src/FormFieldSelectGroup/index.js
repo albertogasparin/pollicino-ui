@@ -71,8 +71,7 @@ class FormFieldSelectGroup extends Component {
     if (multiple) {
       let idx = val.indexOf(value);
       val = [
-        ...val.slice(0, idx),
-        ...(idx === -1 ? [value] : []),
+        ...(idx === -1 ? [value] : val.slice(0, idx)),
         ...val.slice(idx + 1),
       ];
     } else {

@@ -133,7 +133,7 @@ class FormFieldSelectGroup extends Component {
         }
         <ul className={'FormField-groupList ' + (inline ? '' : 'FormField-groupList--overflow')}>
           {opts.filter((o) => this.isOptionVisible(o)).map((o, i) => (
-            <li key={i} className="FormField-groupItem"
+            <li key={o.value} className="FormField-groupItem"
               style={{ width: 100 / optionsPerRow + '%' }}
             >
               <FormFieldTick type={multiple ? 'checkbox' : 'radio'}

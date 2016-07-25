@@ -43,6 +43,7 @@
     position: absolute;
     top: -2rem;
     left: 0;
+    width: auto !important;
 
     &:focus ~ .FormField-field .FormField-tick {
       color: $Pollicino-color-primary;

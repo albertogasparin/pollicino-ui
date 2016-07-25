@@ -1,0 +1,95 @@
+@import '../../scss/core';
+
+/**
+ * FormField generic styles
+ */
+
+.FormField {
+  @include FormField;
+}
+
+/**
+ * FormField input suggest
+ */
+
+.FormField--suggest {
+  &.isDisabled .FormField-field {
+    @include FormField-isDisabled;
+  }
+}
+
+.FormField--suggest .FormField {
+
+  &-control {
+    @include FormField-control;
+    margin-bottom: 1px;
+  }
+
+  &-options {
+    box-sizing: border-box;
+    margin: 0 -0.8rem;
+    padding: 0;
+    list-style: none;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  &-option {
+    position: relative;
+    padding-left: 0.8rem;
+    line-height: $Pollicino-FormField-height;
+    cursor: pointer;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0.4em;
+      background: $Pollicino-color-primary;
+      opacity: 0;
+    }
+
+    &:hover:before {
+      opacity: 0.2;
+    }
+
+    &.isSelected:before {
+      opacity: 1;
+    }
+
+    &.isNew { font-style: italic; }
+  }
+
+  &-noOptions {
+    @include FormField-isDisabled;
+    line-height: $Pollicino-FormField-height;
+    text-align: center;
+  }
+
+  &-selectNew {
+    position: absolute;
+    top: -$Pollicino-FormField-height;
+    right: 0;
+    margin-top: -2px; // align
+  }
+
+}
+
+
+/**
+ * Field modifiers
+ */
+
+.FormField--suggest { /* stylelint-disable-line no-duplicate-selectors */
+  &.FormField--block {
+    @include FormField--block;
+  }
+
+  &.FormField--invert {
+    .FormField-control {
+      @include FormField-control--inverted;
+    }
+  }
+}

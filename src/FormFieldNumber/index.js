@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
@@ -7,34 +7,37 @@ const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'autoFocus', 'autoComplet
 class FormFieldNumber extends Component {
   constructor(props) {
     super(props);
-    this.assignPropsToState(props);
+    this.state = {
+      touched: false,
+      focused: false,
+      errors: null,
+      ...this.getPropsToState(props),
+    };
     this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.assignPropsToState(nextProps);
+    let newState = this.getPropsToState(nextProps);
+    this.setState(newState);
     if (this.state.touched) { // validation: punish late
-      this.validate();
+      this.validate(newState.val);
     }
   }
 
-  assignPropsToState(props) {
-    this.state = {
+  getPropsToState(props) {
+    let newState = {
       id: props.id || props.name && 'ff-number-' + props.name,
-      touched: false,
-      focused: false,
-      errors: null,
-      ...this.state,
       val: Number(props.value),
     };
+    return newState;
   }
 
   clamp(val) {
     let { min, max } = this.props;
-    if (min !== false && val < min) {
+    if (typeof min !== 'undefined' && val < min) {
       val = Number(min);
     }
-    if (max !== false && val > max) {
+    if (typeof max !== 'undefined' && val > max) {
       val = Number(max);
     }
     return val;
@@ -83,7 +86,7 @@ class FormFieldNumber extends Component {
     className += focused ? ' isFocused' : '';
     return (
       <div className={'FormField FormField--number ' + className}>
-        {label !== false &&
+        {typeof label !== 'undefined' &&
           <label className="FormField-label" htmlFor={id}>{label}</label>
         }
         <div className="FormField-field">
@@ -114,17 +117,33 @@ class FormFieldNumber extends Component {
   }
 }
 
+FormFieldNumber.propTypes = {
+  className: PropTypes.string,
+  label: PropTypes.node,
+  value: PropTypes.number,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  disabled: PropTypes.bool,
+  debounce: PropTypes.number,
+
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  autoComplete: PropTypes.bool,
+  autoFocus: PropTypes.bool,
+
+  validation: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+};
+
 FormFieldNumber.defaultProps = {
   className: '',
-  label: false,
   value: 0,
-  name: '',
-  disabled: false,
 
   debounce: 200,
   size: 100,
-  min: false,
-  max: false,
 
   validation() {},
   onChange() {},

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
@@ -9,22 +9,26 @@ const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoComplete', 'autoFoc
 class FormFieldSearch extends Component {
   constructor(props) {
     super(props);
-    this.assignPropsToState(props);
+    this.state = {
+      focused: false,
+      touched: false,
+      ...this.getPropsToState(props),
+    };
+    this.getPropsToState(props);
     this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.assignPropsToState(nextProps);
+    let newState = this.getPropsToState(nextProps);
+    this.setState(newState);
   }
 
-  assignPropsToState(props) {
-    this.state = {
+  getPropsToState(props) {
+    let newState = {
       id: props.id || props.name && 'ff-search-' + props.name,
-      focused: false,
-      touched: false,
-      ...this.state,
       val: props.value,
     };
+    return newState;
   }
 
   handleChange(ev) {
@@ -71,13 +75,28 @@ class FormFieldSearch extends Component {
   }
 }
 
+FormFieldSearch.propTypes = {
+  className: PropTypes.string,
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  disabled: PropTypes.bool,
+  debounce: PropTypes.number,
+
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+};
+
 FormFieldSearch.defaultProps = {
   className: '',
   value: '',
   placeholder: 'Search',
-  disabled: false,
-
   debounce: 200,
+
   size: 100,
 
   onChange() {},

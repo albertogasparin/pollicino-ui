@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
@@ -9,29 +9,31 @@ import FormFieldSearch from '../FormFieldSearch';
 class FormFieldSelectGroup extends Component {
   constructor(props) {
     super(props);
-    this.state = this.getFieldState(props);
+    this.state = {
+      touched: false,
+      focused: false,
+      errors: null,
+      searchValue: '',
+      ...this.getPropsToState(props),
+    };
     this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.getFieldState(nextProps));
+    let newState = this.getPropsToState(nextProps);
+    this.setState(newState);
     if (this.state.touched) { // validation: punish late
-      this.validate();
+      this.validate(newState.val);
     }
   }
 
-  getFieldState(props) {
+  getPropsToState(props) {
     let opts = [
       ...(props.hidePlaceholder ? [] : [{ label: props.placeholder, value: '' }]),
       ...props.options,
     ];
 
     let nextState = {
-      searchValue: '',
-      focused: false,
-      touched: false,
-      errors: null,
-      ...this.state,
       opts,
       val: this.normalizeValue(props.value),
     };
@@ -137,7 +139,7 @@ class FormFieldSelectGroup extends Component {
               style={{ width: 100 / optionsPerRow + '%' }}
             >
               <FormFieldTick type={multiple ? 'checkbox' : 'radio'}
-                label={o.label} debounce={50}
+                label={o.label} debounce={0}
                 checked={checkedOpts.indexOf(o) !== -1}
                 value={o.value}
                 {..._pick(this.props, 'name', 'disabled')}
@@ -163,7 +165,7 @@ class FormFieldSelectGroup extends Component {
 
     return (
       <div className={'FormField FormField--selectGroup ' + className}>
-        {label !== false &&
+        {typeof label !== 'undefined' &&
           <label className="FormField-label">{label}</label>
         }
         <div className="FormField-field">
@@ -187,23 +189,41 @@ class FormFieldSelectGroup extends Component {
   }
 }
 
+FormFieldSelectGroup.propTypes = {
+  className: PropTypes.string,
+  label: PropTypes.node,
+  value: PropTypes.any,
+  placeholder: PropTypes.string,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  disabled: PropTypes.bool,
+  debounce: PropTypes.number,
+
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  valueRenderer: PropTypes.func,
+  hidePlaceholder: PropTypes.bool,
+  align: PropTypes.oneOf(['left', 'right']),
+  inline: PropTypes.bool,
+  withSearch: PropTypes.bool,
+  optionsPerRow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  multiple: PropTypes.bool,
+
+  validation: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+};
+
 FormFieldSelectGroup.defaultProps = {
   className: '',
-  label: false,
   value: '',
-  name: '',
   placeholder: '— Select —',
-  disabled: false,
+  debounce: 200,
 
-  hidePlaceholder: false,
   options: [],
   valueRenderer: (op) => Array.isArray(op) ? op.map((o) => o.label).join(', ') : op.label,
   align: 'left',
-  inline: false,
-  withSearch: false,
-  debounce: 200,
   optionsPerRow: 1,
-  multiple: false,
 
   validation() {},
   onChange() {},

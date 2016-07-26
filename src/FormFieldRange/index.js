@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
@@ -7,26 +7,29 @@ const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'step'];
 class FormFieldRange extends Component {
   constructor(props) {
     super(props);
-    this.assignPropsToState(props);
+    this.state = {
+      focused: false,
+      touched: false,
+      errors: null,
+      ...this.getPropsToState(props),
+    };
     this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.assignPropsToState(nextProps);
+    let newState = this.getPropsToState(nextProps);
+    this.setState(newState);
     if (this.state.touched) { // validation: punish late
-      this.validate();
+      this.validate(newState.val);
     }
   }
 
-  assignPropsToState(props) {
-    this.state = {
+  getPropsToState(props) {
+    let newState = {
       id: props.id || props.name && 'ff-range-' + props.name,
-      focused: false,
-      touched: false,
-      errors: null,
-      ...this.state,
       val: Number(props.value),
     };
+    return newState;
   }
 
   handleChange(ev) {
@@ -72,7 +75,7 @@ class FormFieldRange extends Component {
 
     return (
       <div className={'FormField FormField--range ' + className}>
-        {label !== false &&
+        {typeof label !== 'undefined' &&
           <label className="FormField-label" htmlFor={id}>{label}</label>
         }
         <div className="FormField-field">
@@ -93,17 +96,32 @@ class FormFieldRange extends Component {
   }
 }
 
+FormFieldRange.propTypes = {
+  className: PropTypes.string,
+  label: PropTypes.node,
+  value: PropTypes.number,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  disabled: PropTypes.bool,
+  debounce: PropTypes.number,
+
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+  validation: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+};
+
 FormFieldRange.defaultProps = {
   className: '',
-  label: false,
   value: 0,
-  disabled: false,
-
   debounce: 200,
+
   size: 100,
-  min: 0,
-  max: 100,
-  step: 1,
 
   validation() {},
   onChange() {},

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
@@ -7,30 +7,33 @@ const INPUT_PROPS = ['name', 'disabled'];
 class FormFieldSelect extends Component {
   constructor(props) {
     super(props);
-    this.assignPropsToState(props);
+    this.state = {
+      touched: false,
+      focused: false,
+      errors: null,
+      ...this.getPropsToState(props),
+    };
     this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.assignPropsToState(nextProps);
+    let newState = this.getPropsToState(nextProps);
+    this.setState(newState);
     if (this.state.touched) { // validation: punish late
-      this.validate();
+      this.validate(newState.val);
     }
   }
 
-  assignPropsToState(props) {
-    this.state = {
+  getPropsToState(props) {
+    let newState = {
       id: props.id || props.name && 'ff-select-' + props.name,
-      focused: false,
-      touched: false,
-      errors: null,
       opts: [
         { label: props.placeholder, value: '' },
         ...props.options,
       ],
-      ...this.state,
       val: props.value,
     };
+    return newState;
   }
 
   findOption(val) {
@@ -85,7 +88,7 @@ class FormFieldSelect extends Component {
 
     return (
       <div className={'FormField FormField--select ' + className}>
-        {label !== false &&
+        {typeof label !== 'undefined' &&
           <label className="FormField-label" htmlFor={id}>{label}</label>
         }
         <div className="FormField-field">
@@ -99,7 +102,9 @@ class FormFieldSelect extends Component {
             onFocus={(ev) => this.handleFocus(ev)}
             onBlur={(ev) => this.handleBlur(ev)}
           >
-            {opts.map((o, i) => <option key={i} value={o.value}>{o.label}</option>)}
+            {opts.map((o, i) => (
+              <option key={i} value={o.value}>{o.label || o.value}</option>)
+            )}
           </select>
           {errors &&
             <p className="FormField-error">{errors}</p>
@@ -110,16 +115,31 @@ class FormFieldSelect extends Component {
   }
 }
 
+FormFieldSelect.propTypes = {
+  className: PropTypes.string,
+  label: PropTypes.node,
+  value: PropTypes.any,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  disabled: PropTypes.bool,
+  debounce: PropTypes.number,
+
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  valueRenderer: PropTypes.func,
+
+  validation: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+};
+
 FormFieldSelect.defaultProps = {
   className: '',
-  label: false,
   value: '',
   placeholder: '— Select —',
-  disabled: false,
-
-  options: [],
-  valueRenderer: (v) => v,
   debounce: 200,
+
+  valueRenderer: (v) => v,
 
   validation() {},
   onChange() {},

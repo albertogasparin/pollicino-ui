@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
@@ -11,34 +11,36 @@ const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoFocus'];
 class FormFieldSuggest extends Component {
   constructor(props) {
     super(props);
-    this.state = this.getFieldState(props);
+    this.state = {
+      touched: false,
+      focused: false,
+      errors: null,
+      isLoading: false,
+      input: '',
+      ...this.getPropsToState(props),
+    };
     this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
     this.getAsyncOptions = _debounce(this.getAsyncOptions, props.debounceLoad);
     this.optionsCache = {};
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.getFieldState(nextProps));
+    let newState = this.getPropsToState(nextProps);
+    this.setState(newState);
     if (this.state.touched) { // validation: punish late
-      this.validate();
+      this.validate(newState.val);
     }
   }
 
-  getFieldState(props) {
-    let input = (!this.state || this.state.val !== props.value) ? '' : this.state.input;
+  getPropsToState(props) {
     let newState = {
       id: props.id || props.name && 'ff-text-' + props.name,
-      focused: false,
-      touched: false,
-      errors: null,
-      opts: [
-        ...props.options,
-      ],
-      isLoading: false,
-      ...this.state,
+      opts: [...props.options],
       val: props.value,
-      input,
     };
+    if (this.state && this.state.val !== props.value) {
+      newState.input = ''; // reset
+    }
     return newState;
   }
 
@@ -85,7 +87,7 @@ class FormFieldSuggest extends Component {
 
   handleKeyDown(ev) { // eslint-disable-line complexity
     let { valueKey } = this.props;
-    let { val } = this.state;
+    let { val, input } = this.state;
 
     if (!val) {
       return;
@@ -96,7 +98,8 @@ class FormFieldSuggest extends Component {
         // TODO
         break;
       case 8: // backspace
-        if (!val.isNewOption) {
+      case 46: // canc
+        if (!val.isNewOption || input.length === 1) {
           this.setState({ val: null, input: '' });
         }
         break;
@@ -128,7 +131,7 @@ class FormFieldSuggest extends Component {
     let { input, opts } = this.state;
     return (
       <Dropdown className="Dropdown--cover"
-        label={false} align="left" opened
+        align="left" opened
         onClose={(ev) => this.handleBlur(ev)}
       >
         {allowAny && input &&
@@ -219,7 +222,7 @@ class FormFieldSuggest extends Component {
     className += focused ? ' isFocused' : '';
     return (
       <div className={'FormField FormField--suggest ' + className}>
-        {label !== false &&
+        {typeof label !== 'undefined' &&
           <label className="FormField-label" htmlFor={id}>{label}</label>
         }
         <div className="FormField-field">
@@ -247,16 +250,42 @@ class FormFieldSuggest extends Component {
   }
 }
 
+FormFieldSuggest.propTypes = {
+  className: PropTypes.string,
+  label: PropTypes.node,
+  value: PropTypes.any,
+  placeholder: PropTypes.string,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  disabled: PropTypes.bool,
+  debounce: PropTypes.number,
+
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  rows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  options: PropTypes.arrayOf(PropTypes.object),
+  valueKey: PropTypes.string,
+  labelKey: PropTypes.string,
+  noOptionsText: PropTypes.string,
+  noInputText: PropTypes.string,
+  allowAny: PropTypes.bool,
+  autoFocus: PropTypes.bool,
+
+  filterOptions: PropTypes.func,
+  optionRenderer: PropTypes.func,
+  debounceLoad: PropTypes.number,
+  loadOptions: PropTypes.func,
+
+  validation: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+};
+
 FormFieldSuggest.defaultProps = {
   className: '',
-  label: false,
   value: '',
-  name: '',
-  placeholder: '',
-  disabled: false,
-
   debounce: 200,
-  debounceLoad: 1000,
+
   size: 100,
   rows: 7.5,
   options: [],
@@ -264,10 +293,10 @@ FormFieldSuggest.defaultProps = {
   labelKey: 'label',
   noOptionsText: 'No results found',
   noInputText: 'Start typing to search',
-  allowAny: false,
 
   filterOptions(options, input, selected) { return options; },
   optionRenderer: null,
+  debounceLoad: 1000,
   loadOptions: null,
 
   validation() {},

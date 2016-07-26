@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
@@ -10,27 +10,30 @@ const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoFocus'];
 class FormFieldPassword extends Component {
   constructor(props) {
     super(props);
-    this.assignPropsToState(props);
-    this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.assignPropsToState(nextProps);
-    if (this.state.touched) { // validation: punish late
-      this.validate();
-    }
-  }
-
-  assignPropsToState(props) {
     this.state = {
-      id: props.id || props.name && 'ff-password-' + props.name,
       touched: false,
       focused: false,
       errors: null,
       type: 'password',
-      ...this.state,
+      ...this.getPropsToState(props),
+    };
+    this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let newState = this.getPropsToState(nextProps);
+    this.setState(newState);
+    if (this.state.touched) { // validation: punish late
+      this.validate(newState.val);
+    }
+  }
+
+  getPropsToState(props) {
+    let newState = {
+      id: props.id || props.name && 'ff-password-' + props.name,
       val: props.value,
     };
+    return newState;
   }
 
   handleTypeToggle() {
@@ -93,7 +96,7 @@ class FormFieldPassword extends Component {
     className += focused ? ' isFocused' : '';
     return (
       <div className={'FormField FormField--password ' + className}>
-        {label !== false &&
+        {typeof label !== 'undefined' &&
           <label className="FormField-label" htmlFor={id}>{label}</label>
         }
         <div className="FormField-field">
@@ -115,13 +118,28 @@ class FormFieldPassword extends Component {
   }
 }
 
+FormFieldPassword.propTypes = {
+  className: PropTypes.string,
+  label: PropTypes.node,
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  disabled: PropTypes.bool,
+  debounce: PropTypes.number,
+
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  autoFocus: PropTypes.bool,
+
+  validation: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+};
+
 FormFieldPassword.defaultProps = {
   className: '',
-  label: false,
   value: '',
-  name: '',
-  placeholder: '',
-  disabled: false,
 
   debounce: 500,
   size: 100,

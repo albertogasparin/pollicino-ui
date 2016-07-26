@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
@@ -9,26 +9,29 @@ const INPUT_PROPS = [
 class FormFieldText extends Component {
   constructor(props) {
     super(props);
-    this.assignPropsToState(props);
+    this.state = {
+      touched: false,
+      focused: false,
+      errors: null,
+      ...this.getPropsToState(props),
+    };
     this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.assignPropsToState(nextProps);
+    let newState = this.getPropsToState(nextProps);
+    this.setState(newState);
     if (this.state.touched) { // validation: punish late
-      this.validate();
+      this.validate(newState.val);
     }
   }
 
-  assignPropsToState(props) {
-    this.state = {
+  getPropsToState(props) {
+    let newState = {
       id: props.id || props.name && 'ff-text-' + props.name,
-      focused: false,
-      touched: false,
-      errors: null,
-      ...this.state,
       val: props.value,
     };
+    return newState;
   }
 
   handleChange(ev) {
@@ -73,7 +76,7 @@ class FormFieldText extends Component {
     className += focused ? ' isFocused' : '';
     return (
       <div className={'FormField FormField--text ' + className}>
-        {label !== false &&
+        {typeof label !== 'undefined' &&
           <label className="FormField-label" htmlFor={id}>{label}</label>
         }
         <div className="FormField-field">
@@ -94,17 +97,34 @@ class FormFieldText extends Component {
   }
 }
 
+FormFieldText.propTypes = {
+  className: PropTypes.string,
+  label: PropTypes.node,
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  disabled: PropTypes.bool,
+  debounce: PropTypes.number,
+
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  type: PropTypes.string,
+  pattern: PropTypes.string,
+  autoComplete: PropTypes.bool,
+  autoFocus: PropTypes.bool,
+
+  validation: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+};
+
 FormFieldText.defaultProps = {
   className: '',
-  label: false,
   value: '',
-  name: '',
-  placeholder: '',
-  disabled: false,
 
-  type: 'text',
-  debounce: 200,
   size: 100,
+  type: 'text',
 
   validation() {},
   onChange() {},

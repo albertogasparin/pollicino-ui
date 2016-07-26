@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 class Dropdown extends Component {
 
@@ -69,7 +69,7 @@ class Dropdown extends Component {
 
     return (
       <div className={'Dropdown ' + className} ref="dropdown">
-        {label !== false &&
+        {typeof label !== 'undefined' &&
           <button className="Dropdown-btn"
             type="button" disabled={disabled}
             onClick={this.handleOpen.bind(this)}
@@ -88,13 +88,22 @@ class Dropdown extends Component {
   }
 }
 
+Dropdown.propTypes = {
+  className: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.node, PropTypes.Bool]),
+  disabled: PropTypes.bool,
+  align: PropTypes.oneOf(['left', 'right']),
+  autoClose: PropTypes.bool,
+  opened: PropTypes.bool,
+  children: PropTypes.node,
+
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
+};
+
 Dropdown.defaultProps = {
   className: '',
-  label: '',
-  disabled: false,
   align: 'right',
-  autoClose: false,
-  opened: false,
 
   onOpen() {},
   onClose() {},

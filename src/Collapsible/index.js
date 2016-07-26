@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import Icon from '../Icon';
 
@@ -7,15 +7,9 @@ class Collapsible extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isExpanded: false,
+      isExpanded: props.expanded || false,
       isAnimating: false,
     };
-  }
-
-  componentDidMount() {
-    if (this.props.expanded) {
-      this.handleToggle(null, true);
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -71,11 +65,19 @@ class Collapsible extends Component {
   }
 }
 
+Collapsible.propTypes = {
+  className: PropTypes.string,
+  header: PropTypes.node.isRequired,
+  disabled: PropTypes.bool,
+  expanded: PropTypes.bool,
+  children: PropTypes.node,
+
+  onCollapse: PropTypes.func,
+  onExpand: PropTypes.func,
+};
+
 Collapsible.defaultProps = {
   className: '',
-  header: '',
-  disabled: false,
-  expanded: false,
 
   onCollapse() {},
   onExpand() {},

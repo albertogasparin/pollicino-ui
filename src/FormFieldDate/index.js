@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import DayPicker, { DateUtils, LocaleUtils } from 'react-day-picker';
 import _debounce from 'lodash/debounce';
 import _range from 'lodash/range';
@@ -25,37 +25,41 @@ class FormFieldDate extends Component {
 
   constructor(props) {
     super(props);
-    this.assignPropsToState(props);
+    this.state = {
+      touched: false,
+      focused: false,
+      errors: null,
+      showPicker: props.options.length === 0,
+      ...this.getPropsToState(props),
+    };
     this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.assignPropsToState(nextProps);
+    let newState = this.getPropsToState(nextProps);
+    this.setState(newState);
     if (this.state.touched) { // validation: punish late
-      this.validate();
+      this.validate(newState.val);
     }
   }
 
-  assignPropsToState(props) {
+  getPropsToState(props) {
+    let val = this.normalizeValue(props.value);
     let opts = props.options.map((o) => ({
       label: o.label,
       value: this.normalizeValue(o.value),
     }));
-    let val = this.normalizeValue(props.value);
 
-    this.state = {
-      showPicker: props.options.length === 0,
+    if (!props.hidePlaceholder) {
+      opts.unshift({ label: props.placeholder, value: '' });
+    }
+
+    let newState = {
       initialMonth: val[0] ? new Date(val[0]) : new Date(),
-      touched: false,
-      focused: false,
-      errors: null,
-      opts: [
-        ...(props.hidePlaceholder ? [] : [{ label: props.placeholder, value: '' }]),
-        ...opts,
-      ],
-      ...this.state,
+      opts,
       val,
     };
+    return newState;
   }
 
   normalizeValue(value) {
@@ -189,7 +193,7 @@ class FormFieldDate extends Component {
       <div className="FormField-options" data-align={align}>
         {opts.map((o, i) => (
           <FormFieldTick key={i} type="radio" name={name}
-            label={o.label} delay={50}
+            label={o.label} delay={0}
             checked={o === checkedOpt}
             value={o.value}
             onChange={this.handleChange.bind(this, false)}
@@ -197,7 +201,7 @@ class FormFieldDate extends Component {
         ))}
         {showCustomOpt &&
           <FormFieldTick type="radio" name={name}
-            label={'Custom ' + (isRange ? 'range' : '')} delay={50}
+            label={'Custom ' + (isRange ? 'range' : '')} delay={0}
             checked={showPicker || (!checkedOpt && val.length > 0)}
             value="custom"
             onChange={this.handleChange.bind(this, true)}
@@ -230,7 +234,7 @@ class FormFieldDate extends Component {
       <header className="DayPicker-Caption">
         {localeUtils.formatMonthTitle(date, locale).split(' ')[0] + ' '}
         {yearDropdown && minYear !== maxYear
-          ? <FormFieldSelect className="DayPicker-yearField"
+          ? <FormFieldSelect className="DayPicker-yearField" name={name}
               value={date.getFullYear()}
               options={_range(minYear, maxYear + 1).map((v) => ({ label: v, value: v }))}
               onChange={this.handleYearChange.bind(this, date)}
@@ -260,7 +264,7 @@ class FormFieldDate extends Component {
 
     return (
       <div className={'FormField FormField--date ' + className}>
-        {label !== false &&
+        {typeof label !== 'undefined' &&
           <label className="FormField-label">{label}</label>
         }
         <div className="FormField-field" ref="field">
@@ -281,21 +285,37 @@ class FormFieldDate extends Component {
   }
 }
 
+FormFieldDate.propTypes = {
+  className: PropTypes.string,
+  label: PropTypes.node,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+  placeholder: PropTypes.string,
+  name: PropTypes.string,
+  disabled: PropTypes.bool,
+  debounce: PropTypes.number,
+
+  hidePlaceholder: PropTypes.bool,
+  options: PropTypes.arrayOf(PropTypes.object),
+  minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date),
+  isRange: PropTypes.bool,
+  align: PropTypes.oneOf(['left', 'right']),
+  yearDropdown: PropTypes.bool,
+
+  validation: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+};
+
 FormFieldDate.defaultProps = {
   className: '',
-  label: false,
   value: '',
   placeholder: '— Select —',
-  disabled: false,
-
-  hidePlaceholder: false,
   debounce: 200,
+
   options: [],
-  minDate: null,
-  maxDate: null,
-  isRange: false,
   align: 'left',
-  yearDropdown: false,
 
   validation() {},
   onChange() {},

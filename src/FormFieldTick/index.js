@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
@@ -10,20 +10,22 @@ class FormFieldTick extends Component {
 
   constructor(props) {
     super(props);
-    this.state = this.getFieldState(props);
+    this.state = {
+      touched: false,
+      focused: false,
+      ...this.getPropsToState(props),
+    };
     this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.getFieldState(nextProps));
+    let newState = this.getPropsToState(nextProps);
+    this.setState(newState);
   }
 
-  getFieldState(props) {
+  getPropsToState(props) {
     let newState = {
       id: props.id || 'ff-tick-' + props.name + String(props.value).replace(/[^\w]/g,''),
-      focused: false,
-      touched: false,
-      ...this.state,
       checked: props.checked,
     };
     return newState;
@@ -52,7 +54,7 @@ class FormFieldTick extends Component {
   }
 
   render() { // eslint-disable-line complexity
-    let { className, label, type, disabled } = this.props;
+    let { className, label, value, type, disabled } = this.props;
     let { id, checked } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += checked ? ' isChecked' : '';
@@ -71,7 +73,7 @@ class FormFieldTick extends Component {
             <Icon glyph={`${boxtype}-${checked ? 'marked' : 'blank'}`} />
           </i>
           <span className="FormField-value">
-            {label}
+            {label || value}
           </span>
         </label>
 
@@ -80,16 +82,28 @@ class FormFieldTick extends Component {
   }
 }
 
+FormFieldTick.propTypes = {
+  className: PropTypes.string,
+  label: PropTypes.node,
+  value: PropTypes.any.isRequired,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  disabled: PropTypes.bool,
+  debounce: PropTypes.number,
+
+  type: PropTypes.oneOf(['radio', 'checkbox']),
+  checked: PropTypes.bool,
+
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+};
+
 FormFieldTick.defaultProps = {
   className: '',
-  label: '',
-  value: '',
-  name: '',
-  disabled: false,
 
   debounce: 50,
-  type: 'radio', // or 'checkbox'
-  checked: false,
+  type: 'radio',
 
   onChange() {},
   onFocus() {},

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-const Icon = ({ glyph, className = '', width = 24, height = 24 }) => {
+const Icon = ({ glyph, className, width, height }) => {
   if (glyph === 'loading') {
     return (
       <i className={'Icon Icon--loading ' + className}>
@@ -17,6 +17,19 @@ const Icon = ({ glyph, className = '', width = 24, height = 24 }) => {
       <use xlinkHref={`#i-${glyph}`} />
     </svg>
   );
+};
+
+Icon.propTypes = {
+  className: PropTypes.string,
+  glyph: PropTypes.string.isRequired,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
+
+Icon.defaultProps = {
+  className: '',
+  width: 24,
+  height: 24,
 };
 
 export default Icon;

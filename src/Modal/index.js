@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import Btn from '../Btn';
 
 const Modal = ({
-  className = '',
+  className,
   title,
-  message = '',
-  buttons = [{ label: 'OK', className: 'Btn--secondary' }],
-  onClose = () => {},
+  message,
+  buttons,
+  onClose,
 }) => {
   return (
     <div className={'Modal ' + className}>
@@ -35,6 +35,21 @@ const Modal = ({
       </div>
     </div>
   );
+};
+
+
+Modal.propTypes = {
+  className: PropTypes.string,
+  title: PropTypes.node,
+  message: PropTypes.node,
+  buttons: PropTypes.arrayOf(PropTypes.object),
+  onClose: PropTypes.func,
+};
+
+Modal.defaultProps = {
+  className: '',
+  buttons: [{ label: 'OK', className: 'Btn--secondary' }],
+  onClose() {},
 };
 
 export default Modal;

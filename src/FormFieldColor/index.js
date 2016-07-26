@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import _debounce from 'lodash/debounce';
 import ColorPicker from 'react-simple-colorpicker';
 
@@ -7,18 +7,21 @@ import Dropdown from '../Dropdown';
 class FormFieldColor extends Component {
   constructor(props) {
     super(props);
-    this.assignPropsToState(props);
+    this.state = {
+      ...this.getPropsToState(props),
+    };
     this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.assignPropsToState(nextProps);
+    this.setState(this.getPropsToState(nextProps));
   }
 
-  assignPropsToState(props) {
-    this.state = {
+  getPropsToState(props) {
+    let newState = {
       col: props.value || props.defaultValue,
     };
+    return newState;
   }
 
   handleColorChange(color) {
@@ -54,7 +57,7 @@ class FormFieldColor extends Component {
 
     return (
       <div className={'FormField FormField--color ' + className}>
-        {label !== false &&
+        {typeof label !== 'undefined' &&
           <label className="FormField-label">{label}</label>
         }
         <div className="FormField-field" ref="field">
@@ -70,15 +73,25 @@ class FormFieldColor extends Component {
   }
 }
 
+FormFieldColor.propTypes = {
+  className: PropTypes.string,
+  label: PropTypes.node,
+  value: PropTypes.string,
+  disabled: PropTypes.bool,
+  debounce: PropTypes.number,
+
+  defaultValue: PropTypes.string,
+  align: PropTypes.oneOf(['left', 'right']),
+  opacity: PropTypes.bool,
+  onChange: PropTypes.func,
+};
+
 FormFieldColor.defaultProps = {
   className: '',
   value: '',
-  label: false,
-  disabled: false,
 
   defaultValue: 'rgba(0,0,0,1)',
   debounce: 200,
-  opacity: false,
   align: 'left',
 
   onChange() {},

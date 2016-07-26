@@ -5,64 +5,79 @@ import FormFieldTick from '..';
 
 storiesOf('FormFieldTick', module)
 
+  .addWithInfo('description', '', () => (
+    <FormFieldTick className=""
+      label="Label" value="" checked
+      onChange={action('change')}
+    />
+  ), { inline: true })
+
   .add('examples', () => (
     <div>
-      <h2>Default style, radiobox</h2>
+      <h4>Default style, radiobox</h4>
       <div className="left w1">
         <FormFieldTick name="t1"
-          label="Label" debounce={1000}
+          label="Label" value="" debounce={1000}
           onChange={action('change')}
         />
       </div>
       <div>
         <FormFieldTick name="t2" checked
-          label="Label"
+          label="Label" value=""
           onChange={action('change')}
         />
       </div>
 
-      <h2>Default style, checkbox, truncated</h2>
+      <h4>Default style, checkbox, truncated</h4>
       <div className="left w1">
         <FormFieldTick type="checkbox" name="t3"
-          label="Label really really long"
+          label="Label really really long" value=""
           onChange={action('change')}
         />
       </div>
       <div>
         <FormFieldTick className="col-w1" type="checkbox" checked name="t4"
-          label="Label really really long"
+          label="Label really really long" value=""
           onChange={action('change')}
         />
       </div>
 
-      <h2>Inverted colors</h2>
+      <h4>Inverted colors</h4>
       <div className="dark">
         <div className="left w1">
-          <FormFieldTick className="FormField--invert" type="radio" label="Label" />
+          <FormFieldTick className="FormField--invert" type="radio"
+            label="Label" value=""
+          />
         </div>
         <div className="left w1">
-          <FormFieldTick className="FormField--invert" type="radio" label="Label" checked />
+          <FormFieldTick className="FormField--invert" type="radio"
+            label="Label" value="" checked
+          />
         </div>
         <div className="left w1">
-          <FormFieldTick className="FormField--invert" type="checkbox" label="Label" />
+          <FormFieldTick className="FormField--invert" type="checkbox"
+            label="Label" value=""
+          />
         </div>
         <div>
-          <FormFieldTick className="FormField--invert" type="checkbox" label="Label" checked />
+          <FormFieldTick className="FormField--invert" type="checkbox"
+            label="Label" value="" checked
+          />
         </div>
       </div>
 
-      <h2>No options but disabled</h2>
+      <h4>No options but disabled</h4>
       <div className="left w1">
-        <FormFieldTick label="Label" disabled />
+        <FormFieldTick label="Label" value="" disabled />
       </div>
       <div className="left w1">
-        <FormFieldTick label="Label" checked disabled />
+        <FormFieldTick label="Label" value="" checked disabled />
       </div>
       <div className="left w1">
-        <FormFieldTick label="Label" type="checkbox" disabled />
+        <FormFieldTick label="Label" value="" type="checkbox" disabled />
       </div>
       <div className="left w1">
-        <FormFieldTick label="Label" type="checkbox" checked disabled />
+        <FormFieldTick label="Label" value="" type="checkbox" checked disabled />
       </div>
     </div>
   ));

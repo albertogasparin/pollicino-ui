@@ -5,10 +5,18 @@ import FormFieldSelectGroup from '..';
 
 storiesOf('FormFieldSelectGroup', module)
 
+  .addWithInfo('description', '', () => (
+    <FormFieldSelectGroup className=""
+      label="Label" withSearch
+      options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
+      onChange={action('change')}
+    />
+  ), { inline: true })
+
   .add('examples', () => (
     <div>
       <div className="left" style={{ width: '45%', paddingRight: '5%' }}>
-        <h2>Default style with search</h2>
+        <h4>Default style with search</h4>
         <div className="w2">
           <FormFieldSelectGroup
             label="Label" withSearch
@@ -22,7 +30,7 @@ storiesOf('FormFieldSelectGroup', module)
           />
         </div>
 
-        <h2>Block level label, custom placeholder, optionsPerRow</h2>
+        <h4>Block level label, custom placeholder, optionsPerRow</h4>
         <FormFieldSelectGroup className="FormField--block"
           label="Label:" placeholder="Any number"
           options={[{ label: 'One', value: 1 }]}
@@ -30,7 +38,7 @@ storiesOf('FormFieldSelectGroup', module)
           onChange={action('change')}
         />
 
-        <h2>Inverted colors, truncated</h2>
+        <h4>Inverted colors, truncated</h4>
         <div className="w1 dark">
           <FormFieldSelectGroup className="FormField--invert"
             label="Label:"
@@ -39,7 +47,7 @@ storiesOf('FormFieldSelectGroup', module)
           />
         </div>
 
-        <h2>Invalid, hidden placeholder</h2>
+        <h4>Invalid, hidden placeholder</h4>
         <FormFieldSelectGroup
           ref={(c) => c && c.validate()}
           label="Label" hidePlaceholder
@@ -48,7 +56,7 @@ storiesOf('FormFieldSelectGroup', module)
           onChange={action('change')}
         /><br />
 
-        <h2>Disabled, no label, value set and custom render</h2>
+        <h4>Disabled, no label, value set and custom render</h4>
         <FormFieldSelectGroup disabled
           options={[{ label: 'One', value: 1 }]} value={1}
           valueRenderer={(opt) => 'Nr. ' + opt.label}
@@ -57,7 +65,7 @@ storiesOf('FormFieldSelectGroup', module)
       </div>
 
       <div className="left" style={{ width: '50%' }}>
-        <h2>Inline, optionsPerRow</h2>
+        <h4>Inline, optionsPerRow</h4>
         <div className="w2">
           <FormFieldSelectGroup name="i1"
             label="Label" inline
@@ -70,7 +78,7 @@ storiesOf('FormFieldSelectGroup', module)
           />
         </div>
 
-        <h2>Inline, zero optionsPerRow, block level, inverted</h2>
+        <h4>Inline, zero optionsPerRow, block level, inverted</h4>
         <div className="w2 dark">
           <FormFieldSelectGroup className="FormField--invert FormField--block" name="i2"
             label="Label:" placeholder="Any number" inline
@@ -79,7 +87,7 @@ storiesOf('FormFieldSelectGroup', module)
           />
         </div>
 
-        <h2>Inline, multiple, invalid, hide placeholder</h2>
+        <h4>Inline, multiple, invalid, hide placeholder</h4>
         <FormFieldSelectGroup name="i3"
           ref={(c) => c && c.validate()}
           label="Label:" hidePlaceholder inline multiple
@@ -91,7 +99,7 @@ storiesOf('FormFieldSelectGroup', module)
           onChange={action('change')}
         /><br />
 
-        <h2>Inline, disabled, no label</h2>
+        <h4>Inline, disabled, no label</h4>
         <FormFieldSelectGroup inline disabled
           options={[{ label: 'One', value: 1 }]} value={1}
         />

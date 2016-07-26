@@ -5,17 +5,25 @@ import Modal from '..';
 import Icon from '../../Icon';
 
 storiesOf('Modal', module)
+
+  .addWithInfo('description', '', () => (
+    <Modal className=""
+      title="Title"
+      message='Message'
+      onClose={action('close')}
+    />
+  ), { inline: true })
+
   .add('examples', () => (
     <div>
-      <style>{'.Modal { position: relative; padding: 2rem 0; }'}</style>
-      <h2>Default style</h2>
+      <h4>Default style</h4>
       <Modal
         title="Title"
         message="Message"
         onClose={action('close')}
       />
 
-      <h2>Custom title and buttons</h2>
+      <h4>Custom title and buttons</h4>
       <Modal
         title={<span><Icon className="Icon--mR" glyph="alert" /> Error</span>}
         message={<ul style={{ margin: 0, paddingLeft: '1.1em' }}><li>A</li><li>B</li></ul>}

@@ -11,7 +11,7 @@ html {
   // background: $color-background;
 }
 
-h2 {
+h4 {
   clear: both;
   margin: 0 0 1rem;
   padding: 2.5rem 0 0.5rem;
@@ -19,6 +19,24 @@ h2 {
   font-size: 1rem;
   color: #999;
   border-bottom: 1px solid #CCC;
+}
+
+table {
+  margin-left: 0 !important;
+  border-collapse: collapse !important;
+
+  th {
+    width: 6em;
+    padding: 5px;
+    text-align: left;
+
+    &:first-child { width: 10em; }
+    &:last-child { width: 15em; }
+  }
+
+  td { border: none; padding: 5px; }
+  td:first-child { font: 400 0.917em/1.4 Consolas, "Liberation Mono", Menlo, monospace; }
+  tbody tr:nth-child(2n+1) { background: #F7F7F9; }
 }
 
 
@@ -47,7 +65,10 @@ h2 {
 @import '../src/FormFieldTextarea/style';
 @import '../src/FormFieldTick/style';
 @import '../src/Icon/style';
+
 @import '../src/Modal/style';
+.Modal { position: relative; padding: 2rem 0; }
+
 @import '../src/Sortable/style';
 @import '../src/StickyHeader/style';
 @import '../src/Toast/style';

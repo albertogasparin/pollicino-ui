@@ -5,9 +5,16 @@ import FormFieldDate from '..';
 
 storiesOf('FormFieldDate', module)
 
+  .addWithInfo('description', '', () => (
+    <FormFieldDate className=""
+      label="Label" isRange hidePlaceholder yearDropdown
+      onChange={action('change')}
+    />
+  ), { inline: true })
+
   .add('examples', () => (
     <div>
-      <h2>Default style (single) with options</h2>
+      <h4>Default style (single) with options</h4>
       <div>
         <FormFieldDate
           label="Label"
@@ -16,19 +23,19 @@ storiesOf('FormFieldDate', module)
         />
       </div>
 
-      <h2>Default style (range), block, no options/placeholder</h2>
+      <h4>Default style (range), block, no options/placeholder</h4>
       <FormFieldDate className="FormField--block"
         label="Label:" isRange hidePlaceholder
         onChange={action('change')}
       />
 
-      <h2>Default style (single), Min/max date, year dropdown</h2>
+      <h4>Default style (single), Min/max date, year dropdown</h4>
       <FormFieldDate
         label="Label" yearDropdown minDate={new Date('1900-01-01')} maxDate={new Date()}
         onChange={action('change')}
       />
 
-      <h2>Custom range value, inverted colors, truncated</h2>
+      <h4>Custom range value, inverted colors, truncated</h4>
       <div className="dark w1">
         <FormFieldDate className="FormField--invert" isRange
           options={[{ label: '1st Jan 2000', value: ['2000-01-01'] }]}
@@ -36,7 +43,7 @@ storiesOf('FormFieldDate', module)
         />
       </div>
 
-      <h2>Invalid</h2>
+      <h4>Invalid</h4>
       <FormFieldDate ref={(c) => c && c.validate()}
         label="Label"
         placeholder="Not set"
@@ -44,7 +51,7 @@ storiesOf('FormFieldDate', module)
         onChange={action('change')}
       /><br />
 
-      <h2>Disabled, no label, value set</h2>
+      <h4>Disabled, no label, value set</h4>
       <FormFieldDate disabled
         options={[{ label: '1990', value: ['1990-01-01', '1991-01-01'] }]}
         value={['1990-01-01','1991-01-01']}

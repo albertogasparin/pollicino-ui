@@ -5,9 +5,16 @@ import FormFieldSearch from '..';
 
 storiesOf('FormFieldSearch', module)
 
-  .add('Search', () => (
+  .addWithInfo('description', '', () => (
+    <FormFieldSearch className=""
+      placeholder="Search..."
+      onChange={action('change')}
+    />
+  ), { inline: true })
+
+  .add('examples', () => (
     <div>
-      <h2>Default style</h2>
+      <h4>Default style</h4>
       <div className="w2">
         <FormFieldSearch
           debounce={2000}
@@ -15,7 +22,7 @@ storiesOf('FormFieldSearch', module)
         />
       </div>
 
-      <h2>Inverted colors, custom placeholder</h2>
+      <h4>Inverted colors, custom placeholder</h4>
       <div className="w2 dark" style={{ background: '#222225', color: '#FFF' }}>
         <FormFieldSearch className="FormField--invert"
           placeholder="Find anything"
@@ -23,7 +30,7 @@ storiesOf('FormFieldSearch', module)
         />
       </div>
 
-      <h2>Custom size, disabled</h2>
+      <h4>Custom size, disabled</h4>
       <FormFieldSearch size="12" disabled />
     </div>
   ));

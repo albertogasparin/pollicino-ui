@@ -5,9 +5,17 @@ import FormFieldSelect from '..';
 
 storiesOf('FormFieldSelect', module)
 
+  .addWithInfo('description', '', () => (
+    <FormFieldSelect className=""
+      label="Label" placeholder="Select"
+      options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
+      onChange={action('change')}
+    />
+  ), { inline: true })
+
   .add('examples', () => (
     <div>
-      <h2>Default style</h2>
+      <h4>Default style</h4>
       <div className="w2">
         <FormFieldSelect
           label="Label"
@@ -16,7 +24,7 @@ storiesOf('FormFieldSelect', module)
         />
       </div>
 
-      <h2>Inverted colors, custom placeholder, truncated</h2>
+      <h4>Inverted colors, custom placeholder, truncated</h4>
       <div className="w1 dark">
         <FormFieldSelect className="FormField--invert"
           placeholder="Zero means any value"
@@ -24,7 +32,7 @@ storiesOf('FormFieldSelect', module)
         />
       </div>
 
-      <h2>Invalid</h2>
+      <h4>Invalid</h4>
       <FormFieldSelect
         ref={(c) => c && c.validate()}
         label="Label"
@@ -33,7 +41,7 @@ storiesOf('FormFieldSelect', module)
         onChange={action('change')}
       /><br />
 
-      <h2>No options but disabled</h2>
-      <FormFieldSelect className="w2" disabled />
+      <h4>No options but disabled</h4>
+      <FormFieldSelect className="w2" options={[]} disabled />
     </div>
   ));

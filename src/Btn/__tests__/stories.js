@@ -1,13 +1,23 @@
 import React from 'react';
-import { storiesOf } from '@kadira/storybook';
+import { storiesOf, action } from '@kadira/storybook';
 
 import Icon from '../../Icon';
 import Btn from '..';
 
 storiesOf('Btn', module)
+
+  .addWithInfo('description', '', () => (
+    <Btn className="Btn--primary"
+      data-tip="Tooltip"
+      onClick={action('click')}
+    >
+      Button
+    </Btn>
+  ), { inline: true })
+
   .add('examples', () => (
     <div>
-      <h2>Primary with tooltip</h2>
+      <h4>Primary with tooltip</h4>
       <style>{`
         .Btn.Btn--primary[data-tip]:after {
           transform: translate(0, -50%); max-height: none; opacity: 1;
@@ -15,17 +25,17 @@ storiesOf('Btn', module)
       }</style>
       <Btn className="Btn--primary" data-tip="Tooltip">Button</Btn>
 
-      <h2>Secondary and clipped</h2>
+      <h4>Secondary and clipped</h4>
       <p style={{ width: 120 }}>
         <a href="#" className="Btn Btn--secondary Btn--clip">Button long text</a>
       </p>
 
-      <h2>Outline and square</h2>
+      <h4>Outline and square</h4>
       <button className="Btn Btn--outline Btn--square">
         <Icon glyph="magnify" />
       </button>
 
-      <h2>Disabled</h2>
+      <h4>Disabled</h4>
       <button className="Btn Btn--primary" disabled>Button</button>
 
     </div>

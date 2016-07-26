@@ -5,9 +5,16 @@ import FormFieldText from '..';
 
 storiesOf('FormFieldText', module)
 
+  .addWithInfo('description', '', () => (
+    <FormFieldText className=""
+      placeholder="Type..."
+      onChange={action('change')}
+    />
+  ), { inline: true })
+
   .add('examples', () => (
     <div>
-      <h2>Default style</h2>
+      <h4>Default style</h4>
       <div className="w2">
         <FormFieldText
           label="Label" debounce={2000}
@@ -15,7 +22,7 @@ storiesOf('FormFieldText', module)
         />
       </div>
 
-      <h2>Block, inverted colors, custom placeholder</h2>
+      <h4>Block, inverted colors, custom placeholder</h4>
       <div className="w2 dark">
         <FormFieldText className="FormField--block FormField--invert"
           label="Label:" placeholder="Type something..."
@@ -23,7 +30,7 @@ storiesOf('FormFieldText', module)
         />
       </div>
 
-      <h2>Invalid, custom size</h2>
+      <h4>Invalid, custom size</h4>
       <div>
         <FormFieldText value=""
           ref={(c) => c && c.validate()}
@@ -33,7 +40,7 @@ storiesOf('FormFieldText', module)
         /><br />
       </div>
 
-      <h2><br />Disabled</h2>
+      <h4><br />Disabled</h4>
       <FormFieldText className="w2" value="text" disabled />
     </div>
   ));

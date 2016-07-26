@@ -5,9 +5,16 @@ import FormFieldColor from '..';
 
 storiesOf('FormFieldColor', module)
 
+  .addWithInfo('description', '', () => (
+    <FormFieldColor className=""
+      label="Label" opacity align="left"
+      onChange={action('change')}
+    />
+  ), { inline: true })
+
   .add('examples', () => (
     <div>
-      <h2>Default style</h2>
+      <h4>Default style</h4>
       <div>
         <FormFieldColor
           label="Label"
@@ -15,7 +22,7 @@ storiesOf('FormFieldColor', module)
         />
       </div>
 
-      <h2>Block level label, defaultValue, opacity</h2>
+      <h4>Block level label, defaultValue, opacity</h4>
       <FormFieldColor className="FormField--block"
         label="Label:"
         defaultValue="rgba(255,100,0,0.5)"
@@ -23,10 +30,10 @@ storiesOf('FormFieldColor', module)
         onChange={action('change')}
       />
 
-      <h2>No options but disabled</h2>
+      <h4>No options but disabled</h4>
       <FormFieldColor disabled />
 
-      <h2>Inverted colors</h2>
+      <h4>Inverted colors</h4>
       <div className="dark">
         <FormFieldColor className="FormField--invert"
           label="Label"

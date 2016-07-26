@@ -5,9 +5,16 @@ import FormFieldNumber from '..';
 
 storiesOf('FormFieldNumber', module)
 
+  .addWithInfo('description', '', () => (
+    <FormFieldNumber className=""
+      label="Label" value={7} min={5}
+      onChange={action('change')}
+    />
+  ), { inline: true })
+
   .add('examples', () => (
     <div>
-      <h2>Default style</h2>
+      <h4>Default style</h4>
       <div className="w2">
         <FormFieldNumber
           label="Label"
@@ -15,7 +22,7 @@ storiesOf('FormFieldNumber', module)
         />
       </div>
 
-      <h2>Block level label, min, max, value</h2>
+      <h4>Block level label, min, max, value</h4>
       <FormFieldNumber className="FormField--block w2"
         label="Label:"
         min={5} max={10}
@@ -23,14 +30,14 @@ storiesOf('FormFieldNumber', module)
         onChange={action('change')}
       />
 
-      <h2>Inverted colors</h2>
+      <h4>Inverted colors</h4>
       <div className="w1 dark">
         <FormFieldNumber className="FormField--invert"
           label="Label"
         />
       </div>
 
-      <h2>Invalid, custom size</h2>
+      <h4>Invalid, custom size</h4>
       <FormFieldNumber
         ref={(c) => c && c.validate()}
         label="Label" size="4"
@@ -38,7 +45,7 @@ storiesOf('FormFieldNumber', module)
         onChange={action('change')}
       /><br />
 
-      <h2>No options but disabled</h2>
+      <h4>No options but disabled</h4>
       <div className="w2">
         <FormFieldNumber disabled />
       </div>

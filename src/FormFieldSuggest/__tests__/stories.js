@@ -5,9 +5,17 @@ import FormFieldSuggest from '..';
 
 storiesOf('FormFieldSuggest', module)
 
+  .addWithInfo('description', '', () => (
+    <FormFieldSuggest className=""
+      label="Label"
+      options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
+      onChange={action('change')}
+    />
+  ), { inline: true })
+
   .add('examples', () => (
     <div>
-      <h2>Default style</h2>
+      <h4>Default style</h4>
       <div className="w2">
         <FormFieldSuggest
           label="Label"
@@ -21,7 +29,7 @@ storiesOf('FormFieldSuggest', module)
         />
       </div>
 
-      <h2>Block level label, custom placeholder, async options</h2>
+      <h4>Block level label, custom placeholder, async options</h4>
       <div className="w2">
         <FormFieldSuggest className="FormField--block"
           label="Label" placeholder="Select a user"
@@ -37,7 +45,7 @@ storiesOf('FormFieldSuggest', module)
         />
       </div>
 
-      <h2>allowAny, labelKey, valueKey, rows</h2>
+      <h4>allowAny, labelKey, valueKey, rows</h4>
       <div className="w2">
         <FormFieldSuggest
           ref={(c) => c && c.validate()}

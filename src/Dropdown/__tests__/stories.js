@@ -5,9 +5,20 @@ import Dropdown from '..';
 import Icon from '../../Icon';
 
 storiesOf('Dropdown', module)
+
+  .addWithInfo('description', '', () => (
+    <Dropdown className=""
+      label="Label" autoClose align="left"
+      onOpen={action('open')}
+      onClose={action('close')}
+    >
+      Content
+    </Dropdown>
+  ), { inline: true })
+
   .add('examples', () => (
     <div>
-      <h2>Default style with label</h2>
+      <h4>Default style with label</h4>
       <div className="left">
         <Dropdown
           label="Click here to open the dropdown"
@@ -18,7 +29,7 @@ storiesOf('Dropdown', module)
         </Dropdown>
       </div>
 
-      <h2>Left, autoClose, no label</h2>
+      <h4>Left, autoClose, no label</h4>
       <div className="w1 dark">
         <Dropdown align="left"
           autoClose opened
@@ -29,7 +40,7 @@ storiesOf('Dropdown', module)
         </Dropdown>
       </div>
 
-      <h2>Disabled, custom label component</h2>
+      <h4>Disabled, custom label component</h4>
       <div className="w1">
         <Dropdown disabled
           label={<Icon glyph="magnify" />}

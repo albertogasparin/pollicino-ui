@@ -5,5 +5,11 @@
     "stage-2"
   ],
   "plugins": [],
-  "sourceMaps": true
+  "retainLines": true,
+  "sourceMaps": "inline",
+  "env": {
+    "test": {
+      "plugins": ["istanbul"]
+    }
+  }
 }

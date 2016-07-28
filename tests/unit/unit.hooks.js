@@ -9,6 +9,11 @@ import td from 'testdouble';
 function setGlobalMocks() {
   // define window
   global.window = {};
+  // define document
+  global.document = global.window.document = {
+    addEventListener: td.func('addEventListener'),
+    removeEventListener: td.func('removeEventListener'),
+  };
 }
 
 /**

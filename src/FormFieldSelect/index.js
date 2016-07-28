@@ -45,12 +45,10 @@ class FormFieldSelect extends Component {
   }
 
   handleChange(ev) {
-    let { opts, errors, focused } = this.state;
+    let { opts } = this.state;
     let val = opts[ev.target.selectedIndex].value;
 
-    if (errors && focused) { // validation: reward early
-      this.validate(val);
-    }
+    this.validate(val);
     this.setState({ val });
     this.triggerOnChange(val);
   }
@@ -61,7 +59,7 @@ class FormFieldSelect extends Component {
   }
 
   handleBlur(ev) {
-    this.setState({ focused: false, touched: true }, this.validate);
+    this.setState({ focused: false, touched: true });
     this.props.onBlur(ev);
   }
 

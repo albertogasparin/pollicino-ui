@@ -25,7 +25,7 @@ class FormFieldTick extends Component {
 
   getPropsToState(props) {
     let newState = {
-      id: props.id || 'ff-tick-' + props.name + String(props.value).replace(/[^\w]/g,''),
+      id: props.id || 'ff-tick-' + props.name + '-' + String(props.value).replace(/[^\w]/g,''),
       checked: props.checked,
     };
     return newState;
@@ -103,6 +103,7 @@ FormFieldTick.defaultProps = {
   className: '',
 
   debounce: 50,
+  checked: false,
   type: 'radio',
 
   onChange() {},

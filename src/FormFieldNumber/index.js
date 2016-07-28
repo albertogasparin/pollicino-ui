@@ -45,7 +45,7 @@ class FormFieldNumber extends Component {
 
   handleChange(ev, val) {
     let { errors, focused } = this.state;
-    val = val || Number(ev.target.value.replace(/[^0-9]/g,''));
+    val = val || Number(ev.target.value.replace(/[^0-9]/g, ''));
     val = this.clamp(val);
 
     if (!focused || errors && focused) { // validation: reward early

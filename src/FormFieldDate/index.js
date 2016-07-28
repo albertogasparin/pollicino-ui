@@ -95,17 +95,14 @@ class FormFieldDate extends Component {
   }
 
   handleChange(showPicker, value) {
-    let { val, errors, focused } = this.state;
+    let { val } = this.state;
     let isFromCustom = showPicker && value === 'custom';
     if (!isFromCustom) {
       val = value;
     }
 
-    if (!focused || errors && focused) { // validation: reward early
-      this.validate(val);
-    }
-
     this.setState({ showPicker, val }, () => {
+      this.validate();
       if (!isFromCustom && !this.props.isRange || !showPicker) {
         this.refs.dropdown.handleClose();
       }
@@ -166,8 +163,7 @@ class FormFieldDate extends Component {
     return errors;
   }
 
-  renderFieldLabel() {
-    let { val } = this.state;
+  renderFieldLabel(val) {
     let checkedOpt = this.findOption(val);
     if (checkedOpt) {
       return checkedOpt.label;
@@ -257,7 +253,7 @@ class FormFieldDate extends Component {
 
   render() {
     let { className, label, disabled, align } = this.props;
-    let { errors, focused } = this.state;
+    let { val, errors, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += errors ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
@@ -269,8 +265,8 @@ class FormFieldDate extends Component {
         }
         <div className="FormField-field" ref="field">
           <Dropdown className="Dropdown--field" ref="dropdown"
+            label={this.renderFieldLabel(val)}
             align={align} disabled={disabled}
-            label={this.renderFieldLabel()}
             onOpen={(ev) => this.handleFocus(ev)}
             onClose={(ev) => this.handleBlur(ev)}
           >

@@ -17,11 +17,11 @@ class FormFieldSuggest extends Component {
       errors: null,
       isLoading: false,
       input: '',
+      cache: {},
       ...this.getPropsToState(props),
     };
     this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
     this.getAsyncOptions = _debounce(this.getAsyncOptions, props.debounceLoad);
-    this.optionsCache = {};
   }
 
   componentWillReceiveProps(nextProps) {
@@ -34,7 +34,7 @@ class FormFieldSuggest extends Component {
 
   getPropsToState(props) {
     let newState = {
-      id: props.id || props.name && 'ff-text-' + props.name,
+      id: props.id || props.name && 'ff-suggest-' + props.name,
       opts: [...props.options],
       val: props.value,
     };
@@ -47,31 +47,34 @@ class FormFieldSuggest extends Component {
   getAsyncOptions(input) {
     return this.props.loadOptions(input)
       .then((options) => {
-        this.optionsCache[input] = options;
-        this.setState({ isLoading: false });
+        let cache = { ...this.state.cache, [input]: options };
+        if (this.state.input === input) {
+          this.setState({ cache, isLoading: false });
+        } else {
+          this.setState({ cache });
+        }
       })
-      .catch(() => this.setState({ isLoading: false }));
+      .catch(() => {
+        if (this.state.input === input) {
+          this.setState({ isLoading: false });
+        }
+      });
   }
 
   handleInputChange(ev) {
+    let { cache } = this.state;
     let input = ev.target.value;
     this.setState({ input });
 
-    let isCached = typeof this.optionsCache[input] !== 'undefined';
-    if (this.props.loadOptions && !isCached) {
+    if (this.props.loadOptions && !cache[input]) {
       this.setState({ isLoading: true });
       this.getAsyncOptions(input);
     }
   }
 
   handleSelect(option) {
-    let { errors, focused } = this.state;
-
-    if (errors && focused) { // validation: reward early
-      this.validate(option);
-    }
     this.setState({ val: option });
-    this.handleBlur();
+    this.handleBlur(); // will validate
     this.triggerOnChange(option);
   }
 
@@ -151,13 +154,13 @@ class FormFieldSuggest extends Component {
 
   renderAsyncOptions() {
     let { noInputText } = this.props;
-    let { input, val, isLoading } = this.state;
+    let { input, val, isLoading, cache } = this.state;
 
     if (val && !input) {
       return this.renderOptions([val]);
     }
 
-    let opts = this.optionsCache[input];
+    let opts = cache[input];
     if (opts) {
       return this.renderOptions(opts);
     }

@@ -33,7 +33,7 @@ class Collapsible extends Component {
       if (this.refs.collapsible) { // check if still mounted
         this.setState({ isAnimating: false });
       }
-    }, 700);
+    }, this.props.animation);
   }
 
   render() {
@@ -71,6 +71,7 @@ Collapsible.propTypes = {
   disabled: PropTypes.bool,
   expanded: PropTypes.bool,
   children: PropTypes.node,
+  animation: PropTypes.number,
 
   onCollapse: PropTypes.func,
   onExpand: PropTypes.func,
@@ -78,6 +79,7 @@ Collapsible.propTypes = {
 
 Collapsible.defaultProps = {
   className: '',
+  animation: 700,
 
   onCollapse() {},
   onExpand() {},

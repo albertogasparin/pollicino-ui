@@ -91,10 +91,6 @@ class FormFieldSelectGroup extends Component {
     this.triggerOnChange(this.returnValue(val));
   }
 
-  handleSearch(value) {
-    this.setState({ searchValue: value });
-  }
-
   handleFocus(ev) {
     this.setState({ focused: true });
     this.props.onFocus(ev);
@@ -129,7 +125,7 @@ class FormFieldSelectGroup extends Component {
             <FormFieldSearch className="FormField--block"
               placeholder="Search..." debounce={200}
               value={searchValue}
-              onChange={this.handleSearch.bind(this)}
+              onChange={(v) => this.setState({ searchValue: v })}
             />
           </div>
         }

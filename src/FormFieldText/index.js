@@ -110,7 +110,7 @@ FormFieldText.propTypes = {
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   type: PropTypes.string,
   pattern: PropTypes.string,
-  autoComplete: PropTypes.bool,
+  autoComplete: PropTypes.string,
   autoFocus: PropTypes.bool,
 
   validation: PropTypes.func,

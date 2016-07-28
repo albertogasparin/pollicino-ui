@@ -129,7 +129,7 @@ FormFieldNumber.propTypes = {
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  autoComplete: PropTypes.bool,
+  autoComplete: PropTypes.string,
   autoFocus: PropTypes.bool,
 
   validation: PropTypes.func,

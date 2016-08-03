@@ -75,12 +75,14 @@ class FormFieldSuggest extends Component {
   handleSelect(option) {
     let { labelKey, valueKey } = this.props;
 
+    if (!option) {
+      option = null;
+    }
     if (typeof option === 'string') {
       option = { [labelKey]: option, [valueKey]: option, isNewOption: true };
     }
-    this.setState({ val: option });
-    this.handleBlur(); // will validate
-    this.triggerOnChange(option);
+
+    this.setState({ val: option }, this.handleBlur);
   }
 
   handleFocus(ev) {
@@ -89,7 +91,10 @@ class FormFieldSuggest extends Component {
   }
 
   handleBlur(ev) {
+    let { val } = this.state;
     this.setState({ focused: false, touched: true, input: '' }, this.validate);
+    this.triggerOnChange(val);
+
     if (this.refs.control) {
       this.refs.control.blur(); // trigger field blur
     }

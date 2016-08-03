@@ -191,13 +191,7 @@ describe('<FormFieldSuggest />', () => {
     let props, instance;
 
     beforeEach(() => {
-      props = {
-        value: null,
-        debounce: 0,
-        onChange: td.func('onChange'),
-        onBlur: td.func('onBlur'),
-        validation: td.func('validation'),
-      };
+      props = { value: null, onBlur: td.func('onBlur'), validation: td.func('validation') };
       instance = shallow(<FormFieldSuggest {...props} />).instance();
       instance.handleSelect({ id: 1 });
     });
@@ -208,13 +202,6 @@ describe('<FormFieldSuggest />', () => {
 
     it('should call onBlur', () => {
       expect(props.onBlur).to.have.been.called;
-    });
-
-    it('should call onChange', (done) => {
-      setTimeout(() => {
-        expect(props.onChange).to.have.been.calledWith({ id: 1 });
-        done();
-      }, 10);
     });
 
   });
@@ -244,7 +231,13 @@ describe('<FormFieldSuggest />', () => {
     let props, instance;
 
     beforeEach(() => {
-      props = { value: '', onBlur: td.func('onBlur'), validation: td.func('validation') };
+      props = {
+        value: null,
+        debounce: 0,
+        onChange: td.func('onChange'),
+        onBlur: td.func('onBlur'),
+        validation: td.func('validation'),
+      };
       instance = shallow(<FormFieldSuggest {...props} />).instance();
       instance.handleBlur();
     });
@@ -263,6 +256,13 @@ describe('<FormFieldSuggest />', () => {
 
     it('should validate value', () => {
       expect(props.validation).to.have.been.called;
+    });
+
+    it('should call onChange', (done) => {
+      setTimeout(() => {
+        expect(props.onChange).to.have.been.calledWith(null);
+        done();
+      }, 10);
     });
 
   });

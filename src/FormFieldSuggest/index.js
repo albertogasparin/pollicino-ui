@@ -73,6 +73,11 @@ class FormFieldSuggest extends Component {
   }
 
   handleSelect(option) {
+    let { labelKey, valueKey } = this.props;
+
+    if (typeof option === 'string') {
+      option = { [labelKey]: option, [valueKey]: option, isNewOption: true };
+    }
     this.setState({ val: option });
     this.handleBlur(); // will validate
     this.triggerOnChange(option);
@@ -85,34 +90,36 @@ class FormFieldSuggest extends Component {
 
   handleBlur(ev) {
     this.setState({ focused: false, touched: true, input: '' }, this.validate);
+    if (this.refs.control) {
+      this.refs.control.blur(); // trigger field blur
+    }
     this.props.onBlur(ev);
   }
 
   handleKeyDown(ev) { // eslint-disable-line complexity
-    let { valueKey } = this.props;
+    let { valueKey, allowAny } = this.props;
     let { val, input } = this.state;
-
-    if (!val) {
-      return;
-    }
 
     switch (ev.keyCode) {
       case 13: // enter
-        // TODO
+        ev.preventDefault(); // don't submit the form
+        if (allowAny) {
+          this.handleSelect(input);
+        }
         break;
       case 8: // backspace
       case 46: // canc
-        if (!val.isNewOption || input.length === 1) {
+        if (val && !val.isNewOption || input.length === 1) {
           this.setState({ val: null, input: '' });
         }
         break;
       default:
-        if (val.isNewOption) {
+        if (val && val.isNewOption) {
           this.setState({ val: null, input: val[valueKey] });
-        } else {
+        }
+        if (val && !val.isNewOption) {
           ev.preventDefault();
         }
-        this.triggerOnChange(null);
     }
   }
 
@@ -138,7 +145,13 @@ class FormFieldSuggest extends Component {
         onClose={(ev) => this.handleBlur(ev)}
       >
         {allowAny && input &&
-          this.renderSelectNew()
+          <span className="FormField-selectNew">
+            <Btn className="Btn--square"
+              onClick={() => this.handleSelect(this.state.input)}
+            >
+              <Icon glyph="check" />
+            </Btn>
+          </span>
         }
         <ul className="FormField-options"
           style={{ maxHeight: (rows * 2.26) + 'rem' }}
@@ -167,7 +180,7 @@ class FormFieldSuggest extends Component {
 
     return (
       <li className="FormField-noOptions">
-        {isLoading
+        {input && isLoading
           ? <Icon glyph="loading" />
           : noInputText
         }
@@ -202,21 +215,6 @@ class FormFieldSuggest extends Component {
     ));
   }
 
-  renderSelectNew() {
-    let { valueKey, labelKey } = this.props;
-    let { input } = this.state;
-    let opt = { [labelKey]: input, [valueKey]: input, isNewOption: true };
-    return (
-      <span className="FormField-selectNew">
-        <Btn className="Btn--square"
-          onClick={() => this.handleSelect(opt)}
-        >
-          <Icon glyph="check" />
-        </Btn>
-      </span>
-    );
-  }
-
   render() { // eslint-disable-line complexity
     let { className, label, disabled, size, labelKey, allowAny } = this.props;
     let { id, val, errors, focused, input } = this.state;
@@ -229,7 +227,7 @@ class FormFieldSuggest extends Component {
           <label className="FormField-label" htmlFor={id}>{label}</label>
         }
         <div className="FormField-field">
-          <input id={id} className={'FormField-control'
+          <input ref="control" id={id} className={'FormField-control'
             + (allowAny && input ? ' FormField-control--iconR' : '')}
             style={{ width: size + 'em' }} type="text"
             value={input || (val && val[labelKey]) || ''}

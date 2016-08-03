@@ -20,7 +20,7 @@
     "test": "npm run test:unit -s",
     "test:unit": "NODE_ENV=test mocha $($npm_package_config_testfiles) $npm_package_config_mochaargs",
     "test:unit:watch": "npm run test:unit -- --watch --watch-extensions jsx,json --reporter nyan",
-    "test:int": "rm -rf ./shots/error && NODE_ENV=test PORT=3003 wdio wdio.conf.js",
+    "test:int": "NODE_ENV=test PORT=3003 wdio wdio.conf.js",
     "coverage": "NODE_ENV=test nyc mocha $npm_package_config_mochaargs --reporter dot $($npm_package_config_testfiles)",
     "lint": "eslint --ext .js,.jsx --ignore-path .gitignore . && stylelint --syntax scss \"src/**/*.scss\"",
     "clean": "rm -rf ./lib && rm -rf ./coverage && rm -rf ./.nyc_output",

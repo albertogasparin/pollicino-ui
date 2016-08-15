@@ -1,5 +1,9 @@
 # Pollicino UI
 
+[![Dependency Status](https://david-dm.org/albertogasparin/pollicino-ui.svg?style=flat-square)](https://david-dm.org/albertogasparin/pollicino-ui)
+[![devDependency Status](https://david-dm.org/albertogasparin/pollicino-ui/dev-status.svg?style=flat-square)](https://david-dm.org/albertogasparin/pollicino-ui#info=devDependencies)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://albertogasparin.mit-license.org)
+[![CircleCI](https://circleci.com/gh/albertogasparin/pollicino-ui.svg?style=svg&circle-token=cd02d6e4de18113f185af5a4aad6597aff5583c8)](https://circleci.com/gh/albertogasparin/pollicino-ui)
 
 ## Usage
 

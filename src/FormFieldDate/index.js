@@ -214,13 +214,10 @@ class FormFieldDate extends Component {
     let { isRange, yearDropdown, minDate, maxDate } = this.props;
     let { val, initialMonth } = this.state;
     let modifiers = {
-      isSelected: (day) => (!isRange
-        ? this.formatDate(day) === val[0]
-        : DateUtils.isDayInRange(day, {
-          from: new Date(val[0]),
-          to: new Date(val[1]),
-        })
-      ),
+      isSelected: (day) => {
+        let d = this.formatDate(day);
+        return isRange ? (d >= val[0] && d <= val[1]) : d === val[0];
+      },
       isDisabled: this.isDayDisabled.bind(this),
     };
 

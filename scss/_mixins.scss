@@ -73,6 +73,11 @@
       position: relative;
       flex: 0 1 auto;
       min-width: 0; // makes text overflow ellip work
+
+      @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        width: 100%; // fix IE11 child max-width ignoring field width
+      }
+
     }
 
     &-error {
@@ -147,6 +152,12 @@
     border-color: $Pollicino-color-primary;
     box-shadow: inset 0 3px 5px rgba($Pollicino-color-light, 0.15), 0 0 0 1px $Pollicino-color-primary;
   }
+
+  &::placeholder {
+    color: lighten($Pollicino-color-light, 15);
+  }
+
+  &::-ms-reveal, &::-ms-clear { display: none; }
 
   &--iconR { padding-right: $Pollicino-FormField-height; }
   &--iconL { padding-left: $Pollicino-FormField-height; }

@@ -26,6 +26,7 @@
   &-control {
     max-width: 100%;
     margin: rem(8px) 0;
+    padding: 0;
     background: none;
     appearance: none;
     vertical-align: middle;
@@ -53,13 +54,12 @@
       width: 100%;
       height: rem(8px);
       background: transparent;
-      border-color: transparent;
+      border: 0 solid transparent;
+      border-top-width: rem(8px + 2px); // fix shadow clipped
+      border-bottom-width: rem(8px + 2px);
       color: transparent;
     }
-    &::-ms-fill-lower {
-      @include FormField--range-track();
-    }
-    &::-ms-fill-upper {
+    &::-ms-fill-lower, &::-ms-fill-upper {
       @include FormField--range-track();
     }
     &::-ms-thumb {

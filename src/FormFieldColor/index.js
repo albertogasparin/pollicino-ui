@@ -99,7 +99,10 @@ FormFieldColor.propTypes = {
   defaultValue: PropTypes.string,
   align: PropTypes.oneOf(['left', 'right']),
   opacity: PropTypes.bool,
+
   onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
 };
 
 FormFieldColor.defaultProps = {
@@ -111,6 +114,8 @@ FormFieldColor.defaultProps = {
   align: 'left',
 
   onChange() {},
+  onFocus() {},
+  onBlur() {},
 };
 
 export default FormFieldColor;

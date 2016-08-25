@@ -92,12 +92,12 @@ class FormFieldSuggest extends Component {
 
   handleBlur(ev) {
     let { val } = this.state;
-    this.setState({ focused: false, touched: true, input: '' }, this.validate);
-    this.triggerOnChange(val);
 
-    if (this.refs.control) {
-      this.refs.control.blur(); // trigger field blur
-    }
+    setTimeout(() => { // wait dropdown click
+      this.setState({ focused: false, touched: true, input: '' }, this.validate);
+      this.triggerOnChange(val);
+    }, 100);
+
     this.props.onBlur(ev);
   }
 
@@ -146,8 +146,7 @@ class FormFieldSuggest extends Component {
     let { input, opts } = this.state;
     return (
       <Dropdown className="Dropdown--cover"
-        align="left" opened
-        onClose={(ev) => this.handleBlur(ev)}
+        align="left" opened modal={false}
       >
         {allowAny && input &&
           <span className="FormField-selectNew">
@@ -241,6 +240,7 @@ class FormFieldSuggest extends Component {
             onKeyDown={(ev) => this.handleKeyDown(ev)}
             onChange={(ev) => this.handleInputChange(ev)}
             onFocus={(ev) => this.handleFocus(ev)}
+            onBlur={(ev) => this.handleBlur(ev)}
           />
 
           {focused &&

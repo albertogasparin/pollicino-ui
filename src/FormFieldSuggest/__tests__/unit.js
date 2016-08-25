@@ -230,7 +230,7 @@ describe('<FormFieldSuggest />', () => {
   describe('handleBlur()', () => {
     let props, instance;
 
-    beforeEach(() => {
+    beforeEach((done) => {
       props = {
         value: null,
         debounce: 0,
@@ -239,7 +239,9 @@ describe('<FormFieldSuggest />', () => {
         validation: td.func('validation'),
       };
       instance = shallow(<FormFieldSuggest {...props} />).instance();
+      instance.handleFocus();
       instance.handleBlur();
+      setTimeout(done, 120); // some calls are async
     });
 
     it('should unset focused state', () => {

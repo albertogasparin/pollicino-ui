@@ -29,19 +29,23 @@
     @include text-clip;
     position: relative;
     display: inline-block;
-    padding-right: 1.3rem;
+    padding-right: 1.4em;
     max-width: 100%;
     height: 100%;
     cursor: pointer;
     box-sizing: border-box;
 
     &:after {
-      content: '▼';
+      content: '';
       position: absolute;
-      top: 0;
-      right: -1px;
+      width: 0;
+      height: 0;
+      top: 50%;
+      right: 0.25em;
+      margin-top: -0.2em;
+      border: 0.35em solid transparent;
+      border-top: 0.45em solid;
       opacity: 0.8;
-      transform: scale(0.8, 0.5);
     }
   }
 

@@ -93,7 +93,8 @@ storiesOf('FormFieldSelectGroup', module)
           label="Label:" hidePlaceholder inline multiple
           value={[1]}
           options={[
-            { label: 'One', value: 1 }, { label: 'Two', value: 2 }, { label: 'Three', value: 3 },
+            { label: 'One', value: 1 }, { label: 'Two has a long label that push', value: 2 },
+            { label: 'Three', value: 3 },
           ]}
           validation={(v) => v.length < 2 && 'Please select two options'}
           onChange={action('change')}

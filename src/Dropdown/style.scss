@@ -23,12 +23,16 @@
     padding-right: 1.4em;
 
     &:after {
-      content: '▼';
+      content: '';
       position: absolute;
-      top: 0.04rem;
-      right: 0.1em;
+      width: 0;
+      height: 0;
+      top: 50%;
+      right: 0.25em;
+      margin-top: -0.2em;
+      border: 0.35em solid transparent;
+      border-top: 0.45em solid;
       opacity: 0.8;
-      transform: scale(0.8, 0.5);
     }
   }
 

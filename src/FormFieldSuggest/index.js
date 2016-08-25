@@ -110,6 +110,7 @@ class FormFieldSuggest extends Component {
         ev.preventDefault(); // don't submit the form
         if (allowAny) {
           this.handleSelect(input);
+          this.refs.control.blur(); // trigger field blur
         }
         break;
       case 8: // backspace

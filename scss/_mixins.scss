@@ -60,54 +60,50 @@
   display: flex;
   line-height: $Pollicino-FormField-height;
 
-  .FormField {
+  &-label {
+    font-weight: bold;
+    padding-right: 0.8rem;
+    flex: 0 1 auto;
+    white-space: nowrap;
+  }
 
-    &-label {
-      font-weight: bold;
-      padding-right: 0.8rem;
-      flex: 0 1 auto;
-      white-space: nowrap;
+  &-field {
+    position: relative;
+    flex: 0 1 auto;
+    min-width: 0; // makes text overflow ellip work
+
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      width: 100%; // fix IE11 child max-width ignoring field width
     }
 
-    &-field {
-      position: relative;
-      flex: 0 1 auto;
-      min-width: 0; // makes text overflow ellip work
+  }
 
-      @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-        width: 100%; // fix IE11 child max-width ignoring field width
-      }
+  &-error {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin: 0.2em 0 0 0;
+    padding: 0.3em 0.7em 0.35em;
+    background: $Pollicino-color-error;
+    color: #FFF;
+    font-size: calc(1rem - 2px);
+    line-height: 1.3;
+    z-index: 10;
 
-    }
-
-    &-error {
+    &:before {
+      content: '';
       position: absolute;
-      top: 100%;
-      left: 0;
-      margin: 0.2em 0 0 0;
-      padding: 0.3em 0.7em 0.35em;
-      background: $Pollicino-color-error;
-      color: #FFF;
-      font-size: calc(1rem - 2px);
-      line-height: 1.3;
-      z-index: 10;
-
-      &:before {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: 0.75em;
-        top: -1em;
-        border: 0.6em solid transparent;
-        border-bottom-color: $Pollicino-color-error;
-      }
+      width: 0;
+      height: 0;
+      left: 0.75em;
+      top: -1em;
+      border: 0.6em solid transparent;
+      border-bottom-color: $Pollicino-color-error;
     }
+  }
 
-    &-control {
-      line-height: 1.4;
-    }
-
+  &-control {
+    line-height: 1.4;
   }
 
   &.isInvalid .FormField {

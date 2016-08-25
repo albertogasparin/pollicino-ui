@@ -39,7 +39,10 @@ class Dropdown extends Component {
       return;
     }
 
-    document.addEventListener('click', this.handleClickOutside);
+    if (this.props.modal) {
+      document.addEventListener('click', this.handleClickOutside);
+    }
+
     this.setState({ isOpen: true });
     this.props.onOpen();
   }
@@ -62,10 +65,11 @@ class Dropdown extends Component {
   }
 
   render() {
-    let { className, children, label, disabled, align } = this.props;
+    let { className, children, label, disabled, align, modal } = this.props;
     let { isOpen } = this.state;
     className += isOpen ? ' isOpen' : '';
     className += disabled ? ' isDisabled' : '';
+    className += modal ? ' Dropdown--modal' : '';
 
     return (
       <div className={'Dropdown ' + className} ref="dropdown">
@@ -92,10 +96,12 @@ Dropdown.propTypes = {
   className: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.node, PropTypes.Bool]),
   disabled: PropTypes.bool,
+
   align: PropTypes.oneOf(['left', 'right']),
   autoClose: PropTypes.bool,
   opened: PropTypes.bool,
   children: PropTypes.node,
+  modal: PropTypes.bool,
 
   onOpen: PropTypes.func,
   onClose: PropTypes.func,
@@ -104,6 +110,7 @@ Dropdown.propTypes = {
 Dropdown.defaultProps = {
   className: '',
   align: 'right',
+  modal: true,
 
   onOpen() {},
   onClose() {},

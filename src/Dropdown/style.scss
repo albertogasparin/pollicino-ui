@@ -3,21 +3,6 @@
 .Dropdown {
   position: relative;
 
-  &.isOpen {
-    cursor: pointer; // needed by iOS
-
-    &:after { // overlay backdrop
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: $Pollicino-FormField-overlay-zIndex - 1;
-      cursor: default;
-    }
-  }
-
   &.isDisabled {
     .Dropdown-btn {
       opacity: 0.5;
@@ -88,6 +73,24 @@
 
     &[data-align="right"]:before,
     &[data-align="right"]:after { right: 0.95rem; }
+  }
+}
+
+
+.Dropdown--modal {
+  &.isOpen {
+    cursor: pointer; // needed by iOS
+
+    &:after { // overlay backdrop
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: $Pollicino-FormField-overlay-zIndex - 1;
+      cursor: default;
+    }
   }
 }
 

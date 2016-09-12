@@ -200,10 +200,6 @@ describe('<FormFieldSuggest />', () => {
       expect(instance.state.val).to.eql({ id: 1 });
     });
 
-    it('should call onBlur', () => {
-      expect(props.onBlur).to.have.been.called;
-    });
-
   });
 
 
@@ -241,7 +237,7 @@ describe('<FormFieldSuggest />', () => {
       instance = shallow(<FormFieldSuggest {...props} />).instance();
       instance.handleFocus();
       instance.handleBlur();
-      setTimeout(done, 120); // some calls are async
+      setTimeout(done, 320); // some calls are async
     });
 
     it('should unset focused state', () => {
@@ -260,11 +256,8 @@ describe('<FormFieldSuggest />', () => {
       expect(props.validation).to.have.been.called;
     });
 
-    it('should call onChange', (done) => {
-      setTimeout(() => {
-        expect(props.onChange).to.have.been.calledWith(null);
-        done();
-      }, 10);
+    it('should call onChange', () => {
+      expect(props.onChange).to.have.been.calledWith(null);
     });
 
   });

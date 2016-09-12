@@ -20,7 +20,6 @@ class FormFieldSuggest extends Component {
       cache: {},
       ...this.getPropsToState(props),
     };
-    this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
     this.getAsyncOptions = _debounce(this.getAsyncOptions, props.debounceLoad);
   }
 
@@ -82,7 +81,7 @@ class FormFieldSuggest extends Component {
       option = { [labelKey]: option, [valueKey]: option, isNewOption: true };
     }
 
-    this.setState({ val: option }, this.handleBlur);
+    this.setState({ val: option });
   }
 
   handleFocus(ev) {
@@ -91,12 +90,11 @@ class FormFieldSuggest extends Component {
   }
 
   handleBlur(ev) {
-    let { val } = this.state;
-
-    setTimeout(() => { // wait dropdown click
+    setTimeout(() => { // wait click
+      let { val } = this.state;
       this.setState({ focused: false, touched: true, input: '' }, this.validate);
-      this.triggerOnChange(val);
-    }, 100);
+      this.props.onChange(val);
+    }, 320);
 
     this.props.onBlur(ev);
   }
@@ -127,10 +125,6 @@ class FormFieldSuggest extends Component {
           ev.preventDefault();
         }
     }
-  }
-
-  triggerOnChange(...args) {
-    this.props.onChange(...args);
   }
 
   /**
@@ -265,7 +259,6 @@ FormFieldSuggest.propTypes = {
   name: PropTypes.string,
   id: PropTypes.string,
   disabled: PropTypes.bool,
-  debounce: PropTypes.number,
 
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   rows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -291,7 +284,6 @@ FormFieldSuggest.propTypes = {
 FormFieldSuggest.defaultProps = {
   className: '',
   value: '',
-  debounce: 200,
 
   size: 100,
   rows: 7.5,

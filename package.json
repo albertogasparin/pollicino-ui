@@ -47,13 +47,13 @@
   },
   "dependencies": {
     "lodash": "^4.1.0",
-    "react-day-picker": "~2.4.0",
+    "react-day-picker": "~2.5.0",
     "react-simple-colorpicker": "~1.4.0",
     "sortablejs": "~1.4.2"
   },
   "devDependencies": {
-    "@kadira/react-storybook-addon-info": "^3.2.0",
-    "@kadira/storybook": "^1.41.0",
+    "@kadira/react-storybook-addon-info": "^3.2.2",
+    "@kadira/storybook": "^2.24.0",
     "autoprefixer": "^6.3.0",
     "babel-cli": "^6.11.0",
     "babel-core": "^6.13.0",

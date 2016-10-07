@@ -35,6 +35,16 @@ storiesOf('Btn', module)
         <Icon glyph="magnify" />
       </button>
 
+      <h4>Loading</h4>
+      <Btn className="Btn Btn--primary" loading data-tip="Tooltip">
+        Button loading
+      </Btn>
+      &nbsp;
+      <Btn className="Btn Btn--outline Btn--square" loading>
+        <Icon glyph="magnify" />
+      </Btn>
+
+
       <h4>Disabled</h4>
       <button className="Btn Btn--primary" disabled>Button</button>
 

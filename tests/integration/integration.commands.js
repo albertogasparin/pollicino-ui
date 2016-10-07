@@ -1,2 +1,2 @@
-/* eslint-env mocha *//* global browser */
+/* eslint-env mocha */
 

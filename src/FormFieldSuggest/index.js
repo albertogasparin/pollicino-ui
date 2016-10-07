@@ -86,17 +86,20 @@ class FormFieldSuggest extends Component {
 
   handleFocus(ev) {
     this.setState({ focused: true });
+    clearTimeout(this.blurTimeout);
     this.props.onFocus(ev);
   }
 
   handleBlur(ev) {
-    setTimeout(() => { // wait click
+    ev.persist();
+    this.blurTimeout = setTimeout(() => { // wait click
       let { val } = this.state;
-      this.setState({ focused: false, touched: true, input: '' }, this.validate);
+      if (this.refs.control) { // still mounted
+        this.setState({ focused: false, touched: true, input: '' }, this.validate);
+      }
       this.props.onChange(val);
+      this.props.onBlur(ev);
     }, 320);
-
-    this.props.onBlur(ev);
   }
 
   handleKeyDown(ev) { // eslint-disable-line complexity

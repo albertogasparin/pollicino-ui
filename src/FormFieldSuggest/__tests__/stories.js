@@ -6,7 +6,7 @@ import FormFieldSuggest from '..';
 storiesOf('FormFieldSuggest', module)
 
   .addWithInfo('description', '', () => (
-    <FormFieldSuggest className=""
+    <FormFieldSuggest name="field"
       label="Label"
       options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
       onChange={action('change')}
@@ -17,7 +17,7 @@ storiesOf('FormFieldSuggest', module)
     <div>
       <h4>Default style</h4>
       <div className="w2">
-        <FormFieldSuggest
+        <FormFieldSuggest name="default"
           label="Label"
           options={[
             { label: 'One', value: 1 }, { label: 'Two', value: 2 }, { label: 'Three', value: 3 },

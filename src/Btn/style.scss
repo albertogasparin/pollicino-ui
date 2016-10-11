@@ -42,13 +42,12 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
   }
 
   &[data-tip]:hover {
-    z-index: $Pollicino-FormField-overlay-zIndex + 1; // over other stuff
-
     &:after {
       transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
       max-height: none;
       opacity: 1;
       transform: translate(0, -50%);
+      z-index: $Pollicino-FormField-overlay-zIndex + 1; // over other stuff
     }
   }
 

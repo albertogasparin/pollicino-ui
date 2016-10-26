@@ -16,7 +16,10 @@
 
   &.isDisabled .FormField-control {
     @include FormField-isDisabled;
-    color: #F4F4F4;
+
+    &::-webkit-slider-runnable-track { background: rgba($Pollicino-color-light, 0.25); }
+    &::-moz-range-track { background: rgba($Pollicino-color-light, 0.25); }
+    &::-ms-fill-lower, &::-ms-fill-upper { background: rgba($Pollicino-color-light, 0.25); }
   }
 
 }

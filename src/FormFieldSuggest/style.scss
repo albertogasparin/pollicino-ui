@@ -40,7 +40,7 @@
     line-height: $Pollicino-FormField-height;
     cursor: pointer;
 
-    &:before {
+    &::before {
       content: '';
       position: absolute;
       left: 0;
@@ -51,11 +51,11 @@
       opacity: 0;
     }
 
-    &:hover:before {
+    &:hover::before {
       opacity: 0.2;
     }
 
-    &.isSelected:before {
+    &.isSelected::before {
       opacity: 1;
     }
 

@@ -15,7 +15,7 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
     opacity: 0.2;
   }
 
-  &[data-tip]:not([data-tip=""]):after {
+  &[data-tip]:not([data-tip=""])::after {
     @include text-clip;
     content: attr(data-tip);
     position: absolute;
@@ -35,14 +35,14 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
     backface-visibility: hidden;
   }
 
-  &[data-tip][data-tip-right]:after {
+  &[data-tip][data-tip-right]::after {
     left: auto;
     right: 100%;
     transform: translate(1em, -50%);
   }
 
   &[data-tip]:hover {
-    &:after {
+    &::after {
       transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
       max-height: none;
       opacity: 1;
@@ -53,10 +53,11 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
 
   &.isLoading {
     pointer-events: none;
+    opacity: 0.99; // force reflow to fix text disapperaing bug on Chrome
 
     & > :not(.Icon--loading) { opacity: 0; }
-    &:first-line { color: rgba(#000, 0); }
-    &[data-tip]:after { display: none; }
+    &::first-line { color: rgba(#000, 0); }
+    &[data-tip]::after { display: none; }
 
     .Icon--loading {
       position: absolute;

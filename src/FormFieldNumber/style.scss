@@ -40,24 +40,24 @@
     border-left: 1px solid $Pollicino-color-lighter;
     opacity: 0.8;
 
-    &:before {
+    &::before {
       content: '';
       display: block;
       border: rem(4px) solid transparent;
     }
 
-    &[disabled]:before { opacity: 0.4; }
+    &[disabled]::before { opacity: 0.4; }
 
     &--plus {
       top: 1px;
 
-      &:before { border-bottom-color: currentColor; }
+      &::before { border-bottom-color: currentColor; }
     }
 
     &--minus {
       bottom: 1px;
 
-      &:before { border-top-color: currentColor; }
+      &::before { border-top-color: currentColor; }
     }
   }
 

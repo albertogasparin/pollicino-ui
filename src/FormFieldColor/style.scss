@@ -66,8 +66,8 @@
       height: 100%;
       width: 100%;
 
-      &:before,
-      &:after {
+      &::before,
+      &::after {
         content: '';
         display: block;
         position: absolute;
@@ -77,11 +77,11 @@
         right: 0;
       }
 
-      &:after {
+      &::after {
         background: linear-gradient(to bottom, rgba(#000, 0), rgba(#000, 1));
       }
 
-      &:before {
+      &::before {
         background: linear-gradient(to right, rgba(#FFF, 1), rgba(#FFF, 0));
       }
     }

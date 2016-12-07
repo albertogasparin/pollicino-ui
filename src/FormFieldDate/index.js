@@ -7,20 +7,6 @@ import Dropdown from '../Dropdown';
 import FormFieldTick from '../FormFieldTick';
 import FormFieldSelect from '../FormFieldSelect';
 
-const DAYS_SHORT = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
-const DAYS_LONG = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const FIRST_DAY = 1;
-
-// override LocaleUtils
-const localeUtils = {
-  formatDay: LocaleUtils.formatDay,
-  formatMonthTitle: LocaleUtils.formatMonthTitle,
-  formatWeekdayShort: (i, locale) => DAYS_SHORT[i],
-  formatWeekdayLong: (i, locale) => DAYS_LONG[i],
-  getFirstDayOfWeek: (locale) => FIRST_DAY,
-};
-
-
 class FormFieldDate extends Component {
 
   constructor(props) {
@@ -211,7 +197,7 @@ class FormFieldDate extends Component {
   }
 
   renderDayPicker() {
-    let { isRange, yearDropdown, minDate, maxDate } = this.props;
+    let { isRange, yearDropdown, minDate, maxDate, localization, firstDayOfWeek } = this.props;
     let { val, initialMonth } = this.state;
     let modifiers = {
       isSelected: (day) => {
@@ -225,7 +211,7 @@ class FormFieldDate extends Component {
     let maxYear = (maxDate || new Date()).getFullYear();
     let DayPickerHeader = ({ date, locale }) => (
       <header className="DayPicker-Caption">
-        {localeUtils.formatMonthTitle(date, locale).split(' ')[0] + ' '}
+        {LocaleUtils.formatMonthTitle(date, locale).split(' ')[0] + ' '}
         {yearDropdown && minYear !== maxYear
           ? <FormFieldSelect className="DayPicker-yearField" name={name}
               value={date.getFullYear()}
@@ -239,7 +225,8 @@ class FormFieldDate extends Component {
 
     return (
       <DayPicker className="FormField-datePicker"
-        localeUtils={localeUtils}
+        {...localization}
+        firstDayOfWeek={firstDayOfWeek}
         modifiers={modifiers} enableOutsideDays
         initialMonth={initialMonth}
         captionElement={<DayPickerHeader />}
@@ -295,6 +282,13 @@ FormFieldDate.propTypes = {
   align: PropTypes.oneOf(['left', 'right']),
   yearDropdown: PropTypes.bool,
 
+  firstDayOfWeek: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6]),
+  localization: PropTypes.shape({
+    months: PropTypes.arrayOf(React.PropTypes.string),
+    weekdaysLong: PropTypes.arrayOf(React.PropTypes.string),
+    weekdaysShort: PropTypes.arrayOf(React.PropTypes.string),
+  }),
+
   validation: PropTypes.func,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
@@ -309,6 +303,8 @@ FormFieldDate.defaultProps = {
 
   options: [],
   align: 'left',
+  firstDayOfWeek: 1,
+  localization: {},
 
   validation() {},
   onChange() {},

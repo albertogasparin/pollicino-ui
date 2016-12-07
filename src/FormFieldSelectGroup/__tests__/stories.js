@@ -78,7 +78,7 @@ storiesOf('FormFieldSelectGroup', module)
           />
         </div>
 
-        <h4>Inline, zero optionsPerRow, block level, inverted</h4>
+        <h4>Inline, zero optionsPerRow, block label, inverted</h4>
         <div className="w2 dark">
           <FormFieldSelectGroup className="FormField--invert FormField--block" name="i2"
             label="Label:" placeholder="Any number" inline
@@ -87,8 +87,27 @@ storiesOf('FormFieldSelectGroup', module)
           />
         </div>
 
+        <h4>Inline tabbed</h4>
+        <div>
+          <FormFieldSelectGroup name="i3"
+            label="Label:" placeholder="Any number" inline="tabbed"
+            options={[{ label: '1 One', value: 1 }, { label: '2', value: 2 }]}
+          />
+        </div>
+
+        <h4>Inline tabbed inverted, block label, hide placeholder</h4>
+        <div className="w2 dark">
+          <FormFieldSelectGroup className="FormField--block" name="i4"
+            label="Label:" hidePlaceholder inline="tabbed"
+            options={[
+              { label: 'One', value: 1 }, { label: '2', value: 2 },
+              { label: 'Three or three', value: 3 }, { label: 'Four', value: 4 },
+            ]}
+          />
+        </div>
+
         <h4>Inline, multiple, invalid, hide placeholder</h4>
-        <FormFieldSelectGroup name="i3"
+        <FormFieldSelectGroup name="i5"
           ref={(c) => c && c.validate()}
           label="Label:" hidePlaceholder inline multiple
           value={[1]}

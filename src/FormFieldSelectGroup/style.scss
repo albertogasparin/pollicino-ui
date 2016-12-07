@@ -62,3 +62,45 @@
 }
 
 
+.FormField--selectGroup .FormField-groupList--tabbed {
+  display: flex;
+  width: 100em;
+  max-width: 100%;
+}
+
+.FormField--selectGroup .FormField-groupList--tabbed .FormField {
+
+  &-groupItem {
+    float: none;
+    flex: 0 1 auto;
+    min-width: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  &--radiobox {
+    display: block;
+    height: $Pollicino-FormField-height;
+    border: 1px solid $Pollicino-color-lighter;
+    border-right-width: 0;
+
+    .FormField-tick { display: none; }
+    .FormField-value { padding: 0 0.6em; }
+
+    &.isChecked .FormField-value {
+      background: rgba(#BBB, 0.4);
+      box-shadow: inset 0 3px 5px rgba(#000, 0.15);
+    }
+  }
+
+  &-groupItem:first-child .FormField--radiobox {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+
+  &-groupItem:last-child .FormField--radiobox {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-right-width: 1px;
+  }
+}

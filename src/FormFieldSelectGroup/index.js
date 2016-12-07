@@ -129,7 +129,7 @@ class FormFieldSelectGroup extends Component {
             />
           </div>
         }
-        <ul className={'FormField-groupList ' + (inline ? '' : 'FormField-groupList--overflow')}>
+        <ul className={'FormField-groupList FormField-groupList--' + (inline || 'overflow')}>
           {opts.filter((o) => this.isOptionVisible(o)).map((o, i) => (
             <li key={o.value} className="FormField-groupItem"
               style={{ width: 100 / optionsPerRow + '%' }}
@@ -199,7 +199,7 @@ FormFieldSelectGroup.propTypes = {
   valueRenderer: PropTypes.func,
   hidePlaceholder: PropTypes.bool,
   align: PropTypes.oneOf(['left', 'right']),
-  inline: PropTypes.bool,
+  inline: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   withSearch: PropTypes.bool,
   optionsPerRow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   multiple: PropTypes.bool,

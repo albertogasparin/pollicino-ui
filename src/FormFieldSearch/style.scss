@@ -41,18 +41,19 @@
 
 
 /**
- * Field modifiers
+ * Modifiers
  */
 
-.FormField--search { /* stylelint-disable-line no-duplicate-selectors */
-  &.FormField--block {
-    @include FormField--block;
-  }
+.FormField--search.FormField--block {
+  @include FormField--block;
+}
 
-  &.FormField--invert {
-    .FormField-control {
-      @include FormField-control--inverted;
-    }
+
+.FormField--search.FormField--invert {}
+
+.FormField--search.FormField--invert .FormField {
+  &-control {
+    @include FormField-control--inverted;
   }
 }
 

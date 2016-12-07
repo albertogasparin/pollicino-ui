@@ -54,13 +54,11 @@
 
 
 /**
- * Field modifiers
+ * Modifiers
  */
 
-.FormField--selectGroup { /* stylelint-disable-line no-duplicate-selectors */
-  &.FormField--block {
-    @include FormField--block;
-  }
+.FormField--selectGroup.FormField--block {
+  @include FormField--block;
 }
 
 

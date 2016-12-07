@@ -81,12 +81,10 @@
 }
 
 /**
- * Field modifiers
+ * Modifiers
  */
 
-.FormField--range { /* stylelint-disable-line no-duplicate-selectors */
-  &.FormField--block {
-    @include FormField--block;
-  }
+.FormField--range.FormField--block {
+  @include FormField--block;
 }
 

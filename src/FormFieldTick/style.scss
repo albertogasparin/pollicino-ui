@@ -62,10 +62,9 @@
  * Field modifiers
  */
 
-.FormField--radiobox, .FormField--checkbox { /* stylelint-disable-line no-duplicate-selectors */
-  &.FormField--block {
-    @include FormField--block;
-  }
+.FormField--radiobox.FormField--block,
+.FormField--checkbox.FormField--block {
+  @include FormField--block;
 }
 
 

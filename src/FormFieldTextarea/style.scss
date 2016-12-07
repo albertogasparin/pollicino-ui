@@ -33,14 +33,15 @@
  * Field modifiers
  */
 
-.FormField--textarea { /* stylelint-disable-line no-duplicate-selectors */
-  &.FormField--block {
-    @include FormField--block;
-  }
+.FormField--textarea.FormField--block {
+  @include FormField--block;
+}
 
-  &.FormField--invert {
-    .FormField-control {
-      @include FormField-control--inverted;
-    }
+
+.FormField--textarea.FormField--invert {}
+
+.FormField--textarea.FormField--invert .FormField {
+  &-control {
+    @include FormField-control--inverted;
   }
 }

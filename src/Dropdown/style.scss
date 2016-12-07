@@ -99,15 +99,9 @@
 }
 
 
-.Dropdown--field {}
-
-.Dropdown--field .Dropdown {
-  &-overlay {
-    min-width: 17rem;
-  }
-}
-
-
+/**
+ * Modifiers
+ */
 
 .Dropdown--noArrow {}
 
@@ -126,6 +120,8 @@
 
 }
 
+
+.Dropdown--cover {}
 
 .Dropdown--cover .Dropdown {
   &-overlay[data-align] {

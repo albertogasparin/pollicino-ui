@@ -65,21 +65,20 @@
 
 
 /**
- * Field modifiers
+ * Modifiers
  */
 
-.FormField--number { /* stylelint-disable-line no-duplicate-selectors */
+.FormField--number.FormField--block {
+  @include FormField--block;
+}
 
-  &.FormField--block {
-    @include FormField--block;
-  }
 
-  &.FormField--invert {
+.FormField--number.FormField--invert {}
 
-    .FormField-control {
-      @include FormField-control--inverted;
-    }
+.FormField--number.FormField--invert .FormField {
 
-    .FormField-spin { border-color: rgba(#FFF, 0.25); }
+  &-control {
+    @include FormField-control--inverted;
   }
 }
+

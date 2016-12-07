@@ -7,7 +7,7 @@ storiesOf('FormFieldSuggest', module)
 
   .addWithInfo('description', '', () => (
     <FormFieldSuggest name="field"
-      label="Label"
+      label="Label" placeholder="Select a number"
       options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
       onChange={action('change')}
     />

@@ -39,17 +39,18 @@
 }
 
 /**
- * Field modifiers
+ * Modifiers
  */
 
-.FormField--password { /* stylelint-disable-line no-duplicate-selectors */
-  &.FormField--block {
-    @include FormField--block;
-  }
+.FormField--password.FormField--block {
+  @include FormField--block;
+}
 
-  &.FormField--invert {
-    .FormField-control {
-      @include FormField-control--inverted;
-    }
+
+.FormField--password.FormField--invert {}
+
+.FormField--password.FormField--invert .FormField {
+  &-control {
+    @include FormField-control--inverted;
   }
 }

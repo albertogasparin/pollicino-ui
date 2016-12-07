@@ -50,5 +50,13 @@ storiesOf('FormFieldRange', module)
       <div className="w2">
         <FormFieldRange disabled />
       </div>
+
+      <h4>Inverted disabled</h4>
+      <div className="w2 dark">
+        <FormFieldRange className="FormField--invert"
+          label="Label" disabled
+        />
+      </div>
+
     </div>
   ));

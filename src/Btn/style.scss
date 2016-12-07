@@ -68,6 +68,11 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
   }
 }
 
+
+/**
+ * Modifiers
+ */
+
 .Btn--plain {
   line-height: $Pollicino-Btn-height;
 }
@@ -102,9 +107,7 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
   text-align: center;
 
   &.isLoading {
-    .Icon--loading {
-      font-size: 0.75em;
-    }
+    .Icon--loading { font-size: 0.75em; }
   }
 }
 

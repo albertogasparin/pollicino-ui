@@ -79,17 +79,18 @@
 
 
 /**
- * Field modifiers
+ * Modifiers
  */
 
-.FormField--suggest { /* stylelint-disable-line no-duplicate-selectors */
-  &.FormField--block {
-    @include FormField--block;
-  }
+.FormField--suggest.FormField--block {
+  @include FormField--block;
+}
 
-  &.FormField--invert {
-    .FormField-control {
-      @include FormField-control--inverted;
-    }
+
+.FormField--suggest.FormField--invert {}
+
+.FormField--suggest.FormField--invert .FormField {
+  &-control {
+    @include FormField-control--inverted;
   }
 }

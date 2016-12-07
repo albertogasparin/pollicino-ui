@@ -63,11 +63,9 @@
 }
 
 /**
- * Field modifiers
+ * Modifiers
  */
 
-.FormField--select { /* stylelint-disable-line no-duplicate-selectors */
-  &.FormField--block {
-    @include FormField--block;
-  }
+.FormField--select.FormField--block {
+  @include FormField--block;
 }

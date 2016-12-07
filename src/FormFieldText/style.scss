@@ -26,17 +26,18 @@
 
 
 /**
- * Field modifiers
+ * Modifiers
  */
 
-.FormField--text { /* stylelint-disable-line no-duplicate-selectors */
-  &.FormField--block {
-    @include FormField--block;
-  }
+.FormField--text.FormField--block {
+  @include FormField--block;
+}
 
-  &.FormField--invert {
-    .FormField-control {
-      @include FormField-control--inverted;
-    }
+
+.FormField--text.FormField--invert {}
+
+.FormField--text.FormField--invert .FormField {
+  &-control {
+    @include FormField-control--inverted;
   }
 }

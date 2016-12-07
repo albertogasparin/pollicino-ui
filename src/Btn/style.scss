@@ -2,6 +2,18 @@
 
 $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // stylelint-disable-line length-zero-no-unit
 
+@keyframes BtnClicked {
+  0% { transform: scale(1); }
+  30% { transform: scale(0.8); }
+  70% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes BtnClickedHideTip {
+  0% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
 .Btn {
   @include button-reset;
   position: relative;
@@ -10,14 +22,14 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
   border-radius: 3px;
   text-align: center;
   user-select: none;
+  animation: BtnClicked 0s ease 0s;
 
   &[disabled] {
     opacity: 0.2;
   }
 
-  &[data-tip]:not([data-tip=""])::after {
+  &[data-tip]::after {
     @include text-clip;
-    content: attr(data-tip);
     position: absolute;
     top: 50%;
     left: 100%;
@@ -28,27 +40,47 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
     border-radius: 2em;
     background: rgba(#000, 0.8);
     color: #FFF;
-    font-size: calc(1em - 3px);
+    font-size: calc(1rem - 3px);
     line-height: $Pollicino-Btn-height - 0.6em;
     opacity: 0;
     pointer-events: none;
     backface-visibility: hidden;
+    animation: BtnClickedHideTip 0s ease 0s;
   }
 
-  &[data-tip][data-tip-right]::after {
+  &[data-tip]:not([data-tip=""])::after {
+    content: attr(data-tip);
+  }
+
+  &[data-tip-right]::after {
     left: auto;
     right: 100%;
     transform: translate(1em, -50%);
   }
 
-  &[data-tip]:hover {
-    &::after {
-      transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
-      max-height: none;
-      opacity: 1;
-      transform: translate(0, -50%);
-      z-index: $Pollicino-FormField-overlay-zIndex + 1; // over other stuff
+  &[data-tip]:hover::after {
+    transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
+    max-height: none;
+    opacity: 1;
+    transform: translate(0, -50%);
+    z-index: $Pollicino-FormField-overlay-zIndex + 1; // over other stuff
+  }
+
+
+  &:active {
+    animation: none;
+
+    &[data-tip]::after {
+      animation: none;
+      opacity: 0;
+      transition: none;
     }
+  }
+
+  &:focus {
+    animation-duration: 0.6s;
+
+    &[data-tip]::after { animation-duration: 0.6s; }
   }
 
   &.isLoading {

@@ -19,11 +19,16 @@ storiesOf('Btn', module)
     <div>
       <h4>Primary with tooltip</h4>
       <style>{`
-        .Btn.Btn--primary[data-tip]:after {
+        .Btn.Btn--primary[data-tip]::after {
           transform: translate(0, -50%); max-height: none; opacity: 1;
         }`
       }</style>
-      <Btn className="Btn--primary" data-tip="Tooltip">Button</Btn>
+      <div className="left w2">
+        <Btn className="Btn--primary" data-tip="Tooltip">Button</Btn>
+      </div>
+      <small>
+        <Btn className="Btn--primary" data-tip="Tooltip right" data-tip-right>Button 2</Btn>
+      </small>
 
       <h4>Secondary and clipped</h4>
       <p style={{ width: 120 }}>
@@ -36,11 +41,11 @@ storiesOf('Btn', module)
       </button>
 
       <h4>Loading</h4>
-      <Btn className="Btn Btn--primary" loading data-tip="Tooltip">
+      <Btn className="Btn--primary" loading data-tip="Tooltip">
         Button loading
       </Btn>
       &nbsp;
-      <Btn className="Btn Btn--outline Btn--square" loading>
+      <Btn className="Btn--outline Btn--square" loading>
         <Icon glyph="magnify" />
       </Btn>
 

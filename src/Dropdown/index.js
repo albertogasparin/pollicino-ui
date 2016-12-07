@@ -28,8 +28,8 @@ class Dropdown extends Component {
 
   handleClickOutside(ev) {
     let { dropdown } = this.refs;
-    if (this.props.autoClose
-      || !dropdown || !dropdown.contains(ev.target) || dropdown === ev.target) {
+    let isClickOutside = !dropdown || !dropdown.contains(ev.target) || dropdown === ev.target;
+    if (this.props.autoClose || isClickOutside) {
       this.handleClose();
     }
   }
@@ -40,7 +40,9 @@ class Dropdown extends Component {
     }
 
     if (this.props.modal) {
-      document.addEventListener('click', this.handleClickOutside);
+      setTimeout(() => { // defer to avoid catching event that opened the dd
+        document.addEventListener('click', this.handleClickOutside);
+      }, 300);
     }
 
     this.setState({ isOpen: true });

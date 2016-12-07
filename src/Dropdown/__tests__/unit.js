@@ -90,10 +90,13 @@ describe('<Dropdown />', () => {
       instance.handleOpen();
     });
 
-    it('should add a click ev listener on document', () => {
-      expect(global.document.addEventListener).to.have.been.calledWith(
-        'click', instance.handleClickOutside
-      );
+    it('should lazily add a click ev listener on document', (done) => {
+      setTimeout(() => {
+        expect(global.document.addEventListener).to.have.been.calledWith(
+          'click', instance.handleClickOutside
+        );
+        done();
+      }, 300);
     });
 
     it('should set isOpen state', () => {

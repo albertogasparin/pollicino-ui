@@ -218,13 +218,13 @@ class FormFieldSuggest extends Component {
   }
 
   render() { // eslint-disable-line complexity
-    let { className, label, disabled, size, labelKey, allowAny } = this.props;
+    let { className, style, label, disabled, size, labelKey, allowAny } = this.props;
     let { id, val, errors, focused, input } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += errors ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
     return (
-      <div className={'FormField FormField--suggest ' + className}>
+      <div className={'FormField FormField--suggest ' + className} style={style}>
         {typeof label !== 'undefined' &&
           <label className="FormField-label" htmlFor={id}>{label}</label>
         }
@@ -256,6 +256,7 @@ class FormFieldSuggest extends Component {
 
 FormFieldSuggest.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   label: PropTypes.node,
   value: PropTypes.any,
   placeholder: PropTypes.string,

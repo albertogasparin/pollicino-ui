@@ -67,14 +67,14 @@ class Dropdown extends Component {
   }
 
   render() {
-    let { className, children, label, disabled, align, modal } = this.props;
+    let { className, style, children, label, disabled, align, modal } = this.props;
     let { isOpen } = this.state;
     className += isOpen ? ' isOpen' : '';
     className += disabled ? ' isDisabled' : '';
     className += modal ? ' Dropdown--modal' : '';
 
     return (
-      <div className={'Dropdown ' + className} ref="dropdown">
+      <div className={'Dropdown ' + className} style={style} ref="dropdown">
         {typeof label !== 'undefined' &&
           <button className="Dropdown-btn"
             type="button" disabled={disabled}
@@ -96,6 +96,7 @@ class Dropdown extends Component {
 
 Dropdown.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   label: PropTypes.oneOfType([PropTypes.node, PropTypes.Bool]),
   disabled: PropTypes.bool,
 

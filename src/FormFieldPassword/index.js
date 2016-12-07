@@ -89,13 +89,13 @@ class FormFieldPassword extends Component {
   }
 
   render() {
-    let { className, label, disabled, size } = this.props;
+    let { className, style, label, disabled, size } = this.props;
     let { id, val, type, errors, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += errors ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
     return (
-      <div className={'FormField FormField--password ' + className}>
+      <div className={'FormField FormField--password ' + className} style={style}>
         {typeof label !== 'undefined' &&
           <label className="FormField-label" htmlFor={id}>{label}</label>
         }
@@ -120,6 +120,7 @@ class FormFieldPassword extends Component {
 
 FormFieldPassword.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   label: PropTypes.node,
   value: PropTypes.string,
   placeholder: PropTypes.string,

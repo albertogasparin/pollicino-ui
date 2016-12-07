@@ -66,11 +66,11 @@ class FormFieldColor extends Component {
   }
 
   render() {
-    let { className, label, disabled, align } = this.props;
+    let { className, style, label, disabled, align } = this.props;
     className += disabled ? ' isDisabled' : '';
 
     return (
-      <div className={'FormField FormField--color ' + className}>
+      <div className={'FormField FormField--color ' + className} style={style}>
         {typeof label !== 'undefined' &&
           <label className="FormField-label">{label}</label>
         }
@@ -91,6 +91,7 @@ class FormFieldColor extends Component {
 
 FormFieldColor.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   label: PropTypes.node,
   value: PropTypes.string,
   disabled: PropTypes.bool,

@@ -54,13 +54,13 @@ class FormFieldTick extends Component {
   }
 
   render() { // eslint-disable-line complexity
-    let { className, label, value, type, disabled } = this.props;
+    let { className, style, label, value, type, disabled } = this.props;
     let { id, checked } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += checked ? ' isChecked' : '';
     let boxtype = type === 'radio' ? 'radiobox' : type;
     return (
-      <div className={'FormField FormField--' + boxtype + ' ' + className}>
+      <div className={'FormField FormField--' + boxtype + ' ' + className} style={style}>
         <input id={id} className="FormField-control"
           checked={checked}
           {..._pick(this.props, INPUT_PROPS)}
@@ -84,6 +84,7 @@ class FormFieldTick extends Component {
 
 FormFieldTick.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   label: PropTypes.node,
   value: PropTypes.any.isRequired,
   name: PropTypes.string,

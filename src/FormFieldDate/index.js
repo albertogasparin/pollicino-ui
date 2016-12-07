@@ -236,14 +236,14 @@ class FormFieldDate extends Component {
   }
 
   render() {
-    let { className, label, disabled, align } = this.props;
+    let { className, style, label, disabled, align } = this.props;
     let { val, errors, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += errors ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
 
     return (
-      <div className={'FormField FormField--date ' + className}>
+      <div className={'FormField FormField--date ' + className} style={style}>
         {typeof label !== 'undefined' &&
           <label className="FormField-label">{label}</label>
         }
@@ -267,6 +267,7 @@ class FormFieldDate extends Component {
 
 FormFieldDate.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   label: PropTypes.node,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   placeholder: PropTypes.string,

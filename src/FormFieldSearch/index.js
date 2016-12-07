@@ -52,12 +52,12 @@ class FormFieldSearch extends Component {
   }
 
   render() {
-    let { className, disabled, size } = this.props;
+    let { className, style, disabled, size } = this.props;
     let { id, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += focused ? ' isFocused' : '';
     return (
-      <div className={'FormField FormField--search ' + className}>
+      <div className={'FormField FormField--search ' + className} style={style}>
         <div className="FormField-field">
           <Icon className="FormField-icon" glyph="magnify" />
           <input id={id} className="FormField-control FormField-control--iconL" type="text"
@@ -76,6 +76,7 @@ class FormFieldSearch extends Component {
 
 FormFieldSearch.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   value: PropTypes.string,
   placeholder: PropTypes.string,
   name: PropTypes.string,

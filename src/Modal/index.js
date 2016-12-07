@@ -4,13 +4,14 @@ import Btn from '../Btn';
 
 const Modal = ({
   className,
+  style,
   title,
   message,
   buttons,
   onClose,
 }) => {
   return (
-    <div className={'Modal ' + className}>
+    <div className={'Modal ' + className} style={style}>
       <div className="Modal-box">
         <header className="Modal-header">
           <h3 className="Modal-title">
@@ -40,6 +41,7 @@ const Modal = ({
 
 Modal.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   title: PropTypes.node,
   message: PropTypes.node,
   buttons: PropTypes.arrayOf(PropTypes.object),

@@ -151,7 +151,7 @@ class FormFieldSelectGroup extends Component {
   }
 
   render() { // eslint-disable-line complexity
-    let { className, label, disabled, valueRenderer, placeholder, multiple } = this.props;
+    let { className, style, label, disabled, valueRenderer, placeholder, multiple } = this.props;
     let { val, errors, focused } = this.state;
     let checkedOpts = this.findOptions(val) || [{ label: placeholder, value: val }];
 
@@ -160,7 +160,7 @@ class FormFieldSelectGroup extends Component {
     className += focused ? ' isFocused' : '';
 
     return (
-      <div className={'FormField FormField--selectGroup ' + className}>
+      <div className={'FormField FormField--selectGroup ' + className} style={style}>
         {typeof label !== 'undefined' &&
           <label className="FormField-label">{label}</label>
         }
@@ -187,6 +187,7 @@ class FormFieldSelectGroup extends Component {
 
 FormFieldSelectGroup.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   label: PropTypes.node,
   value: PropTypes.any,
   placeholder: PropTypes.string,

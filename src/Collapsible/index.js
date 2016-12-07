@@ -37,14 +37,14 @@ class Collapsible extends Component {
   }
 
   render() {
-    let { className, children, header, disabled } = this.props;
+    let { className, style, children, header, disabled } = this.props;
     let { isExpanded, isAnimating } = this.state;
     className += isExpanded ? ' isExpanded' : ' isCollapsed';
     className += isAnimating ? ' isAnimating' : '';
     className += disabled ? ' isDisabled' : '';
 
     return (
-      <div className={'Collapsible ' + className} ref="collapsible">
+      <div className={'Collapsible ' + className} style={style} ref="collapsible">
         <header className="Collapsible-header">
           {header}
           <button className="Collapsible-btn"
@@ -67,6 +67,7 @@ class Collapsible extends Component {
 
 Collapsible.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   header: PropTypes.node.isRequired,
   disabled: PropTypes.bool,
   expanded: PropTypes.bool,

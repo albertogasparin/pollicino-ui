@@ -77,7 +77,7 @@ class FormFieldSelect extends Component {
   }
 
   render() {
-    let { className, label, valueRenderer, disabled } = this.props;
+    let { className, style, label, valueRenderer, disabled } = this.props;
     let { id, opts, val, errors, focused } = this.state;
     let selectedOpt = this.findOption(val) || {};
     className += disabled ? ' isDisabled' : '';
@@ -85,7 +85,7 @@ class FormFieldSelect extends Component {
     className += focused ? ' isFocused' : '';
 
     return (
-      <div className={'FormField FormField--select ' + className}>
+      <div className={'FormField FormField--select ' + className} style={style}>
         {typeof label !== 'undefined' &&
           <label className="FormField-label" htmlFor={id}>{label}</label>
         }
@@ -115,6 +115,7 @@ class FormFieldSelect extends Component {
 
 FormFieldSelect.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   label: PropTypes.node,
   value: PropTypes.any,
   name: PropTypes.string,

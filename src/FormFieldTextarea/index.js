@@ -67,13 +67,13 @@ class FormFieldTextarea extends Component {
   }
 
   render() {
-    let { className, label, disabled, cols, rows } = this.props;
+    let { className, style, label, disabled, cols, rows } = this.props;
     let { id, val, errors, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += errors ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
     return (
-      <div className={'FormField FormField--textarea ' + className}>
+      <div className={'FormField FormField--textarea ' + className} style={style}>
         {typeof label !== 'undefined' &&
           <label className="FormField-label" htmlFor={id}>{label}</label>
         }
@@ -97,6 +97,7 @@ class FormFieldTextarea extends Component {
 
 FormFieldTextarea.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   label: PropTypes.node,
   value: PropTypes.string,
   placeholder: PropTypes.string,

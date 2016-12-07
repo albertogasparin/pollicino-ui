@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const Icon = ({ glyph, className, width, height }) => {
+const Icon = ({ glyph, className, style, width, height }) => {
   if (glyph === 'loading') {
     return (
       <i className={'Icon Icon--loading ' + className}>
@@ -11,7 +11,7 @@ const Icon = ({ glyph, className, width, height }) => {
 
   require(`assets/icons/${glyph}.svg`);
   return (
-    <svg className={'Icon Icon--' + glyph + ' ' + className}
+    <svg className={'Icon Icon--' + glyph + ' ' + className} style={style}
       width={width} height={height}
     >
       <use xlinkHref={`#i-${glyph}`} />
@@ -21,6 +21,7 @@ const Icon = ({ glyph, className, width, height }) => {
 
 Icon.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   glyph: PropTypes.string.isRequired,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

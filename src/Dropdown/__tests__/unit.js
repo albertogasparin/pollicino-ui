@@ -96,7 +96,7 @@ describe('<Dropdown />', () => {
           'click', instance.handleClickOutside
         );
         done();
-      }, 300);
+      }, 50);
     });
 
     it('should set isOpen state', () => {

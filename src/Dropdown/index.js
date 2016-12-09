@@ -42,7 +42,7 @@ class Dropdown extends Component {
     if (this.props.modal) {
       setTimeout(() => { // defer to avoid catching event that opened the dd
         document.addEventListener('click', this.handleClickOutside);
-      }, 300);
+      }, 40);
     }
 
     this.setState({ isOpen: true });

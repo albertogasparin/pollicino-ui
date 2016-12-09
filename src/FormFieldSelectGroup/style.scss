@@ -85,7 +85,7 @@
     border-right-width: 0;
 
     .FormField-tick { display: none; }
-    .FormField-value { padding: 0 0.6em; }
+    .FormField-value { margin-top: -1px; padding: 0 0.6em; }
 
     &.isChecked .FormField-value {
       background: rgba(#BBB, 0.4);

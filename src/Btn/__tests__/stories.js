@@ -35,8 +35,12 @@ storiesOf('Btn', module)
         <a href="#" className="Btn Btn--secondary Btn--clip">Button long text</a>
       </p>
 
-      <h4>Outline and square</h4>
+      <h4>Outline, square</h4>
       <button className="Btn Btn--outline Btn--square">
+        <Icon glyph="magnify" />
+      </button>
+      &nbsp;
+      <button className="Btn Btn--square">
         <Icon glyph="magnify" />
       </button>
 

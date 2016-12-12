@@ -40,10 +40,9 @@
     position: absolute;
     top: 100%;
     min-width: 12rem;
-    padding: 0.3rem 0.8rem;
     background: #FFF;
     box-shadow: 0 0 0 1px rgba(#000, 0.1), 0 0 15px 1px rgba(#000, 0.3);
-    border-radius: 3px;
+    border-radius: $Pollicino-border-radius;
     color: $Pollicino-color-text;
     font-size: 1rem;
     line-height: 1.5;
@@ -80,6 +79,9 @@
   }
 }
 
+/**
+ * Modifiers
+ */
 
 .Dropdown--modal {
   &.isOpen {
@@ -99,9 +101,14 @@
 }
 
 
-/**
- * Modifiers
- */
+.Dropdown--field {}
+
+.Dropdown--field .Dropdown {
+  &-overlay {
+    padding: 0.3rem 0.8rem;
+  }
+}
+
 
 .Dropdown--noArrow {}
 

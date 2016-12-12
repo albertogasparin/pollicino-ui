@@ -19,13 +19,17 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
   position: relative;
   display: inline-block;
   vertical-align: middle;
-  border-radius: 3px;
+  border-radius: $Pollicino-border-radius;
   text-align: center;
   user-select: none;
   animation: BtnClicked 0s ease 0s;
 
   &[disabled] {
     opacity: 0.2;
+  }
+
+  &:hover {
+    background-image: linear-gradient(rgba(#000, 0.07) 0%, rgba(#000, 0.07) 100%);
   }
 
   &[data-tip]::after {

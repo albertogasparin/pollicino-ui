@@ -80,12 +80,11 @@
 
   &--radiobox {
     display: block;
-    height: $Pollicino-FormField-height;
     border: 1px solid $Pollicino-color-lighter;
     border-right-width: 0;
 
     .FormField-tick { display: none; }
-    .FormField-value { margin-top: -1px; padding: 0 0.6em; }
+    .FormField-value { padding: 0 0.6em; }
 
     &.isChecked .FormField-value {
       background: rgba(#BBB, 0.4);
@@ -94,13 +93,13 @@
   }
 
   &-groupItem:first-child .FormField--radiobox {
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
+    border-top-left-radius: $Pollicino-border-radius;
+    border-bottom-left-radius: $Pollicino-border-radius;
   }
 
   &-groupItem:last-child .FormField--radiobox {
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
+    border-top-right-radius: $Pollicino-border-radius;
+    border-bottom-right-radius: $Pollicino-border-radius;
     border-right-width: 1px;
   }
 }

@@ -64,7 +64,6 @@ describe('<FormFieldSelectGroup />', () => {
         touched: false,
         focused: false,
         errors: null,
-        searchValue: '',
         val: ['a'],
         opts: [{ label: 'select', value: '' }],
       });
@@ -76,7 +75,6 @@ describe('<FormFieldSelectGroup />', () => {
         touched: false,
         focused: false,
         errors: null,
-        searchValue: '',
         val: ['a'],
         opts: [{ value: 'a' }],
       });
@@ -150,30 +148,6 @@ describe('<FormFieldSelectGroup />', () => {
 
     it('should return null if no options found', () => {
       expect(instance.findOptions(['b'])).to.eql(null);
-    });
-
-  });
-
-
-  describe('isOptionVisible()', () => {
-    let props, instance;
-
-    beforeEach(() => {
-      props = {};
-      instance = shallow(<FormFieldSelectGroup {...props} />).instance();
-      instance.setState({ searchValue: 'Asd' });
-    });
-
-    it('should match label regardless of the case', () => {
-      expect(instance.isOptionVisible({ label: 'aasdd' })).to.eql(true);
-    });
-
-    it('should match value regardless of the case', () => {
-      expect(instance.isOptionVisible({ value: 'asd d' })).to.eql(true);
-    });
-
-    it('should return false if not matching', () => {
-      expect(instance.isOptionVisible({ value: 'aad' })).to.eql(false);
     });
 
   });

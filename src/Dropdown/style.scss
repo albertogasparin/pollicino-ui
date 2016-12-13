@@ -40,6 +40,8 @@
     position: absolute;
     top: 100%;
     min-width: 12rem;
+    margin-bottom: rem($Pollicino-padding);
+    padding: rem($Pollicino-padding);
     background: #FFF;
     box-shadow: 0 0 0 1px rgba(#000, 0.1), 0 0 15px 1px rgba(#000, 0.3);
     border-radius: $Pollicino-border-radius;
@@ -101,13 +103,10 @@
 }
 
 
-.Dropdown--field {}
+// .Dropdown--field {}
 
-.Dropdown--field .Dropdown {
-  &-overlay {
-    padding: 0.3rem 0.8rem;
-  }
-}
+// .Dropdown--field .Dropdown {
+// }
 
 
 .Dropdown--noArrow {}

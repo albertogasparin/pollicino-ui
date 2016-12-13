@@ -31,10 +31,11 @@
 
   &-icon {
     position: absolute;
-    top: 1px;
-    left: 0.5rem;
-    height: $Pollicino-FormField-height;
+    left: 1px;
+    top: 0;
+    width: $Pollicino-FormField-height;
     color: $Pollicino-color-lighter;
+    text-align: center;
     z-index: 2;
   }
 }

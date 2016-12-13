@@ -59,7 +59,7 @@ class FormFieldSearch extends Component {
     return (
       <div className={'FormField FormField--search ' + className} style={style}>
         <div className="FormField-field">
-          <Icon className="FormField-icon" glyph="magnify" />
+          <i className="FormField-icon"><Icon glyph="magnify" /></i>
           <input id={id} className="FormField-control FormField-control--iconL" type="text"
             style={{ width: size + 'em' }}
             value={this.state.val}

@@ -4,7 +4,6 @@ import _pick from 'lodash/pick';
 
 import Dropdown from '../Dropdown';
 import FormFieldTick from '../FormFieldTick';
-import FormFieldSearch from '../FormFieldSearch';
 
 class FormFieldSelectGroup extends Component {
   constructor(props) {
@@ -13,7 +12,6 @@ class FormFieldSelectGroup extends Component {
       touched: false,
       focused: false,
       errors: null,
-      searchValue: '',
       ...this.getPropsToState(props),
     };
     this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
@@ -58,12 +56,6 @@ class FormFieldSelectGroup extends Component {
   findOptions(val) {
     let options = this.state.opts.filter((o) => val.indexOf(o.value) !== -1);
     return options.length ? options : null;
-  }
-
-  isOptionVisible(o) {
-    let { searchValue } = this.state;
-    let str = (o.label + '|' + o.value).toLowerCase();
-    return !searchValue || str.indexOf(searchValue.toLowerCase()) !== -1;
   }
 
   handleChange(value, ev) {
@@ -115,22 +107,13 @@ class FormFieldSelectGroup extends Component {
   }
 
   renderSelectGroup(checkedOpts) {
-    let { opts, searchValue } = this.state;
-    let { withSearch, inline, multiple, optionsPerRow } = this.props;
+    let { opts } = this.state;
+    let { inline, multiple, optionsPerRow } = this.props;
 
     return (
       <div className="FormField-group">
-        {withSearch && !inline &&
-          <div className="FormField-groupSearch">
-            <FormFieldSearch className="FormField--block"
-              placeholder="Search..." debounce={200}
-              value={searchValue}
-              onChange={(v) => this.setState({ searchValue: v })}
-            />
-          </div>
-        }
         <ul className={'FormField-groupList FormField-groupList--' + (inline || 'overflow')}>
-          {opts.filter((o) => this.isOptionVisible(o)).map((o, i) => (
+          {opts.map((o, i) => (
             <li key={o.value} className="FormField-groupItem"
               style={{ width: 100 / optionsPerRow + '%' }}
             >
@@ -201,7 +184,6 @@ FormFieldSelectGroup.propTypes = {
   hidePlaceholder: PropTypes.bool,
   align: PropTypes.oneOf(['left', 'right']),
   inline: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  withSearch: PropTypes.bool,
   optionsPerRow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   multiple: PropTypes.bool,
 

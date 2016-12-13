@@ -30,9 +30,9 @@ storiesOf('Btn', module)
         <Btn className="Btn--primary" data-tip="Tooltip right" data-tip-right>Button 2</Btn>
       </small>
 
-      <h4>Secondary and clipped</h4>
-      <p style={{ width: 120 }}>
-        <a href="#" className="Btn Btn--secondary Btn--clip">Button long text</a>
+      <h4>Secondary and line</h4>
+      <p className="w1">
+        <a href="#" className="Btn Btn--secondary Btn--line">Button long</a>
       </p>
 
       <h4>Outline, square</h4>

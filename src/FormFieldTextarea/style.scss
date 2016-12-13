@@ -23,7 +23,7 @@
   &-control {
     @include FormField-control;
     height: auto;
-    padding-top: 0.4rem;
+    padding-top: rem($Pollicino-padding / 2);
     line-height: 1.5;
   }
 }

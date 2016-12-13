@@ -21,7 +21,9 @@
 }
 
 .Icon--mR {
-  margin-right: em(6px);
+  margin-right: em($Pollicino-padding / 2);
+
+  .Btn & { margin-left: em($Pollicino-padding / -2); }
 }
 
 .Icon--chevron-right {

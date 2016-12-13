@@ -143,7 +143,7 @@ class FormFieldSuggest extends Component {
     let { loadOptions, allowAny, rows } = this.props;
     let { input, opts } = this.state;
     return (
-      <Dropdown className="Dropdown--cover"
+      <Dropdown className="Dropdown--cover Dropdown--field"
         align="left" opened modal={false}
       >
         {allowAny && input &&
@@ -211,7 +211,7 @@ class FormFieldSuggest extends Component {
       >
         {optionRenderer
           ? optionRenderer(opt)
-          : opt[labelKey]
+          : <Btn className="Btn--plain Btn--line">{opt[labelKey]}</Btn>
         }
       </li>
     ));

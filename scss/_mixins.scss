@@ -63,7 +63,7 @@
 
   &-label {
     font-weight: bold;
-    padding-right: 0.8rem;
+    padding-right: rem($Pollicino-padding);
     flex: 0 0 auto;
     white-space: nowrap;
   }
@@ -84,7 +84,7 @@
     top: 100%;
     left: 0;
     margin: 0.2em 0 0 0;
-    padding: 0.3em 0.7em 0.35em;
+    padding: 0.3em rem($Pollicino-padding) 0.35em;
     background: $Pollicino-color-error;
     color: #FFF;
     font-size: calc(1rem - 2px);
@@ -136,7 +136,7 @@
   max-width: 100%;
   height: $Pollicino-FormField-height;
   box-sizing: border-box;
-  padding: 0 0.7rem;
+  padding: 0 rem($Pollicino-padding);
   border: 1px solid $Pollicino-color-lighter;
   border-radius: $Pollicino-border-radius;
   background: #FFF;

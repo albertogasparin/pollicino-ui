@@ -25,7 +25,11 @@ storiesOf('Dropdown', module)
           onOpen={action('open')}
           onClose={action('close')}
         >
-          <p>Click here<br />will not close</p>
+          <p>
+            Click here
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            will not close
+          </p>
         </Dropdown>
       </div>
 

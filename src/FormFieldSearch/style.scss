@@ -36,7 +36,7 @@
     width: $Pollicino-FormField-height;
     color: $Pollicino-color-lighter;
     text-align: center;
-    z-index: 2;
+    pointer-events: none;
   }
 }
 

@@ -1,5 +1,15 @@
 @import '../../scss/core';
 
+
+@keyframes DropdownOverlayClip {
+  0% { opacity: 0.2; clip: rect(-2em 60em 0 -2em); }
+  70% { opacity: 1; }
+  100% { clip: rect(-2em 60em 60em -2em); }
+  // 0% { clip-path: polygon(-2em -2em, 60em -2em, 60em -1em, -2em -1em); }
+  // 100% { clip-path: polygon(-2em -2em, 60em -2em, 60em 60em, -2em 60em); }
+}
+
+
 .Dropdown {
   position: relative;
 
@@ -49,8 +59,9 @@
     font-size: 1rem;
     line-height: 1.5;
     text-align: left;
-    z-index: $Pollicino-FormField-overlay-zIndex;
+    z-index: $Pollicino-FormField-overlay-zIndex + 1;
     cursor: auto;
+    animation: DropdownOverlayClip 0.4s cubic-bezier(0.7, 0, 0.7, 1) 0s;
 
     &[data-align="left"] { left: -0.4em; }
     &[data-align="right"] { right: -0.75rem; }
@@ -96,7 +107,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: $Pollicino-FormField-overlay-zIndex - 1;
+      z-index: $Pollicino-FormField-overlay-zIndex;
       cursor: default;
     }
   }

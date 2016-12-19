@@ -36,22 +36,24 @@ class Collapsible extends Component {
     }, this.props.animation);
   }
 
-  render() {
-    let { className, style, children, header, disabled } = this.props;
+  render() { // eslint-disable-line complexity
+    let { className, style, children, header, disabled, headerClickable, direction } = this.props;
     let { isExpanded, isAnimating } = this.state;
     className += isExpanded ? ' isExpanded' : ' isCollapsed';
     className += isAnimating ? ' isAnimating' : '';
     className += disabled ? ' isDisabled' : '';
+    let btnClassName = 'Collapsible-btn--' + direction;
+    btnClassName += headerClickable ? ' isFull' : '';
 
     return (
       <div className={'Collapsible ' + className} style={style} ref="collapsible">
         <header className="Collapsible-header">
           {header}
-          <button className="Collapsible-btn"
+          <button className={'Collapsible-btn ' + btnClassName}
             type="button" disabled={disabled}
             onClick={this.handleToggle.bind(this)}
           >
-            <Icon glyph="chevron-down" />
+            <Icon className="Icon--btn" glyph="chevron-down" />
           </button>
         </header>
 
@@ -68,11 +70,13 @@ class Collapsible extends Component {
 Collapsible.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
-  header: PropTypes.node.isRequired,
   disabled: PropTypes.bool,
   expanded: PropTypes.bool,
   children: PropTypes.node,
+  header: PropTypes.node.isRequired,
+  headerClickable: PropTypes.bool,
   animation: PropTypes.number,
+  direction: PropTypes.oneOf(['up', 'down']),
 
   onCollapse: PropTypes.func,
   onExpand: PropTypes.func,
@@ -81,6 +85,8 @@ Collapsible.propTypes = {
 Collapsible.defaultProps = {
   className: '',
   animation: 700,
+  headerClickable: false,
+  direction: 'down',
 
   onCollapse() {},
   onExpand() {},

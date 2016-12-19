@@ -2,7 +2,6 @@ import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
 import Collapsible from '..';
-import Icon from '../../Icon';
 
 storiesOf('Collapsible', module)
 
@@ -31,11 +30,11 @@ storiesOf('Collapsible', module)
         </Collapsible>
       </div>
 
-      <h4>Expanded, header element</h4>
+      <h4>Expanded, header element clickable</h4>
       <div className="w2 dark">
         <Collapsible
           header={<div style={{ background: '#444', padding: '1em 0' }}>Title</div>}
-          expanded
+          expanded headerClickable
           onCollapse={action('collapse')}
           onExpand={action('expand')}
         >
@@ -43,10 +42,11 @@ storiesOf('Collapsible', module)
         </Collapsible>
       </div>
 
-      <h4>Disabled</h4>
+      <h4>Disabled with custom icon</h4>
       <div className="w2">
         <Collapsible disabled
-          header={<Icon glyph="magnify" />}
+          header="Search"
+          direction="up"
         >
           <p>Content</p>
         </Collapsible>

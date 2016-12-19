@@ -2,11 +2,11 @@
 
 @keyframes Collapsible-expand {
   0% { max-height: 0; }
-  100% { max-height: 99em; }
+  100% { max-height: 65em; }
 }
 
 @keyframes Collapsible-collapse {
-  0% { max-height: 99em; }
+  0% { max-height: 65em; }
   100% { max-height: 0; }
 }
 
@@ -14,19 +14,18 @@
   position: relative;
 
   &.isExpanded {
-    .Collapsible-btn .Icon {
-      transform: rotate(180deg);
-    }
+    .Collapsible-btn--down .Icon { transform: rotate(180deg); }
+    .Collapsible-btn--up .Icon { transform: rotate(0); }
   }
 
   &.isAnimating {
 
     &.isExpanded .Collapsible-content {
-      animation: Collapsible-expand 0.7s ease 0s both;
+      animation: Collapsible-expand 0.7s cubic-bezier(0.7, 0, 0.7, 1) 0s both;
     }
 
     &.isCollapsed .Collapsible-content {
-      animation: Collapsible-collapse 0.7s ease 0s both;
+      animation: Collapsible-collapse 0.7s cubic-bezier(0, 0.7, 0.5, 1) 0s both;
     }
 
   }
@@ -50,11 +49,17 @@
     right: 0;
     transform: translateY(-50%);
 
+    &.isFull {
+      width: 100%;
+    }
+
     .Icon {
-      transform: rotate(0);
       transition: transform 0.3s ease 0s;
     }
   }
+
+  &-btn--down .Icon { transform: rotate(0); }
+  &-btn--up .Icon { transform: rotate(180deg); }
 
   &-content {
     overflow: hidden;

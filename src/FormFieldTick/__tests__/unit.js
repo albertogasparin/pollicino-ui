@@ -66,29 +66,30 @@ describe('<FormFieldTick />', () => {
   describe('handleChange()', () => {
     let props, instance;
 
-    it('should set checked if radio', () => {
-      props = { type: 'radio', value: 'a' };
+    beforeEach(() => {
+      props = { value: 'a', onChange: td.func('onChange'), debounce: 0 };
+    });
+
+    it('should set checked if radio', (done) => {
+      props = { ...props, type: 'radio' };
       instance = shallow(<FormFieldTick {...props} />).instance();
       instance.handleChange();
 
       expect(instance.state.checked).to.eql(true);
+      setTimeout(() => {
+        expect(props.onChange).to.have.been.calledWith('a', true);
+        done();
+      }, 10);
     });
 
-    it('should toggle checked if checkbox', () => {
-      props = { type: 'checkbox', value: 'a', checked: true };
+    it('should toggle checked if checkbox', (done) => {
+      props = { ...props, type: 'checkbox', checked: true };
       instance = shallow(<FormFieldTick {...props} />).instance();
       instance.handleChange();
 
       expect(instance.state.checked).to.eql(false);
-    });
-
-    it('should call onChange', (done) => {
-      props = { value: 'a', onChange: td.func('onChange'), debounce: 0 };
-      instance = shallow(<FormFieldTick {...props} />).instance();
-      instance.handleChange();
-
       setTimeout(() => {
-        expect(props.onChange).to.have.been.calledWith('a');
+        expect(props.onChange).to.have.been.calledWith('a', false);
         done();
       }, 10);
     });

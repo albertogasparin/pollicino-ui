@@ -33,10 +33,9 @@ class FormFieldTick extends Component {
 
   handleChange(ev) {
     let { type, value } = this.props;
-    this.setState({
-      checked: (type !== 'radio' || !this.state.checked) ? !this.state.checked : true,
-    });
-    this.triggerOnChange(value);
+    let checked = (type !== 'radio' || !this.state.checked) ? !this.state.checked : true;
+    this.setState({ checked });
+    this.triggerOnChange(value, checked);
   }
 
   handleFocus(ev) {

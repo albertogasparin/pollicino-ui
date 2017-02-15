@@ -17,13 +17,13 @@ storiesOf('FormFieldTick', module)
       <h4>Default style, radiobox</h4>
       <div className="left w1">
         <FormFieldTick name="t1"
-          label="Label" value="" debounce={1000}
+          label="Label 1" value="1" debounce={1000}
           onChange={action('change')}
         />
       </div>
       <div>
         <FormFieldTick name="t2" checked
-          label="Label" value=""
+          label="Label 2" value="2"
           onChange={action('change')}
         />
       </div>
@@ -31,13 +31,13 @@ storiesOf('FormFieldTick', module)
       <h4>Default style, checkbox, truncated</h4>
       <div className="left w1">
         <FormFieldTick type="checkbox" name="t3"
-          label="Label really really long" value=""
+          label="Label really really long" value="1"
           onChange={action('change')}
         />
       </div>
       <div>
         <FormFieldTick className="col-w1" type="checkbox" checked name="t4"
-          label="Label really really long" value=""
+          label="Label really really long" value="2"
           onChange={action('change')}
         />
       </div>

@@ -58,7 +58,7 @@ class FormFieldSelectGroup extends Component {
     return options.length ? options : null;
   }
 
-  handleChange(value, ev) {
+  handleChange(value, checked) {
     let { multiple } = this.props;
     let { val, errors, focused } = this.state;
 

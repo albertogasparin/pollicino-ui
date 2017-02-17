@@ -2,7 +2,6 @@ import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
 import Modal from '..';
-import Icon from '../../Icon';
 
 storiesOf('Modal', module)
 
@@ -10,6 +9,7 @@ storiesOf('Modal', module)
     <Modal className=""
       title="Title"
       message='Message'
+      icon="alert"
       onClose={action('close')}
     />
   ), { inline: true })
@@ -25,7 +25,9 @@ storiesOf('Modal', module)
 
       <h4>Custom title and buttons</h4>
       <Modal
-        title={<span><Icon className="Icon--mR" glyph="alert" /> Error</span>}
+        title={<i>Error</i>}
+        icon="alert"
+        headerClassName="dark"
         message={<ul style={{ margin: 0, paddingLeft: '1.1em' }}><li>A</li><li>B</li></ul>}
         buttons={[
           { label: 'One', action: action('One') },

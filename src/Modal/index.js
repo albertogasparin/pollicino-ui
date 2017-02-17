@@ -1,11 +1,14 @@
 import React, { PropTypes } from 'react';
 
 import Btn from '../Btn';
+import Icon from '../Icon';
 
 const Modal = ({
   className,
   style,
   title,
+  icon,
+  headerClassName,
   message,
   buttons,
   onClose,
@@ -13,7 +16,10 @@ const Modal = ({
   return (
     <div className={'Modal ' + className} style={style}>
       <div className="Modal-box">
-        <header className="Modal-header">
+        <header className={'Modal-header ' + headerClassName}>
+          {icon &&
+            <Icon className="Icon--mR" glyph={icon} />
+          }
           <h3 className="Modal-title">
             {title}
           </h3>
@@ -50,6 +56,7 @@ Modal.propTypes = {
 
 Modal.defaultProps = {
   className: '',
+  headerClassName: '',
   buttons: [{ label: 'OK', className: 'Btn--secondary' }],
   onClose() {},
 };

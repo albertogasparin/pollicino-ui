@@ -14,8 +14,8 @@
 
 .FormField--select {
 
-  &.isDisabled .FormField-field {
-    @include FormField-isDisabled;
+  &.isDisabled .FormField {
+    &-field { @include FormField-isDisabled; }
   }
 }
 

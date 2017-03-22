@@ -41,7 +41,7 @@ class FormFieldDate extends Component {
     }
 
     let newState = {
-      initialMonth: val[0] ? new Date(val[0]) : new Date(),
+      month: val[0] ? new Date(val[0]) : new Date(),
       opts,
       val,
     };
@@ -95,7 +95,7 @@ class FormFieldDate extends Component {
     });
   }
 
-  handleDayClick(ev, day, modifiers) { // eslint-disable-line complexity
+  handleDayClick(day, modifiers, ev) { // eslint-disable-line complexity
     let { val } = this.state;
 
     if (modifiers.isDisabled) {
@@ -121,7 +121,7 @@ class FormFieldDate extends Component {
   }
 
   handleYearChange(date, y) {
-    this.setState({ initialMonth: new Date(y, date.getMonth()) });
+    this.setState({ month: new Date(y, date.getMonth()) });
   }
 
   handleFocus(ev) {
@@ -198,7 +198,7 @@ class FormFieldDate extends Component {
 
   renderDayPicker() {
     let { isRange, yearDropdown, minDate, maxDate, localization, firstDayOfWeek } = this.props;
-    let { val, initialMonth } = this.state;
+    let { val, month } = this.state;
     let modifiers = {
       isSelected: (day) => {
         let d = this.formatDate(day);
@@ -228,7 +228,7 @@ class FormFieldDate extends Component {
         {...localization}
         firstDayOfWeek={firstDayOfWeek}
         modifiers={modifiers} enableOutsideDays
-        initialMonth={initialMonth}
+        month={month}
         captionElement={<DayPickerHeader />}
         onDayClick={this.handleDayClick.bind(this)}
       />

@@ -18,10 +18,9 @@
 .FormField--checkbox {
   overflow: hidden;
 
-  &.isDisabled {
-    @include FormField-isDisabled;
-
-    .FormField-label { opacity: 0.6; }
+  &.isDisabled .FormField {
+    &-field { @include FormField-isDisabled; }
+    &-tick { opacity: 0.6; }
   }
 }
 

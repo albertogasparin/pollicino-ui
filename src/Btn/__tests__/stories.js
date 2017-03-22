@@ -36,9 +36,11 @@ storiesOf('Btn', module)
       </p>
 
       <h4>Outline, square</h4>
-      <button className="Btn Btn--outline Btn--square">
-        <Icon glyph="magnify" />
-      </button>
+      <span style={{ color: '#E11' }}>
+        <button className="Btn Btn--outline Btn--square">
+          <Icon glyph="magnify" />
+        </button>
+      </span>
       &nbsp;
       <button className="Btn Btn--square">
         <Icon glyph="magnify" />

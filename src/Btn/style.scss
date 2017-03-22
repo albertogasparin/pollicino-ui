@@ -63,7 +63,9 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
   }
 
   &:hover {
-    background-image: linear-gradient(rgba(#000, 0.07) 0%, rgba(#000, 0.07) 100%);
+    background-image: linear-gradient(transparent, currentColor);
+    background-size: 100% 5000%;
+    background-position: 50% 8%;
   }
 
   &:active {

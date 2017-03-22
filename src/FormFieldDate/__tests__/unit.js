@@ -55,7 +55,7 @@ describe('<FormFieldDate />', () => {
         errors: null,
         val: [props.value, props.value],
         opts: [{ label: 'select', value: '' }],
-        initialMonth: new Date(props.value),
+        month: new Date(props.value),
         showPicker: true,
       });
     });
@@ -68,7 +68,7 @@ describe('<FormFieldDate />', () => {
         errors: null,
         val: [props.value, '2010-01-01'],
         opts: [],
-        initialMonth: new Date(props.value),
+        month: new Date(props.value),
         showPicker: true,
       });
     });

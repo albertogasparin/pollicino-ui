@@ -13,8 +13,9 @@
  */
 
 .FormField--suggest {
-  &.isDisabled .FormField-field {
-    @include FormField-isDisabled;
+  &.isDisabled .FormField {
+    &-field { @include FormField-isDisabled; }
+    &-control { box-shadow: none; }
   }
 }
 

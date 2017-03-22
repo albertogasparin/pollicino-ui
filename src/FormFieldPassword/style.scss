@@ -17,9 +17,10 @@
  */
 
 .FormField--password {
-  &.isDisabled {
-    .FormField-field { @include FormField-isDisabled; }
-    .FormField-togglePsw { display: none; }
+  &.isDisabled .FormField {
+    &-field { @include FormField-isDisabled; }
+    &-togglePsw { display: none; }
+    &-control { box-shadow: none; }
   }
 }
 

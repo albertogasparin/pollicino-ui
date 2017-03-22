@@ -51,6 +51,12 @@
     "sourceMap": false,
     "instrument": false
   },
+  "dependencies": {
+    "lodash": "^4.1.0",
+    "react-day-picker": "~5.2.0",
+    "react-simple-colorpicker": "~1.4.0",
+    "sortablejs": "~1.4.2"
+  },
   "peerDependencies": {
     "react": "^15.0.0",
     "react-dom": "^15.0.0"

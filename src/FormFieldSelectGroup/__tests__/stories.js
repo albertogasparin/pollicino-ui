@@ -124,6 +124,12 @@ storiesOf('FormFieldSelectGroup', module)
           options={[{ label: 'One', value: 1 }]} value={1}
         />
 
+        <h4>Inline tabbed disabled, no label</h4>
+        <FormFieldSelectGroup
+          placeholder="Any number" inline="tabbed" disabled
+          options={[{ label: '1 One', value: 1 }, { label: '2', value: 2 }]}
+        />
+        <br />
       </div>
     </div>
   ));

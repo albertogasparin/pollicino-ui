@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import Btn from '../Btn';
 import Icon from '../Icon';
@@ -47,8 +48,10 @@ const Modal = ({
 
 Modal.propTypes = {
   className: PropTypes.string,
+  headerClassName: PropTypes.string,
   style: PropTypes.object,
   title: PropTypes.node,
+  icon: PropTypes.string,
   message: PropTypes.node,
   buttons: PropTypes.arrayOf(PropTypes.object),
   onClose: PropTypes.func,
@@ -58,7 +61,7 @@ Modal.defaultProps = {
   className: '',
   headerClassName: '',
   buttons: [{ label: 'OK', className: 'Btn--secondary' }],
-  onClose() {},
+  onClose () {},
 };
 
 export default Modal;

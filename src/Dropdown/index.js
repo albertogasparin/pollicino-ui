@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Dropdown extends Component {
 
@@ -97,7 +98,7 @@ class Dropdown extends Component {
 Dropdown.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
-  label: PropTypes.oneOfType([PropTypes.node, PropTypes.Bool]),
+  label: PropTypes.oneOfType([PropTypes.node, PropTypes.bool]),
   disabled: PropTypes.bool,
 
   align: PropTypes.oneOf(['left', 'right']),
@@ -115,8 +116,8 @@ Dropdown.defaultProps = {
   align: 'right',
   modal: true,
 
-  onOpen() {},
-  onClose() {},
+  onOpen () {},
+  onClose () {},
 };
 
 export default Dropdown;

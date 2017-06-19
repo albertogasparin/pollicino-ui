@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const Icon = ({ glyph, className, style, width, height }) => {
   if (glyph === 'loading') {

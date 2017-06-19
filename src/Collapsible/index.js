@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Icon from '../Icon';
 
@@ -88,8 +89,8 @@ Collapsible.defaultProps = {
   headerClickable: false,
   direction: 'down',
 
-  onCollapse() {},
-  onExpand() {},
+  onCollapse () {},
+  onExpand () {},
 };
 
 export default Collapsible;

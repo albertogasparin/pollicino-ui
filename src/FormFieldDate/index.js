@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import DayPicker, { DateUtils, LocaleUtils } from 'react-day-picker';
 import _debounce from 'lodash/debounce';
 import _range from 'lodash/range';
@@ -269,13 +270,13 @@ FormFieldDate.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   label: PropTypes.node,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]), // eslint-disable-line react/no-unused-prop-types
   placeholder: PropTypes.string,
   name: PropTypes.string,
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
 
-  hidePlaceholder: PropTypes.bool,
+  hidePlaceholder: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
   options: PropTypes.arrayOf(PropTypes.object),
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
@@ -285,9 +286,9 @@ FormFieldDate.propTypes = {
 
   firstDayOfWeek: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6]),
   localization: PropTypes.shape({
-    months: PropTypes.arrayOf(React.PropTypes.string),
-    weekdaysLong: PropTypes.arrayOf(React.PropTypes.string),
-    weekdaysShort: PropTypes.arrayOf(React.PropTypes.string),
+    months: PropTypes.arrayOf(PropTypes.string),
+    weekdaysLong: PropTypes.arrayOf(PropTypes.string),
+    weekdaysShort: PropTypes.arrayOf(PropTypes.string),
   }),
 
   validation: PropTypes.func,
@@ -307,10 +308,10 @@ FormFieldDate.defaultProps = {
   firstDayOfWeek: 1,
   localization: {},
 
-  validation() {},
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
+  validation () {},
+  onChange () {},
+  onFocus () {},
+  onBlur () {},
 };
 
 export default FormFieldDate;

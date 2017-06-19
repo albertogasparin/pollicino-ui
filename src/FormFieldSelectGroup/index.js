@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
@@ -172,17 +173,17 @@ FormFieldSelectGroup.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   label: PropTypes.node,
-  value: PropTypes.any,
+  value: PropTypes.any, // eslint-disable-line react/no-unused-prop-types
   placeholder: PropTypes.string,
-  name: PropTypes.string,
-  id: PropTypes.string,
+  name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
 
-  options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  options: PropTypes.arrayOf(PropTypes.object).isRequired, // eslint-disable-line react/no-unused-prop-types
   valueRenderer: PropTypes.func,
-  hidePlaceholder: PropTypes.bool,
-  align: PropTypes.oneOf(['left', 'right']),
+  hidePlaceholder: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  align: PropTypes.oneOf(['left', 'right']), // eslint-disable-line react/no-unused-prop-types
   inline: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   optionsPerRow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   multiple: PropTypes.bool,
@@ -204,10 +205,10 @@ FormFieldSelectGroup.defaultProps = {
   align: 'left',
   optionsPerRow: 1,
 
-  validation() {},
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
+  validation () {},
+  onChange () {},
+  onFocus () {},
+  onBlur () {},
 };
 
 export default FormFieldSelectGroup;

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
@@ -121,17 +122,17 @@ FormFieldNumber.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   label: PropTypes.node,
-  value: PropTypes.number,
-  name: PropTypes.string,
-  id: PropTypes.string,
+  value: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
+  name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
 
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  autoComplete: PropTypes.string,
-  autoFocus: PropTypes.bool,
+  autoComplete: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  autoFocus: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 
   validation: PropTypes.func,
   onChange: PropTypes.func,
@@ -146,10 +147,10 @@ FormFieldNumber.defaultProps = {
   debounce: 200,
   size: 100,
 
-  validation() {},
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
+  validation () {},
+  onChange () {},
+  onFocus () {},
+  onBlur () {},
 };
 
 export default FormFieldNumber;

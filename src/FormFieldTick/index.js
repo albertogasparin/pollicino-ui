@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
@@ -86,13 +87,13 @@ FormFieldTick.propTypes = {
   style: PropTypes.object,
   label: PropTypes.node,
   value: PropTypes.any.isRequired,
-  name: PropTypes.string,
-  id: PropTypes.string,
+  name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
 
   type: PropTypes.oneOf(['radio', 'checkbox']),
-  checked: PropTypes.bool,
+  checked: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
@@ -106,9 +107,9 @@ FormFieldTick.defaultProps = {
   checked: false,
   type: 'radio',
 
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
+  onChange () {},
+  onFocus () {},
+  onBlur () {},
 };
 
 export default FormFieldTick;

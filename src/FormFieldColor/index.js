@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import _debounce from 'lodash/debounce';
 import ColorPicker from 'react-simple-colorpicker';
 
@@ -93,11 +94,11 @@ FormFieldColor.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   label: PropTypes.node,
-  value: PropTypes.string,
+  value: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
 
-  defaultValue: PropTypes.string,
+  defaultValue: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   align: PropTypes.oneOf(['left', 'right']),
   opacity: PropTypes.bool,
 
@@ -114,9 +115,9 @@ FormFieldColor.defaultProps = {
   debounce: 200,
   align: 'left',
 
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
+  onChange () {},
+  onFocus () {},
+  onBlur () {},
 };
 
 export default FormFieldColor;

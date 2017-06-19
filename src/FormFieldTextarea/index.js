@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
@@ -99,16 +100,16 @@ FormFieldTextarea.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   label: PropTypes.node,
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-  name: PropTypes.string,
-  id: PropTypes.string,
+  value: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  placeholder: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
 
   rows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   cols: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  autoFocus: PropTypes.bool,
+  autoFocus: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 
   validation: PropTypes.func,
   onChange: PropTypes.func,
@@ -124,10 +125,10 @@ FormFieldTextarea.defaultProps = {
   rows: 3,
   cols: 100,
 
-  validation() {},
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
+  validation () {},
+  onChange () {},
+  onFocus () {},
+  onBlur () {},
 };
 
 export default FormFieldTextarea;

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
@@ -258,21 +259,21 @@ FormFieldSuggest.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   label: PropTypes.node,
-  value: PropTypes.any,
-  placeholder: PropTypes.string,
-  name: PropTypes.string,
-  id: PropTypes.string,
+  value: PropTypes.any, // eslint-disable-line react/no-unused-prop-types
+  placeholder: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   disabled: PropTypes.bool,
 
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   rows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  options: PropTypes.arrayOf(PropTypes.object),
+  options: PropTypes.arrayOf(PropTypes.object), // eslint-disable-line react/no-unused-prop-types
   valueKey: PropTypes.string,
   labelKey: PropTypes.string,
   noOptionsText: PropTypes.string,
   noInputText: PropTypes.string,
   allowAny: PropTypes.bool,
-  autoFocus: PropTypes.bool,
+  autoFocus: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 
   filterOptions: PropTypes.func,
   optionRenderer: PropTypes.func,
@@ -297,15 +298,15 @@ FormFieldSuggest.defaultProps = {
   noOptionsText: 'No results found',
   noInputText: 'Start typing to search',
 
-  filterOptions(options, input, selected) { return options; },
+  filterOptions (options, input, selected) { return options; },
   optionRenderer: null,
   debounceLoad: 1000,
   loadOptions: null,
 
-  validation() {},
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
+  validation () {},
+  onChange () {},
+  onFocus () {},
+  onBlur () {},
 };
 
 export default FormFieldSuggest;

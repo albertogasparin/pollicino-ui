@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
@@ -77,10 +78,10 @@ class FormFieldSearch extends Component {
 FormFieldSearch.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-  name: PropTypes.string,
-  id: PropTypes.string,
+  value: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  placeholder: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
 
@@ -99,9 +100,9 @@ FormFieldSearch.defaultProps = {
 
   size: 100,
 
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
+  onChange () {},
+  onFocus () {},
+  onBlur () {},
 };
 
 export default FormFieldSearch;

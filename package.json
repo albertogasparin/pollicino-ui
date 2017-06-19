@@ -54,6 +54,7 @@
   "dependencies": {
     "lodash": "^4.1.0",
     "react-day-picker": "~5.2.0",
+    "prop-types": "^15.5.7",
     "react-simple-colorpicker": "~1.4.0",
     "sortablejs": "~1.4.2"
   },

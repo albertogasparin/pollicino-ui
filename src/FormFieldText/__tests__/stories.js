@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
-import FormFieldText from '..';
+import { FormFieldText } from '../..';
 
 storiesOf('FormFieldText', module)
 

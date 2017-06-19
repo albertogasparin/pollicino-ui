@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
-import Collapsible from '..';
+import { Collapsible } from '../..';
 
 storiesOf('Collapsible', module)
 

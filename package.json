@@ -3,6 +3,7 @@
   "version": "1.6.2",
   "description": "Clean, Material Design inspired React UI component library",
   "author": "Alberto Gasparin",
+  "main": "lib/index.js",
   "keywords": [
     "React",
     "UI",

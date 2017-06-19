@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
-import FormFieldSelectGroup from '..';
+import { FormFieldSelectGroup } from '../..';
 
 storiesOf('FormFieldSelectGroup', module)
 

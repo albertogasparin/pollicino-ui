@@ -3,37 +3,39 @@ import PropTypes from 'prop-types';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
-const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoFocus'];
+const INPUT_PROPS = [
+  'name', 'disabled', 'placeholder',
+  'autoCorrect', 'autoFocus', 'spellCheck',
+];
 
 class FormFieldTextarea extends Component {
-  constructor(props) {
+
+  constructor (props) {
     super(props);
     this.state = {
       touched: false,
       focused: false,
       errors: null,
-      ...this.getPropsToState(props),
+      ...this.mapPropsToState(props),
     };
-    this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
-  componentWillReceiveProps(nextProps) {
-    let newState = this.getPropsToState(nextProps);
+  componentWillReceiveProps (nextProps) {
+    let newState = this.mapPropsToState(nextProps);
     this.setState(newState);
     if (this.state.touched) { // validation: punish late
       this.validate(newState.val);
     }
   }
 
-  getPropsToState(props) {
-    let newState = {
+  mapPropsToState = (props) => {
+    return {
       id: props.id || props.name && 'ff-textarea-' + props.name,
       val: props.value,
     };
-    return newState;
   }
 
-  handleChange(ev) {
+  handleChange = (ev) => {
     let { errors, focused } = this.state;
     let val = ev.target.value;
 
@@ -44,30 +46,28 @@ class FormFieldTextarea extends Component {
     this.triggerOnChange(val);
   }
 
-  handleFocus(ev) {
+  handleFocus = (ev) => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
   }
 
-  handleBlur(ev) {
+  handleBlur = (ev) => {
     this.setState({ focused: false, touched: true }, this.validate);
     this.props.onBlur(ev);
   }
 
-  triggerOnChange(...args) {
-    this.props.onChange(...args);
-  }
+  triggerOnChange = _debounce(this.props.onChange, this.props.debounce)
 
   /**
    * @public
    */
-  validate(val = this.state.val) {
+  validate = (val = this.state.val) => {
     let errors = this.props.validation(val) || null;
     this.setState({ errors });
     return errors;
   }
 
-  render() {
+  render () {
     let { className, style, label, disabled, cols, rows } = this.props;
     let { id, val, errors, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
@@ -83,9 +83,9 @@ class FormFieldTextarea extends Component {
             style={{ width: cols + 'em', height: rows * 1.6 + 'em' }}
             value={val}
             {..._pick(this.props, INPUT_PROPS)}
-            onChange={this.handleChange.bind(this)}
-            onFocus={(ev) => this.handleFocus(ev)}
-            onBlur={(ev) => this.handleBlur(ev)}
+            onChange={this.handleChange}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
           />
           {errors &&
             <p className="FormField-error">{errors}</p>
@@ -109,7 +109,6 @@ FormFieldTextarea.propTypes = {
 
   rows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   cols: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  autoFocus: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 
   validation: PropTypes.func,
   onChange: PropTypes.func,

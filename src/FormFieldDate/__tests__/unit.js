@@ -175,7 +175,7 @@ describe('<FormFieldDate />', () => {
       beforeEach(() => {
         props = { value: '', validation: td.func('validation') };
         instance = shallow(<FormFieldDate {...props} />).instance();
-        instance.refs = { dropdown: td.object(['handleClose']) };
+        instance.dropdownEl = td.object(['handleClose']);
         instance.handleChange(false, ['2010-01-01']);
       });
 
@@ -188,7 +188,7 @@ describe('<FormFieldDate />', () => {
       });
 
       it('should trigger dropdown close', () => {
-        expect(instance.refs.dropdown.handleClose).to.have.been.called;
+        expect(instance.dropdownEl.handleClose).to.have.been.called;
       });
 
     });
@@ -198,7 +198,7 @@ describe('<FormFieldDate />', () => {
       beforeEach(() => {
         props = {};
         instance = shallow(<FormFieldDate {...props} />).instance();
-        instance.refs = { dropdown: td.object(['handleClose']) };
+        instance.dropdownEl = td.object(['handleClose']);
         instance.handleChange(true, 'custom');
       });
 
@@ -207,7 +207,7 @@ describe('<FormFieldDate />', () => {
       });
 
       it('should keep dropdown open', () => {
-        expect(instance.refs.dropdown.handleClose).not.to.have.been.called;
+        expect(instance.dropdownEl.handleClose).not.to.have.been.called;
       });
     });
 
@@ -217,13 +217,13 @@ describe('<FormFieldDate />', () => {
       beforeEach(() => {
         props = {};
         instance = shallow(<FormFieldDate {...props} />).instance();
-        instance.refs = { dropdown: td.object(['handleClose']) };
+        instance.dropdownEl = td.object(['handleClose']);
         instance.handleChange(true, 'custom');
       });
 
       it('should trigger dropdown close', () => {
         instance.handleChange(true, ['2010-01-01']);
-        expect(instance.refs.dropdown.handleClose).to.have.been.called;
+        expect(instance.dropdownEl.handleClose).to.have.been.called;
       });
 
     });
@@ -234,13 +234,13 @@ describe('<FormFieldDate />', () => {
       beforeEach(() => {
         props = { isRange: true };
         instance = shallow(<FormFieldDate {...props} />).instance();
-        instance.refs = { dropdown: td.object(['handleClose']) };
+        instance.dropdownEl = td.object(['handleClose']);
         instance.handleChange(true, 'custom');
       });
 
       it('should keep dropdown open', () => {
         instance.handleChange(true, ['2010-01-01', '2010-01-02']);
-        expect(instance.refs.dropdown.handleClose).not.to.have.been.called;
+        expect(instance.dropdownEl.handleClose).not.to.have.been.called;
       });
 
     });

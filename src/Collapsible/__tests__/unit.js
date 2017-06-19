@@ -75,7 +75,7 @@ describe('<Collapsible />', () => {
 
       it('should unset isAnimating after a delay', (done) => {
         instance.handleToggle();
-        instance.refs = { collapsible: true };
+        instance.el = {};
         setTimeout(() => {
           expect(instance.state.isAnimating).to.eql(false);
           done();

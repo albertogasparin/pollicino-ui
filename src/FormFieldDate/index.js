@@ -10,27 +10,26 @@ import FormFieldSelect from '../FormFieldSelect';
 
 class FormFieldDate extends Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       touched: false,
       focused: false,
       errors: null,
       showPicker: props.options.length === 0,
-      ...this.getPropsToState(props),
+      ...this.mapPropsToState(props),
     };
-    this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
-  componentWillReceiveProps(nextProps) {
-    let newState = this.getPropsToState(nextProps);
+  componentWillReceiveProps (nextProps) {
+    let newState = this.mapPropsToState(nextProps);
     this.setState(newState);
     if (this.state.touched) { // validation: punish late
       this.validate(newState.val);
     }
   }
 
-  getPropsToState(props) {
+  mapPropsToState = (props) => {
     let val = this.normalizeValue(props.value);
     let opts = props.options.map((o) => ({
       label: o.label,
@@ -41,39 +40,38 @@ class FormFieldDate extends Component {
       opts.unshift({ label: props.placeholder, value: '' });
     }
 
-    let newState = {
+    return {
       month: val[0] ? new Date(val[0]) : new Date(),
       opts,
       val,
     };
-    return newState;
   }
 
-  normalizeValue(value) {
+  normalizeValue = (value) => {
     if (!Array.isArray(value)) {
       value = value ? [value, value] : [];
     }
     return value;
   }
 
-  returnValue(val) {
+  returnValue = (val) => {
     if (this.props.isRange) {
       return val;
     }
     return val[0] || '';
   }
 
-  formatDate(day) {
+  formatDate = (day) => {
     return day.toJSON().slice(0,10);
   }
 
-  isDayDisabled(day) {
+  isDayDisabled = (day) => {
     let { minDate, maxDate } = this.props;
     return (minDate && this.formatDate(day) < this.formatDate(minDate))
       || (maxDate && this.formatDate(day) > this.formatDate(maxDate));
   }
 
-  findOption(value) {
+  findOption = (value) => {
     let option = null;
     this.state.opts.some((o) => (
       (o.value[0] === value[0] && o.value[1] === value[1]) ? (option = o) : false
@@ -81,7 +79,7 @@ class FormFieldDate extends Component {
     return option;
   }
 
-  handleChange(showPicker, value) {
+  handleChange = (showPicker, value) => {
     let { val } = this.state;
     let isFromCustom = showPicker && value === 'custom';
     if (!isFromCustom) {
@@ -91,12 +89,12 @@ class FormFieldDate extends Component {
     this.setState({ showPicker, val }, () => {
       this.validate();
       if (!isFromCustom && !this.props.isRange || !showPicker) {
-        this.refs.dropdown.handleClose();
+        this.dropdownEl.handleClose();
       }
     });
   }
 
-  handleDayClick(day, modifiers, ev) { // eslint-disable-line complexity
+  handleDayClick = (day, modifiers, ev) => { // eslint-disable-line complexity
     let { val } = this.state;
 
     if (modifiers.isDisabled) {
@@ -121,36 +119,34 @@ class FormFieldDate extends Component {
     ]);
   }
 
-  handleYearChange(date, y) {
+  handleYearChange = (date, y) => {
     this.setState({ month: new Date(y, date.getMonth()) });
   }
 
-  handleFocus(ev) {
+  handleFocus = (ev) => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
   }
 
-  handleBlur(ev) {
+  handleBlur = (ev) => {
     let { val } = this.state;
     this.setState({ focused: false, touched: true }, this.validate);
     this.triggerOnChange(this.returnValue(val));
     this.props.onBlur(ev);
   }
 
-  triggerOnChange(...args) {
-    this.props.onChange(...args);
-  }
+  triggerOnChange = _debounce(this.props.onChange, this.props.debounce)
 
   /**
    * @public
    */
-  validate(val = this.state.val) {
+  validate = (val = this.state.val) => {
     let errors = this.props.validation(this.returnValue(val)) || null;
     this.setState({ errors });
     return errors;
   }
 
-  renderFieldLabel(val) {
+  renderFieldLabel = (val) => {
     let checkedOpt = this.findOption(val);
     if (checkedOpt) {
       return checkedOpt.label;
@@ -166,7 +162,7 @@ class FormFieldDate extends Component {
         : '');
   }
 
-  renderDropdownContent() {
+  renderDropdownContent = () => {
     let { val, opts, showPicker } = this.state;
     let { isRange, align, name, options } = this.props;
     let showCustomOpt = options.length > 0;
@@ -179,7 +175,7 @@ class FormFieldDate extends Component {
             label={o.label} delay={0}
             checked={o === checkedOpt}
             value={o.value}
-            onChange={this.handleChange.bind(this, false)}
+            onChange={(v) => this.handleChange(false, v)}
           />
         ))}
         {showCustomOpt &&
@@ -187,7 +183,7 @@ class FormFieldDate extends Component {
             label={'Custom ' + (isRange ? 'range' : '')} delay={0}
             checked={showPicker || (!checkedOpt && val.length > 0)}
             value="custom"
-            onChange={this.handleChange.bind(this, true)}
+            onChange={(v) => this.handleChange(true, v)}
           />
         }
         {(showPicker || (!checkedOpt && val.length > 0)) &&
@@ -197,7 +193,7 @@ class FormFieldDate extends Component {
     );
   }
 
-  renderDayPicker() {
+  renderDayPicker = () => {
     let { isRange, yearDropdown, minDate, maxDate, localization, firstDayOfWeek } = this.props;
     let { val, month } = this.state;
     let modifiers = {
@@ -214,10 +210,10 @@ class FormFieldDate extends Component {
       <header className="DayPicker-Caption">
         {LocaleUtils.formatMonthTitle(date, locale).split(' ')[0] + ' '}
         {yearDropdown && minYear !== maxYear
-          ? <FormFieldSelect className="DayPicker-yearField" name={name}
+          ? <FormFieldSelect className="DayPicker-yearField"
               value={date.getFullYear()}
               options={_range(minYear, maxYear + 1).map((v) => ({ label: v, value: v }))}
-              onChange={this.handleYearChange.bind(this, date)}
+              onChange={(v) => this.handleYearChange(date, v)}
             />
           : date.getFullYear()
         }
@@ -231,12 +227,12 @@ class FormFieldDate extends Component {
         modifiers={modifiers} enableOutsideDays
         month={month}
         captionElement={<DayPickerHeader />}
-        onDayClick={this.handleDayClick.bind(this)}
+        onDayClick={this.handleDayClick}
       />
     );
   }
 
-  render() {
+  render () {
     let { className, style, label, disabled, align } = this.props;
     let { val, errors, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
@@ -248,12 +244,13 @@ class FormFieldDate extends Component {
         {typeof label !== 'undefined' &&
           <label className="FormField-label">{label}</label>
         }
-        <div className="FormField-field" ref="field">
-          <Dropdown className="Dropdown--field" ref="dropdown"
+        <div className="FormField-field">
+          <Dropdown className="Dropdown--field"
+            ref={c => this.dropdownEl = c}
             label={this.renderFieldLabel(val)}
             align={align} disabled={disabled}
-            onOpen={(ev) => this.handleFocus(ev)}
-            onClose={(ev) => this.handleBlur(ev)}
+            onOpen={this.handleFocus}
+            onClose={this.handleBlur}
           >
             {this.renderDropdownContent()}
           </Dropdown>

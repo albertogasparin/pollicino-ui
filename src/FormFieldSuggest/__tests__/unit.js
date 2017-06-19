@@ -235,9 +235,9 @@ describe('<FormFieldSuggest />', () => {
         validation: td.func('validation'),
       };
       instance = shallow(<FormFieldSuggest {...props} />).instance();
-      instance.refs = { control: {} };
+      instance.controlEl = {};
       instance.handleFocus();
-      instance.handleBlur({ persist() {} });
+      instance.handleBlur({ persist () {} });
       setTimeout(done, 320); // some calls are async
     });
 

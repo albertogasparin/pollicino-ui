@@ -8,51 +8,47 @@ import Icon from '../Icon';
 const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoComplete', 'autoFocus'];
 
 class FormFieldSearch extends Component {
-  constructor(props) {
+
+  constructor (props) {
     super(props);
     this.state = {
       focused: false,
       touched: false,
-      ...this.getPropsToState(props),
+      ...this.mapPropsToState(props),
     };
-    this.getPropsToState(props);
-    this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
-  componentWillReceiveProps(nextProps) {
-    let newState = this.getPropsToState(nextProps);
+  componentWillReceiveProps (nextProps) {
+    let newState = this.mapPropsToState(nextProps);
     this.setState(newState);
   }
 
-  getPropsToState(props) {
-    let newState = {
+  mapPropsToState = (props) => {
+    return {
       id: props.id || props.name && 'ff-search-' + props.name,
       val: props.value,
     };
-    return newState;
   }
 
-  handleChange(ev) {
+  handleChange = (ev) => {
     let val = ev.target.value;
     this.setState({ val });
     this.triggerOnChange(val);
   }
 
-  handleFocus(ev) {
+  handleFocus = (ev) => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
   }
 
-  handleBlur(ev) {
+  handleBlur = (ev) => {
     this.setState({ focused: false, touched: true });
     this.props.onBlur(ev);
   }
 
-  triggerOnChange(...args) {
-    this.props.onChange(...args);
-  }
+  triggerOnChange = _debounce(this.props.onChange, this.props.debounce)
 
-  render() {
+  render () {
     let { className, style, disabled, size } = this.props;
     let { id, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
@@ -64,9 +60,9 @@ class FormFieldSearch extends Component {
             style={{ width: size + 'em' }}
             value={this.state.val}
             {..._pick(this.props, INPUT_PROPS)}
-            onChange={this.handleChange.bind(this)}
-            onFocus={(ev) => this.handleFocus(ev)}
-            onBlur={(ev) => this.handleBlur(ev)}
+            onChange={this.handleChange}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
           />
           <i className="FormField-icon"><Icon glyph="magnify" /></i>
         </div>

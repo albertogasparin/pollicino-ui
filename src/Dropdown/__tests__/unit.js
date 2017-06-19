@@ -117,7 +117,7 @@ describe('<Dropdown />', () => {
       props = { onClose: td.func('onClose') };
       instance = shallow(<Dropdown {...props} />).instance();
       instance.setState({ isOpen: true });
-      instance.refs = { dropdown: true };
+      instance.el = {};
       instance.handleClose();
     });
 

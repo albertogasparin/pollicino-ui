@@ -10,7 +10,8 @@ import Dropdown from '../Dropdown';
 const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoFocus'];
 
 class FormFieldSuggest extends Component {
-  constructor(props) {
+
+  constructor (props) {
     super(props);
     this.state = {
       touched: false,
@@ -19,20 +20,19 @@ class FormFieldSuggest extends Component {
       isLoading: false,
       input: '',
       cache: {},
-      ...this.getPropsToState(props),
+      ...this.mapPropsToState(props),
     };
-    this.getAsyncOptions = _debounce(this.getAsyncOptions, props.debounceLoad);
   }
 
-  componentWillReceiveProps(nextProps) {
-    let newState = this.getPropsToState(nextProps);
+  componentWillReceiveProps (nextProps) {
+    let newState = this.mapPropsToState(nextProps);
     this.setState(newState);
     if (this.state.touched) { // validation: punish late
       this.validate(newState.val);
     }
   }
 
-  getPropsToState(props) {
+  mapPropsToState = (props) => {
     let newState = {
       id: props.id || props.name && 'ff-suggest-' + props.name,
       opts: [...props.options],
@@ -44,7 +44,7 @@ class FormFieldSuggest extends Component {
     return newState;
   }
 
-  getAsyncOptions(input) {
+  getAsyncOptions = _debounce((input) => {
     return this.props.loadOptions(input)
       .then((options) => {
         let cache = { ...this.state.cache, [input]: options };
@@ -59,9 +59,9 @@ class FormFieldSuggest extends Component {
           this.setState({ isLoading: false });
         }
       });
-  }
+  }, this.props.debounceLoad)
 
-  handleInputChange(ev) {
+  handleInputChange = (ev) => {
     let { cache } = this.state;
     let input = ev.target.value;
     this.setState({ input });
@@ -72,7 +72,7 @@ class FormFieldSuggest extends Component {
     }
   }
 
-  handleSelect(option) {
+  handleSelect = (option) => {
     let { labelKey, valueKey } = this.props;
 
     if (!option) {
@@ -85,17 +85,17 @@ class FormFieldSuggest extends Component {
     this.setState({ val: option });
   }
 
-  handleFocus(ev) {
+  handleFocus = (ev) => {
     this.setState({ focused: true });
     clearTimeout(this.blurTimeout);
     this.props.onFocus(ev);
   }
 
-  handleBlur(ev) {
+  handleBlur = (ev) => {
     ev.persist();
     this.blurTimeout = setTimeout(() => { // wait click
       let { val } = this.state;
-      if (this.refs.control) { // still mounted
+      if (this.controlEl) { // still mounted
         this.setState({ focused: false, touched: true, input: '' }, this.validate);
       }
       this.props.onChange(val);
@@ -103,7 +103,7 @@ class FormFieldSuggest extends Component {
     }, 320);
   }
 
-  handleKeyDown(ev) { // eslint-disable-line complexity
+  handleKeyDown = (ev) => { // eslint-disable-line complexity
     let { valueKey, allowAny } = this.props;
     let { val, input } = this.state;
 
@@ -112,7 +112,7 @@ class FormFieldSuggest extends Component {
         ev.preventDefault(); // don't submit the form
         if (allowAny) {
           this.handleSelect(input);
-          this.refs.control.blur(); // trigger field blur
+          this.controlEl.blur(); // trigger field blur
         }
         break;
       case 8: // backspace
@@ -133,14 +133,16 @@ class FormFieldSuggest extends Component {
 
   /**
    * @public
+   * @param {*} val
+   * @returns {*}
    */
-  validate(val = this.state.val) {
+  validate = (val = this.state.val) => {
     let errors = this.props.validation(val) || null;
     this.setState({ errors });
     return errors;
   }
 
-  renderOverlay() {
+  renderOverlay = () => {
     let { loadOptions, allowAny, rows } = this.props;
     let { input, opts } = this.state;
     return (
@@ -168,7 +170,7 @@ class FormFieldSuggest extends Component {
     );
   }
 
-  renderAsyncOptions() {
+  renderAsyncOptions = () => {
     let { noInputText } = this.props;
     let { input, val, isLoading, cache } = this.state;
 
@@ -191,7 +193,7 @@ class FormFieldSuggest extends Component {
     );
   }
 
-  renderOptions(opts) { // eslint-disable-line complexity
+  renderOptions = (opts) => { // eslint-disable-line complexity
     let { valueKey, labelKey, filterOptions, optionRenderer, noOptionsText } = this.props;
     let { input, val } = this.state;
     opts = filterOptions([...opts], input, val);
@@ -218,7 +220,7 @@ class FormFieldSuggest extends Component {
     ));
   }
 
-  render() { // eslint-disable-line complexity
+  render () { // eslint-disable-line complexity
     let { className, style, label, disabled, size, labelKey, allowAny } = this.props;
     let { id, val, errors, focused, input } = this.state;
     className += disabled ? ' isDisabled' : '';
@@ -230,16 +232,17 @@ class FormFieldSuggest extends Component {
           <label className="FormField-label" htmlFor={id}>{label}</label>
         }
         <div className="FormField-field">
-          <input ref="control" id={id} className={'FormField-control'
+          <input id={id} className={'FormField-control'
             + (allowAny && input ? ' FormField-control--iconR' : '')}
+            ref={c => this.controlEl = c}
             style={{ width: size + 'em' }} type="text"
             value={input || (val && val[labelKey]) || ''}
             {..._pick(this.props, INPUT_PROPS)}
             autoComplete="off"
-            onKeyDown={(ev) => this.handleKeyDown(ev)}
-            onChange={(ev) => this.handleInputChange(ev)}
-            onFocus={(ev) => this.handleFocus(ev)}
-            onBlur={(ev) => this.handleBlur(ev)}
+            onKeyDown={this.handleKeyDown}
+            onChange={this.handleInputChange}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
           />
 
           {focused &&

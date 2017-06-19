@@ -9,51 +9,47 @@ const INPUT_PROPS = ['name', 'disabled', 'type'];
 
 class FormFieldTick extends Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       touched: false,
       focused: false,
-      ...this.getPropsToState(props),
+      ...this.mapPropsToState(props),
     };
-    this.triggerOnChange = _debounce(this.triggerOnChange, props.debounce);
   }
 
-  componentWillReceiveProps(nextProps) {
-    let newState = this.getPropsToState(nextProps);
+  componentWillReceiveProps (nextProps) {
+    let newState = this.mapPropsToState(nextProps);
     this.setState(newState);
   }
 
-  getPropsToState(props) {
-    let newState = {
+  mapPropsToState = (props) => {
+    return {
       id: props.id || 'ff-tick-' + props.name + '-' + String(props.value).replace(/[^\w]/g,''),
       checked: props.checked,
     };
-    return newState;
   }
 
-  handleChange(ev) {
+  handleChange = (ev) => {
     let { type, value } = this.props;
     let checked = (type !== 'radio' || !this.state.checked) ? !this.state.checked : true;
     this.setState({ checked });
     this.triggerOnChange(value, checked);
   }
 
-  handleFocus(ev) {
+  handleFocus = (ev) => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
   }
 
-  handleBlur(ev) {
+  handleBlur = (ev) => {
     this.setState({ focused: false, touched: true });
     this.props.onBlur(ev);
   }
 
-  triggerOnChange(...args) {
-    this.props.onChange(...args);
-  }
+  triggerOnChange = _debounce(this.props.onChange, this.props.debounce)
 
-  render() { // eslint-disable-line complexity
+  render () { // eslint-disable-line complexity
     let { className, style, label, value, type, disabled } = this.props;
     let { id, checked } = this.state;
     className += disabled ? ' isDisabled' : '';
@@ -64,9 +60,9 @@ class FormFieldTick extends Component {
         <input id={id} className="FormField-control"
           checked={checked}
           {..._pick(this.props, INPUT_PROPS)}
-          onChange={this.handleChange.bind(this)}
-          onFocus={(ev) => this.handleFocus(ev)}
-          onBlur={(ev) => this.handleBlur(ev)}
+          onChange={this.handleChange}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
         />
         <label className="FormField-field" htmlFor={id}>
           <i className="FormField-tick">

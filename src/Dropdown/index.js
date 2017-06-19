@@ -3,21 +3,17 @@ import PropTypes from 'prop-types';
 
 class Dropdown extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false,
-    };
-    this.handleClickOutside = this.handleClickOutside.bind(this);
+  state = {
+    isOpen: false,
   }
 
-  componentDidMount() {
+  componentDidMount () {
     if (this.props.opened) {
       this.handleOpen();
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (nextProps.opened !== this.props.opened) {
       if (nextProps.opened) {
         this.handleOpen();
@@ -27,15 +23,14 @@ class Dropdown extends Component {
     }
   }
 
-  handleClickOutside(ev) {
-    let { dropdown } = this.refs;
-    let isClickOutside = !dropdown || !dropdown.contains(ev.target) || dropdown === ev.target;
+  handleClickOutside = (ev) => {
+    let isClickOutside = !this.el || !this.el.contains(ev.target) || this.el === ev.target;
     if (this.props.autoClose || isClickOutside) {
       this.handleClose();
     }
   }
 
-  handleOpen() {
+  handleOpen = () => {
     if (this.state.isOpen) {
       return;
     }
@@ -50,24 +45,23 @@ class Dropdown extends Component {
     this.props.onOpen();
   }
 
-  handleClose() {
+  handleClose = () => {
     document.removeEventListener('click', this.handleClickOutside);
 
     // check if still mounted and open
-    if (!this.refs.dropdown || !this.state.isOpen) {
+    if (!this.el || !this.state.isOpen) {
       return;
     }
     this.props.onClose();
 
     setTimeout(() => { // allow content update
-      let { dropdown } = this.refs;
-      if (dropdown) { // still mounted
+      if (this.el) { // still mounted
         this.setState({ isOpen: false });
       }
     }, 20);
   }
 
-  render() {
+  render () {
     let { className, style, children, label, disabled, align, modal } = this.props;
     let { isOpen } = this.state;
     className += isOpen ? ' isOpen' : '';
@@ -75,7 +69,9 @@ class Dropdown extends Component {
     className += modal ? ' Dropdown--modal' : '';
 
     return (
-      <div className={'Dropdown ' + className} style={style} ref="dropdown">
+      <div className={'Dropdown ' + className}
+        style={style} ref={c => this.el = c}
+      >
         {typeof label !== 'undefined' &&
           <button className="Dropdown-btn"
             type="button" disabled={disabled}

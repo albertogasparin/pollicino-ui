@@ -70,7 +70,7 @@ describe('<FormFieldTick />', () => {
       props = { value: 'a', onChange: td.func('onChange'), debounce: 0 };
     });
 
-    it('should set checked if radio', (done) => {
+    it('should set checked if radio and call on change', (done) => {
       props = { ...props, type: 'radio' };
       instance = shallow(<FormFieldTick {...props} />).instance();
       instance.handleChange();
@@ -82,7 +82,7 @@ describe('<FormFieldTick />', () => {
       }, 10);
     });
 
-    it('should toggle checked if checkbox', (done) => {
+    it('should toggle checked if checkbox and call on change', (done) => {
       props = { ...props, type: 'checkbox', checked: true };
       instance = shallow(<FormFieldTick {...props} />).instance();
       instance.handleChange();

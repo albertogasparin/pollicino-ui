@@ -46,7 +46,9 @@ class FormFieldSearch extends Component {
     this.props.onBlur(ev);
   }
 
-  triggerOnChange = _debounce(this.props.onChange, this.props.debounce)
+  triggerOnChange = _debounce((...args) => {
+    this.props.onChange(...args); // call the fresh prop
+  }, this.props.debounce)
 
   render () {
     let { className, style, disabled, size } = this.props;

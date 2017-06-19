@@ -75,7 +75,7 @@ describe('<FormFieldTextarea />', () => {
 
 
   describe('handleChange()', () => {
-    let props, instance;
+    let props, wrapper, instance;
     let ev = { target: { value: 'a' } };
 
     beforeEach(() => {
@@ -85,7 +85,8 @@ describe('<FormFieldTextarea />', () => {
         onChange: td.func('onChange'),
         validation: td.func('validation'),
       };
-      instance = shallow(<FormFieldTextarea {...props} />).instance();
+      wrapper = shallow(<FormFieldTextarea {...props} />);
+      instance = wrapper.instance();
     });
 
     it('should update val state', () => {
@@ -99,6 +100,17 @@ describe('<FormFieldTextarea />', () => {
 
       setTimeout(() => {
         expect(props.onChange).to.have.been.calledWith('a');
+        done();
+      }, 10);
+    });
+
+    it('should call updated prop onChange', (done) => {
+      let onChange2 = td.func('onChange');
+      wrapper.setProps({ onChange: onChange2 });
+      instance.handleChange(ev);
+
+      setTimeout(() => {
+        expect(onChange2).to.have.been.calledWith('a');
         done();
       }, 10);
     });

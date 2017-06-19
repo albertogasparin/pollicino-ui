@@ -47,7 +47,9 @@ class FormFieldTick extends Component {
     this.props.onBlur(ev);
   }
 
-  triggerOnChange = _debounce(this.props.onChange, this.props.debounce)
+  triggerOnChange = _debounce((...args) => {
+    this.props.onChange(...args); // call the fresh prop
+  }, this.props.debounce)
 
   render () { // eslint-disable-line complexity
     let { className, style, label, value, type, disabled } = this.props;

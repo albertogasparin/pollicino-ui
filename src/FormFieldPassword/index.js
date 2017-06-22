@@ -10,30 +10,29 @@ const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoFocus'];
 
 class FormFieldPassword extends Component {
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      touched: false,
-      focused: false,
-      errors: null,
-      type: 'password',
-      ...this.mapPropsToState(props),
-    };
+  state = {
+    touched: false,
+    focused: false,
+    error: null,
+    type: 'password',
+  }
+
+  componentWillMount () {
+    this.setPropsToState(this.props);
   }
 
   componentWillReceiveProps (nextProps) {
-    let newState = this.mapPropsToState(nextProps);
-    this.setState(newState);
-    if (this.state.touched) { // validation: punish late
-      this.validate(newState.val);
-    }
+    this.setPropsToState(nextProps);
   }
 
-  mapPropsToState = (props) => {
-    return {
+  setPropsToState = (props) => {
+    let val = props.value;
+    this.setState(({ touched }) => ({
       id: props.id || props.name && 'ff-password-' + props.name,
       val: props.value,
-    };
+      ...(props.touched ? { touched: true } : {}),
+      ...(touched || props.touched ? this.validate(val, false) : {}),
+    }));
   }
 
   handleTypeToggle = () => {
@@ -42,13 +41,13 @@ class FormFieldPassword extends Component {
   }
 
   handleChange = (ev) => {
-    let { errors, focused } = this.state;
+    let { error, focused } = this.state;
     let val = ev.target.value;
 
-    if (errors && focused) { // validation: reward early
-      this.validate(val);
-    }
-    this.setState({ val });
+    this.setState({
+      val,
+      ...(error && focused ? this.validate(val, false) : {}),
+    });
     this.triggerOnChange(val);
   }
 
@@ -58,7 +57,9 @@ class FormFieldPassword extends Component {
   }
 
   handleBlur = (ev) => {
-    this.setState({ focused: false, touched: true }, this.validate);
+    this.setState(({ val }) => ({
+      focused: false, touched: true, ...this.validate(val, false),
+    }));
     this.props.onBlur(ev);
   }
 
@@ -66,13 +67,15 @@ class FormFieldPassword extends Component {
     this.props.onChange(...args); // call the fresh prop
   }, this.props.debounce)
 
-  /**
+  /*
    * @public
    */
-  validate = (val = this.state.val) => {
-    let errors = this.props.validation(val) || null;
-    this.setState({ errors });
-    return errors;
+  validate = (val = this.state.val, updateState = true) => {
+    let error = this.props.validation(val) || null;
+    if (updateState) {
+      this.setState({ error });
+    }
+    return { error };
   }
 
   renderToggleButton = (type) => {
@@ -90,9 +93,9 @@ class FormFieldPassword extends Component {
 
   render () {
     let { className, style, label, disabled, size } = this.props;
-    let { id, val, type, errors, focused } = this.state;
+    let { id, val, type, error, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
-    className += errors ? ' isInvalid' : '';
+    className += error ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
     return (
       <div className={'FormField FormField--password ' + className} style={style}>
@@ -109,8 +112,8 @@ class FormFieldPassword extends Component {
             onBlur={this.handleBlur}
           />
           {this.renderToggleButton(type)}
-          {errors &&
-            <p className="FormField-error">{errors}</p>
+          {error &&
+            <p className="FormField-error">{error}</p>
           }
         </div>
       </div>
@@ -128,6 +131,7 @@ FormFieldPassword.propTypes = {
   id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
+  touched: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   autoFocus: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types

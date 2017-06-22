@@ -25,10 +25,10 @@ describe('<FormFieldRange />', () => {
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(0);
     });
 
-    it('should show errors if any', () => {
+    it('should show error if any', () => {
       let props = { value: 0 };
       let wrapper = shallow(<FormFieldRange {...props} />);
-      wrapper.setState({ errors: 'Errors' });
+      wrapper.setState({ error: 'Error' });
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
@@ -48,7 +48,7 @@ describe('<FormFieldRange />', () => {
       expect(wrapper.state()).to.eql({
         touched: false,
         focused: false,
-        errors: null,
+        error: null,
         id: 'ff-range-a',
         val: 0,
       });
@@ -59,7 +59,7 @@ describe('<FormFieldRange />', () => {
       expect(wrapper.state()).to.eql({
         touched: false,
         focused: false,
-        errors: null,
+        error: null,
         id: 'a',
         val: 1,
       });
@@ -100,7 +100,7 @@ describe('<FormFieldRange />', () => {
     it('should validate if focused and with error', () => {
       props = { value: 0, validation: td.func('validation') };
       instance = shallow(<FormFieldRange {...props} />).instance();
-      instance.setState({ focused: true, errors: 'Error' });
+      instance.setState({ focused: true, error: 'Error' });
       instance.handleChange(ev);
 
       expect(props.validation).to.have.been.called;
@@ -173,7 +173,7 @@ describe('<FormFieldRange />', () => {
     it('should set error state', () => {
       td.when(props.validation(1)).thenReturn('Error');
       instance.validate(1);
-      expect(instance.state.errors).to.eql('Error');
+      expect(instance.state.error).to.eql('Error');
     });
 
     it('should use state value if no arguments', () => {

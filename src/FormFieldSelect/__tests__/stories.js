@@ -34,9 +34,9 @@ storiesOf('FormFieldSelect', module)
 
       <h4>Invalid</h4>
       <FormFieldSelect
-        ref={(c) => c && c.validate()}
         label="Label"
         options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
+        touched
         validation={(v) => !v && 'Please select an option'}
         onChange={action('change')}
       /><br />

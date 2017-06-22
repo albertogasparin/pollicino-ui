@@ -16,10 +16,9 @@
 
 .FormField--radiobox,
 .FormField--checkbox {
-  overflow: hidden;
 
   &.isDisabled .FormField {
-    &-field { @include FormField-isDisabled; }
+    &-label { @include FormField-isDisabled; }
     &-tick { opacity: 0.6; }
   }
 }
@@ -27,9 +26,16 @@
 .FormField--radiobox .FormField,
 .FormField--checkbox .FormField {
 
-  &-field {
-    position: relative;
+  &-label {
+    display: block;
+    font-weight: inherit;
     cursor: pointer;
+  }
+
+  &-field .FormField-label { // increase specificity to make nesting work
+    color: inherit;
+    margin: 0;
+    padding-right: rem($Pollicino-padding);
   }
 
   &-tick {
@@ -41,11 +47,12 @@
 
   &-control {
     position: absolute;
-    top: -2rem;
+    top: 0.5em;
     left: 0;
     width: auto !important;
+    clip: rect(0, 0, 0, 0);
 
-    &:focus ~ .FormField-field .FormField-tick {
+    &:focus ~ .FormField-label .FormField-tick {
       color: $Pollicino-color-primary;
     }
   }

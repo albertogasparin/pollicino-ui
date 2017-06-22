@@ -25,10 +25,10 @@ describe('<FormFieldDate />', () => {
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(0);
     });
 
-    it('should show errors if any', () => {
+    it('should show error if any', () => {
       let props = { value: '' };
       let wrapper = shallow(<FormFieldDate {...props} />);
-      wrapper.setState({ errors: 'Errors' });
+      wrapper.setState({ error: 'Error' });
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
@@ -52,7 +52,7 @@ describe('<FormFieldDate />', () => {
       expect(wrapper.state()).to.eql({
         touched: false,
         focused: false,
-        errors: null,
+        error: null,
         val: [props.value, props.value],
         opts: [{ label: 'select', value: '' }],
         month: new Date(props.value),
@@ -65,7 +65,7 @@ describe('<FormFieldDate />', () => {
       expect(wrapper.state()).to.eql({
         touched: false,
         focused: false,
-        errors: null,
+        error: null,
         val: [props.value, '2010-01-01'],
         opts: [],
         month: new Date(props.value),
@@ -325,7 +325,7 @@ describe('<FormFieldDate />', () => {
     it('should set error state', () => {
       td.when(props.validation('')).thenReturn('Error');
       instance.validate();
-      expect(instance.state.errors).to.eql('Error');
+      expect(instance.state.error).to.eql('Error');
     });
 
     it('should use state value if no arguments', () => {

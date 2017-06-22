@@ -49,11 +49,10 @@ storiesOf('FormFieldSelectGroup', module)
 
         <h4>Invalid, hidden placeholder</h4>
         <FormFieldSelectGroup
-          ref={(c) => c && c.validate()}
           label="Label" hidePlaceholder
           options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
+          touched
           validation={(v) => !v && 'Required'}
-          onChange={action('change')}
         /><br />
 
         <h4>Disabled, no label, value set and custom render</h4>
@@ -108,13 +107,13 @@ storiesOf('FormFieldSelectGroup', module)
 
         <h4>Inline, multiple, invalid, hide placeholder</h4>
         <FormFieldSelectGroup name="i5"
-          ref={(c) => c && c.validate()}
           label="Label:" hidePlaceholder inline multiple
           value={[1]}
           options={[
             { label: 'One', value: 1 }, { label: 'Two has a long label that push', value: 2 },
             { label: 'Three', value: 3 },
           ]}
+          touched
           validation={(v) => v.length < 2 && 'Please select two options'}
           onChange={action('change')}
         /><br />

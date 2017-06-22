@@ -25,10 +25,10 @@ describe('<FormFieldSelect />', () => {
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(0);
     });
 
-    it('should show errors if any', () => {
+    it('should show error if any', () => {
       let props = { value: '', options: [] };
       let wrapper = shallow(<FormFieldSelect {...props} />);
-      wrapper.setState({ errors: 'Errors' });
+      wrapper.setState({ error: 'Error' });
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
@@ -52,7 +52,7 @@ describe('<FormFieldSelect />', () => {
       expect(wrapper.state()).to.eql({
         touched: false,
         focused: false,
-        errors: null,
+        error: null,
         id: 'ff-select-a',
         val: 'a',
         opts: [{ label: 'select', value: '' }],
@@ -64,7 +64,7 @@ describe('<FormFieldSelect />', () => {
       expect(wrapper.state()).to.eql({
         touched: false,
         focused: false,
-        errors: null,
+        error: null,
         id: 'a',
         val: 'b',
         opts: [{ label: 'select', value: '' }, { label: 'A', value: 'a' }],
@@ -206,7 +206,7 @@ describe('<FormFieldSelect />', () => {
     it('should set error state', () => {
       td.when(props.validation('')).thenReturn('Error');
       instance.validate('');
-      expect(instance.state.errors).to.eql('Error');
+      expect(instance.state.error).to.eql('Error');
     });
 
     it('should use state value if no arguments', () => {

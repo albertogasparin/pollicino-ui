@@ -10,39 +10,38 @@ const INPUT_PROPS = [
 
 class FormFieldText extends Component {
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      touched: false,
-      focused: false,
-      errors: null,
-      ...this.mapPropsToState(props),
-    };
+  state = {
+    touched: false,
+    focused: false,
+    error: null,
+  }
+
+  componentWillMount () {
+    this.setPropsToState(this.props);
   }
 
   componentWillReceiveProps (nextProps) {
-    let newState = this.mapPropsToState(nextProps);
-    this.setState(newState);
-    if (this.state.touched) { // validation: punish late
-      this.validate(newState.val);
-    }
+    this.setPropsToState(nextProps);
   }
 
-  mapPropsToState = (props) => {
-    return {
+  setPropsToState = (props) => {
+    let val = props.value;
+    this.setState(({ touched }) => ({
+      val,
       id: props.id || props.name && 'ff-text-' + props.name,
-      val: props.value,
-    };
+      ...(props.touched ? { touched: true } : {}),
+      ...(touched || props.touched ? this.validate(val, false) : {}),
+    }));
   }
 
   handleChange = (ev) => {
-    let { errors, focused } = this.state;
+    let { error, focused } = this.state;
     let val = ev.target.value;
 
-    if (errors && focused) { // validation: reward early
-      this.validate(val);
-    }
-    this.setState({ val });
+    this.setState({
+      val,
+      ...(error && focused ? this.validate(val, false) : {}),
+    });
     this.triggerOnChange(val);
   }
 
@@ -52,7 +51,9 @@ class FormFieldText extends Component {
   }
 
   handleBlur = (ev) => {
-    this.setState({ focused: false, touched: true }, this.validate);
+    this.setState(({ val }) => ({
+      focused: false, touched: true, ...this.validate(val, false),
+    }));
     this.props.onBlur(ev);
   }
 
@@ -60,20 +61,22 @@ class FormFieldText extends Component {
     this.props.onChange(...args); // call the fresh prop
   }, this.props.debounce)
 
-  /**
+  /*
    * @public
    */
-  validate = (val = this.state.val) => {
-    let errors = this.props.validation(val) || null;
-    this.setState({ errors });
-    return errors;
+  validate = (val = this.state.val, updateState = true) => {
+    let error = this.props.validation(val) || null;
+    if (updateState) {
+      this.setState({ error });
+    }
+    return { error };
   }
 
   render () {
     let { className, style, label, disabled, size } = this.props;
-    let { id, val, errors, focused } = this.state;
+    let { id, val, error, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
-    className += errors ? ' isInvalid' : '';
+    className += error ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
     return (
       <div className={'FormField FormField--text ' + className} style={style}>
@@ -89,8 +92,8 @@ class FormFieldText extends Component {
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
           />
-          {errors &&
-            <p className="FormField-error">{errors}</p>
+          {error &&
+            <p className="FormField-error">{error}</p>
           }
         </div>
       </div>
@@ -108,6 +111,7 @@ FormFieldText.propTypes = {
   id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
+  touched: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 

@@ -39,9 +39,9 @@ storiesOf('FormFieldRange', module)
 
       <h4>Invalid, custom size</h4>
       <FormFieldRange
-        ref={(c) => c && c.validate()}
         label="Label" size="14"
         min={-5} max={5} step={1}
+        touched
         validation={(v) => !v && 'Please select a non-zero value'}
         onChange={action('change')}
       /><br />

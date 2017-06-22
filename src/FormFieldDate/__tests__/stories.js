@@ -44,9 +44,10 @@ storiesOf('FormFieldDate', module)
       </div>
 
       <h4>Invalid</h4>
-      <FormFieldDate ref={(c) => c && c.validate()}
+      <FormFieldDate
         label="Label"
         placeholder="Not set"
+        touched
         validation={(v) => !v && 'Required' }
         onChange={action('change')}
       /><br />

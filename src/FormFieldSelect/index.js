@@ -7,38 +7,38 @@ const INPUT_PROPS = ['name', 'disabled'];
 
 class FormFieldSelect extends Component {
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      touched: false,
-      focused: false,
-      errors: null,
-      ...this.mapPropsToState(props),
-    };
+  state = {
+    touched: false,
+    focused: false,
+    error: null,
+  }
+
+  componentWillMount () {
+    this.setPropsToState(this.props);
   }
 
   componentWillReceiveProps (nextProps) {
-    let newState = this.mapPropsToState(nextProps);
-    this.setState(newState);
-    if (this.state.touched) { // validation: punish late
-      this.validate(newState.val);
-    }
+    this.setPropsToState(nextProps);
   }
 
-  mapPropsToState = (props) => {
-    return {
+  setPropsToState = (props) => {
+    let val = props.value;
+    let opts = [
+      { label: props.placeholder, value: '' },
+      ...props.options,
+    ];
+    this.setState(({ touched }) => ({
+      val,
+      opts,
       id: props.id || props.name && 'ff-select-' + props.name,
-      opts: [
-        { label: props.placeholder, value: '' },
-        ...props.options,
-      ],
-      val: props.value,
-    };
+      ...(props.touched ? { touched: true } : {}),
+      ...(touched || props.touched ? this.validate(val, false) : {}),
+    }));
   }
 
   findOption = (val) => {
     let option = null;
-    this.state.opts.some((o) => (
+    this.state.opts.some(o => (
       String(o.value) === String(val) ? (option = o) : false
     ));
     return option;
@@ -48,8 +48,7 @@ class FormFieldSelect extends Component {
     let { opts } = this.state;
     let val = opts[ev.target.selectedIndex].value;
 
-    this.validate(val);
-    this.setState({ val });
+    this.setState({ val, ...this.validate(val, false) });
     this.triggerOnChange(val);
   }
 
@@ -67,21 +66,23 @@ class FormFieldSelect extends Component {
     this.props.onChange(...args); // call the fresh prop
   }, this.props.debounce)
 
-  /**
+  /*
    * @public
    */
-  validate = (val = this.state.val) => {
-    let errors = this.props.validation(val) || null;
-    this.setState({ errors });
-    return errors;
+  validate = (val = this.state.val, updateState = true) => {
+    let error = this.props.validation(val) || null;
+    if (updateState) {
+      this.setState({ error });
+    }
+    return { error };
   }
 
   render () {
     let { className, style, label, valueRenderer, disabled } = this.props;
-    let { id, opts, val, errors, focused } = this.state;
+    let { id, opts, val, error, focused } = this.state;
     let selectedOpt = this.findOption(val) || {};
     className += disabled ? ' isDisabled' : '';
-    className += errors ? ' isInvalid' : '';
+    className += error ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
 
     return (
@@ -104,8 +105,8 @@ class FormFieldSelect extends Component {
               <option key={i} value={o.value}>{o.label || o.value}</option>)
             )}
           </select>
-          {errors &&
-            <p className="FormField-error">{errors}</p>
+          {error &&
+            <p className="FormField-error">{error}</p>
           }
         </div>
       </div>
@@ -122,6 +123,7 @@ FormFieldSelect.propTypes = {
   id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
+  touched: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 
   options: PropTypes.arrayOf(PropTypes.object).isRequired, // eslint-disable-line react/no-unused-prop-types
   valueRenderer: PropTypes.func,
@@ -138,7 +140,7 @@ FormFieldSelect.defaultProps = {
   placeholder: '— Select —',
   debounce: 50,
 
-  valueRenderer: (v) => v,
+  valueRenderer: v => v,
 
   validation () {},
   onChange () {},

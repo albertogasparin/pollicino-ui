@@ -9,31 +9,34 @@ const INPUT_PROPS = ['name', 'disabled', 'type'];
 
 class FormFieldTick extends Component {
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      touched: false,
-      focused: false,
-      ...this.mapPropsToState(props),
-    };
+  state = {
+    touched: false,
+    focused: false,
+    error: null,
+  }
+
+  componentWillMount () {
+    this.setPropsToState(this.props);
   }
 
   componentWillReceiveProps (nextProps) {
-    let newState = this.mapPropsToState(nextProps);
-    this.setState(newState);
+    this.setPropsToState(nextProps);
   }
 
-  mapPropsToState = (props) => {
-    return {
-      id: props.id || 'ff-tick-' + props.name + '-' + String(props.value).replace(/[^\w]/g,''),
+  setPropsToState = (props) => {
+    let val = props.value;
+    this.setState(({ touched }) => ({
+      id: props.id || 'ff-tick-' + props.name + '-' + String(val).replace(/[^\w]/g,''),
       checked: props.checked,
-    };
+      ...(props.touched ? { touched: true } : {}),
+      ...(touched || props.touched ? this.validate(props.checked, false) : {}),
+    }));
   }
 
   handleChange = (ev) => {
     let { type, value } = this.props;
     let checked = (type !== 'radio' || !this.state.checked) ? !this.state.checked : true;
-    this.setState({ checked });
+    this.setState({ checked, ...this.validate(checked, false) });
     this.triggerOnChange(value, checked);
   }
 
@@ -51,30 +54,46 @@ class FormFieldTick extends Component {
     this.props.onChange(...args); // call the fresh prop
   }, this.props.debounce)
 
+  /*
+   * @public
+   */
+  validate = (checked = this.state.checked, updateState = true) => {
+    let error = this.props.validation(checked) || null;
+    if (updateState) {
+      this.setState({ error });
+    }
+    return { error };
+  }
+
   render () { // eslint-disable-line complexity
     let { className, style, label, value, type, disabled } = this.props;
-    let { id, checked } = this.state;
+    let { id, checked, error } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += checked ? ' isChecked' : '';
+    className += error ? ' isInvalid' : '';
     let boxtype = type === 'radio' ? 'radiobox' : type;
     return (
       <div className={'FormField FormField--' + boxtype + ' ' + className} style={style}>
-        <input id={id} className="FormField-control"
-          checked={checked}
-          {..._pick(this.props, INPUT_PROPS)}
-          onChange={this.handleChange}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-        />
-        <label className="FormField-field" htmlFor={id}>
-          <i className="FormField-tick">
-            <Icon glyph={`${boxtype}-${checked ? 'marked' : 'blank'}`} />
-          </i>
-          <span className="FormField-value">
-            {label || value}
-          </span>
-        </label>
-
+        <div className="FormField-field">
+          <input id={id} className="FormField-control"
+            checked={checked}
+            {..._pick(this.props, INPUT_PROPS)}
+            onChange={this.handleChange}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
+          />
+          <label className="FormField-label" htmlFor={id}>
+            <i className="FormField-tick">
+              <Icon glyph={`${boxtype}-${checked ? 'marked' : 'blank'}`} />
+            </i>
+            <span className="FormField-value">
+              {label || value}
+            </span>
+          </label>
+          {error &&
+            <p className="FormField-error">{error}</p>
+          }
+        </div>
       </div>
     );
   }
@@ -89,10 +108,12 @@ FormFieldTick.propTypes = {
   id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
+  touched: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 
   type: PropTypes.oneOf(['radio', 'checkbox']),
   checked: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 
+  validation: PropTypes.func,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
@@ -105,6 +126,7 @@ FormFieldTick.defaultProps = {
   checked: false,
   type: 'radio',
 
+  validation () {},
   onChange () {},
   onFocus () {},
   onBlur () {},

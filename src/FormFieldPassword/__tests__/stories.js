@@ -32,8 +32,8 @@ storiesOf('FormFieldPassword', module)
 
       <h4>Invalid, custom size</h4>
       <FormFieldPassword value="12345"
-        ref={(c) => c && c.validate()}
         label="Label" size="14"
+        touched
         validation={(v) => v.length < 6 && 'Your password should be at least 6 chars long'}
         onChange={action('change')}
       /><br />

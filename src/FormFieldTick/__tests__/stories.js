@@ -32,7 +32,8 @@ storiesOf('FormFieldTick', module)
       <div className="left w1">
         <FormFieldTick type="checkbox" name="t3"
           label="Label really really long" value="1"
-          onChange={action('change')}
+          touched
+          validation={(checked) => !checked && 'Please check this box'}
         />
       </div>
       <div>

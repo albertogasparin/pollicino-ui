@@ -81,31 +81,28 @@
 
   &--radiobox {
     display: block;
+    border: 1px solid $Pollicino-color-lighter;
+    border-right-width: 0;
 
     .FormField {
-      &-field {
-        display: block;
-        border: 1px solid $Pollicino-color-lighter;
-        border-right-width: 0;
-      }
       &-tick { display: none; }
-      &-value { padding: 0 rem($Pollicino-padding); }
+      &-value { padding-left: rem($Pollicino-padding); }
     }
 
-    &.isChecked .FormField-value {
+    &.isChecked .FormField-label {
       background: rgba(#BBB, 0.4);
       box-shadow: inset 0 3px 5px rgba(#000, 0.15);
     }
 
-    &.isDisabled .FormField-value { box-shadow: none; }
+    &.isDisabled .FormField-label { box-shadow: none; }
   }
 
-  &-groupItem:first-child .FormField--radiobox .FormField-field {
+  &-groupItem:first-child .FormField--radiobox {
     border-top-left-radius: $Pollicino-border-radius;
     border-bottom-left-radius: $Pollicino-border-radius;
   }
 
-  &-groupItem:last-child .FormField--radiobox .FormField-field {
+  &-groupItem:last-child .FormField--radiobox {
     border-top-right-radius: $Pollicino-border-radius;
     border-bottom-right-radius: $Pollicino-border-radius;
     border-right-width: 1px;

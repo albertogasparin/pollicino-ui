@@ -45,6 +45,7 @@ describe('<FormFieldTick />', () => {
       expect(wrapper.state()).to.eql({
         checked: false,
         focused: false,
+        error: null,
         id: 'ff-tick-a-a',
         touched: false,
       });
@@ -55,6 +56,7 @@ describe('<FormFieldTick />', () => {
       expect(wrapper.state()).to.eql({
         checked: true,
         focused: false,
+        error: null,
         id: 'a',
         touched: false,
       });

@@ -25,10 +25,10 @@ describe('<FormFieldSuggest />', () => {
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(0);
     });
 
-    it('should show errors if any', () => {
+    it('should show error if any', () => {
       let props = { value: '' };
       let wrapper = shallow(<FormFieldSuggest {...props} />);
-      wrapper.setState({ errors: 'Errors' });
+      wrapper.setState({ error: 'Error' });
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
@@ -48,7 +48,7 @@ describe('<FormFieldSuggest />', () => {
       expect(wrapper.state()).to.eql({
         touched: false,
         focused: false,
-        errors: null,
+        error: null,
         isLoading: false,
         input: '',
         id: 'ff-suggest-a',
@@ -63,7 +63,7 @@ describe('<FormFieldSuggest />', () => {
       expect(wrapper.state()).to.eql({
         touched: false,
         focused: false,
-        errors: null,
+        error: null,
         isLoading: false,
         input: '',
         id: 'a',
@@ -79,7 +79,7 @@ describe('<FormFieldSuggest />', () => {
       expect(wrapper.state()).to.eql({
         touched: false,
         focused: false,
-        errors: null,
+        error: null,
         isLoading: false,
         input: '',
         id: 'a',
@@ -280,7 +280,7 @@ describe('<FormFieldSuggest />', () => {
     it('should set error state', () => {
       td.when(props.validation({ id: 1 })).thenReturn('Error');
       instance.validate({ id: 1 });
-      expect(instance.state.errors).to.eql('Error');
+      expect(instance.state.error).to.eql('Error');
     });
 
     it('should use state value if no arguments', () => {

@@ -10,41 +10,37 @@ import FormFieldSelect from '../FormFieldSelect';
 
 class FormFieldDate extends Component {
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      touched: false,
-      focused: false,
-      errors: null,
-      showPicker: props.options.length === 0,
-      ...this.mapPropsToState(props),
-    };
+  state = {
+    touched: false,
+    focused: false,
+    error: null,
+  }
+
+  componentWillMount () {
+    this.setPropsToState(this.props);
   }
 
   componentWillReceiveProps (nextProps) {
-    let newState = this.mapPropsToState(nextProps);
-    this.setState(newState);
-    if (this.state.touched) { // validation: punish late
-      this.validate(newState.val);
-    }
+    this.setPropsToState(nextProps);
   }
 
-  mapPropsToState = (props) => {
+  setPropsToState = (props) => {
     let val = this.normalizeValue(props.value);
-    let opts = props.options.map((o) => ({
-      label: o.label,
-      value: this.normalizeValue(o.value),
-    }));
-
-    if (!props.hidePlaceholder) {
-      opts.unshift({ label: props.placeholder, value: '' });
-    }
-
-    return {
-      month: val[0] ? new Date(val[0]) : new Date(),
-      opts,
+    let opts = [
+      ...(props.hidePlaceholder ? [] : [{ label: props.placeholder, value: '' }]),
+      ...props.options.map(o => ({
+        label: o.label,
+        value: this.normalizeValue(o.value),
+      })),
+    ];
+    this.setState(({ touched, showPicker }) => ({ // eslint-disable-line complexity
       val,
-    };
+      opts,
+      month: val[0] ? new Date(val[0]) : new Date(),
+      showPicker: typeof showPicker === 'undefined' ? props.options.length === 0 : showPicker,
+      ...(props.touched ? { touched: true } : {}),
+      ...(touched || props.touched ? this.validate(val, false) : {}),
+    }));
   }
 
   normalizeValue = (value) => {
@@ -54,15 +50,14 @@ class FormFieldDate extends Component {
     return value;
   }
 
-  returnValue = (val) => {
-    if (this.props.isRange) {
-      return val;
-    }
-    return val[0] || '';
+  returnValue = (val = this.state.val) => {
+    return this.props.isRange ? val : val[0] || '';
   }
 
   formatDate = (day) => {
-    return day.toJSON().slice(0,10);
+    return day.getFullYear()
+      + '-' + ('0' + (day.getMonth() + 1)).slice(-2)
+      + '-' + ('0' + day.getDate()).slice(-2);
   }
 
   isDayDisabled = (day) => {
@@ -73,7 +68,7 @@ class FormFieldDate extends Component {
 
   findOption = (value) => {
     let option = null;
-    this.state.opts.some((o) => (
+    this.state.opts.some(o => (
       (o.value[0] === value[0] && o.value[1] === value[1]) ? (option = o) : false
     ));
     return option;
@@ -86,8 +81,12 @@ class FormFieldDate extends Component {
       val = value;
     }
 
-    this.setState({ showPicker, val }, () => {
-      this.validate();
+    this.setState({
+      showPicker,
+      val,
+      month: val[0] ? new Date(val[0]) : new Date(),
+      ...this.validate(val, false),
+    }, () => {
       if (!isFromCustom && !this.props.isRange || !showPicker) {
         this.dropdownEl.handleClose();
       }
@@ -129,9 +128,10 @@ class FormFieldDate extends Component {
   }
 
   handleBlur = (ev) => {
-    let { val } = this.state;
-    this.setState({ focused: false, touched: true }, this.validate);
-    this.triggerOnChange(this.returnValue(val));
+    this.setState(({ val }) => ({
+      focused: false, touched: true, ...this.validate(val, false),
+    }));
+    this.triggerOnChange(this.returnValue());
     this.props.onBlur(ev);
   }
 
@@ -139,13 +139,15 @@ class FormFieldDate extends Component {
     this.props.onChange(...args); // call the fresh prop
   }, this.props.debounce)
 
-  /**
+  /*
    * @public
    */
-  validate = (val = this.state.val) => {
-    let errors = this.props.validation(this.returnValue(val)) || null;
-    this.setState({ errors });
-    return errors;
+  validate = (val = this.state.val, updateState = true) => {
+    let error = this.props.validation(this.returnValue(val)) || null;
+    if (updateState) {
+      this.setState({ error });
+    }
+    return { error };
   }
 
   renderFieldLabel = (val) => {
@@ -177,7 +179,7 @@ class FormFieldDate extends Component {
             label={o.label} delay={0}
             checked={o === checkedOpt}
             value={o.value}
-            onChange={(v) => this.handleChange(false, v)}
+            onChange={v => this.handleChange(false, v)}
           />
         ))}
         {showCustomOpt &&
@@ -185,10 +187,10 @@ class FormFieldDate extends Component {
             label={'Custom ' + (isRange ? 'range' : '')} delay={0}
             checked={showPicker || (!checkedOpt && val.length > 0)}
             value="custom"
-            onChange={(v) => this.handleChange(true, v)}
+            onChange={v => this.handleChange(true, v)}
           />
         }
-        {(showPicker || (!checkedOpt && val.length > 0)) &&
+        {(showPicker || !showCustomOpt || (!checkedOpt && val.length > 0)) &&
           this.renderDayPicker()
         }
       </div>
@@ -214,8 +216,8 @@ class FormFieldDate extends Component {
         {yearDropdown && minYear !== maxYear
           ? <FormFieldSelect className="DayPicker-yearField"
               value={date.getFullYear()}
-              options={_range(minYear, maxYear + 1).map((v) => ({ label: v, value: v }))}
-              onChange={(v) => this.handleYearChange(date, v)}
+              options={_range(minYear, maxYear + 1).map(v => ({ label: v, value: v }))}
+              onChange={v => this.handleYearChange(date, v)}
             />
           : date.getFullYear()
         }
@@ -236,9 +238,9 @@ class FormFieldDate extends Component {
 
   render () {
     let { className, style, label, disabled, align } = this.props;
-    let { val, errors, focused } = this.state;
+    let { val, error, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
-    className += errors ? ' isInvalid' : '';
+    className += error ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
 
     return (
@@ -256,8 +258,8 @@ class FormFieldDate extends Component {
           >
             {this.renderDropdownContent()}
           </Dropdown>
-          {errors &&
-            <p className="FormField-error">{errors}</p>
+          {error &&
+            <p className="FormField-error">{error}</p>
           }
         </div>
       </div>
@@ -274,6 +276,7 @@ FormFieldDate.propTypes = {
   name: PropTypes.string,
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
+  touched: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 
   hidePlaceholder: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
   options: PropTypes.arrayOf(PropTypes.object),

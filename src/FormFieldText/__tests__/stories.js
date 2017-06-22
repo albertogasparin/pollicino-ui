@@ -33,10 +33,9 @@ storiesOf('FormFieldText', module)
       <h4>Invalid, custom size</h4>
       <div>
         <FormFieldText value=""
-          ref={(c) => c && c.validate()}
           label="Label" size="14"
+          touched
           validation={(v) => !v && 'Please provide a value'}
-          onChange={action('change')}
         /><br />
       </div>
 

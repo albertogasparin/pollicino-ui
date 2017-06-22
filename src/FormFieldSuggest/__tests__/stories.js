@@ -45,10 +45,9 @@ storiesOf('FormFieldSuggest', module)
         />
       </div>
 
-      <h4>allowAny, labelKey, valueKey, rows</h4>
+      <h4>Invalid, allowAny, labelKey, valueKey, rows</h4>
       <div className="w2">
         <FormFieldSuggest
-          ref={(c) => c && c.validate()}
           value={{ lb: '12', vl: 12 }}
           labelKey="lb" valueKey="vl" allowAny rows="3.5"
           options={[
@@ -57,6 +56,7 @@ storiesOf('FormFieldSuggest', module)
             { lb: 'Seven', vl: 7 }, { lb: 'Eight', vl: 8 }, { lb: '9', vl: 9 },
             { lb: 'Ten', vl: 10 }, { lb: 'Eleven', vl: 11 },
           ]}
+          touched
           validation={(o) => (!o || o.vl > 10) && 'Please chose a number < 10'}
         />
       </div>

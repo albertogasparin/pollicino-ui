@@ -26,11 +26,13 @@
   }
 
   &-datePicker {
-    padding: 0;
     line-height: 1.35;
 
     &:focus,
     [tabindex]:focus { outline: none; }
+
+    .DayPicker-wrapper { padding: 0.3rem 0 0; }
+    .DayPicker-NavBar { top: 0.3rem; }
 
     .DayPicker-Month {
       width: 100%;

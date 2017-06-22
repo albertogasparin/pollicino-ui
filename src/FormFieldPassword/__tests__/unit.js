@@ -25,10 +25,10 @@ describe('<FormFieldPassword />', () => {
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(0);
     });
 
-    it('should show errors if any', () => {
+    it('should show error if any', () => {
       let props = { value: '' };
       let wrapper = shallow(<FormFieldPassword {...props} />);
-      wrapper.setState({ errors: 'Errors' });
+      wrapper.setState({ error: 'Error' });
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
@@ -48,7 +48,7 @@ describe('<FormFieldPassword />', () => {
       expect(wrapper.state()).to.eql({
         touched: false,
         focused: false,
-        errors: null,
+        error: null,
         id: 'ff-password-a',
         val: 'a',
         type: 'password',
@@ -60,7 +60,7 @@ describe('<FormFieldPassword />', () => {
       expect(wrapper.state()).to.eql({
         touched: false,
         focused: false,
-        errors: null,
+        error: null,
         id: 'a',
         val: 'b',
         type: 'password',
@@ -125,7 +125,7 @@ describe('<FormFieldPassword />', () => {
     it('should validate if focused and with error', () => {
       props = { value: '', validation: td.func('validation') };
       instance = shallow(<FormFieldPassword {...props} />).instance();
-      instance.setState({ focused: true, errors: 'Error' });
+      instance.setState({ focused: true, error: 'Error' });
       instance.handleChange(ev);
 
       expect(props.validation).to.have.been.called;
@@ -198,7 +198,7 @@ describe('<FormFieldPassword />', () => {
     it('should set error state', () => {
       td.when(props.validation('')).thenReturn('Error');
       instance.validate('');
-      expect(instance.state.errors).to.eql('Error');
+      expect(instance.state.error).to.eql('Error');
     });
 
     it('should use state value if no arguments', () => {

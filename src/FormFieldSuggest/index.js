@@ -11,37 +11,34 @@ const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoFocus'];
 
 class FormFieldSuggest extends Component {
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      touched: false,
-      focused: false,
-      errors: null,
-      isLoading: false,
-      input: '',
-      cache: {},
-      ...this.mapPropsToState(props),
-    };
+  state = {
+    touched: false,
+    focused: false,
+    error: null,
+    isLoading: false,
+    input: '',
+    cache: {},
+  }
+
+  componentWillMount () {
+    this.setPropsToState(this.props);
   }
 
   componentWillReceiveProps (nextProps) {
-    let newState = this.mapPropsToState(nextProps);
-    this.setState(newState);
-    if (this.state.touched) { // validation: punish late
-      this.validate(newState.val);
-    }
+    this.setPropsToState(nextProps);
   }
 
-  mapPropsToState = (props) => {
-    let newState = {
+  setPropsToState = (props) => {
+    let val = props.value;
+    let opts = [...props.options];
+    this.setState(({ touched, val: prevVal }) => ({ // eslint-disable-line complexity
+      val,
+      opts,
       id: props.id || props.name && 'ff-suggest-' + props.name,
-      opts: [...props.options],
-      val: props.value,
-    };
-    if (this.state && this.state.val !== props.value) {
-      newState.input = ''; // reset
-    }
-    return newState;
+      ...(prevVal !== props.value ? { input: '' } : {}),
+      ...(props.touched ? { touched: true } : {}),
+      ...(touched || props.touched ? this.validate(val, false) : {}),
+    }));
   }
 
   getAsyncOptions = _debounce((input) => {
@@ -96,7 +93,9 @@ class FormFieldSuggest extends Component {
     this.blurTimeout = setTimeout(() => { // wait click
       let { val } = this.state;
       if (this.controlEl) { // still mounted
-        this.setState({ focused: false, touched: true, input: '' }, this.validate);
+        this.setState({
+          focused: false, touched: true, input: '', ...this.validate(val, false),
+        });
       }
       this.props.onChange(val);
       this.props.onBlur(ev);
@@ -131,15 +130,15 @@ class FormFieldSuggest extends Component {
     }
   }
 
-  /**
+  /*
    * @public
-   * @param {*} val
-   * @returns {*}
    */
-  validate = (val = this.state.val) => {
-    let errors = this.props.validation(val) || null;
-    this.setState({ errors });
-    return errors;
+  validate = (val = this.state.val, updateState = true) => {
+    let error = this.props.validation(val) || null;
+    if (updateState) {
+      this.setState({ error });
+    }
+    return { error };
   }
 
   renderOverlay = () => {
@@ -222,9 +221,9 @@ class FormFieldSuggest extends Component {
 
   render () { // eslint-disable-line complexity
     let { className, style, label, disabled, size, labelKey, allowAny } = this.props;
-    let { id, val, errors, focused, input } = this.state;
+    let { id, val, error, focused, input } = this.state;
     className += disabled ? ' isDisabled' : '';
-    className += errors ? ' isInvalid' : '';
+    className += error ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
     return (
       <div className={'FormField FormField--suggest ' + className} style={style}>
@@ -249,8 +248,8 @@ class FormFieldSuggest extends Component {
             this.renderOverlay()
           }
 
-          {errors &&
-            <p className="FormField-error">{errors}</p>
+          {error &&
+            <p className="FormField-error">{error}</p>
           }
         </div>
       </div>
@@ -267,6 +266,7 @@ FormFieldSuggest.propTypes = {
   name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   disabled: PropTypes.bool,
+  touched: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   rows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

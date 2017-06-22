@@ -19,8 +19,7 @@ class FormFieldSearch extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    let newState = this.mapPropsToState(nextProps);
-    this.setState(newState);
+    this.setState(this.mapPropsToState(nextProps));
   }
 
   mapPropsToState = (props) => {

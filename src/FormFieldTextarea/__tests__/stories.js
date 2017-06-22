@@ -32,10 +32,9 @@ storiesOf('FormFieldTextarea', module)
 
       <h4>Invalid, custom size</h4>
       <FormFieldTextarea value=""
-        ref={(c) => c && c.validate()}
         label="Label" rows="2" cols="14"
+        touched
         validation={(v) => !v && 'Please provide a value'}
-        onChange={action('change')}
       /><br />
 
       <h4>Disabled</h4>

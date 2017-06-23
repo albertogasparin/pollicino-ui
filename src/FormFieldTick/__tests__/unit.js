@@ -30,6 +30,21 @@ describe('<FormFieldTick />', () => {
       expect(wrapper.hasClass('isChecked')).to.eql(true);
     });
 
+    it('should be valid by default', () => {
+      let props = { value: '' };
+      let wrapper = shallow(<FormFieldTick {...props} />);
+      expect(wrapper.hasClass('isInvalid')).to.eql(false);
+      expect(wrapper.find('.FormField-error')).to.have.lengthOf(0);
+    });
+
+    it('should show error if any', () => {
+      let props = { value: '' };
+      let wrapper = shallow(<FormFieldTick {...props} />);
+      wrapper.setState({ error: 'Error' });
+      expect(wrapper.hasClass('isInvalid')).to.eql(true);
+      expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
+    });
+
   });
 
 
@@ -37,7 +52,7 @@ describe('<FormFieldTick />', () => {
     let props, wrapper;
 
     beforeEach(() => {
-      props = { name: 'a', value: 'a' };
+      props = { name: 'a', value: 'a', validation: td.func('validation') };
       wrapper = shallow(<FormFieldTick {...props} />);
     });
 
@@ -60,6 +75,11 @@ describe('<FormFieldTick />', () => {
         id: 'a',
         touched: false,
       });
+    });
+
+    it('should validate on prop change if touched', () => {
+      wrapper.setProps({ checked: true, touched: true });
+      expect(props.validation).to.have.been.calledWith(true);
     });
 
   });

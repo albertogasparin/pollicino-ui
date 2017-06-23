@@ -27,8 +27,11 @@ class FormFieldRange extends Component {
       val,
       id: props.id || props.name && 'ff-range-' + props.name,
       ...(props.touched ? { touched: true } : {}),
-      ...(touched || props.touched ? this.validate(val, false) : {}),
-    }));
+    }), () => {
+      if (this.state.touched) {
+        this.validate();
+      }
+    });
   }
 
   handleChange = (ev) => {
@@ -63,7 +66,7 @@ class FormFieldRange extends Component {
    */
   validate = (val = this.state.val, updateState = true) => {
     let error = this.props.validation(val) || null;
-    if (updateState) {
+    if (updateState && error !== this.state.error) {
       this.setState({ error });
     }
     return { error };

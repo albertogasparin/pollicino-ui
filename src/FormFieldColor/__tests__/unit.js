@@ -18,6 +18,21 @@ describe('<FormFieldColor />', () => {
       expect(wrapper.type()).to.equal('div');
     });
 
+    it('should be valid by default', () => {
+      let props = { value: '' };
+      let wrapper = shallow(<FormFieldColor {...props} />);
+      expect(wrapper.hasClass('isInvalid')).to.eql(false);
+      expect(wrapper.find('.FormField-error')).to.have.lengthOf(0);
+    });
+
+    it('should show error if any', () => {
+      let props = { value: '' };
+      let wrapper = shallow(<FormFieldColor {...props} />);
+      wrapper.setState({ error: 'Error' });
+      expect(wrapper.hasClass('isInvalid')).to.eql(true);
+      expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
+    });
+
   });
 
 
@@ -25,7 +40,7 @@ describe('<FormFieldColor />', () => {
     let props, wrapper;
 
     beforeEach(() => {
-      props = { value: 'rgb(0,0,0)' };
+      props = { value: 'rgb(0,0,0)', validation: td.func('validation') };
       wrapper = shallow(<FormFieldColor {...props} />);
     });
 
@@ -33,6 +48,7 @@ describe('<FormFieldColor />', () => {
       expect(wrapper.state()).to.eql({
         touched: false,
         focused: false,
+        error: null,
         val: 'rgb(0,0,0)',
       });
     });
@@ -42,8 +58,14 @@ describe('<FormFieldColor />', () => {
       expect(wrapper.state()).to.eql({
         touched: false,
         focused: false,
+        error: null,
         val: 'rgb(255,0,0)',
       });
+    });
+
+    it('should validate on prop change if touched', () => {
+      wrapper.setProps({ value: 'rgba(255,0,0,1)', touched: true });
+      expect(props.validation).to.have.been.calledWith('rgba(255,0,0,1)');
     });
 
   });

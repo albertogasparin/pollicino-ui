@@ -7,27 +7,34 @@ import Dropdown from '../Dropdown';
 
 class FormFieldColor extends Component {
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      focused: false,
-      touched: false,
-      ...this.mapPropsToState(props),
-    };
+  state = {
+    focused: false,
+    touched: false,
+    error: null,
+  }
+
+  componentWillMount () {
+    this.setPropsToState(this.props);
   }
 
   componentWillReceiveProps (nextProps) {
-    this.setState(this.mapPropsToState(nextProps));
+    this.setPropsToState(nextProps);
   }
 
-  mapPropsToState = (props) => {
-    return {
-      val: props.value || props.defaultValue,
-    };
+  setPropsToState = (props) => {
+    let val = props.value || props.defaultValue;
+    this.setState(({ touched }) => ({
+      val,
+      ...(props.touched ? { touched: true } : {}),
+    }), () => {
+      if (this.state.touched) {
+        this.validate();
+      }
+    });
   }
 
   handleChange = (color) => {
-    this.setState({ val: color });
+    this.setState({ val: color, ...this.validate(color, false) });
     this.triggerOnChange(color);
   }
 
@@ -37,15 +44,26 @@ class FormFieldColor extends Component {
   }
 
   handleBlur = (ev) => {
-    let { val } = this.state;
-    this.setState({ focused: false, touched: true });
-    this.triggerOnChange(val);
+    this.setState(({ val }) => ({
+      focused: false, touched: true, ...this.validate(val, false),
+    }));
     this.props.onBlur(ev);
   }
 
   triggerOnChange = _debounce((...args) => {
     this.props.onChange(...args); // call the fresh prop
   }, this.props.debounce)
+
+  /*
+   * @public
+   */
+  validate = (val = this.state.val, updateState = true) => {
+    let error = this.props.validation(val) || null;
+    if (updateState && error !== this.state.error) {
+      this.setState({ error });
+    }
+    return { error };
+  }
 
   renderFieldValue = () => {
     return (
@@ -67,7 +85,9 @@ class FormFieldColor extends Component {
 
   render () {
     let { className, style, label, disabled, align, tabIndex } = this.props;
+    let { error } = this.state;
     className += disabled ? ' isDisabled' : '';
+    className += error ? ' isInvalid' : '';
 
     return (
       <div className={'FormField FormField--color ' + className} style={style}>
@@ -83,6 +103,9 @@ class FormFieldColor extends Component {
           >
             {this.renderDropdownContent()}
           </Dropdown>
+          {error &&
+            <p className="FormField-error">{error}</p>
+          }
         </div>
       </div>
     );
@@ -96,6 +119,7 @@ FormFieldColor.propTypes = {
   value: PropTypes.string,
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
+  touched: PropTypes.bool,
 
   defaultValue: PropTypes.string,
   align: PropTypes.oneOf(['left', 'right']),
@@ -114,6 +138,7 @@ FormFieldColor.defaultProps = {
   debounce: 200,
   align: 'left',
 
+  validation () {},
   onChange () {},
   onFocus () {},
   onBlur () {},

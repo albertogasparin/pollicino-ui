@@ -37,8 +37,11 @@ class FormFieldSuggest extends Component {
       id: props.id || props.name && 'ff-suggest-' + props.name,
       ...(prevVal !== props.value ? { input: '' } : {}),
       ...(props.touched ? { touched: true } : {}),
-      ...(touched || props.touched ? this.validate(val, false) : {}),
-    }));
+    }), () => {
+      if (this.state.touched) {
+        this.validate();
+      }
+    });
   }
 
   getAsyncOptions = _debounce((input) => {
@@ -135,7 +138,7 @@ class FormFieldSuggest extends Component {
    */
   validate = (val = this.state.val, updateState = true) => {
     let error = this.props.validation(val) || null;
-    if (updateState) {
+    if (updateState && error !== this.state.error) {
       this.setState({ error });
     }
     return { error };

@@ -32,8 +32,11 @@ class FormFieldSelect extends Component {
       opts,
       id: props.id || props.name && 'ff-select-' + props.name,
       ...(props.touched ? { touched: true } : {}),
-      ...(touched || props.touched ? this.validate(val, false) : {}),
-    }));
+    }), () => {
+      if (this.state.touched) {
+        this.validate();
+      }
+    });
   }
 
   findOption = (val) => {
@@ -71,7 +74,7 @@ class FormFieldSelect extends Component {
    */
   validate = (val = this.state.val, updateState = true) => {
     let error = this.props.validation(val) || null;
-    if (updateState) {
+    if (updateState && error !== this.state.error) {
       this.setState({ error });
     }
     return { error };

@@ -39,8 +39,11 @@ class FormFieldDate extends Component {
       month: val[0] ? new Date(val[0]) : new Date(),
       showPicker: typeof showPicker === 'undefined' ? props.options.length === 0 : showPicker,
       ...(props.touched ? { touched: true } : {}),
-      ...(touched || props.touched ? this.validate(val, false) : {}),
-    }));
+    }), () => {
+      if (this.state.touched) {
+        this.validate();
+      }
+    });
   }
 
   normalizeValue = (value) => {
@@ -144,7 +147,7 @@ class FormFieldDate extends Component {
    */
   validate = (val = this.state.val, updateState = true) => {
     let error = this.props.validation(this.returnValue(val)) || null;
-    if (updateState) {
+    if (updateState && error !== this.state.error) {
       this.setState({ error });
     }
     return { error };

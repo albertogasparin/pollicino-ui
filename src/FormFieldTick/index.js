@@ -29,8 +29,11 @@ class FormFieldTick extends Component {
       id: props.id || 'ff-tick-' + props.name + '-' + String(val).replace(/[^\w]/g,''),
       checked: props.checked,
       ...(props.touched ? { touched: true } : {}),
-      ...(touched || props.touched ? this.validate(props.checked, false) : {}),
-    }));
+    }), () => {
+      if (this.state.touched) {
+        this.validate();
+      }
+    });
   }
 
   handleChange = (ev) => {
@@ -59,7 +62,7 @@ class FormFieldTick extends Component {
    */
   validate = (checked = this.state.checked, updateState = true) => {
     let error = this.props.validation(checked) || null;
-    if (updateState) {
+    if (updateState && error !== this.state.error) {
       this.setState({ error });
     }
     return { error };

@@ -66,8 +66,7 @@ describe('<FormFieldTextarea />', () => {
     });
 
     it('should validate on prop change if touched', () => {
-      wrapper.setState({ touched: true });
-      wrapper.setProps({ value: 'b' });
+      wrapper.setProps({ value: 'b', touched: true });
       expect(props.validation).to.have.been.calledWith('b');
     });
 

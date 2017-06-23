@@ -66,8 +66,7 @@ describe('<FormFieldRange />', () => {
     });
 
     it('should validate on prop change if touched', () => {
-      wrapper.setState({ touched: true });
-      wrapper.setProps({ value: 2 });
+      wrapper.setProps({ value: 2, touched: true });
       expect(props.validation).to.have.been.calledWith(2);
     });
 

@@ -37,10 +37,12 @@ storiesOf('FormFieldColor', module)
         />
       </div>
 
-      <h4>Inline</h4>
+      <h4>Invalid, inline</h4>
       <div>
         <FormFieldColor className="FormField--inline"
+          touched
           label="Label"
+          validation={(v) => v === 'rgba(0,0,0,1)' && 'Black not allowed' }
           onChange={action('change')}
         />
         &nbsp; <Btn className="Btn--primary" disabled>next</Btn>

@@ -32,8 +32,11 @@ class FormFieldSelectGroup extends Component {
       val,
       opts,
       ...(props.touched ? { touched: true } : {}),
-      ...(touched || props.touched ? this.validate(val, false) : {}),
-    }));
+    }), () => {
+      if (this.state.touched) {
+        this.validate();
+      }
+    });
   }
 
   normalizeValue = (value) => {
@@ -98,7 +101,7 @@ class FormFieldSelectGroup extends Component {
    */
   validate = (val = this.state.val, updateState = true) => {
     let error = this.props.validation(this.returnValue(val)) || null;
-    if (updateState) {
+    if (updateState && error !== this.state.error) {
       this.setState({ error });
     }
     return { error };

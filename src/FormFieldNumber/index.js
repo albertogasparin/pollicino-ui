@@ -4,6 +4,8 @@ import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
 const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'autoFocus', 'autoComplete', 'tabIndex'];
+import Btn from '../Btn';
+
 
 class FormFieldNumber extends Component {
 
@@ -104,16 +106,16 @@ class FormFieldNumber extends Component {
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
           />
-          <button className="FormField-spin FormField-spin--plus"
-            type="button" disabled={disabled}
+          <Btn tagName="span" className="FormField-spin FormField-spin--plus"
+            disabled={disabled}
             onClick={(ev) => this.handleChange(ev, val + 1)}
           >
-          </button>
-          <button className="FormField-spin FormField-spin--minus"
-            type="button" disabled={disabled}
+          </Btn>
+          <Btn tagName="span" className="FormField-spin FormField-spin--minus"
+            disabled={disabled}
             onClick={(ev) => this.handleChange(ev, val - 1)}
           >
-          </button>
+          </Btn>
           {error &&
             <p className="FormField-error">{error}</p>
           }

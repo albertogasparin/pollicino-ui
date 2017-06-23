@@ -81,7 +81,7 @@ class FormFieldPassword extends Component {
   renderToggleButton = (type) => {
     return (
       <span className={'FormField-togglePsw ' + (!type ? 'isVisible' : '')}>
-        <Btn className="Btn--square"
+        <Btn tagName="span" className="Btn--square"
           data-tip={type ? 'Show' : 'Hide'} data-tip-right
           onClick={this.handleTypeToggle}
         >

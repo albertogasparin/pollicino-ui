@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
-import { FormFieldSelect } from '../..';
+import { FormFieldSelect, Btn } from '../..';
 
 storiesOf('FormFieldSelect', module)
 
@@ -32,14 +32,17 @@ storiesOf('FormFieldSelect', module)
         />
       </div>
 
-      <h4>Invalid</h4>
-      <FormFieldSelect
-        label="Label"
-        options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
-        touched
-        validation={(v) => !v && 'Please select an option'}
-        onChange={action('change')}
-      /><br />
+      <h4>Invalid, inline</h4>
+      <div>
+        <FormFieldSelect className="FormField--inline"
+          label="Label"
+          options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
+          touched
+          validation={(v) => !v && 'Please select an option'}
+          onChange={action('change')}
+        />
+        &nbsp; <Btn className="Btn--primary" disabled>next</Btn>
+      </div>
 
       <h4>No options but disabled</h4>
       <FormFieldSelect className="w2" options={[]} disabled />

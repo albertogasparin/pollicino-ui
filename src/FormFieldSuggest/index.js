@@ -234,7 +234,7 @@ class FormFieldSuggest extends Component {
           <input id={id} className={'FormField-control'
             + (allowAny && input ? ' FormField-control--iconR' : '')}
             ref={c => this.controlEl = c}
-            style={{ width: size + 'em' }} type="text"
+            style={{ width: `calc(${size}ch + 2em)` }} type="text"
             value={input || (val && val[labelKey]) || ''}
             {..._pick(this.props, INPUT_PROPS)}
             autoComplete="off"

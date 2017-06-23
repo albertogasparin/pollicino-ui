@@ -58,7 +58,7 @@ class FormFieldSearch extends Component {
       <div className={'FormField FormField--search ' + className} style={style}>
         <div className="FormField-field">
           <input id={id} className="FormField-control FormField-control--iconL" type="text"
-            style={{ width: size + 'em' }}
+            style={{ width: `calc(${size}ch + 2em)` }}
             value={this.state.val}
             {..._pick(this.props, INPUT_PROPS)}
             onChange={this.handleChange}

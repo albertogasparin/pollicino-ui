@@ -17,6 +17,8 @@
     &-field { @include FormField-isDisabled; }
     &-control { box-shadow: none; }
   }
+
+  @include FormField--modifiers;
 }
 
 .FormField--suggest .FormField {
@@ -66,11 +68,6 @@
 /**
  * Modifiers
  */
-
-.FormField--suggest.FormField--block {
-  @include FormField--block;
-}
-
 
 .FormField--suggest.FormField--invert {}
 

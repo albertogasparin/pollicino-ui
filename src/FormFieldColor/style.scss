@@ -14,6 +14,10 @@
  * Field styles
  */
 
+.FormField--color {
+  @include FormField--modifiers;
+}
+
 .FormField--color .FormField {
 
   &-swatch {
@@ -26,13 +30,10 @@
 
 }
 
-.FormField--color {
-
-  .colorpicker {
-    position: relative;
-    height: 13em;
-    margin: -8px;
-  }
+.FormField--color .colorpicker {
+  position: relative;
+  height: 13em;
+  margin: -8px;
 
   .map {
     position: absolute;
@@ -178,7 +179,7 @@
 
   }
 
-  .with-opacity-slider {
+  &.with-opacity-slider {
     .map { bottom: 28px; }
     .hue-slider { bottom: 28px; }
   }
@@ -189,9 +190,4 @@
 /**
  * Modifiers
  */
-
-.FormField--color.FormField--block {
-  @include FormField--block;
-}
-
 

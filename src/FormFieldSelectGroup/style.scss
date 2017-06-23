@@ -16,7 +16,9 @@
  * Field style
  */
 
-.FormField--selectGroup {}
+.FormField--selectGroup {
+  @include FormField--modifiers;
+}
 
 .FormField--selectGroup .FormField {
 
@@ -57,11 +59,6 @@
 /**
  * Modifiers
  */
-
-.FormField--selectGroup.FormField--block {
-  @include FormField--block;
-}
-
 
 .FormField--selectGroup .FormField-groupList--tabbed {
   display: flex;

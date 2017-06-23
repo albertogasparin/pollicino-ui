@@ -16,11 +16,12 @@
 
 .FormField--radiobox,
 .FormField--checkbox {
-
   &.isDisabled .FormField {
     &-label { @include FormField-isDisabled; }
     &-tick { opacity: 0.6; }
   }
+
+  @include FormField--modifiers;
 }
 
 .FormField--radiobox .FormField,
@@ -67,10 +68,3 @@
 /**
  * Field modifiers
  */
-
-.FormField--radiobox.FormField--block,
-.FormField--checkbox.FormField--block {
-  @include FormField--block;
-}
-
-

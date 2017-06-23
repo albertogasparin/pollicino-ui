@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
-import { FormFieldSelectGroup } from '../..';
+import { FormFieldSelectGroup, Btn } from '../..';
 
 storiesOf('FormFieldSelectGroup', module)
 
@@ -47,13 +47,16 @@ storiesOf('FormFieldSelectGroup', module)
           />
         </div>
 
-        <h4>Invalid, hidden placeholder</h4>
-        <FormFieldSelectGroup
-          label="Label" hidePlaceholder
-          options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
-          touched
-          validation={(v) => !v && 'Required'}
-        /><br />
+        <h4>Invalid, inline, hidden placeholder</h4>
+        <div>
+          <FormFieldSelectGroup className="FormField--inline"
+            label="Label" hidePlaceholder
+            options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
+            touched
+            validation={(v) => !v && 'Required'}
+          />
+          &nbsp; <Btn className="Btn--primary" disabled>next</Btn>
+        </div>
 
         <h4>Disabled, no label, value set and custom render</h4>
         <FormFieldSelectGroup disabled

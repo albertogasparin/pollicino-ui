@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
-import { FormFieldSuggest } from '../..';
+import { FormFieldSuggest, Btn } from '../..';
 
 storiesOf('FormFieldSuggest', module)
 
@@ -45,11 +45,11 @@ storiesOf('FormFieldSuggest', module)
         />
       </div>
 
-      <h4>Invalid, allowAny, labelKey, valueKey, rows</h4>
-      <div className="w2">
-        <FormFieldSuggest
+      <h4>Invalid, inline, custom size, allowAny, labelKey, valueKey, rows</h4>
+      <div>
+        <FormFieldSuggest className="FormField--inline"
           value={{ lb: '12', vl: 12 }}
-          labelKey="lb" valueKey="vl" allowAny rows="3.5"
+          labelKey="lb" valueKey="vl" allowAny rows="3.5" size="10"
           options={[
             { lb: 'One', vl: 1 }, { lb: 'Two', vl: 2 }, { lb: 'Three', vl: 3 },
             { lb: 'Four', vl: 4 }, { lb: 'Five', vl: 5 }, { lb: 'Six', vl: 6 },
@@ -59,6 +59,12 @@ storiesOf('FormFieldSuggest', module)
           touched
           validation={(o) => (!o || o.vl > 10) && 'Please chose a number < 10'}
         />
+        &nbsp; <Btn className="Btn--primary" disabled>next</Btn>
+      </div>
+
+      <h4>Disabled</h4>
+      <div className="w2">
+        <FormFieldSuggest disabled value={{ value: '', label: 'Value' }} />
       </div>
 
     </div>

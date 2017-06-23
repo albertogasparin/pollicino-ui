@@ -19,6 +19,8 @@
     &-field { @include FormField-isDisabled; }
     &-control { box-shadow: none; }
   }
+
+  @include FormField--modifiers;
 }
 
 .FormField--search .FormField {
@@ -46,11 +48,6 @@
  * Modifiers
  */
 
-.FormField--search.FormField--block {
-  @include FormField--block;
-}
-
-
 .FormField--search.FormField--invert {}
 
 .FormField--search.FormField--invert .FormField {
@@ -58,4 +55,3 @@
     @include FormField-control--inverted;
   }
 }
-

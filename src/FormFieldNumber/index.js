@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
-const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'autoFocus', 'autoComplete', 'tabIndex'];
 import Btn from '../Btn';
 
+const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'autoFocus', 'tabIndex'];
 
 class FormFieldNumber extends Component {
 
@@ -99,7 +99,7 @@ class FormFieldNumber extends Component {
         }
         <div className="FormField-field">
           <input id={id} className="FormField-control" type="number" pattern="[0-9]*"
-            style={{ width: size + 'em' }} autoComplete="off"
+            style={{ width: `calc(${size}ch + 2em)` }} autoComplete="off"
             value={val}
             {..._pick(this.props, INPUT_PROPS)}
             onChange={this.handleChange}

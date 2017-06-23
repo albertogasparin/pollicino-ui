@@ -22,6 +22,8 @@
     &-togglePsw { display: none; }
     &-control { box-shadow: none; }
   }
+
+  @include FormField--modifiers;
 }
 
 .FormField--password .FormField {
@@ -42,11 +44,6 @@
 /**
  * Modifiers
  */
-
-.FormField--password.FormField--block {
-  @include FormField--block;
-}
-
 
 .FormField--password.FormField--invert {}
 

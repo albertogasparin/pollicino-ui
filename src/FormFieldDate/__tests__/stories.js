@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
-import { FormFieldDate } from '../..';
+import { FormFieldDate, Btn } from '../..';
 
 storiesOf('FormFieldDate', module)
 
@@ -43,14 +43,17 @@ storiesOf('FormFieldDate', module)
         />
       </div>
 
-      <h4>Invalid</h4>
-      <FormFieldDate
-        label="Label"
-        placeholder="Not set"
-        touched
-        validation={(v) => !v && 'Required' }
-        onChange={action('change')}
-      /><br />
+      <h4>Invalid, inline</h4>
+      <div>
+        <FormFieldDate className="FormField--inline"
+          label="Label"
+          placeholder="Not set"
+          touched
+          validation={(v) => !v && 'Required' }
+          onChange={action('change')}
+        />
+        &nbsp; <Btn className="Btn--primary" disabled>next</Btn>
+      </div>
 
       <h4>Disabled, no label, value set</h4>
       <FormFieldDate disabled

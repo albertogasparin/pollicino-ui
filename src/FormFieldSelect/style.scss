@@ -13,10 +13,11 @@
  */
 
 .FormField--select {
-
   &.isDisabled .FormField {
     &-field { @include FormField-isDisabled; }
   }
+
+  @include FormField--modifiers;
 }
 
 .FormField--select .FormField {
@@ -65,7 +66,3 @@
 /**
  * Modifiers
  */
-
-.FormField--select.FormField--block {
-  @include FormField--block;
-}

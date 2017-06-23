@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
-import { FormFieldTextarea } from '../..';
+import { FormFieldTextarea, Btn } from '../..';
 
 storiesOf('FormFieldTextarea', module)
 
@@ -30,12 +30,16 @@ storiesOf('FormFieldTextarea', module)
         />
       </div>
 
-      <h4>Invalid, custom size</h4>
-      <FormFieldTextarea value=""
-        label="Label" rows="2" cols="14"
-        touched
-        validation={(v) => !v && 'Please provide a value'}
-      /><br />
+      <h4>Invalid, inline, custom size</h4>
+      <div>
+        <FormFieldTextarea className="FormField--inline"
+          value=""
+          label="Label" rows="2" cols="14"
+          touched
+          validation={(v) => !v && 'Please provide a value'}
+        />
+        &nbsp; <Btn className="Btn--primary" disabled>next</Btn>
+      </div>
 
       <h4>Disabled</h4>
       <FormFieldTextarea className="w2" value="text" disabled />

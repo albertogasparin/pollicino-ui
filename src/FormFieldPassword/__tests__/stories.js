@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
-import { FormFieldPassword } from '../..';
+import { FormFieldPassword, Btn } from '../..';
 
 storiesOf('FormFieldPassword', module)
 
@@ -30,13 +30,17 @@ storiesOf('FormFieldPassword', module)
         />
       </div>
 
-      <h4>Invalid, custom size</h4>
-      <FormFieldPassword value="12345"
-        label="Label" size="14"
-        touched
-        validation={(v) => v.length < 6 && 'Your password should be at least 6 chars long'}
-        onChange={action('change')}
-      /><br />
+      <h4>Invalid, inline, custom size</h4>
+      <div>
+        <FormFieldPassword className="FormField--inline"
+          value="12345"
+          label="Label" size="14"
+          touched
+          validation={(v) => v.length < 6 && 'Your password should be at least 6 chars long'}
+          onChange={action('change')}
+        />
+        &nbsp; <Btn className="Btn--primary" disabled>next</Btn>
+      </div>
 
       <h4>Disabled</h4>
       <div className="w2">

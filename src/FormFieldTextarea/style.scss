@@ -18,6 +18,8 @@
     &-field { @include FormField-isDisabled; }
     &-control { box-shadow: none; }
   }
+
+  @include FormField--modifiers;
 }
 
 .FormField--textarea .FormField {
@@ -33,11 +35,6 @@
 /**
  * Field modifiers
  */
-
-.FormField--textarea.FormField--block {
-  @include FormField--block;
-}
-
 
 .FormField--textarea.FormField--invert {}
 

@@ -67,18 +67,18 @@ storiesOf('FormFieldTick', module)
         </div>
       </div>
 
-      <h4>No options but disabled</h4>
-      <div className="left w1">
-        <FormFieldTick label="Label" value="" disabled />
-      </div>
-      <div className="left w1">
-        <FormFieldTick label="Label" value="" checked disabled />
-      </div>
-      <div className="left w1">
-        <FormFieldTick label="Label" value="" type="checkbox" disabled />
-      </div>
-      <div className="left w1">
-        <FormFieldTick label="Label" value="" type="checkbox" checked disabled />
-      </div>
+      <h4>Inline, disabled</h4>
+      <FormFieldTick className="FormField--inline"
+        label="Label" value="" disabled
+      />
+      <FormFieldTick className="FormField--inline"
+        label="Label" value="" checked disabled
+      />
+      <FormFieldTick className="FormField--inline"
+        label="Label" value="" type="checkbox" disabled
+      />
+      <FormFieldTick className="FormField--inline"
+        label="Label" value="" type="checkbox" checked disabled
+      />
     </div>
   ));

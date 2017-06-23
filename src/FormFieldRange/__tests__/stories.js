@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
-import { FormFieldRange } from '../..';
+import { FormFieldRange, Btn } from '../..';
 
 storiesOf('FormFieldRange', module)
 
@@ -37,14 +37,17 @@ storiesOf('FormFieldRange', module)
         />
       </div>
 
-      <h4>Invalid, custom size</h4>
-      <FormFieldRange
-        label="Label" size="14"
-        min={-5} max={5} step={1}
-        touched
-        validation={(v) => !v && 'Please select a non-zero value'}
-        onChange={action('change')}
-      /><br />
+      <h4>Invalid, inline, custom size</h4>
+      <div>
+        <FormFieldRange className="FormField--inline"
+          label="Label" size="14"
+          min={-5} max={5} step={1}
+          touched
+          validation={(v) => !v && 'Please select a non-zero value'}
+          onChange={action('change')}
+        />
+        &nbsp; <Btn className="Btn--primary" disabled>next</Btn>
+      </div>
 
       <h4>No options but disabled</h4>
       <div className="w2">

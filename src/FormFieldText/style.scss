@@ -17,6 +17,8 @@
     &-field { @include FormField-isDisabled; }
     &-control { box-shadow: none; }
   }
+
+  @include FormField--modifiers;
 }
 
 .FormField--text .FormField {
@@ -29,11 +31,6 @@
 /**
  * Modifiers
  */
-
-.FormField--text.FormField--block {
-  @include FormField--block;
-}
-
 
 .FormField--text.FormField--invert {}
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
-import { FormFieldSearch } from '../..';
+import { FormFieldSearch, Btn } from '../..';
 
 storiesOf('FormFieldSearch', module)
 
@@ -30,7 +30,13 @@ storiesOf('FormFieldSearch', module)
         />
       </div>
 
-      <h4>Custom size, disabled</h4>
-      <FormFieldSearch size="12" disabled />
+      <h4>Custom size, inline, disabled</h4>
+      <div>
+        <FormFieldSearch className="FormField--inline"
+          size="12" disabled
+        />
+        &nbsp; <Btn className="Btn--primary" disabled>next</Btn>
+      </div>
+
     </div>
   ));

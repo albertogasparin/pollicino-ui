@@ -85,7 +85,7 @@ class FormFieldText extends Component {
         }
         <div className="FormField-field">
           <input id={id} className="FormField-control"
-            style={{ width: size + 'em' }}
+            style={{ width: `calc(${size}ch + 2em)` }}
             value={val}
             {..._pick(this.props, INPUT_PROPS)}
             onChange={(ev) => this.handleChange(ev)}

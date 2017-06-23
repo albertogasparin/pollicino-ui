@@ -13,7 +13,6 @@
  */
 
 .FormField--range {
-
   &.isDisabled .FormField-control {
     @include FormField-isDisabled;
 
@@ -22,6 +21,7 @@
     &::-ms-fill-lower, &::-ms-fill-upper { background: rgba($Pollicino-color-light, 0.25); }
   }
 
+  @include FormField--modifiers;
 }
 
 .FormField--range .FormField {
@@ -34,6 +34,7 @@
     appearance: none;
     vertical-align: middle;
     color: #FFF;
+    font-size: 1em;
 
     &::-webkit-slider-runnable-track {
       @include FormField--range-track();
@@ -83,8 +84,3 @@
 /**
  * Modifiers
  */
-
-.FormField--range.FormField--block {
-  @include FormField--block;
-}
-

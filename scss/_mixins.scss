@@ -59,6 +59,7 @@
 @mixin FormField {
   position: relative;
   display: flex;
+  max-width: 100%;
   line-height: $Pollicino-FormField-height;
 
   &-label {
@@ -112,20 +113,29 @@
     &-label { color: $Pollicino-color-error; }
 
   }
+
 }
 
 
-@mixin FormField--block {
-  display: block;
+@mixin FormField--modifiers {
 
-  .FormField {
-    &-label {
-      display: block;
-      margin-bottom: -0.3em;
-      padding-right: 0;
-    }
-    &-control {
-      width: 100% !important;
+  &.FormField--inline {
+    display: inline-flex;
+    vertical-align: top;
+  }
+
+  &.FormField--block {
+    display: block;
+
+    .FormField {
+      &-label {
+        display: block;
+        margin-bottom: -0.3em;
+        padding-right: 0;
+      }
+      &-control {
+        width: 100% !important;
+      }
     }
   }
 }

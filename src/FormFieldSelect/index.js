@@ -141,6 +141,7 @@ FormFieldSelect.defaultProps = {
   debounce: 50,
 
   valueRenderer: v => v,
+  size: '',
 
   validation () {},
   onChange () {},

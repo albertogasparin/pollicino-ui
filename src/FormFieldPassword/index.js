@@ -104,7 +104,7 @@ class FormFieldPassword extends Component {
         }
         <div className="FormField-field">
           <input id={id} className="FormField-control FormField-control--iconR" type={type}
-            style={{ width: size + 'em' }}
+            style={{ width: `calc(${size}ch + 2em)` }}
             value={val}
             {..._pick(this.props, INPUT_PROPS)}
             onChange={this.handleChange}

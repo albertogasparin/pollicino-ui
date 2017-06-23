@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
-import { FormFieldText } from '../..';
+import { FormFieldText, Btn } from '../..';
 
 storiesOf('FormFieldText', module)
 
@@ -30,13 +30,15 @@ storiesOf('FormFieldText', module)
         />
       </div>
 
-      <h4>Invalid, custom size</h4>
+      <h4>Invalid, inline, custom size</h4>
       <div>
-        <FormFieldText value=""
+        <FormFieldText className="FormField--inline"
+          value=""
           label="Label" size="14"
           touched
           validation={(v) => !v && 'Please provide a value'}
-        /><br />
+        />
+        &nbsp; <Btn className="Btn--primary" disabled>next</Btn>
       </div>
 
       <h4><br />Disabled</h4>

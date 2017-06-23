@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 
-import { FormFieldNumber } from '../..';
+import { FormFieldNumber, Btn } from '../..';
 
 storiesOf('FormFieldNumber', module)
 
@@ -38,12 +38,15 @@ storiesOf('FormFieldNumber', module)
       </div>
 
       <h4>Invalid, custom size</h4>
-      <FormFieldNumber
-        label="Label" size="4"
-        validation={(v) => v === 0 && 'Required' }
-        touched
-        onChange={action('change')}
-      /><br />
+      <div>
+        <FormFieldNumber className="FormField--inline"
+          label="Label" size="4"
+          validation={(v) => v === 0 && 'Required' }
+          touched
+          onChange={action('change')}
+        />
+        &nbsp; <Btn className="Btn--primary" disabled>next</Btn>
+      </div>
 
       <h4>No options but disabled</h4>
       <div className="w2">

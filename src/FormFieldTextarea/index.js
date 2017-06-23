@@ -85,7 +85,7 @@ class FormFieldTextarea extends Component {
         }
         <div className="FormField-field">
           <textarea id={id} className="FormField-control"
-            style={{ width: cols + 'em', height: rows * 1.6 + 'em' }}
+            style={{ width: `calc(${cols}ch + 2em)`, height: rows * 1.6 + 'em' }}
             value={val}
             {..._pick(this.props, INPUT_PROPS)}
             onChange={this.handleChange}

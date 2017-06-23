@@ -104,14 +104,14 @@ FormFieldTick.propTypes = {
   style: PropTypes.object,
   label: PropTypes.node,
   value: PropTypes.any.isRequired,
-  name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  name: PropTypes.string,
+  id: PropTypes.string,
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
-  touched: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  touched: PropTypes.bool,
 
   type: PropTypes.oneOf(['radio', 'checkbox']),
-  checked: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  checked: PropTypes.bool,
 
   validation: PropTypes.func,
   onChange: PropTypes.func,

@@ -7,7 +7,7 @@ import Btn from '../Btn';
 import Icon from '../Icon';
 import Dropdown from '../Dropdown';
 
-const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoFocus'];
+const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoFocus', 'tabIndex'];
 
 class FormFieldSuggest extends Component {
 
@@ -261,22 +261,21 @@ FormFieldSuggest.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   label: PropTypes.node,
-  value: PropTypes.any, // eslint-disable-line react/no-unused-prop-types
-  placeholder: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  value: PropTypes.any,
+  placeholder: PropTypes.string,
+  name: PropTypes.string,
+  id: PropTypes.string,
   disabled: PropTypes.bool,
-  touched: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  touched: PropTypes.bool,
 
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   rows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  options: PropTypes.arrayOf(PropTypes.object), // eslint-disable-line react/no-unused-prop-types
+  options: PropTypes.arrayOf(PropTypes.object),
   valueKey: PropTypes.string,
   labelKey: PropTypes.string,
   noOptionsText: PropTypes.string,
   noInputText: PropTypes.string,
   allowAny: PropTypes.bool,
-  autoFocus: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 
   filterOptions: PropTypes.func,
   optionRenderer: PropTypes.func,

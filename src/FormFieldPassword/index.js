@@ -6,7 +6,7 @@ import _pick from 'lodash/pick';
 import Btn from '../Btn';
 import Icon from '../Icon';
 
-const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoFocus'];
+const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoFocus', 'tabIndex'];
 
 class FormFieldPassword extends Component {
 
@@ -125,16 +125,16 @@ FormFieldPassword.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   label: PropTypes.node,
-  value: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  placeholder: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  name: PropTypes.string,
+  id: PropTypes.string,
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
-  touched: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  touched: PropTypes.bool,
 
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  autoFocus: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  autoFocus: PropTypes.bool,
 
   validation: PropTypes.func,
   onChange: PropTypes.func,

@@ -237,7 +237,7 @@ class FormFieldDate extends Component {
   }
 
   render () {
-    let { className, style, label, disabled, align } = this.props;
+    let { className, style, label, disabled, align, tabIndex } = this.props;
     let { val, error, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += error ? ' isInvalid' : '';
@@ -252,7 +252,7 @@ class FormFieldDate extends Component {
           <Dropdown className="Dropdown--field"
             ref={c => this.dropdownEl = c}
             label={this.renderFieldLabel(val)}
-            align={align} disabled={disabled}
+            align={align} disabled={disabled} tabIndex={tabIndex}
             onOpen={this.handleFocus}
             onClose={this.handleBlur}
           >
@@ -271,14 +271,14 @@ FormFieldDate.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   label: PropTypes.node,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]), // eslint-disable-line react/no-unused-prop-types
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   placeholder: PropTypes.string,
   name: PropTypes.string,
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
-  touched: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  touched: PropTypes.bool,
 
-  hidePlaceholder: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  hidePlaceholder: PropTypes.bool,
   options: PropTypes.arrayOf(PropTypes.object),
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),

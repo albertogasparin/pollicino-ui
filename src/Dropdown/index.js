@@ -62,7 +62,7 @@ class Dropdown extends Component {
   }
 
   render () {
-    let { className, style, children, label, disabled, align, modal } = this.props;
+    let { className, style, children, label, disabled, align, modal, tabIndex } = this.props;
     let { isOpen } = this.state;
     className += isOpen ? ' isOpen' : '';
     className += disabled ? ' isDisabled' : '';
@@ -74,7 +74,7 @@ class Dropdown extends Component {
       >
         {typeof label !== 'undefined' &&
           <button className="Dropdown-btn"
-            type="button" disabled={disabled}
+            type="button" disabled={disabled} tabIndex={tabIndex}
             onClick={this.handleOpen.bind(this)}
           >
             {label}

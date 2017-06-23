@@ -5,7 +5,7 @@ import _pick from 'lodash/pick';
 
 import Icon from '../Icon';
 
-const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoComplete', 'autoFocus'];
+const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoComplete', 'autoFocus', 'tabIndex'];
 
 class FormFieldSearch extends Component {
 
@@ -75,10 +75,10 @@ class FormFieldSearch extends Component {
 FormFieldSearch.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
-  value: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  placeholder: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  name: PropTypes.string,
+  id: PropTypes.string,
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
 

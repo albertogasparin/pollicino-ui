@@ -119,7 +119,7 @@ class FormFieldSelectGroup extends Component {
                 label={opt.label} debounce={0}
                 checked={checkedOpts.indexOf(opt) !== -1}
                 value={opt.value}
-                {..._pick(this.props, 'name', 'disabled')}
+                {..._pick(this.props, 'name', 'disabled', 'tabIndex')}
                 onChange={this.handleChange}
                 onFocus={(ev) => inline && this.handleFocus(ev)}
                 onBlur={(ev) => inline && this.handleBlur(ev)}
@@ -171,18 +171,18 @@ FormFieldSelectGroup.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   label: PropTypes.node,
-  value: PropTypes.any, // eslint-disable-line react/no-unused-prop-types
+  value: PropTypes.any,
   placeholder: PropTypes.string,
-  name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  name: PropTypes.string,
+  id: PropTypes.string,
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
-  touched: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  touched: PropTypes.bool,
 
-  options: PropTypes.arrayOf(PropTypes.object).isRequired, // eslint-disable-line react/no-unused-prop-types
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
   valueRenderer: PropTypes.func,
-  hidePlaceholder: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
-  align: PropTypes.oneOf(['left', 'right']), // eslint-disable-line react/no-unused-prop-types
+  hidePlaceholder: PropTypes.bool,
+  align: PropTypes.oneOf(['left', 'right']),
   inline: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   optionsPerRow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   multiple: PropTypes.bool,

@@ -66,7 +66,7 @@ class FormFieldColor extends Component {
   }
 
   render () {
-    let { className, style, label, disabled, align } = this.props;
+    let { className, style, label, disabled, align, tabIndex } = this.props;
     className += disabled ? ' isDisabled' : '';
 
     return (
@@ -77,7 +77,7 @@ class FormFieldColor extends Component {
         <div className="FormField-field">
           <Dropdown className="Dropdown--field"
             label={this.renderFieldValue()}
-            align={align} disabled={disabled}
+            align={align} disabled={disabled} tabIndex={tabIndex}
             onOpen={this.handleFocus}
             onClose={this.handleBlur}
           >
@@ -93,11 +93,11 @@ FormFieldColor.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   label: PropTypes.node,
-  value: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  value: PropTypes.string,
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
 
-  defaultValue: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  defaultValue: PropTypes.string,
   align: PropTypes.oneOf(['left', 'right']),
   opacity: PropTypes.bool,
 

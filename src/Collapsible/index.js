@@ -35,7 +35,9 @@ class Collapsible extends Component {
   }
 
   render () { // eslint-disable-line complexity
-    let { className, style, children, header, disabled, headerClickable, direction } = this.props;
+    let {
+      className, style, children, header, disabled, headerClickable, direction, tabIndex,
+    } = this.props;
     let { isExpanded, isAnimating } = this.state;
     className += isExpanded ? ' isExpanded' : ' isCollapsed';
     className += isAnimating ? ' isAnimating' : '';
@@ -50,7 +52,7 @@ class Collapsible extends Component {
         <header className="Collapsible-header">
           {header}
           <button className={'Collapsible-btn ' + btnClassName}
-            type="button" disabled={disabled}
+            type="button" disabled={disabled} tabIndex={tabIndex}
             onClick={this.handleToggle.bind(this)}
           >
             <Icon className="Icon--btn" glyph="chevron-down" />

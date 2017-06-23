@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
-const INPUT_PROPS = ['name', 'disabled'];
+const INPUT_PROPS = ['name', 'disabled', 'tabIndex'];
 
 class FormFieldSelect extends Component {
 
@@ -118,14 +118,14 @@ FormFieldSelect.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   label: PropTypes.node,
-  value: PropTypes.any, // eslint-disable-line react/no-unused-prop-types
-  name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  value: PropTypes.any,
+  name: PropTypes.string,
+  id: PropTypes.string,
   disabled: PropTypes.bool,
   debounce: PropTypes.number,
-  touched: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  touched: PropTypes.bool,
 
-  options: PropTypes.arrayOf(PropTypes.object).isRequired, // eslint-disable-line react/no-unused-prop-types
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
   valueRenderer: PropTypes.func,
 
   validation: PropTypes.func,

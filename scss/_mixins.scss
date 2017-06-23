@@ -168,8 +168,8 @@
 
   &::-ms-reveal, &::-ms-clear { display: none; }
 
-  &--iconR { padding-right: $Pollicino-FormField-height; }
-  &--iconL { padding-left: $Pollicino-FormField-height; }
+  &--iconRight { padding-right: $Pollicino-FormField-height; }
+  &--iconLeft { padding-left: $Pollicino-FormField-height; }
 }
 
 

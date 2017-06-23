@@ -75,19 +75,21 @@ class FormFieldText extends Component {
     return { error };
   }
 
-  render () {
-    let { className, style, label, disabled, size } = this.props;
+  render () { // eslint-disable-line complexity
+    let { className, style, label, disabled, size, iconLeft, iconRight } = this.props;
     let { id, val, error, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += error ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
+    let controlCN = (iconLeft ? 'FormField-control--iconLeft ' : '')
+      + (iconRight ? 'FormField-control--iconRight ' : '');
     return (
       <div className={'FormField FormField--text ' + className} style={style}>
         {typeof label !== 'undefined' &&
           <label className="FormField-label" htmlFor={id}>{label}</label>
         }
         <div className="FormField-field">
-          <input id={id} className="FormField-control"
+          <input id={id} className={'FormField-control ' + controlCN}
             style={{ width: `calc(${size}ch + 2em)` }}
             value={val}
             {..._pick(this.props, INPUT_PROPS)}
@@ -95,6 +97,12 @@ class FormFieldText extends Component {
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
           />
+          {iconLeft &&
+            <div className="FormField-iconLeft">{iconLeft}</div>
+          }
+          {iconRight &&
+            <div className="FormField-iconRight">{iconRight}</div>
+          }
           {error &&
             <p className="FormField-error">{error}</p>
           }
@@ -117,6 +125,8 @@ FormFieldText.propTypes = {
   touched: PropTypes.bool,
 
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  iconLeft: PropTypes.node,
+  iconRight: PropTypes.node,
 
   validation: PropTypes.func,
   onChange: PropTypes.func,

@@ -7,7 +7,6 @@ export FormFieldDate from './FormFieldDate';
 export FormFieldNumber from './FormFieldNumber';
 export FormFieldPassword from './FormFieldPassword';
 export FormFieldRange from './FormFieldRange';
-export FormFieldSearch from './FormFieldSearch';
 export FormFieldSelect from './FormFieldSelect';
 export FormFieldSelectGroup from './FormFieldSelectGroup';
 export FormFieldSuggest from './FormFieldSuggest';

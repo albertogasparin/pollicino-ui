@@ -25,6 +25,20 @@
   &-control {
     @include FormField-control;
   }
+
+  &-iconLeft,
+  &-iconRight {
+    position: absolute;
+    top: 0;
+    width: $Pollicino-FormField-height;
+    text-align: center;
+
+    & > .Icon { pointer-events: none; }
+    & > .Btn { vertical-align: top; }
+  }
+
+  &-iconLeft { left: 0; }
+  &-iconRight { right: 0; }
 }
 
 

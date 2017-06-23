@@ -54,6 +54,9 @@
     &::-moz-range-thumb {
       @include FormField--range-thumb();
     }
+    &::-moz-focus-outer {
+      border: 0;
+    }
     &::-ms-track {
       width: 100%;
       height: rem(8px);

@@ -57,7 +57,7 @@ class FormFieldSelectGroup extends Component {
 
   handleChange = (value, checked) => {
     let { multiple } = this.props;
-    let { val, error, focused } = this.state;
+    let { val, error } = this.state;
 
     if (multiple) {
       let idx = val.indexOf(value);
@@ -71,7 +71,7 @@ class FormFieldSelectGroup extends Component {
 
     this.setState({
       val,
-      ...(error && focused ? this.validate(val, false) : {}),
+      ...(error ? this.validate(val, false) : {}),
     });
 
     if (this.dropdownEl) {

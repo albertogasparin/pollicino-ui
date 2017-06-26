@@ -77,12 +77,14 @@
 
   &--radiobox {
     display: block;
-    border: 1px solid $Pollicino-color-lighter;
-    border-right-width: 0;
 
     .FormField {
       &-tick { display: none; }
       &-value { padding: 0 rem($Pollicino-padding); }
+      &-label {
+        border: 1px solid $Pollicino-color-lighter; // apply to label so disabled works
+        border-right-width: 0;
+      }
     }
 
     &.isChecked .FormField-label {
@@ -93,12 +95,12 @@
     &.isDisabled .FormField-label { box-shadow: none; }
   }
 
-  &-groupItem:first-child .FormField--radiobox {
+  &-groupItem:first-child .FormField-label {
     border-top-left-radius: $Pollicino-border-radius;
     border-bottom-left-radius: $Pollicino-border-radius;
   }
 
-  &-groupItem:last-child .FormField--radiobox {
+  &-groupItem:last-child .FormField-label {
     border-top-right-radius: $Pollicino-border-radius;
     border-bottom-right-radius: $Pollicino-border-radius;
     border-right-width: 1px;

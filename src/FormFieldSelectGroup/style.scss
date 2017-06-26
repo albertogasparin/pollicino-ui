@@ -82,7 +82,7 @@
 
     .FormField {
       &-tick { display: none; }
-      &-value { padding-left: rem($Pollicino-padding); }
+      &-value { padding: 0 rem($Pollicino-padding); }
     }
 
     &.isChecked .FormField-label {

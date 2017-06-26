@@ -31,12 +31,12 @@
     display: block;
     font-weight: inherit;
     cursor: pointer;
+    padding-right: 0;
   }
 
   &-field .FormField-label { // increase specificity to make nesting work
     color: inherit;
     margin: 0;
-    padding-right: rem($Pollicino-padding);
   }
 
   &-tick {

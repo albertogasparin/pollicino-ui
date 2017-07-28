@@ -1,4 +1,4 @@
-/* eslint-env mocha *//* eslint-disable no-unused-vars, max-nested-callbacks */
+/* eslint-env mocha */ /* eslint-disable no-unused-vars, max-nested-callbacks */
 
 import React from 'react';
 import { expect } from 'chai';
@@ -8,9 +8,7 @@ import td from 'testdouble';
 import Collapsible from '..';
 
 describe('<Collapsible />', () => {
-
   describe('DOM', () => {
-
     it('should render', () => {
       let props = { header: '' };
       let wrapper = shallow(<Collapsible {...props} />);
@@ -35,9 +33,7 @@ describe('<Collapsible />', () => {
       wrapper.setProps({ expanded: true });
       expect(wrapper.hasClass('isExpanded')).to.eql(true);
     });
-
   });
-
 
   describe('handleToggle()', () => {
     let props, instance;
@@ -53,7 +49,6 @@ describe('<Collapsible />', () => {
     });
 
     describe('on collapsed', () => {
-
       beforeEach(() => {
         instance.setState({ isExpanded: false });
       });
@@ -73,7 +68,7 @@ describe('<Collapsible />', () => {
         expect(props.onExpand).to.have.been.called;
       });
 
-      it('should unset isAnimating after a delay', (done) => {
+      it('should unset isAnimating after a delay', done => {
         instance.handleToggle();
         instance.el = {};
         setTimeout(() => {
@@ -81,12 +76,9 @@ describe('<Collapsible />', () => {
           done();
         }, 10);
       });
-
     });
 
-
     describe('on expanded', () => {
-
       beforeEach(() => {
         instance.setState({ isExpanded: true });
       });
@@ -100,12 +92,9 @@ describe('<Collapsible />', () => {
         instance.handleToggle();
         expect(props.onCollapse).to.have.been.called;
       });
-
     });
 
-
     describe('on force', () => {
-
       it('should set isExpanded true regardless', () => {
         instance.setState({ isExpanded: true });
         instance.handleToggle(null, true);
@@ -117,9 +106,6 @@ describe('<Collapsible />', () => {
         instance.handleToggle(null, false);
         expect(instance.state.isExpanded).to.eql(false);
       });
-
     });
-
   });
-
 });

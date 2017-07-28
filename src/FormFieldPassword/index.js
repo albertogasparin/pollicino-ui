@@ -5,32 +5,35 @@ import Icon from '../Icon';
 import FormFieldText from '../FormFieldText';
 
 class FormFieldPassword extends Component {
-
   state = {
     type: 'password',
-  }
+  };
 
   handleTypeToggle = () => {
     let type = this.state.type ? '' : 'password';
     this.setState({ type });
-  }
+  };
 
-  render () {
+  render() {
     let { disabled } = this.props;
     let { type } = this.state;
     return (
-      <FormFieldText {...this.props}
+      <FormFieldText
+        {...this.props}
         type={type}
-        iconRight={!disabled &&
-          <Btn tagName="span" className="Btn--square"
-            data-tip={type ? 'Show' : 'Hide'} data-tip-right
+        iconRight={
+          !disabled &&
+          <Btn
+            tagName="span"
+            className="Btn--square"
+            data-tip={type ? 'Show' : 'Hide'}
+            data-tip-right
             onClick={this.handleTypeToggle}
           >
             <Icon glyph="eye" style={{ opacity: type ? 0.8 : 0.2 }} />
           </Btn>
         }
       />
-
     );
   }
 }

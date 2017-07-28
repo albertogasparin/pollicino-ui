@@ -6,35 +6,37 @@ import _pick from 'lodash/pick';
 const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'step', 'tabIndex'];
 
 class FormFieldRange extends Component {
-
   state = {
     focused: false,
     touched: false,
     error: null,
-  }
+  };
 
-  componentWillMount () {
+  componentWillMount() {
     this.setPropsToState(this.props);
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setPropsToState(nextProps);
   }
 
-  setPropsToState = (props) => {
+  setPropsToState = props => {
     let val = Number(props.value);
-    this.setState(({ touched }) => ({
-      val,
-      id: props.id || props.name && 'ff-range-' + props.name,
-      ...(props.touched ? { touched: true } : {}),
-    }), () => {
-      if (this.state.touched) {
-        this.validate();
+    this.setState(
+      ({ touched }) => ({
+        val,
+        id: props.id || (props.name && 'ff-range-' + props.name),
+        ...(props.touched ? { touched: true } : {}),
+      }),
+      () => {
+        if (this.state.touched) {
+          this.validate();
+        }
       }
-    });
-  }
+    );
+  };
 
-  handleChange = (ev) => {
+  handleChange = ev => {
     let { error, focused } = this.state;
     let val = Number(ev.target.value);
 
@@ -43,23 +45,25 @@ class FormFieldRange extends Component {
       ...(error && focused ? this.validate(val, false) : {}),
     });
     this.triggerOnChange(val);
-  }
+  };
 
-  handleFocus = (ev) => {
+  handleFocus = ev => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
-  }
+  };
 
-  handleBlur = (ev) => {
+  handleBlur = ev => {
     this.setState(({ val }) => ({
-      focused: false, touched: true, ...this.validate(val, false),
+      focused: false,
+      touched: true,
+      ...this.validate(val, false),
     }));
     this.props.onBlur(ev);
-  }
+  };
 
   triggerOnChange = _debounce((...args) => {
     this.props.onChange(...args); // call the fresh prop
-  }, this.props.debounce)
+  }, this.props.debounce);
 
   /*
    * @public
@@ -70,9 +74,9 @@ class FormFieldRange extends Component {
       this.setState({ error });
     }
     return { error };
-  }
+  };
 
-  render () {
+  render() {
     let { className, style, label, disabled, size } = this.props;
     let { id, val, error, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
@@ -82,10 +86,14 @@ class FormFieldRange extends Component {
     return (
       <div className={'FormField FormField--range ' + className} style={style}>
         {typeof label !== 'undefined' &&
-          <label className="FormField-label" htmlFor={id}>{label}</label>
-        }
+          <label className="FormField-label" htmlFor={id}>
+            {label}
+          </label>}
         <div className="FormField-field">
-          <input id={id} className="FormField-control" type="range"
+          <input
+            id={id}
+            className="FormField-control"
+            type="range"
             style={{ width: `calc(${size}ch + 2em)` }}
             value={val}
             {..._pick(this.props, INPUT_PROPS)}
@@ -94,8 +102,9 @@ class FormFieldRange extends Component {
             onBlur={this.handleBlur}
           />
           {error &&
-            <p className="FormField-error">{error}</p>
-          }
+            <p className="FormField-error">
+              {error}
+            </p>}
         </div>
       </div>
     );
@@ -131,10 +140,10 @@ FormFieldRange.defaultProps = {
 
   size: 100,
 
-  validation () {},
-  onChange () {},
-  onFocus () {},
-  onBlur () {},
+  validation() {},
+  onChange() {},
+  onFocus() {},
+  onBlur() {},
 };
 
 export default FormFieldRange;

@@ -7,61 +7,66 @@ import Btn from '../Btn';
 import Icon from '../Icon';
 import Dropdown from '../Dropdown';
 
+// prettier-ignore
 const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoFocus', 'tabIndex'];
 
 class FormFieldSuggest extends Component {
-
   state = {
     touched: false,
     focused: false,
     error: null,
     isLoading: false,
+    changed: false,
     input: '',
     cache: {},
-  }
+  };
 
-  componentWillMount () {
+  componentWillMount() {
     this.setPropsToState(this.props);
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setPropsToState(nextProps);
   }
 
-  setPropsToState = (props) => {
+  setPropsToState = props => {
     let val = props.value;
     let opts = [...props.options];
-    this.setState(({ touched, val: prevVal }) => ({ // eslint-disable-line complexity
-      val,
-      opts,
-      id: props.id || props.name && 'ff-suggest-' + props.name,
-      ...(prevVal !== props.value ? { input: '' } : {}),
-      ...(props.touched ? { touched: true } : {}),
-    }), () => {
-      if (this.state.touched) {
-        this.validate();
+    this.setState(
+      ({ touched, val: prevVal }) => ({
+        val,
+        opts,
+        id: props.id || (props.name && 'ff-suggest-' + props.name),
+        ...(prevVal !== props.value ? { input: '' } : {}),
+        ...(props.touched ? { touched: true } : {}),
+      }),
+      () => {
+        if (this.state.touched) {
+          this.validate();
+        }
       }
-    });
-  }
+    );
+  };
 
-  getAsyncOptions = _debounce((input) => {
-    return this.props.loadOptions(input)
-      .then((options) => {
-        let cache = { ...this.state.cache, [input]: options };
-        if (this.state.input === input) {
-          this.setState({ cache, isLoading: false });
-        } else {
-          this.setState({ cache });
+  getAsyncOptions = _debounce(input => {
+    return this.props
+      .loadOptions(input)
+      .then(options => {
+        if (this.controlEl) {
+          this.setState(prevState => ({
+            cache: { ...prevState.cache, [input]: options },
+            isLoading: prevState.input === input ? false : prevState.isLoading,
+          }));
         }
       })
       .catch(() => {
-        if (this.state.input === input) {
+        if (this.controlEl && this.state.input === input) {
           this.setState({ isLoading: false });
         }
       });
-  }, this.props.debounceLoad)
+  }, this.props.debounceLoad);
 
-  handleInputChange = (ev) => {
+  handleInputChange = ev => {
     let { cache } = this.state;
     let input = ev.target.value;
     this.setState({ input });
@@ -70,9 +75,9 @@ class FormFieldSuggest extends Component {
       this.setState({ isLoading: true });
       this.getAsyncOptions(input);
     }
-  }
+  };
 
-  handleSelect = (option) => {
+  handleSelect = option => {
     let { labelKey, valueKey } = this.props;
 
     if (!option) {
@@ -82,30 +87,40 @@ class FormFieldSuggest extends Component {
       option = { [labelKey]: option, [valueKey]: option, isNewOption: true };
     }
 
-    this.setState({ val: option });
-  }
+    this.setState({ val: option, changed: true });
+  };
 
-  handleFocus = (ev) => {
+  handleFocus = ev => {
     this.setState({ focused: true });
     clearTimeout(this.blurTimeout);
     this.props.onFocus(ev);
-  }
+  };
 
-  handleBlur = (ev) => {
+  handleBlur = ev => {
     ev.persist();
-    this.blurTimeout = setTimeout(() => { // wait click
-      let { val } = this.state;
-      if (this.controlEl) { // still mounted
+    // wait click
+    this.blurTimeout = setTimeout(() => {
+      let { val, changed } = this.state;
+      if (this.controlEl) {
+        // still mounted
         this.setState({
-          focused: false, touched: true, input: '', ...this.validate(val, false),
+          focused: false,
+          touched: true,
+          changed: false,
+          input: '',
+          ...this.validate(val, false),
         });
       }
-      this.props.onChange(val);
+
+      if (changed) {
+        this.props.onChange(val);
+      }
       this.props.onBlur(ev);
     }, 320);
-  }
+  };
 
-  handleKeyDown = (ev) => { // eslint-disable-line complexity
+  // eslint-disable-next-line complexity
+  handleKeyDown = ev => {
     let { valueKey, allowAny } = this.props;
     let { val, input } = this.state;
 
@@ -119,19 +134,19 @@ class FormFieldSuggest extends Component {
         break;
       case 8: // backspace
       case 46: // canc
-        if (val && !val.isNewOption || input.length === 1) {
-          this.setState({ val: null, input: '' });
+        if ((val && !val.isNewOption) || input.length === 1) {
+          this.setState({ val: null, input: '', changed: true });
         }
         break;
       default:
         if (val && val.isNewOption) {
-          this.setState({ val: null, input: val[valueKey] });
+          this.setState({ val: null, input: val[valueKey], changed: true });
         }
         if (val && !val.isNewOption) {
           ev.preventDefault();
         }
     }
-  }
+  };
 
   /*
    * @public
@@ -142,35 +157,27 @@ class FormFieldSuggest extends Component {
       this.setState({ error });
     }
     return { error };
-  }
+  };
 
   renderOverlay = () => {
-    let { loadOptions, allowAny, rows } = this.props;
-    let { input, opts } = this.state;
+    let { loadOptions, rows } = this.props;
+    let { opts } = this.state;
     return (
-      <Dropdown className="Dropdown--cover Dropdown--field"
-        align="left" opened modal={false}
+      <Dropdown
+        className="Dropdown--cover Dropdown--field"
+        align="left"
+        opened
+        modal={false}
       >
-        {allowAny && input &&
-          <span className="FormField-selectNew">
-            <Btn className="Btn--square"
-              onClick={() => this.handleSelect(this.state.input)}
-            >
-              <Icon glyph="check" />
-            </Btn>
-          </span>
-        }
-        <ul className="FormField-options"
-          style={{ maxHeight: (rows * 2.26) + 'rem' }}
+        <ul
+          className="FormField-options"
+          style={{ maxHeight: rows * 2.26 + 'rem' }}
         >
-          {loadOptions
-            ? this.renderAsyncOptions()
-            : this.renderOptions(opts)
-          }
+          {loadOptions ? this.renderAsyncOptions() : this.renderOptions(opts)}
         </ul>
       </Dropdown>
     );
-  }
+  };
 
   renderAsyncOptions = () => {
     let { noInputText } = this.props;
@@ -187,16 +194,19 @@ class FormFieldSuggest extends Component {
 
     return (
       <li className="FormField-noOptions">
-        {input && isLoading
-          ? <Icon glyph="loading" />
-          : noInputText
-        }
+        {input && isLoading ? <Icon glyph="loading" /> : noInputText}
       </li>
     );
-  }
+  };
 
-  renderOptions = (opts) => { // eslint-disable-line complexity
-    let { valueKey, labelKey, filterOptions, optionRenderer, noOptionsText } = this.props;
+  renderOptions = opts => {
+    let {
+      valueKey,
+      labelKey,
+      filterOptions,
+      optionRenderer,
+      noOptionsText,
+    } = this.props;
     let { input, val } = this.state;
     opts = filterOptions([...opts], input, val);
 
@@ -208,36 +218,59 @@ class FormFieldSuggest extends Component {
       );
     }
 
-    return opts.map((opt, i) => (
-      <li key={opt[valueKey]} className={'FormField-option '
-          + (val && val[valueKey] === opt[valueKey] ? ' isSelected' : '')
-          + (opt.isNewOption ? ' isNew' : '')}
+    return opts.map((opt, i) =>
+      <li
+        key={opt[valueKey]}
+        className={
+          'FormField-option ' +
+          (val && val[valueKey] === opt[valueKey] ? ' isSelected' : '') +
+          (opt.isNewOption ? ' isNew' : '')
+        }
         onClick={() => this.handleSelect(opt)}
       >
         {optionRenderer
           ? optionRenderer(opt)
-          : <Btn className="Btn--plain Btn--line">{opt[labelKey]}</Btn>
-        }
+          : <Btn className="Btn--plain Btn--line">
+              {opt[labelKey]}
+            </Btn>}
       </li>
-    ));
-  }
+    );
+  };
 
-  render () { // eslint-disable-line complexity
-    let { className, style, label, disabled, size, labelKey, allowAny } = this.props;
+  // eslint-disable-next-line complexity
+  render() {
+    let {
+      className,
+      style,
+      label,
+      disabled,
+      size,
+      labelKey,
+      allowAny,
+    } = this.props;
     let { id, val, error, focused, input } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += error ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
     return (
-      <div className={'FormField FormField--suggest ' + className} style={style}>
+      <div
+        className={'FormField FormField--suggest ' + className}
+        style={style}
+      >
         {typeof label !== 'undefined' &&
-          <label className="FormField-label" htmlFor={id}>{label}</label>
-        }
+          <label className="FormField-label" htmlFor={id}>
+            {label}
+          </label>}
         <div className="FormField-field">
-          <input id={id} className={'FormField-control'
-            + (allowAny && input ? ' FormField-control--iconR' : '')}
-            ref={c => this.controlEl = c}
-            style={{ width: `calc(${size}ch + 2em)` }} type="text"
+          <input
+            id={id}
+            className={
+              'FormField-control' +
+              (allowAny && input ? ' FormField-control--iconR' : '')
+            }
+            ref={c => (this.controlEl = c)}
+            style={{ width: `calc(${size}ch + 2em)` }}
+            type="text"
             value={input || (val && val[labelKey]) || ''}
             {..._pick(this.props, INPUT_PROPS)}
             autoComplete="off"
@@ -247,13 +280,24 @@ class FormFieldSuggest extends Component {
             onBlur={this.handleBlur}
           />
 
+          {focused && this.renderOverlay()}
+
           {focused &&
-            this.renderOverlay()
-          }
+            allowAny &&
+            input &&
+            <span className="FormField-selectNew">
+              <Btn
+                className="Btn--square"
+                onClick={() => this.handleSelect(this.state.input)}
+              >
+                <Icon glyph="check" />
+              </Btn>
+            </span>}
 
           {error &&
-            <p className="FormField-error">{error}</p>
-          }
+            <p className="FormField-error">
+              {error}
+            </p>}
         </div>
       </div>
     );
@@ -264,7 +308,7 @@ FormFieldSuggest.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   label: PropTypes.node,
-  value: PropTypes.any,
+  value: PropTypes.object,
   placeholder: PropTypes.string,
   name: PropTypes.string,
   id: PropTypes.string,
@@ -293,7 +337,7 @@ FormFieldSuggest.propTypes = {
 
 FormFieldSuggest.defaultProps = {
   className: '',
-  value: '',
+  value: null,
 
   size: 100,
   rows: 7.5,
@@ -303,15 +347,17 @@ FormFieldSuggest.defaultProps = {
   noOptionsText: 'No results found',
   noInputText: 'Start typing to search',
 
-  filterOptions (options, input, selected) { return options; },
+  filterOptions(options, input, selected) {
+    return options;
+  },
   optionRenderer: null,
   debounceLoad: 1000,
   loadOptions: null,
 
-  validation () {},
-  onChange () {},
-  onFocus () {},
-  onBlur () {},
+  validation() {},
+  onChange() {},
+  onFocus() {},
+  onBlur() {},
 };
 
 export default FormFieldSuggest;

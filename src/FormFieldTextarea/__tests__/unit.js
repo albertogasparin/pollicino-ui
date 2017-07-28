@@ -1,4 +1,4 @@
-/* eslint-env mocha *//* eslint-disable no-unused-vars */
+/* eslint-env mocha */ /* eslint-disable no-unused-vars */
 
 import React from 'react';
 import { expect } from 'chai';
@@ -8,9 +8,7 @@ import td from 'testdouble';
 import FormFieldTextarea from '..';
 
 describe('<FormFieldTextarea />', () => {
-
   describe('DOM', () => {
-
     it('should render', () => {
       let props = { value: '' };
       let wrapper = shallow(<FormFieldTextarea {...props} />);
@@ -32,9 +30,7 @@ describe('<FormFieldTextarea />', () => {
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
-
   });
-
 
   describe('Lifecycle', () => {
     let props, wrapper;
@@ -69,9 +65,7 @@ describe('<FormFieldTextarea />', () => {
       wrapper.setProps({ value: 'b', touched: true });
       expect(props.validation).to.have.been.calledWith('b');
     });
-
   });
-
 
   describe('handleChange()', () => {
     let props, wrapper, instance;
@@ -94,7 +88,7 @@ describe('<FormFieldTextarea />', () => {
       expect(instance.state.val).to.eql('a');
     });
 
-    it('should call onChange', (done) => {
+    it('should call onChange', done => {
       instance.handleChange(ev);
 
       setTimeout(() => {
@@ -103,7 +97,7 @@ describe('<FormFieldTextarea />', () => {
       }, 10);
     });
 
-    it('should call updated prop onChange', (done) => {
+    it('should call updated prop onChange', done => {
       let onChange2 = td.func('onChange');
       wrapper.setProps({ onChange: onChange2 });
       instance.handleChange(ev);
@@ -120,9 +114,7 @@ describe('<FormFieldTextarea />', () => {
 
       expect(props.validation).to.have.been.called;
     });
-
   });
-
 
   describe('handleFocus()', () => {
     let props, instance;
@@ -140,15 +132,17 @@ describe('<FormFieldTextarea />', () => {
     it('should call onFocus prop', () => {
       expect(props.onFocus).to.have.been.called;
     });
-
   });
-
 
   describe('handleBlur()', () => {
     let props, instance;
 
     beforeEach(() => {
-      props = { value: '', onBlur: td.func('onBlur'), validation: td.func('validation') };
+      props = {
+        value: '',
+        onBlur: td.func('onBlur'),
+        validation: td.func('validation'),
+      };
       instance = shallow(<FormFieldTextarea {...props} />).instance();
       instance.handleBlur();
     });
@@ -168,9 +162,7 @@ describe('<FormFieldTextarea />', () => {
     it('should validate value', () => {
       expect(props.validation).to.have.been.called;
     });
-
   });
-
 
   describe('validate()', () => {
     let props, instance;
@@ -195,8 +187,5 @@ describe('<FormFieldTextarea />', () => {
       instance.validate();
       expect(props.validation).to.have.been.calledWith('a');
     });
-
   });
-
-
 });

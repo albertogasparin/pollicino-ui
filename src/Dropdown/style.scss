@@ -1,14 +1,19 @@
 @import '../../scss/core';
 
-
 @keyframes DropdownOverlayClip {
-  0% { opacity: 0.2; clip: rect(-2em 60em 0 -2em); }
-  70% { opacity: 1; }
-  100% { clip: rect(-2em 60em 60em -2em); }
+  0% {
+    opacity: 0.2;
+    clip: rect(-2em 60em 0 -2em);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    clip: rect(-2em 60em 60em -2em);
+  }
   // 0% { clip-path: polygon(-2em -2em, 60em -2em, 60em -1em, -2em -1em); }
   // 100% { clip-path: polygon(-2em -2em, 60em -2em, 60em 60em, -2em 60em); }
 }
-
 
 .Dropdown {
   position: relative;
@@ -17,13 +22,14 @@
     .Dropdown-btn {
       opacity: 0.5;
 
-      &::after { opacity: 0.5; }
+      &::after {
+        opacity: 0.5;
+      }
     }
   }
 }
 
 .Dropdown .Dropdown {
-
   &-btn {
     @include button-reset;
     @include text-clip;
@@ -52,7 +58,7 @@
     min-width: 12rem;
     margin-bottom: rem($Pollicino-padding);
     padding: rem($Pollicino-padding);
-    background: #FFF;
+    background: #fff;
     box-shadow: 0 0 0 1px rgba(#000, 0.1), 0 0 15px 1px rgba(#000, 0.3);
     border-radius: $Pollicino-border-radius;
     color: $Pollicino-color-text;
@@ -63,8 +69,12 @@
     cursor: auto;
     animation: DropdownOverlayClip 0.4s cubic-bezier(0.7, 0, 0.7, 1) 0s;
 
-    &[data-align="left"] { left: -0.4em; }
-    &[data-align="right"] { right: -0.75rem; }
+    &[data-align="left"] {
+      left: -0.4em;
+    }
+    &[data-align="right"] {
+      right: -0.75rem;
+    }
 
     &::before {
       content: '';
@@ -81,14 +91,18 @@
       top: -12px;
       height: 0;
       border: 6px solid transparent;
-      border-bottom-color: #FFF;
+      border-bottom-color: #fff;
     }
 
     &[data-align="left"]::before,
-    &[data-align="left"]::after { left: 0.75rem; }
+    &[data-align="left"]::after {
+      left: 0.75rem;
+    }
 
     &[data-align="right"]::before,
-    &[data-align="right"]::after { right: 0.95rem; }
+    &[data-align="right"]::after {
+      right: 0.95rem;
+    }
   }
 }
 
@@ -100,7 +114,8 @@
   &.isOpen {
     cursor: pointer; // needed by iOS
 
-    &::after { // overlay backdrop
+    &::after {
+      // overlay backdrop
       content: '';
       position: fixed;
       top: 0;
@@ -113,32 +128,35 @@
   }
 }
 
-
 // .Dropdown--field {}
 
 // .Dropdown--field .Dropdown {
 // }
 
-
-.Dropdown--noArrow {}
+.Dropdown--noArrow {
+}
 
 .Dropdown--noArrow .Dropdown {
-
   &-btn {
     padding-right: 0;
 
-    &::after { display: none; }
+    &::after {
+      display: none;
+    }
   }
 
   &-overlay {
-    &[data-align="left"] { left: -0.1em; }
-    &[data-align="right"] { right: -0.2rem; }
+    &[data-align="left"] {
+      left: -0.1em;
+    }
+    &[data-align="right"] {
+      right: -0.2rem;
+    }
   }
-
 }
 
-
-.Dropdown--cover {}
+.Dropdown--cover {
+}
 
 .Dropdown--cover .Dropdown {
   &-overlay[data-align] {
@@ -146,5 +164,3 @@
     right: 0;
   }
 }
-
-

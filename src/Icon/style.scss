@@ -9,12 +9,12 @@
   fill: currentColor;
 }
 
-
 /**
  * Modifiers
  */
 
-.Icon--btn { // increase clickable area
+.Icon--btn {
+  // increase clickable area
   box-sizing: content-box;
   padding: em(6px);
   margin: em(-6px);
@@ -23,17 +23,22 @@
 .Icon--mR {
   margin-right: em($Pollicino-padding / 2);
 
-  .Btn & { margin-left: em($Pollicino-padding / -2); }
+  .Btn & {
+    margin-left: em($Pollicino-padding / -2);
+  }
 }
 
 .Icon--chevron-right {
   transform: rotate(180deg);
 }
 
-
 @keyframes Icon--loading {
-  10% { transform: scale(1.1); }
-  20% { transform: scale(0.6); }
+  10% {
+    transform: scale(1.1);
+  }
+  20% {
+    transform: scale(0.6);
+  }
 }
 
 .Icon--loading {
@@ -51,6 +56,10 @@
     animation: Icon--loading 3.5s linear 0s infinite both;
   }
 
-  b:nth-child(2) { animation-delay: 0.2s; }
-  b:nth-child(3) { animation-delay: 0.4s; }
+  b:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  b:nth-child(3) {
+    animation-delay: 0.4s;
+  }
 }

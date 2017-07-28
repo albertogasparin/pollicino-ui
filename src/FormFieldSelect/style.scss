@@ -14,14 +14,15 @@
 
 .FormField--select {
   &.isDisabled .FormField {
-    &-field { @include FormField-isDisabled; }
+    &-field {
+      @include FormField-isDisabled;
+    }
   }
 
   @include FormField--modifiers;
 }
 
 .FormField--select .FormField {
-
   &-field {
     height: $Pollicino-FormField-height;
   }

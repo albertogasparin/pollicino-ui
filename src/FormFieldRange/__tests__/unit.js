@@ -1,4 +1,4 @@
-/* eslint-env mocha *//* eslint-disable no-unused-vars, max-nested-callbacks */
+/* eslint-env mocha */ /* eslint-disable no-unused-vars, max-nested-callbacks */
 
 import React from 'react';
 import { expect } from 'chai';
@@ -8,9 +8,7 @@ import td from 'testdouble';
 import FormFieldRange from '..';
 
 describe('<FormFieldRange />', () => {
-
   describe('DOM', () => {
-
     it('should render', () => {
       let props = {};
       let wrapper = shallow(<FormFieldRange {...props} />);
@@ -32,9 +30,7 @@ describe('<FormFieldRange />', () => {
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
-
   });
-
 
   describe('Lifecycle', () => {
     let props, wrapper;
@@ -69,9 +65,7 @@ describe('<FormFieldRange />', () => {
       wrapper.setProps({ value: 2, touched: true });
       expect(props.validation).to.have.been.calledWith(2);
     });
-
   });
-
 
   describe('handleChange()', () => {
     let props, instance;
@@ -85,7 +79,7 @@ describe('<FormFieldRange />', () => {
       expect(instance.state.val).to.eql(1);
     });
 
-    it('should call onChange', (done) => {
+    it('should call onChange', done => {
       props = { value: 0, onChange: td.func('onChange'), debounce: 0 };
       instance = shallow(<FormFieldRange {...props} />).instance();
       instance.handleChange(ev);
@@ -104,9 +98,7 @@ describe('<FormFieldRange />', () => {
 
       expect(props.validation).to.have.been.called;
     });
-
   });
-
 
   describe('handleFocus()', () => {
     let props, instance;
@@ -124,15 +116,17 @@ describe('<FormFieldRange />', () => {
     it('should call onFocus prop', () => {
       expect(props.onFocus).to.have.been.called;
     });
-
   });
-
 
   describe('handleBlur()', () => {
     let props, instance;
 
     beforeEach(() => {
-      props = { value: 0, onBlur: td.func('onBlur'), validation: td.func('validation') };
+      props = {
+        value: 0,
+        onBlur: td.func('onBlur'),
+        validation: td.func('validation'),
+      };
       instance = shallow(<FormFieldRange {...props} />).instance();
       instance.handleBlur();
     });
@@ -152,9 +146,7 @@ describe('<FormFieldRange />', () => {
     it('should validate value', () => {
       expect(props.validation).to.have.been.called;
     });
-
   });
-
 
   describe('validate()', () => {
     let props, instance;
@@ -179,8 +171,5 @@ describe('<FormFieldRange />', () => {
       instance.validate();
       expect(props.validation).to.have.been.calledWith(0);
     });
-
   });
-
-
 });

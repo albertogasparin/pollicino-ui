@@ -1,4 +1,4 @@
-/* eslint-env mocha *//* eslint-disable no-unused-vars, max-nested-callbacks */
+/* eslint-env mocha */ /* eslint-disable no-unused-vars, max-nested-callbacks */
 
 import React from 'react';
 import { expect } from 'chai';
@@ -8,9 +8,7 @@ import td from 'testdouble';
 import FormFieldDate from '..';
 
 describe('<FormFieldDate />', () => {
-
   describe('DOM', () => {
-
     it('should render', () => {
       let props = { value: '' };
       let wrapper = shallow(<FormFieldDate {...props} />);
@@ -32,9 +30,7 @@ describe('<FormFieldDate />', () => {
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
-
   });
-
 
   describe('Lifecycle', () => {
     let props, wrapper;
@@ -61,7 +57,10 @@ describe('<FormFieldDate />', () => {
     });
 
     it('should update state on prop change', () => {
-      wrapper.setProps({ value: ['2000-01-01', '2010-01-01'], hidePlaceholder: true });
+      wrapper.setProps({
+        value: ['2000-01-01', '2010-01-01'],
+        hidePlaceholder: true,
+      });
       expect(wrapper.state()).to.eql({
         touched: false,
         focused: false,
@@ -85,9 +84,7 @@ describe('<FormFieldDate />', () => {
       wrapper.setProps({ value: 'b', touched: true });
       expect(props.validation).to.have.been.calledWith('b');
     });
-
   });
-
 
   describe('normalizeValue', () => {
     let props, instance;
@@ -102,15 +99,16 @@ describe('<FormFieldDate />', () => {
     });
 
     it('should return an array with double value if not array', () => {
-      expect(instance.normalizeValue('2010-01-01')).to.eql(['2010-01-01', '2010-01-01']);
+      expect(instance.normalizeValue('2010-01-01')).to.eql([
+        '2010-01-01',
+        '2010-01-01',
+      ]);
     });
 
     it('should return value if value is array', () => {
       expect(instance.normalizeValue(['2010-01-01'])).to.eql(['2010-01-01']);
     });
-
   });
-
 
   describe('returnValue', () => {
     let props, instance;
@@ -118,7 +116,10 @@ describe('<FormFieldDate />', () => {
     it('should return a string', () => {
       props = {};
       instance = shallow(<FormFieldDate {...props} />).instance();
-      expect(instance.returnValue(['2010-01-01'])).to.eql('2010-01-01', '2010-01-01');
+      expect(instance.returnValue(['2010-01-01'])).to.eql(
+        '2010-01-01',
+        '2010-01-01'
+      );
     });
 
     it('should return an array if is range', () => {
@@ -126,9 +127,7 @@ describe('<FormFieldDate />', () => {
       instance = shallow(<FormFieldDate {...props} />).instance();
       expect(instance.returnValue(['2010-01-01'])).to.eql(['2010-01-01']);
     });
-
   });
-
 
   describe('formatDate', () => {
     let props, instance;
@@ -138,9 +137,7 @@ describe('<FormFieldDate />', () => {
       instance = shallow(<FormFieldDate {...props} />).instance();
       expect(instance.formatDate(new Date('2010-01-01'))).to.eql('2010-01-01');
     });
-
   });
-
 
   describe('formatDate', () => {
     let props, instance;
@@ -162,15 +159,12 @@ describe('<FormFieldDate />', () => {
       instance = shallow(<FormFieldDate {...props} />).instance();
       expect(instance.isDayDisabled(new Date('2010-01-05'))).to.eql(true);
     });
-
   });
-
 
   describe('handleChange()', () => {
     let props, instance;
 
     describe('on option click', () => {
-
       beforeEach(() => {
         props = { value: '', validation: td.func('validation') };
         instance = shallow(<FormFieldDate {...props} />).instance();
@@ -189,11 +183,9 @@ describe('<FormFieldDate />', () => {
       it('should trigger dropdown close', () => {
         expect(instance.dropdownEl.handleClose).to.have.been.called;
       });
-
     });
 
     describe('on custom option click', () => {
-
       beforeEach(() => {
         props = {};
         instance = shallow(<FormFieldDate {...props} />).instance();
@@ -210,9 +202,7 @@ describe('<FormFieldDate />', () => {
       });
     });
 
-
     describe('on calendar click', () => {
-
       beforeEach(() => {
         props = {};
         instance = shallow(<FormFieldDate {...props} />).instance();
@@ -224,12 +214,9 @@ describe('<FormFieldDate />', () => {
         instance.handleChange(true, ['2010-01-01']);
         expect(instance.dropdownEl.handleClose).to.have.been.called;
       });
-
     });
 
-
     describe('on range calendar click', () => {
-
       beforeEach(() => {
         props = { isRange: true };
         instance = shallow(<FormFieldDate {...props} />).instance();
@@ -241,11 +228,8 @@ describe('<FormFieldDate />', () => {
         instance.handleChange(true, ['2010-01-01', '2010-01-02']);
         expect(instance.dropdownEl.handleClose).not.to.have.been.called;
       });
-
     });
-
   });
-
 
   describe('handleFocus()', () => {
     let props, instance;
@@ -263,9 +247,7 @@ describe('<FormFieldDate />', () => {
     it('should call onFocus prop', () => {
       expect(props.onFocus).to.have.been.called;
     });
-
   });
-
 
   describe('handleBlur()', () => {
     let props, instance;
@@ -294,7 +276,7 @@ describe('<FormFieldDate />', () => {
       expect(props.onBlur).to.have.been.called;
     });
 
-    it('should call onChange prop', (done) => {
+    it('should call onChange prop', done => {
       setTimeout(() => {
         expect(props.onChange).to.have.been.called;
         done();
@@ -304,9 +286,7 @@ describe('<FormFieldDate />', () => {
     it('should validate value', () => {
       expect(props.validation).to.have.been.called;
     });
-
   });
-
 
   describe('validate()', () => {
     let props, instance;
@@ -331,9 +311,7 @@ describe('<FormFieldDate />', () => {
       instance.validate();
       expect(props.validation).to.have.been.calledWith('');
     });
-
   });
-
 
   describe('renderFieldLabel()', () => {
     let props, instance;
@@ -357,8 +335,5 @@ describe('<FormFieldDate />', () => {
       let result = instance.renderFieldLabel(['2000-01-05', '2000-01-10']);
       expect(result).to.eql('05/01/2000 — 10/01/2000');
     });
-
   });
-
-
 });

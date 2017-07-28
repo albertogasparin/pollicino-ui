@@ -1,4 +1,4 @@
-/* eslint-env mocha *//* eslint-disable no-unused-vars, max-nested-callbacks */
+/* eslint-env mocha */ /* eslint-disable no-unused-vars, max-nested-callbacks */
 
 import React from 'react';
 import { expect } from 'chai';
@@ -8,9 +8,7 @@ import td from 'testdouble';
 import FormFieldSelect from '..';
 
 describe('<FormFieldSelect />', () => {
-
   describe('DOM', () => {
-
     it('should render', () => {
       let props = { value: '', options: [] };
       let wrapper = shallow(<FormFieldSelect {...props} />);
@@ -32,17 +30,17 @@ describe('<FormFieldSelect />', () => {
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
-
   });
-
 
   describe('Lifecycle', () => {
     let props, wrapper;
 
     beforeEach(() => {
       props = {
-        name: 'a', placeholder: 'select',
-        value: 'a', options: [],
+        name: 'a',
+        placeholder: 'select',
+        value: 'a',
+        options: [],
         validation: td.func('validation'),
       };
       wrapper = shallow(<FormFieldSelect {...props} />);
@@ -60,7 +58,11 @@ describe('<FormFieldSelect />', () => {
     });
 
     it('should update state on prop change', () => {
-      wrapper.setProps({ id: 'a', value: 'b', options: [{ label: 'A', value: 'a' }] });
+      wrapper.setProps({
+        id: 'a',
+        value: 'b',
+        options: [{ label: 'A', value: 'a' }],
+      });
       expect(wrapper.state()).to.eql({
         touched: false,
         focused: false,
@@ -75,15 +77,15 @@ describe('<FormFieldSelect />', () => {
       wrapper.setProps({ value: 'b', touched: true });
       expect(props.validation).to.have.been.calledWith('b');
     });
-
   });
-
 
   describe('findOption()', () => {
     let props, instance;
 
     beforeEach(() => {
-      props = { options: [{ label: 'A', value: 'a' }, { label: '1', value: 1 }] };
+      props = {
+        options: [{ label: 'A', value: 'a' }, { label: '1', value: 1 }],
+      };
       instance = shallow(<FormFieldSelect {...props} />).instance();
     });
 
@@ -101,9 +103,7 @@ describe('<FormFieldSelect />', () => {
       let result = instance.findOption('b');
       expect(result).to.eql(null);
     });
-
   });
-
 
   describe('handleChange()', () => {
     let props, instance;
@@ -117,10 +117,12 @@ describe('<FormFieldSelect />', () => {
       expect(instance.state.val).to.eql('a');
     });
 
-    it('should call onChange', (done) => {
+    it('should call onChange', done => {
       props = {
-        value: '', options: [{ label: 'A', value: 'a' }],
-        onChange: td.func('onChange'), debounce: 0,
+        value: '',
+        options: [{ label: 'A', value: 'a' }],
+        onChange: td.func('onChange'),
+        debounce: 0,
       };
       instance = shallow(<FormFieldSelect {...props} />).instance();
       instance.handleChange(ev);
@@ -133,7 +135,8 @@ describe('<FormFieldSelect />', () => {
 
     it('should validate', () => {
       props = {
-        value: '', options: [{ label: 'A', value: 'a' }],
+        value: '',
+        options: [{ label: 'A', value: 'a' }],
         validation: td.func('validation'),
       };
       instance = shallow(<FormFieldSelect {...props} />).instance();
@@ -141,9 +144,7 @@ describe('<FormFieldSelect />', () => {
 
       expect(props.validation).to.have.been.called;
     });
-
   });
-
 
   describe('handleFocus()', () => {
     let props, instance;
@@ -161,9 +162,7 @@ describe('<FormFieldSelect />', () => {
     it('should call onFocus prop', () => {
       expect(props.onFocus).to.have.been.called;
     });
-
   });
-
 
   describe('handleBlur()', () => {
     let props, instance;
@@ -185,9 +184,7 @@ describe('<FormFieldSelect />', () => {
     it('should call onBlur prop', () => {
       expect(props.onBlur).to.have.been.called;
     });
-
   });
-
 
   describe('validate()', () => {
     let props, instance;
@@ -212,8 +209,5 @@ describe('<FormFieldSelect />', () => {
       instance.validate();
       expect(props.validation).to.have.been.calledWith('a');
     });
-
   });
-
-
 });

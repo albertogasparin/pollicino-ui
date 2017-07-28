@@ -4,12 +4,10 @@ import { storiesOf } from '@kadira/storybook';
 import { Icon } from '../..';
 
 storiesOf('Icon', module)
-
-  .addWithInfo('description', '', () => (
-    <Icon glyph="magnify" />
-  ), { inline: true })
-
-  .add('examples', () => (
+  .addWithInfo('description', '', () => <Icon glyph="magnify" />, {
+    inline: true,
+  })
+  .add('examples', () =>
     <div>
       <h4>Default style</h4>
       <Icon glyph="magnify" />
@@ -26,6 +24,5 @@ storiesOf('Icon', module)
       <div style={{ fontSize: '1.8rem' }}>
         <Icon glyph="loading" />
       </div>
-
     </div>
-  ));
+  );

@@ -5,13 +5,12 @@ import Icon from '../Icon';
 
 const Btn = ({ tagName: TagName, className, loading, ...props }) => {
   return (
-    <TagName className={'Btn ' + className + (loading ? ' isLoading' : '')}
+    <TagName
+      className={'Btn ' + className + (loading ? ' isLoading' : '')}
       {...props}
     >
       {props.children}
-      {loading &&
-        <Icon glyph="loading" />
-      }
+      {loading && <Icon glyph="loading" />}
     </TagName>
   );
 };
@@ -29,6 +28,5 @@ Btn.defaultProps = {
   className: '',
   type: 'button',
 };
-
 
 export default Btn;

@@ -8,15 +8,18 @@
   @include FormField;
 }
 
-
 /**
  * Field styles
  */
 
 .FormField--number {
   &.isDisabled .FormField {
-    &-field { @include FormField-isDisabled; }
-    &-control { box-shadow: none; }
+    &-field {
+      @include FormField-isDisabled;
+    }
+    &-control {
+      box-shadow: none;
+    }
   }
 
   @include FormField--modifiers;
@@ -44,40 +47,44 @@
     line-height: $Pollicino-FormField-height / 2;
     border-radius: 0;
 
-    &::before { // triangle
+    &::before {
+      // triangle
       content: '';
       display: inline-block;
       border: rem(4px) solid transparent;
     }
 
-    &[disabled]::before { opacity: 0.4; }
+    &[disabled]::before {
+      opacity: 0.4;
+    }
 
     &--plus {
       top: 1px;
 
-      &::before { border-bottom-color: currentColor; }
+      &::before {
+        border-bottom-color: currentColor;
+      }
     }
 
     &--minus {
       bottom: 1px;
 
-      &::before { border-top-color: currentColor; }
+      &::before {
+        border-top-color: currentColor;
+      }
     }
   }
-
 }
-
 
 /**
  * Modifiers
  */
 
-.FormField--number.FormField--invert {}
+.FormField--number.FormField--invert {
+}
 
 .FormField--number.FormField--invert .FormField {
-
   &-control {
     @include FormField-control--inverted;
   }
 }
-

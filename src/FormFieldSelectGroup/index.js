@@ -7,53 +7,57 @@ import Dropdown from '../Dropdown';
 import FormFieldTick from '../FormFieldTick';
 
 class FormFieldSelectGroup extends Component {
-
   state = {
     touched: false,
     focused: false,
     error: null,
-  }
+  };
 
-  componentWillMount () {
+  componentWillMount() {
     this.setPropsToState(this.props);
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setPropsToState(nextProps);
   }
 
-  setPropsToState = (props) => {
+  setPropsToState = props => {
     let val = this.normalizeValue(props.value);
     let opts = [
-      ...(props.hidePlaceholder ? [] : [{ label: props.placeholder, value: '' }]),
+      ...(props.hidePlaceholder
+        ? []
+        : [{ label: props.placeholder, value: '' }]),
       ...props.options,
     ];
-    this.setState(({ touched }) => ({
-      val,
-      opts,
-      ...(props.touched ? { touched: true } : {}),
-    }), () => {
-      if (this.state.touched) {
-        this.validate();
+    this.setState(
+      ({ touched }) => ({
+        val,
+        opts,
+        ...(props.touched ? { touched: true } : {}),
+      }),
+      () => {
+        if (this.state.touched) {
+          this.validate();
+        }
       }
-    });
-  }
+    );
+  };
 
-  normalizeValue = (value) => {
+  normalizeValue = value => {
     if (!Array.isArray(value)) {
       value = typeof value !== 'undefined' ? [value] : [];
     }
     return value;
-  }
+  };
 
-  returnValue = (val) => {
+  returnValue = val => {
     return this.props.multiple ? val : val[0];
-  }
+  };
 
-  findOptions = (val) => {
+  findOptions = val => {
     let options = this.state.opts.filter(o => val.indexOf(o.value) !== -1);
     return options.length ? options : null;
-  }
+  };
 
   handleChange = (value, checked) => {
     let { multiple } = this.props;
@@ -78,23 +82,25 @@ class FormFieldSelectGroup extends Component {
       this.dropdownEl.handleClose();
     }
     this.triggerOnChange(this.returnValue(val));
-  }
+  };
 
-  handleFocus = (ev) => {
+  handleFocus = ev => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
-  }
+  };
 
-  handleBlur = (ev) => {
+  handleBlur = ev => {
     this.setState(({ val }) => ({
-      focused: false, touched: true, ...this.validate(val, false),
+      focused: false,
+      touched: true,
+      ...this.validate(val, false),
     }));
     this.props.onBlur(ev);
-  }
+  };
 
   triggerOnChange = _debounce((...args) => {
     this.props.onChange(...args); // call the fresh prop
-  }, this.props.debounce)
+  }, this.props.debounce);
 
   /*
    * @public
@@ -105,65 +111,89 @@ class FormFieldSelectGroup extends Component {
       this.setState({ error });
     }
     return { error };
-  }
+  };
 
-  renderSelectGroup = (checkedOpts) => {
+  renderSelectGroup = checkedOpts => {
     let { opts } = this.state;
     let { inline, multiple, optionsPerRow } = this.props;
 
     return (
       <div className="FormField-group">
-        <ul className={'FormField-groupList FormField-groupList--' + (inline || 'overflow')}>
-          {opts.map((opt, i) => (
-            <li key={opt.value} className="FormField-groupItem"
+        <ul
+          className={
+            'FormField-groupList FormField-groupList--' + (inline || 'overflow')
+          }
+        >
+          {opts.map((opt, i) =>
+            <li
+              key={opt.value}
+              className="FormField-groupItem"
               style={{ width: 100 / optionsPerRow + '%' }}
             >
-              <FormFieldTick type={multiple ? 'checkbox' : 'radio'}
-                label={opt.label} debounce={0}
+              <FormFieldTick
+                type={multiple ? 'checkbox' : 'radio'}
+                label={opt.label}
+                debounce={0}
                 checked={checkedOpts.indexOf(opt) !== -1}
                 value={opt.value}
                 {..._pick(this.props, 'name', 'disabled', 'tabIndex')}
                 onChange={this.handleChange}
-                onFocus={(ev) => inline && this.handleFocus(ev)}
-                onBlur={(ev) => inline && this.handleBlur(ev)}
+                onFocus={ev => inline && this.handleFocus(ev)}
+                onBlur={ev => inline && this.handleBlur(ev)}
               />
             </li>
-          ))}
+          )}
         </ul>
       </div>
     );
-  }
+  };
 
-  render () { // eslint-disable-line complexity
-    let { className, style, label, disabled, valueRenderer, placeholder, multiple } = this.props;
+  // eslint-disable-next-line complexity
+  render() {
+    let {
+      className,
+      style,
+      label,
+      disabled,
+      valueRenderer,
+      placeholder,
+      multiple,
+    } = this.props;
     let { val, error, focused } = this.state;
-    let checkedOpts = this.findOptions(val) || [{ label: placeholder, value: val }];
+    let checkedOpts = this.findOptions(val) || [
+      { label: placeholder, value: val },
+    ];
 
     className += disabled ? ' isDisabled' : '';
     className += error ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
 
     return (
-      <div className={'FormField FormField--selectGroup ' + className} style={style}>
+      <div
+        className={'FormField FormField--selectGroup ' + className}
+        style={style}
+      >
         {typeof label !== 'undefined' &&
-          <label className="FormField-label">{label}</label>
-        }
+          <label className="FormField-label">
+            {label}
+          </label>}
         <div className="FormField-field">
           {this.props.inline
             ? this.renderSelectGroup(checkedOpts)
-            : <Dropdown className="Dropdown--field"
-                ref={c => this.dropdownEl = c}
+            : <Dropdown
+                className="Dropdown--field"
+                ref={c => (this.dropdownEl = c)}
                 label={valueRenderer(multiple ? checkedOpts : checkedOpts[0])}
                 {..._pick(this.props, 'align', 'disabled')}
                 onOpen={this.handleFocus}
                 onClose={this.handleBlur}
               >
                 {this.renderSelectGroup(checkedOpts)}
-              </Dropdown>
-          }
+              </Dropdown>}
           {error &&
-            <p className="FormField-error">{error}</p>
-          }
+            <p className="FormField-error">
+              {error}
+            </p>}
         </div>
       </div>
     );
@@ -203,14 +233,15 @@ FormFieldSelectGroup.defaultProps = {
   debounce: 200,
 
   options: [],
-  valueRenderer: (op) => Array.isArray(op) ? op.map(o => o.label).join(', ') : op.label,
+  valueRenderer: op =>
+    Array.isArray(op) ? op.map(o => o.label).join(', ') : op.label,
   align: 'left',
   optionsPerRow: 1,
 
-  validation () {},
-  onChange () {},
-  onFocus () {},
-  onBlur () {},
+  validation() {},
+  onChange() {},
+  onFocus() {},
+  onBlur() {},
 };
 
 export default FormFieldSelectGroup;

@@ -6,68 +6,67 @@ import _pick from 'lodash/pick';
 const INPUT_PROPS = ['name', 'disabled', 'tabIndex'];
 
 class FormFieldSelect extends Component {
-
   state = {
     touched: false,
     focused: false,
     error: null,
-  }
+  };
 
-  componentWillMount () {
+  componentWillMount() {
     this.setPropsToState(this.props);
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setPropsToState(nextProps);
   }
 
-  setPropsToState = (props) => {
+  setPropsToState = props => {
     let val = props.value;
-    let opts = [
-      { label: props.placeholder, value: '' },
-      ...props.options,
-    ];
-    this.setState(({ touched }) => ({
-      val,
-      opts,
-      id: props.id || props.name && 'ff-select-' + props.name,
-      ...(props.touched ? { touched: true } : {}),
-    }), () => {
-      if (this.state.touched) {
-        this.validate();
+    let opts = [{ label: props.placeholder, value: '' }, ...props.options];
+    this.setState(
+      ({ touched }) => ({
+        val,
+        opts,
+        id: props.id || (props.name && 'ff-select-' + props.name),
+        ...(props.touched ? { touched: true } : {}),
+      }),
+      () => {
+        if (this.state.touched) {
+          this.validate();
+        }
       }
-    });
-  }
+    );
+  };
 
-  findOption = (val) => {
+  findOption = val => {
     let option = null;
-    this.state.opts.some(o => (
-      String(o.value) === String(val) ? (option = o) : false
-    ));
+    this.state.opts.some(
+      o => (String(o.value) === String(val) ? (option = o) : false)
+    );
     return option;
-  }
+  };
 
-  handleChange = (ev) => {
+  handleChange = ev => {
     let { opts } = this.state;
     let val = opts[ev.target.selectedIndex].value;
 
     this.setState({ val, ...this.validate(val, false) });
     this.triggerOnChange(val);
-  }
+  };
 
-  handleFocus = (ev) => {
+  handleFocus = ev => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
-  }
+  };
 
-  handleBlur = (ev) => {
+  handleBlur = ev => {
     this.setState({ focused: false, touched: true });
     this.props.onBlur(ev);
-  }
+  };
 
   triggerOnChange = _debounce((...args) => {
     this.props.onChange(...args); // call the fresh prop
-  }, this.props.debounce)
+  }, this.props.debounce);
 
   /*
    * @public
@@ -78,9 +77,9 @@ class FormFieldSelect extends Component {
       this.setState({ error });
     }
     return { error };
-  }
+  };
 
-  render () {
+  render() {
     let { className, style, label, valueRenderer, disabled } = this.props;
     let { id, opts, val, error, focused } = this.state;
     let selectedOpt = this.findOption(val) || {};
@@ -91,26 +90,32 @@ class FormFieldSelect extends Component {
     return (
       <div className={'FormField FormField--select ' + className} style={style}>
         {typeof label !== 'undefined' &&
-          <label className="FormField-label" htmlFor={id}>{label}</label>
-        }
+          <label className="FormField-label" htmlFor={id}>
+            {label}
+          </label>}
         <div className="FormField-field">
           <span className="FormField-value">
             {valueRenderer(selectedOpt.label)}
           </span>
-          <select id={id} className="FormField-control"
+          <select
+            id={id}
+            className="FormField-control"
             value={selectedOpt.value}
             {..._pick(this.props, INPUT_PROPS)}
             onChange={this.handleChange}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
           >
-            {opts.map((o, i) => (
-              <option key={i} value={o.value}>{o.label || o.value}</option>)
+            {opts.map((o, i) =>
+              <option key={i} value={o.value}>
+                {o.label || o.value}
+              </option>
             )}
           </select>
           {error &&
-            <p className="FormField-error">{error}</p>
-          }
+            <p className="FormField-error">
+              {error}
+            </p>}
         </div>
       </div>
     );
@@ -146,10 +151,10 @@ FormFieldSelect.defaultProps = {
   valueRenderer: v => v,
   size: '',
 
-  validation () {},
-  onChange () {},
-  onFocus () {},
-  onBlur () {},
+  validation() {},
+  onChange() {},
+  onFocus() {},
+  onBlur() {},
 };
 
 export default FormFieldSelect;

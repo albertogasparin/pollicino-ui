@@ -14,15 +14,18 @@
 
 .FormField--suggest {
   &.isDisabled .FormField {
-    &-field { @include FormField-isDisabled; }
-    &-control { box-shadow: none; }
+    &-field {
+      @include FormField-isDisabled;
+    }
+    &-control {
+      box-shadow: none;
+    }
   }
 
   @include FormField--modifiers;
 }
 
 .FormField--suggest .FormField {
-
   &-control {
     @include FormField-control;
     margin-bottom: 1px;
@@ -47,7 +50,9 @@
       color: $Pollicino-color-primary;
     }
 
-    &.isNew { font-style: italic; }
+    &.isNew {
+      font-style: italic;
+    }
   }
 
   &-noOptions {
@@ -57,19 +62,18 @@
 
   &-selectNew {
     position: absolute;
-    top: -$Pollicino-FormField-height;
+    top: 0;
     right: 0;
     margin-top: -2px; // align
   }
-
 }
-
 
 /**
  * Modifiers
  */
 
-.FormField--suggest.FormField--invert {}
+.FormField--suggest.FormField--invert {
+}
 
 .FormField--suggest.FormField--invert .FormField {
   &-control {

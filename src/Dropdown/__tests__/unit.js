@@ -1,4 +1,4 @@
-/* eslint-env mocha *//* eslint-disable no-unused-vars, max-nested-callbacks */
+/* eslint-env mocha */ /* eslint-disable no-unused-vars, max-nested-callbacks */
 
 import React from 'react';
 import { expect } from 'chai';
@@ -8,7 +8,6 @@ import td from 'testdouble';
 import Dropdown from '..';
 
 describe('<Dropdown />', () => {
-
   describe('DOM', () => {
     let props, wrapper, instance;
 
@@ -27,7 +26,6 @@ describe('<Dropdown />', () => {
     });
 
     describe('on open', () => {
-
       beforeEach(() => {
         props = {};
         wrapper = shallow(<Dropdown {...props} />);
@@ -41,7 +39,6 @@ describe('<Dropdown />', () => {
       it('should render content', () => {
         expect(wrapper.find('.Dropdown-overlay')).to.have.lengthOf(1);
       });
-
     });
 
     describe('on mount', () => {
@@ -53,9 +50,7 @@ describe('<Dropdown />', () => {
         expect(instance.handleOpen).to.have.been.called;
       });
     });
-
   });
-
 
   describe('Lifecycle', () => {
     let props, wrapper;
@@ -77,9 +72,7 @@ describe('<Dropdown />', () => {
         isOpen: false,
       });
     });
-
   });
-
 
   describe('handleOpen()', () => {
     let props, instance;
@@ -90,10 +83,11 @@ describe('<Dropdown />', () => {
       instance.handleOpen();
     });
 
-    it('should lazily add a click ev listener on document', (done) => {
+    it('should lazily add a click ev listener on document', done => {
       setTimeout(() => {
         expect(global.document.addEventListener).to.have.been.calledWith(
-          'click', instance.handleClickOutside
+          'click',
+          instance.handleClickOutside
         );
         done();
       }, 50);
@@ -106,9 +100,7 @@ describe('<Dropdown />', () => {
     it('should call onOpen', () => {
       expect(props.onOpen).to.have.been.called;
     });
-
   });
-
 
   describe('handleClose()', () => {
     let props, instance;
@@ -123,7 +115,8 @@ describe('<Dropdown />', () => {
 
     it('should remove click ev listener on document', () => {
       expect(global.document.removeEventListener).to.have.been.calledWith(
-        'click', instance.handleClickOutside
+        'click',
+        instance.handleClickOutside
       );
     });
 
@@ -131,15 +124,13 @@ describe('<Dropdown />', () => {
       expect(props.onClose).to.have.been.called;
     });
 
-    it('should set isOpen state after a short delay', (done) => {
+    it('should set isOpen state after a short delay', done => {
       setTimeout(() => {
         expect(instance.state.isOpen).to.eql(false);
         done();
       }, 30);
     });
-
   });
-
 
   describe('handleClickOutside()', () => {
     let props, instance;
@@ -152,8 +143,5 @@ describe('<Dropdown />', () => {
 
       expect(instance.handleClose).to.have.been.called;
     });
-
   });
-
-
 });

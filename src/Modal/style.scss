@@ -16,17 +16,17 @@
 }
 
 .Modal .Modal {
-
   &-box {
     min-width: 20rem;
     max-width: 30rem;
-    background: #FFF;
+    background: #fff;
     border-radius: $Pollicino-border-radius;
     box-shadow: 0 0 15px 1px rgba(#000, 0.3);
   }
 
   &-header {
-    padding: rem($Pollicino-padding) rem($Pollicino-padding) 0 rem($Pollicino-padding);
+    padding: rem($Pollicino-padding) rem($Pollicino-padding) 0
+      rem($Pollicino-padding);
   }
 
   &-title {
@@ -41,14 +41,17 @@
   &-message {
     padding: rem($Pollicino-padding);
 
-    p { margin: 0; }
+    p {
+      margin: 0;
+    }
   }
 
   &-footer {
     text-align: right;
     padding: rem($Pollicino-padding);
 
-    .Btn + .Btn { margin-left: rem($Pollicino-padding); }
+    .Btn + .Btn {
+      margin-left: rem($Pollicino-padding);
+    }
   }
-
 }

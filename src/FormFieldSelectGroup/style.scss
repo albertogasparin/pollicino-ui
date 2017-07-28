@@ -20,7 +20,6 @@
 }
 
 .FormField--selectGroup .FormField {
-
   &-group {
     @include clearfix;
   }
@@ -38,11 +37,13 @@
   &-groupList--overflow {
     max-height: 19rem;
     margin: rem($Pollicino-padding * -1);
-    padding: rem($Pollicino-padding) 0 rem($Pollicino-padding) rem($Pollicino-padding);
+    padding: rem($Pollicino-padding) 0 rem($Pollicino-padding)
+      rem($Pollicino-padding);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 
-    &:first-child { // if not preceded by search
+    &:first-child {
+      // if not preceded by search
       overflow-y: auto;
     }
   }
@@ -53,7 +54,6 @@
     padding-right: rem($Pollicino-padding);
   }
 }
-
 
 /**
  * Modifiers
@@ -66,7 +66,6 @@
 }
 
 .FormField--selectGroup .FormField-groupList--tabbed .FormField {
-
   &-groupItem {
     float: none;
     flex: 0 1 auto;
@@ -79,8 +78,12 @@
     display: block;
 
     .FormField {
-      &-tick { display: none; }
-      &-value { padding: 0 rem($Pollicino-padding); }
+      &-tick {
+        display: none;
+      }
+      &-value {
+        padding: 0 rem($Pollicino-padding);
+      }
       &-label {
         border: 1px solid $Pollicino-color-lighter; // apply to label so disabled works
         border-right-width: 0;
@@ -88,11 +91,13 @@
     }
 
     &.isChecked .FormField-label {
-      background: rgba(#BBB, 0.4);
+      background: rgba(#bbb, 0.4);
       box-shadow: inset 0 3px 5px rgba(#000, 0.15);
     }
 
-    &.isDisabled .FormField-label { box-shadow: none; }
+    &.isDisabled .FormField-label {
+      box-shadow: none;
+    }
   }
 
   &-groupItem:first-child .FormField-label {

@@ -1,4 +1,4 @@
-/* eslint-env mocha *//* eslint-disable no-unused-vars */
+/* eslint-env mocha */ /* eslint-disable no-unused-vars */
 
 import React from 'react';
 import { expect } from 'chai';
@@ -9,9 +9,7 @@ import Modal from '..';
 import Btn from '../../Btn';
 
 describe('<Modal />', () => {
-
   describe('DOM', () => {
-
     it('should render', () => {
       let props = {};
       let wrapper = shallow(<Modal {...props} />);
@@ -40,6 +38,5 @@ describe('<Modal />', () => {
       expect(props.buttons[0].action).to.have.been.called;
       expect(props.onClose).to.have.been.called;
     });
-
   });
 });

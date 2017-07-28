@@ -8,15 +8,18 @@
   @include FormField;
 }
 
-
 /**
  * FormField textarea
  */
 
 .FormField--textarea {
   &.isDisabled .FormField {
-    &-field { @include FormField-isDisabled; }
-    &-control { box-shadow: none; }
+    &-field {
+      @include FormField-isDisabled;
+    }
+    &-control {
+      box-shadow: none;
+    }
   }
 
   @include FormField--modifiers;
@@ -31,12 +34,12 @@
   }
 }
 
-
 /**
  * Field modifiers
  */
 
-.FormField--textarea.FormField--invert {}
+.FormField--textarea.FormField--invert {
+}
 
 .FormField--textarea.FormField--invert .FormField {
   &-control {

@@ -1,4 +1,4 @@
-/* eslint-env mocha *//* eslint-disable no-unused-vars, max-nested-callbacks */
+/* eslint-env mocha */ /* eslint-disable no-unused-vars, max-nested-callbacks */
 
 import React from 'react';
 import { expect } from 'chai';
@@ -8,9 +8,7 @@ import td from 'testdouble';
 import FormFieldSelectGroup from '..';
 
 describe('<FormFieldSelectGroup />', () => {
-
   describe('DOM', () => {
-
     it('should render', () => {
       let props = { value: '' };
       let wrapper = shallow(<FormFieldSelectGroup {...props} />);
@@ -44,16 +42,16 @@ describe('<FormFieldSelectGroup />', () => {
       let wrapper = shallow(<FormFieldSelectGroup {...props} />);
       expect(wrapper.find('.FormField-group')).to.have.lengthOf(1);
     });
-
   });
-
 
   describe('Lifecycle', () => {
     let props, wrapper;
 
     beforeEach(() => {
       props = {
-        name: 'a', value: 'a', placeholder: 'select',
+        name: 'a',
+        value: 'a',
+        placeholder: 'select',
         validation: td.func('validation'),
       };
       wrapper = shallow(<FormFieldSelectGroup {...props} />);
@@ -70,7 +68,11 @@ describe('<FormFieldSelectGroup />', () => {
     });
 
     it('should update state on prop change', () => {
-      wrapper.setProps({ id: 'a', options: [{ value: 'a' }], hidePlaceholder: true });
+      wrapper.setProps({
+        id: 'a',
+        options: [{ value: 'a' }],
+        hidePlaceholder: true,
+      });
       expect(wrapper.state()).to.eql({
         touched: false,
         focused: false,
@@ -84,9 +86,7 @@ describe('<FormFieldSelectGroup />', () => {
       wrapper.setProps({ value: 'b', touched: true });
       expect(props.validation).to.have.been.calledWith('b');
     });
-
   });
-
 
   describe('normalizeValue', () => {
     let props, instance;
@@ -107,9 +107,7 @@ describe('<FormFieldSelectGroup />', () => {
     it('should return value if value is array', () => {
       expect(instance.normalizeValue(['a'])).to.eql(['a']);
     });
-
   });
-
 
   describe('returnValue', () => {
     let props, instance;
@@ -125,9 +123,7 @@ describe('<FormFieldSelectGroup />', () => {
       instance = shallow(<FormFieldSelectGroup {...props} />).instance();
       expect(instance.returnValue(['a', 'b'])).to.eql(['a', 'b']);
     });
-
   });
-
 
   describe('findOptions()', () => {
     let props, instance;
@@ -142,21 +138,21 @@ describe('<FormFieldSelectGroup />', () => {
     });
 
     it('should return a array with matched options', () => {
-      expect(instance.findOptions(['a', 1])).to.eql([{ value: 'a' }, { value: 1 }]);
+      expect(instance.findOptions(['a', 1])).to.eql([
+        { value: 'a' },
+        { value: 1 },
+      ]);
     });
 
     it('should return null if no options found', () => {
       expect(instance.findOptions(['b'])).to.eql(null);
     });
-
   });
-
 
   describe('handleChange()', () => {
     let props, instance;
 
     describe('on single', () => {
-
       beforeEach(() => {
         props = {
           value: null,
@@ -173,19 +169,16 @@ describe('<FormFieldSelectGroup />', () => {
         expect(instance.state.val).to.eql(['a']);
       });
 
-      it('should call onChange', (done) => {
+      it('should call onChange', done => {
         instance.handleChange('a');
         setTimeout(() => {
           expect(props.onChange).to.have.been.calledWith('a');
           done();
         }, 10);
       });
-
     });
 
-
     describe('on multiple', () => {
-
       beforeEach(() => {
         props = {
           multiple: true,
@@ -208,18 +201,15 @@ describe('<FormFieldSelectGroup />', () => {
         expect(instance.state.val).to.eql(['a', 'c']);
       });
 
-      it('should call onChange', (done) => {
+      it('should call onChange', done => {
         instance.handleChange('a');
         setTimeout(() => {
           expect(props.onChange).to.have.been.calledWith(['a']);
           done();
         }, 10);
       });
-
     });
-
   });
-
 
   describe('handleFocus()', () => {
     let props, instance;
@@ -237,15 +227,17 @@ describe('<FormFieldSelectGroup />', () => {
     it('should call onFocus prop', () => {
       expect(props.onFocus).to.have.been.called;
     });
-
   });
-
 
   describe('handleBlur()', () => {
     let props, instance;
 
     beforeEach(() => {
-      props = { value: '', onBlur: td.func('onBlur'), validation: td.func('validation') };
+      props = {
+        value: '',
+        onBlur: td.func('onBlur'),
+        validation: td.func('validation'),
+      };
       instance = shallow(<FormFieldSelectGroup {...props} />).instance();
       instance.handleBlur();
     });
@@ -265,9 +257,7 @@ describe('<FormFieldSelectGroup />', () => {
     it('should validate value', () => {
       expect(props.validation).to.have.been.called;
     });
-
   });
-
 
   describe('validate()', () => {
     let props, instance;
@@ -292,8 +282,5 @@ describe('<FormFieldSelectGroup />', () => {
       instance.validate();
       expect(props.validation).to.have.been.calledWith(null);
     });
-
   });
-
-
 });

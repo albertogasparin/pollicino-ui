@@ -1,4 +1,4 @@
-/* eslint-env mocha *//* eslint-disable no-unused-vars */
+/* eslint-env mocha */ /* eslint-disable no-unused-vars */
 
 import React from 'react';
 import { expect } from 'chai';
@@ -8,9 +8,7 @@ import td from 'testdouble';
 import FormFieldTick from '..';
 
 describe('<FormFieldTick />', () => {
-
   describe('DOM', () => {
-
     it('should render', () => {
       let props = { value: '' };
       let wrapper = shallow(<FormFieldTick {...props} />);
@@ -44,9 +42,7 @@ describe('<FormFieldTick />', () => {
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
-
   });
-
 
   describe('Lifecycle', () => {
     let props, wrapper;
@@ -81,9 +77,7 @@ describe('<FormFieldTick />', () => {
       wrapper.setProps({ checked: true, touched: true });
       expect(props.validation).to.have.been.calledWith(true);
     });
-
   });
-
 
   describe('handleChange()', () => {
     let props, instance;
@@ -92,7 +86,7 @@ describe('<FormFieldTick />', () => {
       props = { value: 'a', onChange: td.func('onChange'), debounce: 0 };
     });
 
-    it('should set checked if radio and call on change', (done) => {
+    it('should set checked if radio and call on change', done => {
       props = { ...props, type: 'radio' };
       instance = shallow(<FormFieldTick {...props} />).instance();
       instance.handleChange();
@@ -104,7 +98,7 @@ describe('<FormFieldTick />', () => {
       }, 10);
     });
 
-    it('should toggle checked if checkbox and call on change', (done) => {
+    it('should toggle checked if checkbox and call on change', done => {
       props = { ...props, type: 'checkbox', checked: true };
       instance = shallow(<FormFieldTick {...props} />).instance();
       instance.handleChange();
@@ -115,9 +109,7 @@ describe('<FormFieldTick />', () => {
         done();
       }, 10);
     });
-
   });
-
 
   describe('handleFocus()', () => {
     let props, instance;
@@ -135,9 +127,7 @@ describe('<FormFieldTick />', () => {
     it('should call onFocus prop', () => {
       expect(props.onFocus).to.have.been.called;
     });
-
   });
-
 
   describe('handleBlur()', () => {
     let props, instance;
@@ -159,9 +149,5 @@ describe('<FormFieldTick />', () => {
     it('should call onBlur prop', () => {
       expect(props.onBlur).to.have.been.called;
     });
-
   });
-
-
-
 });

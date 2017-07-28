@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 import Icon from '../Icon';
 
 class Collapsible extends Component {
-
   state = {
     isExpanded: this.props.expanded || false,
     isAnimating: false,
-  }
+  };
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.expanded !== this.props.expanded) {
       this.handleToggle(null, nextProps.expanded);
     }
@@ -18,7 +17,8 @@ class Collapsible extends Component {
 
   handleToggle = (ev, forceToggle) => {
     let { isExpanded } = this.state;
-    let willExpand = typeof forceToggle === 'boolean' ? forceToggle : !isExpanded;
+    let willExpand =
+      typeof forceToggle === 'boolean' ? forceToggle : !isExpanded;
     this.setState({ isExpanded: willExpand, isAnimating: true });
 
     if (willExpand) {
@@ -27,16 +27,26 @@ class Collapsible extends Component {
       this.props.onCollapse();
     }
 
-    setTimeout(() => { // allow CSS in/out animation
-      if (this.el) { // check if still mounted
+    setTimeout(() => {
+      // allow CSS in/out animation
+      if (this.el) {
+        // check if still mounted
         this.setState({ isAnimating: false });
       }
     }, this.props.animation);
-  }
+  };
 
-  render () { // eslint-disable-line complexity
+  // eslint-disable-next-line complexity
+  render() {
     let {
-      className, style, children, header, disabled, headerClickable, direction, tabIndex,
+      className,
+      style,
+      children,
+      header,
+      disabled,
+      headerClickable,
+      direction,
+      tabIndex,
     } = this.props;
     let { isExpanded, isAnimating } = this.state;
     className += isExpanded ? ' isExpanded' : ' isCollapsed';
@@ -46,13 +56,18 @@ class Collapsible extends Component {
     btnClassName += headerClickable ? ' isFull' : '';
 
     return (
-      <div className={'Collapsible ' + className}
-        style={style} ref={c => this.el = c}
+      <div
+        className={'Collapsible ' + className}
+        style={style}
+        ref={c => (this.el = c)}
       >
         <header className="Collapsible-header">
           {header}
-          <button className={'Collapsible-btn ' + btnClassName}
-            type="button" disabled={disabled} tabIndex={tabIndex}
+          <button
+            className={'Collapsible-btn ' + btnClassName}
+            type="button"
+            disabled={disabled}
+            tabIndex={tabIndex}
             onClick={this.handleToggle.bind(this)}
           >
             <Icon className="Icon--btn" glyph="chevron-down" />
@@ -62,8 +77,7 @@ class Collapsible extends Component {
         {(isExpanded || isAnimating) &&
           <div className="Collapsible-content">
             {children}
-          </div>
-        }
+          </div>}
       </div>
     );
   }
@@ -90,8 +104,8 @@ Collapsible.defaultProps = {
   headerClickable: false,
   direction: 'down',
 
-  onCollapse () {},
-  onExpand () {},
+  onCollapse() {},
+  onExpand() {},
 };
 
 export default Collapsible;

@@ -3,15 +3,27 @@
 $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // stylelint-disable-line length-zero-no-unit
 
 @keyframes BtnClicked {
-  0% { transform: scale(1); }
-  30% { transform: scale(0.9); }
-  70% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(0.9);
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes BtnClickedHideTip {
-  0% { opacity: 0; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .Btn {
@@ -35,7 +47,7 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
     padding: 0 1em;
     border-radius: 2em;
     background: rgba(#000, 0.8);
-    color: #FFF;
+    color: #fff;
     font-size: calc(1rem - 3px);
     line-height: $Pollicino-Btn-height - 0.6em;
     opacity: 0;
@@ -81,22 +93,32 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
   &:focus {
     animation-duration: 0.6s;
 
-    &[data-tip]::after { animation-duration: 0.6s; }
+    &[data-tip]::after {
+      animation-duration: 0.6s;
+    }
   }
 
   &[disabled] {
     opacity: 0.2;
 
-    &[data-tip]::after { display: none; }
+    &[data-tip]::after {
+      display: none;
+    }
   }
 
   &.isLoading {
     pointer-events: none;
     opacity: 0.99; // force reflow to fix text disapperaing bug on Chrome
 
-    & > :not(.Icon--loading) { opacity: 0; }
-    &::first-line { color: rgba(#000, 0); }
-    &[data-tip]::after { display: none; }
+    & > :not(.Icon--loading) {
+      opacity: 0;
+    }
+    &::first-line {
+      color: rgba(#000, 0);
+    }
+    &[data-tip]::after {
+      display: none;
+    }
 
     .Icon--loading {
       position: absolute;
@@ -106,7 +128,6 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
     }
   }
 }
-
 
 /**
  * Modifiers
@@ -120,16 +141,18 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
 .Btn--primary {
   padding: 0 em($Pollicino-padding);
   background-color: $Pollicino-color-primary;
-  color: #FFF;
+  color: #fff;
   line-height: $Pollicino-Btn-height;
 
-  &[disabled] { background-color: $Pollicino-color-text; }
+  &[disabled] {
+    background-color: $Pollicino-color-text;
+  }
 }
 
 .Btn--secondary {
   padding: 0 em($Pollicino-padding);
   background-color: $Pollicino-color-secondary;
-  color: #FFF;
+  color: #fff;
   line-height: $Pollicino-Btn-height;
 }
 
@@ -147,7 +170,9 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
   text-align: center;
 
   &.isLoading {
-    .Icon--loading { font-size: 0.75em; }
+    .Icon--loading {
+      font-size: 0.75em;
+    }
   }
 }
 

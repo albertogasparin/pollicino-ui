@@ -22,7 +22,6 @@
 }
 
 .FormField--date .FormField {
-
   &-overlay {
     width: 18rem;
   }
@@ -31,10 +30,16 @@
     line-height: 1.35;
 
     &:focus,
-    [tabindex]:focus { outline: none; }
+    [tabindex]:focus {
+      outline: none;
+    }
 
-    .DayPicker-wrapper { padding: 0.3rem 0 0; }
-    .DayPicker-NavBar { top: 0.3rem; }
+    .DayPicker-wrapper {
+      padding: 0.3rem 0 0;
+    }
+    .DayPicker-NavBar {
+      top: 0.3rem;
+    }
 
     .DayPicker-Month {
       width: 100%;
@@ -55,22 +60,27 @@
       line-height: inherit;
       vertical-align: top;
 
-      .FormField-field { height: 1.5rem; }
+      .FormField-field {
+        height: 1.5rem;
+      }
     }
 
     .DayPicker-Day {
-
-      &--today { color: $Pollicino-color-secondary; }
-      &--outside { color: $Pollicino-color-lighter; }
+      &--today {
+        color: $Pollicino-color-secondary;
+      }
+      &--outside {
+        color: $Pollicino-color-lighter;
+      }
 
       &--isDisabled {
-        background: #F4F4F4;
+        background: #f4f4f4;
         color: $Pollicino-color-lighter;
       }
 
       &--isSelected {
         background: $Pollicino-color-primary;
-        color: #FFF;
+        color: #fff;
       }
 
       &--isSelected.DayPicker-Day--outside {
@@ -83,5 +93,3 @@
 /**
  * Modifiers
  */
-
-

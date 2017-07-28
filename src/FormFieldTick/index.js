@@ -8,54 +8,59 @@ import Icon from '../Icon';
 const INPUT_PROPS = ['name', 'disabled', 'type'];
 
 class FormFieldTick extends Component {
-
   state = {
     touched: false,
     focused: false,
     error: null,
-  }
+  };
 
-  componentWillMount () {
+  componentWillMount() {
     this.setPropsToState(this.props);
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setPropsToState(nextProps);
   }
 
-  setPropsToState = (props) => {
+  setPropsToState = props => {
     let val = props.value;
-    this.setState(({ touched }) => ({
-      id: props.id || 'ff-tick-' + props.name + '-' + String(val).replace(/[^\w]/g,''),
-      checked: props.checked,
-      ...(props.touched ? { touched: true } : {}),
-    }), () => {
-      if (this.state.touched) {
-        this.validate();
+    this.setState(
+      ({ touched }) => ({
+        id:
+          props.id ||
+          'ff-tick-' + props.name + '-' + String(val).replace(/[^\w]/g, ''),
+        checked: props.checked,
+        ...(props.touched ? { touched: true } : {}),
+      }),
+      () => {
+        if (this.state.touched) {
+          this.validate();
+        }
       }
-    });
-  }
+    );
+  };
 
-  handleChange = (ev) => {
+  handleChange = ev => {
     let { type, value } = this.props;
-    let checked = (type !== 'radio' || !this.state.checked) ? !this.state.checked : true;
+    let checked =
+      type !== 'radio' || !this.state.checked ? !this.state.checked : true;
     this.setState({ checked, ...this.validate(checked, false) });
     this.triggerOnChange(value, checked);
-  }
+  };
 
-  handleFocus = (ev) => {
+  handleFocus = ev => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
-  }
+  };
 
-  handleBlur = (ev) => {
+  handleBlur = ev => {
     this.setState({ focused: false, touched: true });
     this.props.onBlur(ev);
-  }
+  };
 
   triggerOnChange = _debounce((...args) => {
     this.props.onChange(...args); // call the fresh prop
-  }, this.props.debounce)
+  }, this.props.debounce);
 
   /*
    * @public
@@ -66,9 +71,10 @@ class FormFieldTick extends Component {
       this.setState({ error });
     }
     return { error };
-  }
+  };
 
-  render () { // eslint-disable-line complexity
+  // eslint-disable-next-line complexity
+  render() {
     let { className, style, label, value, type, disabled } = this.props;
     let { id, checked, error } = this.state;
     className += disabled ? ' isDisabled' : '';
@@ -76,9 +82,14 @@ class FormFieldTick extends Component {
     className += error ? ' isInvalid' : '';
     let boxtype = type === 'radio' ? 'radiobox' : type;
     return (
-      <div className={'FormField FormField--' + boxtype + ' ' + className} style={style}>
+      <div
+        className={'FormField FormField--' + boxtype + ' ' + className}
+        style={style}
+      >
         <div className="FormField-field">
-          <input id={id} className="FormField-control"
+          <input
+            id={id}
+            className="FormField-control"
             checked={checked}
             {..._pick(this.props, INPUT_PROPS)}
             onChange={this.handleChange}
@@ -94,8 +105,9 @@ class FormFieldTick extends Component {
             </span>
           </label>
           {error &&
-            <p className="FormField-error">{error}</p>
-          }
+            <p className="FormField-error">
+              {error}
+            </p>}
         </div>
       </div>
     );
@@ -129,10 +141,10 @@ FormFieldTick.defaultProps = {
   checked: false,
   type: 'radio',
 
-  validation () {},
-  onChange () {},
-  onFocus () {},
-  onBlur () {},
+  validation() {},
+  onChange() {},
+  onFocus() {},
+  onBlur() {},
 };
 
 export default FormFieldTick;

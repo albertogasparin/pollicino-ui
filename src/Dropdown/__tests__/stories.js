@@ -4,18 +4,23 @@ import { storiesOf, action } from '@kadira/storybook';
 import { Icon, Dropdown } from '../..';
 
 storiesOf('Dropdown', module)
-
-  .addWithInfo('description', '', () => (
-    <Dropdown className=""
-      label="Label" autoClose align="left"
-      onOpen={action('open')}
-      onClose={action('close')}
-    >
-      Content
-    </Dropdown>
-  ), { inline: true })
-
-  .add('examples', () => (
+  .addWithInfo(
+    'description',
+    '',
+    () =>
+      <Dropdown
+        className=""
+        label="Label"
+        autoClose
+        align="left"
+        onOpen={action('open')}
+        onClose={action('close')}
+      >
+        Content
+      </Dropdown>,
+    { inline: true }
+  )
+  .add('examples', () =>
     <div>
       <h4>Default style with label</h4>
       <div className="left">
@@ -26,7 +31,18 @@ storiesOf('Dropdown', module)
         >
           <p>
             Click here
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
             will not close
           </p>
         </Dropdown>
@@ -34,8 +50,10 @@ storiesOf('Dropdown', module)
 
       <h4>Left, autoClose, no label</h4>
       <div className="w1 dark">
-        <Dropdown align="left"
-          autoClose opened
+        <Dropdown
+          align="left"
+          autoClose
+          opened
           onOpen={action('open')}
           onClose={action('close')}
         >
@@ -45,10 +63,7 @@ storiesOf('Dropdown', module)
 
       <h4>Disabled, custom label component</h4>
       <div className="w1">
-        <Dropdown disabled
-          label={<Icon glyph="magnify" />}
-        />
+        <Dropdown disabled label={<Icon glyph="magnify" />} />
       </div>
-
     </div>
-  ));
+  );

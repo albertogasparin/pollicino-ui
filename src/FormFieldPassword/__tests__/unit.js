@@ -1,4 +1,4 @@
-/* eslint-env mocha *//* eslint-disable no-unused-vars, max-nested-callbacks */
+/* eslint-env mocha */ /* eslint-disable no-unused-vars, max-nested-callbacks */
 
 import React from 'react';
 import { expect } from 'chai';
@@ -8,18 +8,14 @@ import td from 'testdouble';
 import FormFieldPassword from '..';
 
 describe('<FormFieldPassword />', () => {
-
   describe('DOM', () => {
-
     it('should render', () => {
       let props = { value: '' };
       let wrapper = shallow(<FormFieldPassword {...props} />);
 
       expect(wrapper.type()).to.be.a('function');
     });
-
   });
-
 
   describe('Lifecycle', () => {
     let props, wrapper;
@@ -34,9 +30,7 @@ describe('<FormFieldPassword />', () => {
         type: 'password',
       });
     });
-
   });
-
 
   describe('handleTypeToggle()', () => {
     let props, instance;
@@ -57,8 +51,5 @@ describe('<FormFieldPassword />', () => {
 
       expect(instance.state.type).to.eql('password');
     });
-
   });
-
-
 });

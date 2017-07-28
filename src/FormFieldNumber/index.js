@@ -5,38 +5,41 @@ import _pick from 'lodash/pick';
 
 import Btn from '../Btn';
 
+// prettier-ignore
 const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'autoFocus', 'tabIndex'];
 
 class FormFieldNumber extends Component {
-
   state = {
     touched: false,
     focused: false,
     error: null,
-  }
+  };
 
-  componentWillMount () {
+  componentWillMount() {
     this.setPropsToState(this.props);
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setPropsToState(nextProps);
   }
 
-  setPropsToState = (props) => {
+  setPropsToState = props => {
     let val = Number(props.value);
-    this.setState(({ touched }) => ({
-      val,
-      id: props.id || props.name && 'ff-number-' + props.name,
-      ...(props.touched ? { touched: true } : {}),
-    }), () => {
-      if (this.state.touched) {
-        this.validate();
+    this.setState(
+      ({ touched }) => ({
+        val,
+        id: props.id || (props.name && 'ff-number-' + props.name),
+        ...(props.touched ? { touched: true } : {}),
+      }),
+      () => {
+        if (this.state.touched) {
+          this.validate();
+        }
       }
-    });
-  }
+    );
+  };
 
-  clamp = (val) => {
+  clamp = val => {
     let { min, max } = this.props;
     if (typeof min !== 'undefined' && val < min) {
       val = Number(min);
@@ -45,7 +48,7 @@ class FormFieldNumber extends Component {
       val = Number(max);
     }
     return val;
-  }
+  };
 
   handleChange = (ev, val) => {
     let { error, focused } = this.state;
@@ -57,26 +60,28 @@ class FormFieldNumber extends Component {
     this.setState({
       val,
       ...(isValProvided ? { touched: true } : {}),
-      ...(!focused || error && focused ? this.validate(val, false) : {}),
+      ...(!focused || (error && focused) ? this.validate(val, false) : {}),
     });
     this.triggerOnChange(val);
-  }
+  };
 
-  handleFocus = (ev) => {
+  handleFocus = ev => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
-  }
+  };
 
-  handleBlur = (ev) => {
+  handleBlur = ev => {
     this.setState(({ val }) => ({
-      focused: false, touched: true, ...this.validate(val, false),
+      focused: false,
+      touched: true,
+      ...this.validate(val, false),
     }));
     this.props.onBlur(ev);
-  }
+  };
 
   triggerOnChange = _debounce((...args) => {
     this.props.onChange(...args); // call the fresh prop
-  }, this.props.debounce)
+  }, this.props.debounce);
 
   /*
    * @public
@@ -87,9 +92,9 @@ class FormFieldNumber extends Component {
       this.setState({ error });
     }
     return { error };
-  }
+  };
 
-  render () {
+  render() {
     let { className, style, label, disabled, size } = this.props;
     let { id, val, error, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
@@ -98,30 +103,39 @@ class FormFieldNumber extends Component {
     return (
       <div className={'FormField FormField--number ' + className} style={style}>
         {typeof label !== 'undefined' &&
-          <label className="FormField-label" htmlFor={id}>{label}</label>
-        }
+          <label className="FormField-label" htmlFor={id}>
+            {label}
+          </label>}
         <div className="FormField-field">
-          <input id={id} className="FormField-control" type="number" pattern="[0-9]*"
-            style={{ width: `calc(${size}ch + 2em)` }} autoComplete="off"
+          <input
+            id={id}
+            className="FormField-control"
+            type="number"
+            pattern="[0-9]*"
+            style={{ width: `calc(${size}ch + 2em)` }}
+            autoComplete="off"
             value={val}
             {..._pick(this.props, INPUT_PROPS)}
             onChange={this.handleChange}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
           />
-          <Btn tagName="span" className="FormField-spin FormField-spin--plus"
+          <Btn
+            tagName="span"
+            className="FormField-spin FormField-spin--plus"
             disabled={disabled}
-            onClick={(ev) => this.handleChange(ev, val + 1)}
-          >
-          </Btn>
-          <Btn tagName="span" className="FormField-spin FormField-spin--minus"
+            onClick={ev => this.handleChange(ev, val + 1)}
+          />
+          <Btn
+            tagName="span"
+            className="FormField-spin FormField-spin--minus"
             disabled={disabled}
-            onClick={(ev) => this.handleChange(ev, val - 1)}
-          >
-          </Btn>
+            onClick={ev => this.handleChange(ev, val - 1)}
+          />
           {error &&
-            <p className="FormField-error">{error}</p>
-          }
+            <p className="FormField-error">
+              {error}
+            </p>}
         </div>
       </div>
     );
@@ -156,10 +170,10 @@ FormFieldNumber.defaultProps = {
   debounce: 200,
   size: 100,
 
-  validation () {},
-  onChange () {},
-  onFocus () {},
-  onBlur () {},
+  validation() {},
+  onChange() {},
+  onFocus() {},
+  onBlur() {},
 };
 
 export default FormFieldNumber;

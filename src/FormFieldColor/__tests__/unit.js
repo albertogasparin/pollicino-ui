@@ -1,4 +1,4 @@
-/* eslint-env mocha *//* eslint-disable no-unused-vars, max-nested-callbacks */
+/* eslint-env mocha */ /* eslint-disable no-unused-vars, max-nested-callbacks */
 
 import React from 'react';
 import { expect } from 'chai';
@@ -8,9 +8,7 @@ import td from 'testdouble';
 import FormFieldColor from '..';
 
 describe('<FormFieldColor />', () => {
-
   describe('DOM', () => {
-
     it('should render', () => {
       let props = { value: '' };
       let wrapper = shallow(<FormFieldColor {...props} />);
@@ -32,9 +30,7 @@ describe('<FormFieldColor />', () => {
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
-
   });
-
 
   describe('Lifecycle', () => {
     let props, wrapper;
@@ -67,9 +63,7 @@ describe('<FormFieldColor />', () => {
       wrapper.setProps({ value: 'rgba(255,0,0,1)', touched: true });
       expect(props.validation).to.have.been.calledWith('rgba(255,0,0,1)');
     });
-
   });
-
 
   describe('handleChange()', () => {
     let props, instance;
@@ -90,7 +84,7 @@ describe('<FormFieldColor />', () => {
       expect(instance.state.val).to.eql(color);
     });
 
-    it('should call onChange', (done) => {
+    it('should call onChange', done => {
       instance.handleChange(color);
 
       setTimeout(() => {
@@ -98,9 +92,7 @@ describe('<FormFieldColor />', () => {
         done();
       }, 10);
     });
-
   });
-
 
   describe('handleFocus()', () => {
     let props, instance;
@@ -118,15 +110,17 @@ describe('<FormFieldColor />', () => {
     it('should call onFocus prop', () => {
       expect(props.onFocus).to.have.been.called;
     });
-
   });
-
 
   describe('handleBlur()', () => {
     let props, instance;
 
     beforeEach(() => {
-      props = { value: '', onBlur: td.func('onBlur'), validation: td.func('validation') };
+      props = {
+        value: '',
+        onBlur: td.func('onBlur'),
+        validation: td.func('validation'),
+      };
       instance = shallow(<FormFieldColor {...props} />).instance();
       instance.handleBlur();
     });
@@ -142,8 +136,5 @@ describe('<FormFieldColor />', () => {
     it('should call onBlur prop', () => {
       expect(props.onBlur).to.have.been.called;
     });
-
   });
-
-
 });

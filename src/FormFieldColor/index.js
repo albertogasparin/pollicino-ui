@@ -6,53 +6,57 @@ import ColorPicker from 'react-simple-colorpicker';
 import Dropdown from '../Dropdown';
 
 class FormFieldColor extends Component {
-
   state = {
     focused: false,
     touched: false,
     error: null,
-  }
+  };
 
-  componentWillMount () {
+  componentWillMount() {
     this.setPropsToState(this.props);
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setPropsToState(nextProps);
   }
 
-  setPropsToState = (props) => {
+  setPropsToState = props => {
     let val = props.value || props.defaultValue;
-    this.setState(({ touched }) => ({
-      val,
-      ...(props.touched ? { touched: true } : {}),
-    }), () => {
-      if (this.state.touched) {
-        this.validate();
+    this.setState(
+      ({ touched }) => ({
+        val,
+        ...(props.touched ? { touched: true } : {}),
+      }),
+      () => {
+        if (this.state.touched) {
+          this.validate();
+        }
       }
-    });
-  }
+    );
+  };
 
-  handleChange = (color) => {
+  handleChange = color => {
     this.setState({ val: color, ...this.validate(color, false) });
     this.triggerOnChange(color);
-  }
+  };
 
-  handleFocus = (ev) => {
+  handleFocus = ev => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
-  }
+  };
 
-  handleBlur = (ev) => {
+  handleBlur = ev => {
     this.setState(({ val }) => ({
-      focused: false, touched: true, ...this.validate(val, false),
+      focused: false,
+      touched: true,
+      ...this.validate(val, false),
     }));
     this.props.onBlur(ev);
-  }
+  };
 
   triggerOnChange = _debounce((...args) => {
     this.props.onChange(...args); // call the fresh prop
-  }, this.props.debounce)
+  }, this.props.debounce);
 
   /*
    * @public
@@ -63,15 +67,16 @@ class FormFieldColor extends Component {
       this.setState({ error });
     }
     return { error };
-  }
+  };
 
   renderFieldValue = () => {
     return (
-      <span className="FormField-swatch"
+      <span
+        className="FormField-swatch"
         style={{ backgroundColor: this.state.val }}
       />
     );
-  }
+  };
 
   renderDropdownContent = () => {
     return (
@@ -81,9 +86,9 @@ class FormFieldColor extends Component {
         opacitySlider={this.props.opacity}
       />
     );
-  }
+  };
 
-  render () {
+  render() {
     let { className, style, label, disabled, align, tabIndex } = this.props;
     let { error } = this.state;
     className += disabled ? ' isDisabled' : '';
@@ -92,20 +97,25 @@ class FormFieldColor extends Component {
     return (
       <div className={'FormField FormField--color ' + className} style={style}>
         {typeof label !== 'undefined' &&
-          <label className="FormField-label">{label}</label>
-        }
+          <label className="FormField-label">
+            {label}
+          </label>}
         <div className="FormField-field">
-          <Dropdown className="Dropdown--field"
+          <Dropdown
+            className="Dropdown--field"
             label={this.renderFieldValue()}
-            align={align} disabled={disabled} tabIndex={tabIndex}
+            align={align}
+            disabled={disabled}
+            tabIndex={tabIndex}
             onOpen={this.handleFocus}
             onClose={this.handleBlur}
           >
             {this.renderDropdownContent()}
           </Dropdown>
           {error &&
-            <p className="FormField-error">{error}</p>
-          }
+            <p className="FormField-error">
+              {error}
+            </p>}
         </div>
       </div>
     );
@@ -138,10 +148,10 @@ FormFieldColor.defaultProps = {
   debounce: 200,
   align: 'left',
 
-  validation () {},
-  onChange () {},
-  onFocus () {},
-  onBlur () {},
+  validation() {},
+  onChange() {},
+  onFocus() {},
+  onBlur() {},
 };
 
 export default FormFieldColor;

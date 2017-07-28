@@ -16,16 +16,22 @@
   &.isDisabled .FormField-control {
     @include FormField-isDisabled;
 
-    &::-webkit-slider-runnable-track { background: rgba($Pollicino-color-light, 0.25); }
-    &::-moz-range-track { background: rgba($Pollicino-color-light, 0.25); }
-    &::-ms-fill-lower, &::-ms-fill-upper { background: rgba($Pollicino-color-light, 0.25); }
+    &::-webkit-slider-runnable-track {
+      background: rgba($Pollicino-color-light, 0.25);
+    }
+    &::-moz-range-track {
+      background: rgba($Pollicino-color-light, 0.25);
+    }
+    &::-ms-fill-lower,
+    &::-ms-fill-upper {
+      background: rgba($Pollicino-color-light, 0.25);
+    }
   }
 
   @include FormField--modifiers;
 }
 
 .FormField--range .FormField {
-
   &-control {
     max-width: 100%;
     margin: rem(8px) 0;
@@ -33,7 +39,7 @@
     background: none;
     appearance: none;
     vertical-align: middle;
-    color: #FFF;
+    color: #fff;
     font-size: 1em;
 
     &::-webkit-slider-runnable-track {
@@ -66,7 +72,8 @@
       border-bottom-width: rem(8px + 2px);
       color: transparent;
     }
-    &::-ms-fill-lower, &::-ms-fill-upper {
+    &::-ms-fill-lower,
+    &::-ms-fill-upper {
       @include FormField--range-track();
     }
     &::-ms-thumb {
@@ -76,11 +83,19 @@
     &:focus {
       outline: none;
 
-      &::-webkit-slider-thumb { box-shadow: 0 0 0 2px $Pollicino-color-primary, 0 0 8px $Pollicino-color-primary; }
-      &::-moz-range-thumb { box-shadow: 0 0 0 2px $Pollicino-color-primary, 0 0 8px $Pollicino-color-primary; }
-      &::-ms-thumb { box-shadow: 0 0 0 2px $Pollicino-color-primary, 0 0 8px $Pollicino-color-primary; }
+      &::-webkit-slider-thumb {
+        box-shadow: 0 0 0 2px $Pollicino-color-primary,
+          0 0 8px $Pollicino-color-primary;
+      }
+      &::-moz-range-thumb {
+        box-shadow: 0 0 0 2px $Pollicino-color-primary,
+          0 0 8px $Pollicino-color-primary;
+      }
+      &::-ms-thumb {
+        box-shadow: 0 0 0 2px $Pollicino-color-primary,
+          0 0 8px $Pollicino-color-primary;
+      }
     }
-
   }
 }
 

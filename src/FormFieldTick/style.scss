@@ -17,8 +17,12 @@
 .FormField--radiobox,
 .FormField--checkbox {
   &.isDisabled .FormField {
-    &-label { @include FormField-isDisabled; }
-    &-tick { opacity: 0.6; }
+    &-label {
+      @include FormField-isDisabled;
+    }
+    &-tick {
+      opacity: 0.6;
+    }
   }
 
   @include FormField--modifiers;
@@ -26,7 +30,6 @@
 
 .FormField--radiobox .FormField,
 .FormField--checkbox .FormField {
-
   &-label {
     display: block;
     font-weight: inherit;
@@ -34,7 +37,8 @@
     padding-right: 0;
   }
 
-  &-field .FormField-label { // increase specificity to make nesting work
+  // increase specificity to make nesting work
+  &-field .FormField-label {
     color: inherit;
     margin: 0;
   }

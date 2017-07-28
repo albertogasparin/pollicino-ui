@@ -2,18 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Dropdown extends Component {
-
   state = {
     isOpen: false,
-  }
+  };
 
-  componentDidMount () {
+  componentDidMount() {
     if (this.props.opened) {
       this.handleOpen();
     }
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.opened !== this.props.opened) {
       if (nextProps.opened) {
         this.handleOpen();
@@ -23,12 +22,13 @@ class Dropdown extends Component {
     }
   }
 
-  handleClickOutside = (ev) => {
-    let isClickOutside = !this.el || !this.el.contains(ev.target) || this.el === ev.target;
+  handleClickOutside = ev => {
+    let isClickOutside =
+      !this.el || !this.el.contains(ev.target) || this.el === ev.target;
     if (this.props.autoClose || isClickOutside) {
       this.handleClose();
     }
-  }
+  };
 
   handleOpen = () => {
     if (this.state.isOpen) {
@@ -36,14 +36,15 @@ class Dropdown extends Component {
     }
 
     if (this.props.modal) {
-      setTimeout(() => { // defer to avoid catching event that opened the dd
+      setTimeout(() => {
+        // defer to avoid catching event that opened the dd
         document.addEventListener('click', this.handleClickOutside);
       }, 40);
     }
 
     this.setState({ isOpen: true });
     this.props.onOpen();
-  }
+  };
 
   handleClose = () => {
     document.removeEventListener('click', this.handleClickOutside);
@@ -54,38 +55,52 @@ class Dropdown extends Component {
     }
     this.props.onClose();
 
-    setTimeout(() => { // allow content update
-      if (this.el) { // still mounted
+    setTimeout(() => {
+      // allow content update
+      if (this.el) {
+        // still mounted
         this.setState({ isOpen: false });
       }
     }, 20);
-  }
+  };
 
-  render () {
-    let { className, style, children, label, disabled, align, modal, tabIndex } = this.props;
+  render() {
+    let {
+      className,
+      style,
+      children,
+      label,
+      disabled,
+      align,
+      modal,
+      tabIndex,
+    } = this.props;
     let { isOpen } = this.state;
     className += isOpen ? ' isOpen' : '';
     className += disabled ? ' isDisabled' : '';
     className += modal ? ' Dropdown--modal' : '';
 
     return (
-      <div className={'Dropdown ' + className}
-        style={style} ref={c => this.el = c}
+      <div
+        className={'Dropdown ' + className}
+        style={style}
+        ref={c => (this.el = c)}
       >
         {typeof label !== 'undefined' &&
-          <button className="Dropdown-btn"
-            type="button" disabled={disabled} tabIndex={tabIndex}
+          <button
+            className="Dropdown-btn"
+            type="button"
+            disabled={disabled}
+            tabIndex={tabIndex}
             onClick={this.handleOpen.bind(this)}
           >
             {label}
-          </button>
-        }
+          </button>}
 
         {isOpen &&
           <div className="Dropdown-overlay" data-align={align}>
             {children}
-          </div>
-        }
+          </div>}
       </div>
     );
   }
@@ -112,8 +127,8 @@ Dropdown.defaultProps = {
   align: 'right',
   modal: true,
 
-  onOpen () {},
-  onClose () {},
+  onOpen() {},
+  onClose() {},
 };
 
 export default Dropdown;

@@ -6,11 +6,82 @@ import _pick from 'lodash/pick';
 import Dropdown from '../Dropdown';
 import FormFieldTick from '../FormFieldTick';
 
+/**
+ * @class FormFieldSelectGroup
+ * @augments {Component<{
+      align?: 'left' | 'right'
+      className?: string
+      debounce?: number
+      disabled?: boolean
+      hidePlaceholder?: boolean
+      id?: string
+      inline?: 'tabbed' | boolean
+      label?
+      multiple?: boolean
+      name?: string
+      options: Array<{ label, value }>
+      optionsPerRow?: number
+      placeholder?: string
+      style?: Object
+      touched?: boolean
+      value?
+      onBlur?: Function
+      onChange?: Function
+      onFocus?: Function
+      validation?: Function
+      valueRenderer?: Function
+    }, {
+      error: boolean
+      focused: boolean
+      opts?: Array<{ label, value }>
+      touched: boolean
+      val?: string
+    }>}
+ */
 class FormFieldSelectGroup extends Component {
+  static propTypes = {
+    align: PropTypes.oneOf(['left', 'right']),
+    className: PropTypes.string,
+    debounce: PropTypes.number,
+    disabled: PropTypes.bool,
+    hidePlaceholder: PropTypes.bool,
+    id: PropTypes.string,
+    inline: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    label: PropTypes.node,
+    multiple: PropTypes.bool,
+    name: PropTypes.string,
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    optionsPerRow: PropTypes.number,
+    placeholder: PropTypes.string,
+    style: PropTypes.object,
+    touched: PropTypes.bool,
+    value: PropTypes.any,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    validation: PropTypes.func,
+    valueRenderer: PropTypes.func,
+  };
+
+  static defaultProps = {
+    align: 'left',
+    className: '',
+    debounce: 200,
+    optionsPerRow: 1,
+    placeholder: '— Select —',
+    value: '',
+    onBlur() {},
+    onChange() {},
+    onFocus() {},
+    validation() {},
+    valueRenderer: op =>
+      Array.isArray(op) ? op.map(o => o.label).join(', ') : op.label,
+  };
+
   state = {
-    touched: false,
-    focused: false,
     error: null,
+    focused: false,
+    touched: false,
   };
 
   componentWillMount() {
@@ -199,49 +270,5 @@ class FormFieldSelectGroup extends Component {
     );
   }
 }
-
-FormFieldSelectGroup.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
-  label: PropTypes.node,
-  value: PropTypes.any,
-  placeholder: PropTypes.string,
-  name: PropTypes.string,
-  id: PropTypes.string,
-  disabled: PropTypes.bool,
-  debounce: PropTypes.number,
-  touched: PropTypes.bool,
-
-  options: PropTypes.arrayOf(PropTypes.object).isRequired,
-  valueRenderer: PropTypes.func,
-  hidePlaceholder: PropTypes.bool,
-  align: PropTypes.oneOf(['left', 'right']),
-  inline: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  optionsPerRow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  multiple: PropTypes.bool,
-
-  validation: PropTypes.func,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-};
-
-FormFieldSelectGroup.defaultProps = {
-  className: '',
-  value: '',
-  placeholder: '— Select —',
-  debounce: 200,
-
-  options: [],
-  valueRenderer: op =>
-    Array.isArray(op) ? op.map(o => o.label).join(', ') : op.label,
-  align: 'left',
-  optionsPerRow: 1,
-
-  validation() {},
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
-};
 
 export default FormFieldSelectGroup;

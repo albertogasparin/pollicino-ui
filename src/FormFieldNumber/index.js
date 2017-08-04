@@ -6,13 +6,71 @@ import _pick from 'lodash/pick';
 import Btn from '../Btn';
 
 // prettier-ignore
-const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'autoFocus', 'tabIndex'];
+const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'placeholder', 'autoFocus', 'tabIndex'];
 
+/**
+ * @class FormFieldNumber
+ * @augments {Component<{
+      [x:string]: any
+      className?: string
+      debounce?: number
+      disabled?: boolean
+      id?: string
+      label?
+      max?: string | number
+      min?: string | number
+      name?: string
+      size?: string | number
+      style?: Object
+      touched?: boolean
+      value?: number
+      onBlur?: Function
+      onChange?: Function
+      onFocus?: Function
+      validation?: Function
+    }, {
+      error: boolean
+      focused: boolean
+      id?: string
+      touched: boolean
+      val?: number
+    }>}
+ */
 class FormFieldNumber extends Component {
+  static propTypes = {
+    className: PropTypes.string,
+    debounce: PropTypes.number,
+    disabled: PropTypes.bool,
+    id: PropTypes.string,
+    label: PropTypes.node,
+    max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    name: PropTypes.string,
+    size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    style: PropTypes.object,
+    touched: PropTypes.bool,
+    value: PropTypes.number,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    validation: PropTypes.func,
+  };
+
+  static defaultProps = {
+    className: '',
+    debounce: 200,
+    size: 100,
+    value: 0,
+    onBlur() {},
+    onChange() {},
+    onFocus() {},
+    validation() {},
+  };
+
   state = {
-    touched: false,
-    focused: false,
     error: null,
+    focused: false,
+    touched: false,
   };
 
   componentWillMount() {
@@ -141,39 +199,5 @@ class FormFieldNumber extends Component {
     );
   }
 }
-
-FormFieldNumber.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
-  label: PropTypes.node,
-  value: PropTypes.number,
-  name: PropTypes.string,
-  id: PropTypes.string,
-  disabled: PropTypes.bool,
-  debounce: PropTypes.number,
-  touched: PropTypes.bool,
-
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-  validation: PropTypes.func,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-};
-
-FormFieldNumber.defaultProps = {
-  className: '',
-  value: 0,
-
-  debounce: 200,
-  size: 100,
-
-  validation() {},
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
-};
 
 export default FormFieldNumber;

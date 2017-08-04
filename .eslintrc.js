@@ -65,14 +65,14 @@ module.exports = {
     'max-depth': ['warn', 5],
     'max-nested-callbacks': ['warn', 4],
     'max-len': ['warn', 100, 4, { ignoreComments: true }],
-    'valid-jsdoc': [
-      'warn',
-      {
-        requireReturn: false,
-        requireParamDescription: false,
-        requireReturnDescription: false,
-      },
-    ],
+    // 'valid-jsdoc': [
+    //   'warn',
+    //   {
+    //     requireReturn: false,
+    //     requireParamDescription: false,
+    //     requireReturnDescription: false,
+    //   },
+    // ],
 
     /* ES2015+ rules
     */

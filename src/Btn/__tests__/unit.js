@@ -14,5 +14,12 @@ describe('<Btn />', () => {
 
       expect(wrapper.type()).to.equal('button');
     });
+
+    it('should render with custom tag', () => {
+      let props = { tagName: 'a' };
+      let wrapper = shallow(<Btn {...props} />);
+
+      expect(wrapper.type()).to.equal('a');
+    });
   });
 });

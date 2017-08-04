@@ -10,21 +10,21 @@ import FormFieldSelectGroup from '..';
 describe('<FormFieldSelectGroup />', () => {
   describe('DOM', () => {
     it('should render', () => {
-      let props = { value: '' };
+      let props = { options: [] };
       let wrapper = shallow(<FormFieldSelectGroup {...props} />);
 
       expect(wrapper.type()).to.equal('div');
     });
 
     it('should be valid by default', () => {
-      let props = { value: '' };
+      let props = { options: [], value: '' };
       let wrapper = shallow(<FormFieldSelectGroup {...props} />);
       expect(wrapper.hasClass('isInvalid')).to.eql(false);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(0);
     });
 
     it('should show error if any', () => {
-      let props = { value: '' };
+      let props = { options: [], value: '' };
       let wrapper = shallow(<FormFieldSelectGroup {...props} />);
       wrapper.setState({ error: 'Error' });
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
@@ -32,13 +32,13 @@ describe('<FormFieldSelectGroup />', () => {
     });
 
     it('should show a dropdown by default', () => {
-      let props = { value: '' };
+      let props = { options: [], value: '' };
       let wrapper = shallow(<FormFieldSelectGroup {...props} />);
       expect(wrapper.find('.Dropdown--field')).to.have.lengthOf(1);
     });
 
     it('should show options inline if inline prop', () => {
-      let props = { value: '', inline: true };
+      let props = { options: [], value: '', inline: true };
       let wrapper = shallow(<FormFieldSelectGroup {...props} />);
       expect(wrapper.find('.FormField-group')).to.have.lengthOf(1);
     });
@@ -51,6 +51,7 @@ describe('<FormFieldSelectGroup />', () => {
       props = {
         name: 'a',
         value: 'a',
+        options: [],
         placeholder: 'select',
         validation: td.func('validation'),
       };
@@ -92,7 +93,7 @@ describe('<FormFieldSelectGroup />', () => {
     let props, instance;
 
     beforeEach(() => {
-      props = {};
+      props = { options: [] };
       instance = shallow(<FormFieldSelectGroup {...props} />).instance();
     });
 
@@ -113,13 +114,13 @@ describe('<FormFieldSelectGroup />', () => {
     let props, instance;
 
     it('should return a string', () => {
-      props = {};
+      props = { options: [] };
       instance = shallow(<FormFieldSelectGroup {...props} />).instance();
       expect(instance.returnValue(['a'])).to.eql('a');
     });
 
     it('should return an array if multiple', () => {
-      props = { multiple: true };
+      props = { multiple: true, options: [] };
       instance = shallow(<FormFieldSelectGroup {...props} />).instance();
       expect(instance.returnValue(['a', 'b'])).to.eql(['a', 'b']);
     });
@@ -157,6 +158,7 @@ describe('<FormFieldSelectGroup />', () => {
         props = {
           value: null,
           debounce: 0,
+          options: [],
           onChange: td.func('onChange'),
           validation: td.func('validation'),
         };
@@ -184,6 +186,7 @@ describe('<FormFieldSelectGroup />', () => {
           multiple: true,
           value: [],
           debounce: 0,
+          options: [],
           onChange: td.func('onChange'),
         };
         instance = shallow(<FormFieldSelectGroup {...props} />).instance();
@@ -215,7 +218,7 @@ describe('<FormFieldSelectGroup />', () => {
     let props, instance;
 
     beforeEach(() => {
-      props = { value: '', onFocus: td.func('onFocus') };
+      props = { options: [], onFocus: td.func('onFocus') };
       instance = shallow(<FormFieldSelectGroup {...props} />).instance();
       instance.handleFocus();
     });
@@ -235,6 +238,7 @@ describe('<FormFieldSelectGroup />', () => {
     beforeEach(() => {
       props = {
         value: '',
+        options: [],
         onBlur: td.func('onBlur'),
         validation: td.func('validation'),
       };
@@ -263,7 +267,7 @@ describe('<FormFieldSelectGroup />', () => {
     let props, instance;
 
     beforeEach(() => {
-      props = { value: null, validation: td.func('validation') };
+      props = { options: [], value: null, validation: td.func('validation') };
       instance = shallow(<FormFieldSelectGroup {...props} />).instance();
     });
 

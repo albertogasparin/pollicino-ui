@@ -5,11 +5,71 @@ import _pick from 'lodash/pick';
 
 const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'step', 'tabIndex'];
 
+/**
+ * @class FormFieldRange
+ * @augments {Component<{
+      [x:string]: any
+      className?: string
+      debounce?: number
+      disabled?: boolean
+      id?: string
+      label?
+      max?: string | number
+      min?: string | number
+      name?: string
+      size?: string | number
+      step?: string | number
+      style?: Object
+      touched?: boolean
+      value?: number
+      onBlur?: Function
+      onChange?: Function
+      onFocus?: Function
+      validation?: Function
+    }, {
+      error: boolean
+      focused: boolean
+      id?: string
+      touched: boolean
+      val?: number
+    }>}
+ */
 class FormFieldRange extends Component {
+  static propTypes = {
+    className: PropTypes.string,
+    debounce: PropTypes.number,
+    disabled: PropTypes.bool,
+    id: PropTypes.string,
+    label: PropTypes.node,
+    max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    name: PropTypes.string,
+    size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    style: PropTypes.object,
+    touched: PropTypes.bool,
+    value: PropTypes.number,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    validation: PropTypes.func,
+  };
+
+  static defaultProps = {
+    className: '',
+    debounce: 200,
+    size: 100,
+    value: 0,
+    onBlur() {},
+    onChange() {},
+    onFocus() {},
+    validation() {},
+  };
+
   state = {
+    error: null,
     focused: false,
     touched: false,
-    error: null,
   };
 
   componentWillMount() {
@@ -110,40 +170,5 @@ class FormFieldRange extends Component {
     );
   }
 }
-
-FormFieldRange.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
-  label: PropTypes.node,
-  value: PropTypes.number,
-  name: PropTypes.string,
-  id: PropTypes.string,
-  disabled: PropTypes.bool,
-  debounce: PropTypes.number,
-  touched: PropTypes.bool,
-
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-  validation: PropTypes.func,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-};
-
-FormFieldRange.defaultProps = {
-  className: '',
-  value: 0,
-  debounce: 200,
-
-  size: 100,
-
-  validation() {},
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
-};
 
 export default FormFieldRange;

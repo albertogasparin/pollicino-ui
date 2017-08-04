@@ -5,11 +5,72 @@ import _pick from 'lodash/pick';
 
 const INPUT_PROPS = ['name', 'disabled', 'tabIndex'];
 
+/**
+ * @class FormFieldSelect
+ * @augments {Component<{
+      [x:string]: any
+      className?: string
+      debounce?: number
+      disabled?: boolean
+      id?: string
+      label?
+      name?: string
+      options: Array<{ label, value }>
+      placeholder?: string
+      style?: Object
+      touched?: boolean
+      value?: string
+      onBlur?: Function
+      onChange?: Function
+      onFocus?: Function
+      validation?: Function
+      valueRenderer?: Function
+    }, {
+      error: boolean
+      focused: boolean
+      id?: string
+      opts?: Array<{ label, value }>
+      touched: boolean
+      val?: string
+    }>}
+ */
 class FormFieldSelect extends Component {
+  static propTypes = {
+    className: PropTypes.string,
+    debounce: PropTypes.number,
+    disabled: PropTypes.bool,
+    id: PropTypes.string,
+    label: PropTypes.node,
+    name: PropTypes.string,
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    placeholder: PropTypes.string,
+    style: PropTypes.object,
+    touched: PropTypes.bool,
+    value: PropTypes.string,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    validation: PropTypes.func,
+    valueRenderer: PropTypes.func,
+  };
+
+  static defaultProps = {
+    className: '',
+    debounce: 50,
+    placeholder: '— Select —',
+    size: '',
+    value: '',
+    onBlur() {},
+    onChange() {},
+    onFocus() {},
+    validation() {},
+    valueRenderer: v => v,
+  };
+
   state = {
-    touched: false,
-    focused: false,
     error: null,
+    focused: false,
+    touched: false,
   };
 
   componentWillMount() {
@@ -41,7 +102,7 @@ class FormFieldSelect extends Component {
   findOption = val => {
     let option = null;
     this.state.opts.some(
-      o => (String(o.value) === String(val) ? (option = o) : false)
+      o => (String(o.value) === String(val) ? ((option = o), true) : false)
     );
     return option;
   };
@@ -102,9 +163,9 @@ class FormFieldSelect extends Component {
             className="FormField-control"
             value={selectedOpt.value}
             {..._pick(this.props, INPUT_PROPS)}
+            onBlur={this.handleBlur}
             onChange={this.handleChange}
             onFocus={this.handleFocus}
-            onBlur={this.handleBlur}
           >
             {opts.map((o, i) =>
               <option key={i} value={o.value}>
@@ -121,40 +182,5 @@ class FormFieldSelect extends Component {
     );
   }
 }
-
-FormFieldSelect.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
-  label: PropTypes.node,
-  value: PropTypes.any,
-  name: PropTypes.string,
-  id: PropTypes.string,
-  disabled: PropTypes.bool,
-  debounce: PropTypes.number,
-  touched: PropTypes.bool,
-
-  options: PropTypes.arrayOf(PropTypes.object).isRequired,
-  valueRenderer: PropTypes.func,
-
-  validation: PropTypes.func,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-};
-
-FormFieldSelect.defaultProps = {
-  className: '',
-  value: '',
-  placeholder: '— Select —',
-  debounce: 50,
-
-  valueRenderer: v => v,
-  size: '',
-
-  validation() {},
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
-};
 
 export default FormFieldSelect;

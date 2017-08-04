@@ -93,8 +93,8 @@ describe('<FormFieldSuggest />', () => {
     });
 
     it('should validate on prop change if touched', () => {
-      wrapper.setProps({ value: 'b', touched: true });
-      expect(props.validation).to.have.been.calledWith('b');
+      wrapper.setProps({ value: { id: 2 }, touched: true });
+      expect(props.validation).to.have.been.calledWith({ id: 2 });
     });
   });
 

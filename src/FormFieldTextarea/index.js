@@ -9,11 +9,68 @@ const INPUT_PROPS = [
   'autoCorrect', 'autoFocus', 'spellCheck',
 ];
 
+/**
+ * @class FormFieldTextarea
+ * @augments {Component<{
+      [x:string]: any
+      className?: string
+      cols?: string | number
+      debounce?: number
+      disabled?: boolean
+      id?: string
+      label?
+      name?: string
+      rows?: string | number
+      style?: Object
+      touched?: boolean
+      value?: string
+      onBlur?: Function
+      onChange?: Function
+      onFocus?: Function
+      validation?: Function
+    }, {
+      id?: string
+      error: boolean
+      focused: boolean
+      touched: boolean
+      val?: string
+    }>}
+ */
 class FormFieldTextarea extends Component {
+  static propTypes = {
+    className: PropTypes.string,
+    cols: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    debounce: PropTypes.number,
+    disabled: PropTypes.bool,
+    id: PropTypes.string,
+    label: PropTypes.node,
+    name: PropTypes.string,
+    rows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    style: PropTypes.object,
+    touched: PropTypes.bool,
+    value: PropTypes.string,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    validation: PropTypes.func,
+  };
+
+  static defaultProps = {
+    className: '',
+    cols: 100,
+    debounce: 200,
+    value: '',
+    rows: 3,
+    onBlur() {},
+    onChange() {},
+    onFocus() {},
+    validation() {},
+  };
+
   state = {
-    touched: false,
-    focused: false,
     error: null,
+    focused: false,
+    touched: false,
   };
 
   componentWillMount() {
@@ -101,7 +158,7 @@ class FormFieldTextarea extends Component {
             className="FormField-control"
             style={{
               width: `calc(${cols}ch + 2em)`,
-              height: rows * 1.6 + 'em',
+              height: Number(rows) * 1.6 + 'em',
             }}
             value={val}
             {..._pick(this.props, INPUT_PROPS)}
@@ -118,40 +175,5 @@ class FormFieldTextarea extends Component {
     );
   }
 }
-
-FormFieldTextarea.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
-  label: PropTypes.node,
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-  name: PropTypes.string,
-  id: PropTypes.string,
-  disabled: PropTypes.bool,
-  debounce: PropTypes.number,
-  touched: PropTypes.bool,
-
-  rows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  cols: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-  validation: PropTypes.func,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-};
-
-FormFieldTextarea.defaultProps = {
-  className: '',
-  value: '',
-  debounce: 200,
-
-  rows: 3,
-  cols: 100,
-
-  validation() {},
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
-};
 
 export default FormFieldTextarea;

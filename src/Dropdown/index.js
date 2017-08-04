@@ -1,7 +1,47 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * @class Dropdown
+ * @augments {Component<{
+     align?: 'left' | 'right'
+     autoClose?: boolean
+     className?: string
+     disabled?: boolean
+     label?
+     modal?: boolean
+     opened?: boolean
+     style?: Object
+     tabIndex?: number
+     onClose?: Function
+     onOpen?: Function
+    }, {
+      isOpen: boolean
+    }>}
+ */
 class Dropdown extends Component {
+  static propTypes = {
+    align: PropTypes.oneOf(['left', 'right']),
+    autoClose: PropTypes.bool,
+    className: PropTypes.string,
+    disabled: PropTypes.bool,
+    label: PropTypes.oneOfType([PropTypes.node, PropTypes.bool]),
+    modal: PropTypes.bool,
+    opened: PropTypes.bool,
+    style: PropTypes.object,
+    tabIndex: PropTypes.number,
+    onClose: PropTypes.func,
+    onOpen: PropTypes.func,
+  };
+
+  static defaultProps = {
+    align: 'right',
+    className: '',
+    modal: true,
+    onClose() {},
+    onOpen() {},
+  };
+
   state = {
     isOpen: false,
   };
@@ -105,30 +145,5 @@ class Dropdown extends Component {
     );
   }
 }
-
-Dropdown.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
-  label: PropTypes.oneOfType([PropTypes.node, PropTypes.bool]),
-  disabled: PropTypes.bool,
-
-  align: PropTypes.oneOf(['left', 'right']),
-  autoClose: PropTypes.bool,
-  opened: PropTypes.bool,
-  children: PropTypes.node,
-  modal: PropTypes.bool,
-
-  onOpen: PropTypes.func,
-  onClose: PropTypes.func,
-};
-
-Dropdown.defaultProps = {
-  className: '',
-  align: 'right',
-  modal: true,
-
-  onOpen() {},
-  onClose() {},
-};
 
 export default Dropdown;

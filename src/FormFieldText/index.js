@@ -9,11 +9,69 @@ const INPUT_PROPS = [
   'autoComplete', 'autoCapitalize', 'autoCorrect', 'autoFocus', 'spellCheck',
 ];
 
+/**
+ * @class FormFieldText
+ * @augments {Component<{
+      [x:string]: any
+      className?: string
+      debounce?: number
+      disabled?: boolean
+      iconLeft?
+      iconRight?
+      id?: string
+      label?
+      name?: string
+      size?: string | number
+      style?: Object
+      touched?: boolean
+      value?: string
+      onBlur?: Function
+      onChange?: Function
+      onFocus?: Function
+      validation?: Function
+    }, {
+      id?: string
+      error: boolean
+      focused: boolean
+      touched: boolean
+      val?: string
+    }>}
+ */
 class FormFieldText extends Component {
+  static propTypes = {
+    className: PropTypes.string,
+    debounce: PropTypes.number,
+    disabled: PropTypes.bool,
+    iconLeft: PropTypes.node,
+    iconRight: PropTypes.node,
+    id: PropTypes.string,
+    label: PropTypes.node,
+    name: PropTypes.string,
+    size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    style: PropTypes.object,
+    touched: PropTypes.bool,
+    value: PropTypes.string,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    validation: PropTypes.func,
+  };
+
+  static defaultProps = {
+    className: '',
+    size: 100,
+    type: 'text',
+    value: '',
+    onBlur() {},
+    onChange() {},
+    onFocus() {},
+    validation() {},
+  };
+
   state = {
-    touched: false,
-    focused: false,
     error: null,
+    focused: false,
+    touched: false,
   };
 
   componentWillMount() {
@@ -132,40 +190,5 @@ class FormFieldText extends Component {
     );
   }
 }
-
-FormFieldText.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
-  label: PropTypes.node,
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-  name: PropTypes.string,
-  id: PropTypes.string,
-  disabled: PropTypes.bool,
-  debounce: PropTypes.number,
-  touched: PropTypes.bool,
-
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  iconLeft: PropTypes.node,
-  iconRight: PropTypes.node,
-
-  validation: PropTypes.func,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-};
-
-FormFieldText.defaultProps = {
-  className: '',
-  value: '',
-
-  size: 100,
-  type: 'text',
-
-  validation() {},
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
-};
 
 export default FormFieldText;

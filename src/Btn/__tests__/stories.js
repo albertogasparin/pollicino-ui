@@ -34,22 +34,22 @@ storiesOf('Btn', module)
           Button 2
         </Btn>
       </small>
-      <h4>Secondary and line</h4>
+      <h4>Custom tagName, secondary and line</h4>
       <p className="w1">
-        <a href="#" className="Btn Btn--secondary Btn--line">
+        <Btn tagName="a" href="#" className="Btn--secondary Btn--line">
           Button long
-        </a>
+        </Btn>
       </p>
       <h4>Outline, square</h4>
       <span style={{ color: '#E11' }}>
-        <button className="Btn Btn--outline Btn--square">
+        <Btn className="Btn--outline Btn--square">
           <Icon glyph="magnify" />
-        </button>
+        </Btn>
       </span>
       &nbsp;
-      <button className="Btn Btn--square">
+      <Btn className="Btn--square">
         <Icon glyph="magnify" />
-      </button>
+      </Btn>
       <h4>Loading</h4>
       <Btn className="Btn--primary" loading data-tip="Tooltip">
         Button loading
@@ -59,8 +59,8 @@ storiesOf('Btn', module)
         <Icon glyph="magnify" />
       </Btn>
       <h4>Disabled</h4>
-      <button className="Btn Btn--primary" disabled>
+      <Btn className="Btn--primary" disabled>
         Button
-      </button>
+      </Btn>
     </div>
   );

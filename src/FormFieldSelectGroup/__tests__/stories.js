@@ -11,7 +11,6 @@ storiesOf('FormFieldSelectGroup', module)
       <FormFieldSelectGroup
         className=""
         label="Label"
-        withSearch
         options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
         onChange={action('change')}
       />,
@@ -24,7 +23,6 @@ storiesOf('FormFieldSelectGroup', module)
         <div className="w2">
           <FormFieldSelectGroup
             label="Label"
-            withSearch
             options={[
               { label: 'One', value: 1 },
               { label: 'Two', value: 2 },
@@ -48,7 +46,7 @@ storiesOf('FormFieldSelectGroup', module)
           label="Label:"
           placeholder="Any number"
           options={[{ label: 'One', value: 1 }]}
-          optionsPerRow="2"
+          optionsPerRow={2}
           onChange={action('change')}
         />
 
@@ -94,7 +92,7 @@ storiesOf('FormFieldSelectGroup', module)
             name="i1"
             label="Label"
             inline
-            optionsPerRow="3"
+            optionsPerRow={3}
             options={[
               { label: 'One', value: 1 },
               { label: 'Two', value: 2 },
@@ -113,7 +111,7 @@ storiesOf('FormFieldSelectGroup', module)
             label="Label:"
             placeholder="Any number"
             inline
-            optionsPerRow="0"
+            optionsPerRow={0}
             options={[{ label: 'One', value: 1 }]}
           />
         </div>

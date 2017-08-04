@@ -8,11 +8,95 @@ import Dropdown from '../Dropdown';
 import FormFieldTick from '../FormFieldTick';
 import FormFieldSelect from '../FormFieldSelect';
 
+/**
+ * @class FormFieldDate
+ * @augments {Component<{
+      align?: 'left' | 'right'
+      className?: string
+      debounce?: number
+      disabled?: boolean
+      firstDayOfWeek?: 0 | 1 | 2 | 3 | 4 | 5 | 6
+      hidePlaceholder?: boolean
+      isRange?: boolean
+      label?
+      localization?: { months, weekdaysLong, weekdaysShort }
+      maxDate?: Date
+      minDate?: Date
+      name?: string
+      options?: Array<{ label, value }>
+      placeholder?: string
+      style?: Object
+      tabIndex?: number
+      touched?: boolean
+      value?: string | string[]
+      yearDropdown?: boolean
+      onBlur?: Function
+      onChange?: Function
+      onFocus?: Function
+      validation?: Function
+    }, {
+      error: boolean
+      focused: boolean
+      month?: Date
+      opts?: Array<{ label, value }>
+      showPicker?: boolean
+      touched: boolean
+      val?: string | string[]
+    }>}
+ */
 class FormFieldDate extends Component {
+  static propTypes = {
+    align: PropTypes.oneOf(['left', 'right']),
+    className: PropTypes.string,
+    debounce: PropTypes.number,
+    disabled: PropTypes.bool,
+    firstDayOfWeek: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6]),
+    hidePlaceholder: PropTypes.bool,
+    isRange: PropTypes.bool,
+    label: PropTypes.node,
+    localization: PropTypes.shape({
+      months: PropTypes.arrayOf(PropTypes.string),
+      weekdaysLong: PropTypes.arrayOf(PropTypes.string),
+      weekdaysShort: PropTypes.arrayOf(PropTypes.string),
+    }),
+    maxDate: PropTypes.instanceOf(Date),
+    minDate: PropTypes.instanceOf(Date),
+    name: PropTypes.string,
+    options: PropTypes.arrayOf(PropTypes.object),
+    placeholder: PropTypes.string,
+    style: PropTypes.object,
+    tabIndex: PropTypes.number,
+    touched: PropTypes.bool,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string),
+    ]),
+    yearDropdown: PropTypes.bool,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    validation: PropTypes.func,
+  };
+
+  static defaultProps = {
+    align: 'left',
+    className: '',
+    debounce: 200,
+    firstDayOfWeek: 1,
+    localization: {},
+    options: [],
+    placeholder: '— Select —',
+    value: '',
+    onBlur() {},
+    onChange() {},
+    onFocus() {},
+    validation() {},
+  };
+
   state = {
-    touched: false,
-    focused: false,
     error: null,
+    focused: false,
+    touched: false,
   };
 
   componentWillMount() {
@@ -271,7 +355,7 @@ class FormFieldDate extends Component {
         modifiers={modifiers}
         enableOutsideDays
         month={month}
-        captionElement={<DayPickerHeader />}
+        captionElement={DayPickerHeader}
         onDayClick={this.handleDayClick}
       />
     );
@@ -312,57 +396,5 @@ class FormFieldDate extends Component {
     );
   }
 }
-
-FormFieldDate.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
-  label: PropTypes.node,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
-  placeholder: PropTypes.string,
-  name: PropTypes.string,
-  disabled: PropTypes.bool,
-  debounce: PropTypes.number,
-  touched: PropTypes.bool,
-
-  hidePlaceholder: PropTypes.bool,
-  options: PropTypes.arrayOf(PropTypes.object),
-  minDate: PropTypes.instanceOf(Date),
-  maxDate: PropTypes.instanceOf(Date),
-  isRange: PropTypes.bool,
-  align: PropTypes.oneOf(['left', 'right']),
-  yearDropdown: PropTypes.bool,
-
-  firstDayOfWeek: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6]),
-  localization: PropTypes.shape({
-    months: PropTypes.arrayOf(PropTypes.string),
-    weekdaysLong: PropTypes.arrayOf(PropTypes.string),
-    weekdaysShort: PropTypes.arrayOf(PropTypes.string),
-  }),
-
-  validation: PropTypes.func,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-};
-
-FormFieldDate.defaultProps = {
-  className: '',
-  value: '',
-  placeholder: '— Select —',
-  debounce: 200,
-
-  options: [],
-  align: 'left',
-  firstDayOfWeek: 1,
-  localization: {},
-
-  validation() {},
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
-};
 
 export default FormFieldDate;

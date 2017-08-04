@@ -4,6 +4,15 @@ import Btn from '../Btn';
 import Icon from '../Icon';
 import FormFieldText from '../FormFieldText';
 
+/**
+ * @class FormFieldPassword
+ * @augments {Component<{
+      [x:string]: any
+      disabled?: boolean
+    }, {
+      type?: string
+    }>}
+ */
 class FormFieldPassword extends Component {
   state = {
     type: 'password',

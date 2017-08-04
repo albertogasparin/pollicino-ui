@@ -3,10 +3,51 @@ import PropTypes from 'prop-types';
 
 import Icon from '../Icon';
 
+/**
+ * @class Collapsible
+ * @augments {Component<{
+     animation?: number
+     className?: string
+     direction?: 'up' | 'down'
+     disabled?: boolean
+     expanded?: boolean
+     header
+     headerClickable?: boolean
+     style?: Object
+     tabIndex?: number
+     onCollapse?: Function
+     onExpand?: Function
+    }, {
+      isExpanded: boolean
+      isAnimating: boolean
+    }>}
+ */
 class Collapsible extends Component {
+  static propTypes = {
+    animation: PropTypes.number,
+    className: PropTypes.string,
+    direction: PropTypes.oneOf(['up', 'down']),
+    disabled: PropTypes.bool,
+    expanded: PropTypes.bool,
+    header: PropTypes.node.isRequired,
+    headerClickable: PropTypes.bool,
+    style: PropTypes.object,
+    onCollapse: PropTypes.func,
+    onExpand: PropTypes.func,
+  };
+
+  static defaultProps = {
+    className: '',
+    animation: 700,
+    headerClickable: false,
+    direction: 'down',
+    onCollapse() {},
+    onExpand() {},
+  };
+
   state = {
-    isExpanded: this.props.expanded || false,
     isAnimating: false,
+    isExpanded: this.props.expanded || false,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -82,30 +123,5 @@ class Collapsible extends Component {
     );
   }
 }
-
-Collapsible.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
-  disabled: PropTypes.bool,
-  expanded: PropTypes.bool,
-  children: PropTypes.node,
-  header: PropTypes.node.isRequired,
-  headerClickable: PropTypes.bool,
-  animation: PropTypes.number,
-  direction: PropTypes.oneOf(['up', 'down']),
-
-  onCollapse: PropTypes.func,
-  onExpand: PropTypes.func,
-};
-
-Collapsible.defaultProps = {
-  className: '',
-  animation: 700,
-  headerClickable: false,
-  direction: 'down',
-
-  onCollapse() {},
-  onExpand() {},
-};
 
 export default Collapsible;

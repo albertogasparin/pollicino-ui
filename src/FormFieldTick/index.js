@@ -5,13 +5,69 @@ import _pick from 'lodash/pick';
 
 import Icon from '../Icon';
 
-const INPUT_PROPS = ['name', 'disabled', 'type'];
+const INPUT_PROPS = ['name', 'disabled', 'tabIndex', 'type'];
 
+/**
+ * @class FormFieldTick
+ * @augments {Component<{
+      [x:string]: any
+      checked?: boolean
+      className?: string
+      debounce?: number
+      disabled?: boolean
+      id?: string
+      label?
+      name?: string
+      style?: Object
+      touched?: boolean
+      type?: 'radio' | 'checkbox'
+      value?: string
+      onBlur?: Function
+      onChange?: Function
+      onFocus?: Function
+      validation?: Function
+    }, {
+      error: boolean
+      focused: boolean
+      id?: string
+      touched: boolean
+      checked?: boolean
+    }>}
+ */
 class FormFieldTick extends Component {
+  static propTypes = {
+    checked: PropTypes.bool,
+    className: PropTypes.string,
+    debounce: PropTypes.number,
+    disabled: PropTypes.bool,
+    id: PropTypes.string,
+    label: PropTypes.node,
+    name: PropTypes.string,
+    style: PropTypes.object,
+    touched: PropTypes.bool,
+    type: PropTypes.oneOf(['radio', 'checkbox']),
+    value: PropTypes.any,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    validation: PropTypes.func,
+  };
+
+  static defaultProps = {
+    checked: false,
+    className: '',
+    debounce: 50,
+    type: 'radio',
+    onBlur() {},
+    onChange() {},
+    onFocus() {},
+    validation() {},
+  };
+
   state = {
-    touched: false,
-    focused: false,
     error: null,
+    focused: false,
+    touched: false,
   };
 
   componentWillMount() {
@@ -113,38 +169,5 @@ class FormFieldTick extends Component {
     );
   }
 }
-
-FormFieldTick.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
-  label: PropTypes.node,
-  value: PropTypes.any.isRequired,
-  name: PropTypes.string,
-  id: PropTypes.string,
-  disabled: PropTypes.bool,
-  debounce: PropTypes.number,
-  touched: PropTypes.bool,
-
-  type: PropTypes.oneOf(['radio', 'checkbox']),
-  checked: PropTypes.bool,
-
-  validation: PropTypes.func,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-};
-
-FormFieldTick.defaultProps = {
-  className: '',
-
-  debounce: 50,
-  checked: false,
-  type: 'radio',
-
-  validation() {},
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
-};
 
 export default FormFieldTick;

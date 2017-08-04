@@ -1,18 +1,18 @@
-export Btn from './Btn';
-export Collapsible from './Collapsible';
-export Dropdown from './Dropdown';
+export { default as Btn } from './Btn';
+export { default as Collapsible } from './Collapsible';
+export { default as Dropdown } from './Dropdown';
 
-export FormFieldColor from './FormFieldColor';
-export FormFieldDate from './FormFieldDate';
-export FormFieldNumber from './FormFieldNumber';
-export FormFieldPassword from './FormFieldPassword';
-export FormFieldRange from './FormFieldRange';
-export FormFieldSelect from './FormFieldSelect';
-export FormFieldSelectGroup from './FormFieldSelectGroup';
-export FormFieldSuggest from './FormFieldSuggest';
-export FormFieldText from './FormFieldText';
-export FormFieldTextarea from './FormFieldTextarea';
-export FormFieldTick from './FormFieldTick';
+export { default as FormFieldColor } from './FormFieldColor';
+export { default as FormFieldDate } from './FormFieldDate';
+export { default as FormFieldNumber } from './FormFieldNumber';
+export { default as FormFieldPassword } from './FormFieldPassword';
+export { default as FormFieldRange } from './FormFieldRange';
+export { default as FormFieldSelect } from './FormFieldSelect';
+export { default as FormFieldSelectGroup } from './FormFieldSelectGroup';
+export { default as FormFieldSuggest } from './FormFieldSuggest';
+export { default as FormFieldText } from './FormFieldText';
+export { default as FormFieldTextarea } from './FormFieldTextarea';
+export { default as FormFieldTick } from './FormFieldTick';
 
-export Icon from './Icon';
-export Modal from './Modal';
+export { default as Icon } from './Icon';
+export { default as Modal } from './Modal';

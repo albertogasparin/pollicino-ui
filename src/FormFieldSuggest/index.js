@@ -10,15 +10,104 @@ import Dropdown from '../Dropdown';
 // prettier-ignore
 const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoFocus', 'tabIndex'];
 
+/**
+ * @class FormFieldSuggest
+ * @augments {Component<{
+      [x:string]: any
+      allowAny?: boolean
+      className?: string
+      debounceLoad?: number
+      disabled?: boolean
+      id?: string
+      label?
+      labelKey?: string
+      name?: string
+      noInputText?: string
+      noOptionsText?: string
+      options?: Array<Object>
+      placeholder?: string
+      rows?: string | number
+      size?: string | number
+      style?: Object
+      touched?: boolean
+      value?: Object
+      valueKey?: string
+      filterOptions?: Function
+      loadOptions?: Function
+      onBlur?: Function
+      onChange?: Function
+      onFocus?: Function
+      optionRenderer?: Function
+      validation?: Function
+    }, {
+      cache: Object
+      changed: boolean
+      error: boolean
+      focused: boolean
+      input?: string
+      isLoading: boolean
+      opts?: Array<{ label, value }>
+      touched: boolean
+      val?: string
+    }>}
+ */
 class FormFieldSuggest extends Component {
+  static propTypes = {
+    allowAny: PropTypes.bool,
+    className: PropTypes.string,
+    debounceLoad: PropTypes.number,
+    disabled: PropTypes.bool,
+    id: PropTypes.string,
+    label: PropTypes.node,
+    labelKey: PropTypes.string,
+    name: PropTypes.string,
+    noInputText: PropTypes.string,
+    noOptionsText: PropTypes.string,
+    options: PropTypes.arrayOf(PropTypes.object),
+    placeholder: PropTypes.string,
+    rows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    style: PropTypes.object,
+    touched: PropTypes.bool,
+    value: PropTypes.object,
+    valueKey: PropTypes.string,
+    filterOptions: PropTypes.func,
+    loadOptions: PropTypes.func,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    optionRenderer: PropTypes.func,
+    validation: PropTypes.func,
+  };
+
+  static defaultProps = {
+    className: '',
+    debounceLoad: 1000,
+    labelKey: 'label',
+    noInputText: 'Start typing to search',
+    noOptionsText: 'No results found',
+    options: [],
+    rows: 7.5,
+    size: 100,
+    value: null,
+    valueKey: 'value',
+    filterOptions: (options, input, selected) => options,
+    loadOptions: null,
+    onBlur() {},
+    onChange() {},
+    onFocus() {},
+    optionRenderer: null,
+    validation() {},
+  };
+
   state = {
-    touched: false,
-    focused: false,
-    error: null,
-    isLoading: false,
-    changed: false,
-    input: '',
     cache: {},
+    changed: false,
+    error: null,
+    focused: false,
+    input: '',
+    isLoading: false,
+    touched: false,
   };
 
   componentWillMount() {
@@ -148,9 +237,6 @@ class FormFieldSuggest extends Component {
     }
   };
 
-  /*
-   * @public
-   */
   validate = (val = this.state.val, updateState = true) => {
     let error = this.props.validation(val) || null;
     if (updateState && error !== this.state.error) {
@@ -171,7 +257,7 @@ class FormFieldSuggest extends Component {
       >
         <ul
           className="FormField-options"
-          style={{ maxHeight: rows * 2.26 + 'rem' }}
+          style={{ maxHeight: Number(rows) * 2.26 + 'rem' }}
         >
           {loadOptions ? this.renderAsyncOptions() : this.renderOptions(opts)}
         </ul>
@@ -303,61 +389,5 @@ class FormFieldSuggest extends Component {
     );
   }
 }
-
-FormFieldSuggest.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
-  label: PropTypes.node,
-  value: PropTypes.object,
-  placeholder: PropTypes.string,
-  name: PropTypes.string,
-  id: PropTypes.string,
-  disabled: PropTypes.bool,
-  touched: PropTypes.bool,
-
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  rows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  options: PropTypes.arrayOf(PropTypes.object),
-  valueKey: PropTypes.string,
-  labelKey: PropTypes.string,
-  noOptionsText: PropTypes.string,
-  noInputText: PropTypes.string,
-  allowAny: PropTypes.bool,
-
-  filterOptions: PropTypes.func,
-  optionRenderer: PropTypes.func,
-  debounceLoad: PropTypes.number,
-  loadOptions: PropTypes.func,
-
-  validation: PropTypes.func,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-};
-
-FormFieldSuggest.defaultProps = {
-  className: '',
-  value: null,
-
-  size: 100,
-  rows: 7.5,
-  options: [],
-  valueKey: 'value',
-  labelKey: 'label',
-  noOptionsText: 'No results found',
-  noInputText: 'Start typing to search',
-
-  filterOptions(options, input, selected) {
-    return options;
-  },
-  optionRenderer: null,
-  debounceLoad: 1000,
-  loadOptions: null,
-
-  validation() {},
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
-};
 
 export default FormFieldSuggest;

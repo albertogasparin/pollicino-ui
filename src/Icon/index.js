@@ -1,42 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const Icon = ({ glyph, className, style, width, height }) => {
-  if (glyph === 'loading') {
+/**
+ * @class Icon
+ * @augments {Component<{
+     [x:string]: any
+     className?: string
+     glyph: string
+     height?: number | string
+     width?: number | string
+    }, {}>}
+ */
+class Icon extends Component {
+  static propTypes = {
+    className: PropTypes.string,
+    glyph: PropTypes.string.isRequired,
+    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  };
+
+  static defaultProps = {
+    className: '',
+    height: 24,
+    width: 24,
+  };
+
+  render() {
+    let { glyph, className, width, height, ...props } = this.props;
+    if (glyph === 'loading') {
+      return (
+        <i className={'Icon Icon--loading ' + className} {...props}>
+          <b />
+          <b />
+          <b />
+        </i>
+      );
+    }
+    require(`assets/icons/${glyph}.svg`);
     return (
-      <i className={'Icon Icon--loading ' + className}>
-        <b />
-        <b />
-        <b />
-      </i>
+      <svg
+        className={'Icon Icon--' + glyph + ' ' + className}
+        width={width}
+        height={height}
+        {...props}
+      >
+        <use xlinkHref={`#i-${glyph}`} />
+      </svg>
     );
   }
-
-  require(`assets/icons/${glyph}.svg`);
-  return (
-    <svg
-      className={'Icon Icon--' + glyph + ' ' + className}
-      style={style}
-      width={width}
-      height={height}
-    >
-      <use xlinkHref={`#i-${glyph}`} />
-    </svg>
-  );
-};
-
-Icon.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
-  glyph: PropTypes.string.isRequired,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-};
-
-Icon.defaultProps = {
-  className: '',
-  width: 24,
-  height: 24,
-};
+}
 
 export default Icon;

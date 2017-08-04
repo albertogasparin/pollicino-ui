@@ -5,11 +5,66 @@ import ColorPicker from 'react-simple-colorpicker';
 
 import Dropdown from '../Dropdown';
 
+/**
+ * @class FormFieldColor
+ * @augments {Component<{
+      align?: 'left' | 'right'
+      className?: string
+      debounce?: number
+      defaultValue?: string
+      disabled?: boolean
+      label?
+      opacity?: boolean
+      style?: Object
+      tabIndex?: number
+      touched?: boolean
+      value?: string
+      onBlur?: Function
+      onChange?: Function
+      onFocus?: Function
+      validation?: Function
+    }, {
+      error: boolean
+      focused: boolean
+      touched: boolean
+      val?: string
+    }>}
+ */
 class FormFieldColor extends Component {
+  static propTypes = {
+    align: PropTypes.oneOf(['left', 'right']),
+    className: PropTypes.string,
+    debounce: PropTypes.number,
+    defaultValue: PropTypes.string,
+    disabled: PropTypes.bool,
+    label: PropTypes.node,
+    opacity: PropTypes.bool,
+    style: PropTypes.object,
+    tabIndex: PropTypes.number,
+    touched: PropTypes.bool,
+    value: PropTypes.string,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    validation: PropTypes.func,
+  };
+
+  static defaultProps = {
+    align: 'left',
+    className: '',
+    debounce: 200,
+    defaultValue: 'rgba(0,0,0,1)',
+    value: '',
+    onBlur() {},
+    onChange() {},
+    onFocus() {},
+    validation() {},
+  };
+
   state = {
+    error: null,
     focused: false,
     touched: false,
-    error: null,
   };
 
   componentWillMount() {
@@ -121,37 +176,5 @@ class FormFieldColor extends Component {
     );
   }
 }
-
-FormFieldColor.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
-  label: PropTypes.node,
-  value: PropTypes.string,
-  disabled: PropTypes.bool,
-  debounce: PropTypes.number,
-  touched: PropTypes.bool,
-
-  defaultValue: PropTypes.string,
-  align: PropTypes.oneOf(['left', 'right']),
-  opacity: PropTypes.bool,
-
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-};
-
-FormFieldColor.defaultProps = {
-  className: '',
-  value: '',
-
-  defaultValue: 'rgba(0,0,0,1)',
-  debounce: 200,
-  align: 'left',
-
-  validation() {},
-  onChange() {},
-  onFocus() {},
-  onBlur() {},
-};
 
 export default FormFieldColor;

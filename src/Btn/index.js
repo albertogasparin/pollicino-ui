@@ -1,32 +1,44 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Icon from '../Icon';
 
-const Btn = ({ tagName: TagName, className, loading, ...props }) => {
-  return (
-    <TagName
-      className={'Btn ' + className + (loading ? ' isLoading' : '')}
-      {...props}
-    >
-      {props.children}
-      {loading && <Icon glyph="loading" />}
-    </TagName>
-  );
-};
+/**
+ * @class Btn
+ * @augments {Component<{
+     [x:string]: any
+     className?: string
+     loading?: boolean
+     tagName?: string
+     type?: string
+    }, {}>}
+ */
+class Btn extends Component {
+  static propTypes = {
+    className: PropTypes.string,
+    loading: PropTypes.bool,
+    tagName: PropTypes.any,
+    type: PropTypes.string,
+  };
 
-Btn.propTypes = {
-  tagName: PropTypes.any,
-  className: PropTypes.string,
-  type: PropTypes.string,
-  children: PropTypes.node,
-  loading: PropTypes.bool,
-};
+  static defaultProps = {
+    className: '',
+    tagName: 'button',
+    type: 'button',
+  };
 
-Btn.defaultProps = {
-  tagName: 'button',
-  className: '',
-  type: 'button',
-};
+  render() {
+    let { tagName: TagName, className, loading, ...props } = this.props;
+    return (
+      <TagName
+        className={'Btn ' + className + (loading ? ' isLoading' : '')}
+        {...props}
+      >
+        {props.children}
+        {loading && <Icon glyph="loading" />}
+      </TagName>
+    );
+  }
+}
 
 export default Btn;

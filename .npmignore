@@ -1,9 +1,11 @@
 # Ignore dev files
+.storybook
+.vscode
 .babelrc
 .editorconfig
 .stylelintrc
-.eslintrc.yml
-.storybook
+.eslintrc.js
+jsconfig.json
 webpack.config.js
 
 # Ignore source files

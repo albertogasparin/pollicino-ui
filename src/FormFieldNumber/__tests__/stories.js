@@ -34,9 +34,15 @@ storiesOf('FormFieldNumber', module)
         onChange={action('change')}
       />
 
-      <h4>Inverted colors</h4>
+      <h4>Inverted colors, custom step</h4>
       <div className="w1 dark">
-        <FormFieldNumber className="FormField--invert" label="Label" />
+        <FormFieldNumber
+          className="FormField--invert"
+          label="Label"
+          step={0.1}
+          value={1.234}
+          decimals={3}
+        />
       </div>
 
       <h4>Invalid, custom size</h4>

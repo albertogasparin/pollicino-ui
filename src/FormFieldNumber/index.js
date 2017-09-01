@@ -40,6 +40,7 @@ class FormFieldNumber extends Component {
   static propTypes = {
     className: PropTypes.string,
     debounce: PropTypes.number,
+    decimals: PropTypes.number,
     disabled: PropTypes.bool,
     id: PropTypes.string,
     label: PropTypes.node,
@@ -47,6 +48,7 @@ class FormFieldNumber extends Component {
     min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     name: PropTypes.string,
     size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    step: PropTypes.number,
     style: PropTypes.object,
     touched: PropTypes.bool,
     value: PropTypes.number,
@@ -58,8 +60,10 @@ class FormFieldNumber extends Component {
 
   static defaultProps = {
     className: '',
+    decimals: 0,
     debounce: 200,
     size: 100,
+    step: 1,
     value: 0,
     onBlur() {},
     onChange() {},
@@ -98,7 +102,8 @@ class FormFieldNumber extends Component {
   };
 
   clamp = val => {
-    let { min, max } = this.props;
+    let { min, max, decimals } = this.props;
+    val = Number(val.toFixed(decimals));
     if (typeof min !== 'undefined' && val < min) {
       val = Number(min);
     }
@@ -108,11 +113,21 @@ class FormFieldNumber extends Component {
     return val;
   };
 
+  preciseSum = (val1, val2) => {
+    let decimals = Math.max(
+      0,
+      Number((String(val1).split('.')[1] || '').length),
+      Number((String(val2).split('.')[1] || '').length)
+    );
+    decimals = Math.min(decimals, this.props.decimals);
+    return Number((val1 + val2).toFixed(decimals));
+  };
+
   handleChange = (ev, val) => {
     let { error, focused } = this.state;
     let isValProvided = typeof val === 'number';
     val = this.clamp(
-      isValProvided ? val : Number(ev.target.value.replace(/[^0-9]/g, ''))
+      isValProvided ? val : Number(ev.target.value.replace(/[^0-9\.]/g, ''))
     );
 
     this.setState({
@@ -153,7 +168,7 @@ class FormFieldNumber extends Component {
   };
 
   render() {
-    let { className, style, label, disabled, size } = this.props;
+    let { className, style, label, disabled, size, step } = this.props;
     let { id, val, error, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += error ? ' isInvalid' : '';
@@ -169,7 +184,7 @@ class FormFieldNumber extends Component {
             id={id}
             className="FormField-control"
             type="number"
-            pattern="[0-9]*"
+            pattern="[0-9\.]*"
             style={{ width: `calc(${size}ch + 2em)` }}
             autoComplete="off"
             value={val}
@@ -182,13 +197,13 @@ class FormFieldNumber extends Component {
             tagName="span"
             className="FormField-spin FormField-spin--plus"
             disabled={disabled}
-            onClick={ev => this.handleChange(ev, val + 1)}
+            onClick={ev => this.handleChange(ev, this.preciseSum(val, step))}
           />
           <Btn
             tagName="span"
             className="FormField-spin FormField-spin--minus"
             disabled={disabled}
-            onClick={ev => this.handleChange(ev, val - 1)}
+            onClick={ev => this.handleChange(ev, this.preciseSum(val, -step))}
           />
           {error &&
             <p className="FormField-error">

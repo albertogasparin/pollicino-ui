@@ -67,6 +67,26 @@ describe('<FormFieldNumber />', () => {
     });
   });
 
+  describe('preciseSum()', () => {
+    let props, instance;
+    let tests = [
+      { value: 1, step: 2, result: 3 },
+      { value: 1, step: 0.1, result: 1.1, decimals: 1 },
+      { value: 1.001, step: 0.1, result: 1.101, decimals: 3 },
+      { value: 1.101, step: 0.15, result: 1.25, decimals: 2 },
+      { value: 1, step: -0.0001, result: 0.9999, decimals: 5 },
+    ];
+
+    tests.forEach(t =>
+      it(`should handle ${t.value} + ${t.step} sum nicely`, () => {
+        props = { value: t.value, decimals: t.decimals };
+        instance = shallow(<FormFieldNumber {...props} />).instance();
+        let result = instance.preciseSum(t.value, t.step);
+        expect(result).to.equal(t.result);
+      })
+    );
+  });
+
   describe('handleChange()', () => {
     let props, instance;
     let ev = { target: { value: '1aaa' } };

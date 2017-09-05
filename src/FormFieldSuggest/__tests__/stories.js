@@ -7,17 +7,18 @@ storiesOf('FormFieldSuggest', module)
   .addWithInfo(
     'description',
     '',
-    () =>
+    () => (
       <FormFieldSuggest
         name="field"
         label="Label"
         placeholder="Select a number"
         options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
         onChange={action('change')}
-      />,
+      />
+    ),
     { inline: true }
   )
-  .add('examples', () =>
+  .add('examples', () => (
     <div>
       <h4>Default style</h4>
       <div className="w2">
@@ -100,4 +101,4 @@ storiesOf('FormFieldSuggest', module)
         <FormFieldSuggest disabled value={{ value: '', label: 'Value' }} />
       </div>
     </div>
-  );
+  ));

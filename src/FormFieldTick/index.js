@@ -156,14 +156,9 @@ class FormFieldTick extends Component {
             <i className="FormField-tick">
               <Icon glyph={`${boxtype}-${checked ? 'marked' : 'blank'}`} />
             </i>
-            <span className="FormField-value">
-              {label || value}
-            </span>
+            <span className="FormField-value">{label || value}</span>
           </label>
-          {error &&
-            <p className="FormField-error">
-              {error}
-            </p>}
+          {error && <p className="FormField-error">{error}</p>}
         </div>
       </div>
     );

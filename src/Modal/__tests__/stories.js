@@ -7,17 +7,18 @@ storiesOf('Modal', module)
   .addWithInfo(
     'description',
     '',
-    () =>
+    () => (
       <Modal
         className=""
         title="Title"
         message="Message"
         icon="alert"
         onClose={action('close')}
-      />,
+      />
+    ),
     { inline: true }
   )
-  .add('examples', () =>
+  .add('examples', () => (
     <div>
       <h4>Default style</h4>
       <Modal title="Title" message="Message" onClose={action('close')} />
@@ -40,4 +41,4 @@ storiesOf('Modal', module)
         onClose={action('close')}
       />
     </div>
-  );
+  ));

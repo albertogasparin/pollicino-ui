@@ -270,8 +270,17 @@ class FormFieldDate extends Component {
 
     let [from, to] = val;
     return (
-      from.split('-').reverse().join('/') +
-      (to && to !== from ? ' — ' + to.split('-').reverse().join('/') : '')
+      from
+        .split('-')
+        .reverse()
+        .join('/') +
+      (to && to !== from
+        ? ' — ' +
+          to
+            .split('-')
+            .reverse()
+            .join('/')
+        : '')
     );
   };
 
@@ -283,7 +292,7 @@ class FormFieldDate extends Component {
 
     return (
       <div className="FormField-options" data-align={align}>
-        {opts.map((o, i) =>
+        {opts.map((o, i) => (
           <FormFieldTick
             key={i}
             type="radio"
@@ -294,8 +303,8 @@ class FormFieldDate extends Component {
             value={o.value}
             onChange={v => this.handleChange(false, v)}
           />
-        )}
-        {showCustomOpt &&
+        ))}
+        {showCustomOpt && (
           <FormFieldTick
             type="radio"
             name={name}
@@ -304,7 +313,8 @@ class FormFieldDate extends Component {
             checked={showPicker || (!checkedOpt && val.length > 0)}
             value="custom"
             onChange={v => this.handleChange(true, v)}
-          />}
+          />
+        )}
         {(showPicker || !showCustomOpt || (!checkedOpt && val.length > 0)) &&
           this.renderDayPicker()}
       </div>
@@ -331,21 +341,24 @@ class FormFieldDate extends Component {
 
     let minYear = (minDate || new Date()).getFullYear();
     let maxYear = (maxDate || new Date()).getFullYear();
-    let DayPickerHeader = ({ date, locale }) =>
+    let DayPickerHeader = ({ date, locale }) => (
       <header className="DayPicker-Caption">
         {LocaleUtils.formatMonthTitle(date, locale).split(' ')[0] + ' '}
-        {yearDropdown && minYear !== maxYear
-          ? <FormFieldSelect
-              className="DayPicker-yearField"
-              value={date.getFullYear()}
-              options={_range(minYear, maxYear + 1).map(v => ({
-                label: v,
-                value: v,
-              }))}
-              onChange={v => this.handleYearChange(date, v)}
-            />
-          : date.getFullYear()}
-      </header>;
+        {yearDropdown && minYear !== maxYear ? (
+          <FormFieldSelect
+            className="DayPicker-yearField"
+            value={date.getFullYear()}
+            options={_range(minYear, maxYear + 1).map(v => ({
+              label: v,
+              value: v,
+            }))}
+            onChange={v => this.handleYearChange(date, v)}
+          />
+        ) : (
+          date.getFullYear()
+        )}
+      </header>
+    );
 
     return (
       <DayPicker
@@ -370,10 +383,9 @@ class FormFieldDate extends Component {
 
     return (
       <div className={'FormField FormField--date ' + className} style={style}>
-        {typeof label !== 'undefined' &&
-          <label className="FormField-label">
-            {label}
-          </label>}
+        {typeof label !== 'undefined' && (
+          <label className="FormField-label">{label}</label>
+        )}
         <div className="FormField-field">
           <Dropdown
             className="Dropdown--field"
@@ -387,10 +399,7 @@ class FormFieldDate extends Component {
           >
             {this.renderDropdownContent()}
           </Dropdown>
-          {error &&
-            <p className="FormField-error">
-              {error}
-            </p>}
+          {error && <p className="FormField-error">{error}</p>}
         </div>
       </div>
     );

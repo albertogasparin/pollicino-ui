@@ -7,17 +7,18 @@ storiesOf('FormFieldColor', module)
   .addWithInfo(
     'description',
     '',
-    () =>
+    () => (
       <FormFieldColor
         className=""
         label="Label"
         opacity
         align="left"
         onChange={action('change')}
-      />,
+      />
+    ),
     { inline: true }
   )
-  .add('examples', () =>
+  .add('examples', () => (
     <div>
       <h4>Default style</h4>
       <div>
@@ -56,4 +57,4 @@ storiesOf('FormFieldColor', module)
       <h4>No options but disabled</h4>
       <FormFieldColor disabled />
     </div>
-  );
+  ));

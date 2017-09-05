@@ -7,17 +7,18 @@ storiesOf('Btn', module)
   .addWithInfo(
     'description',
     '',
-    () =>
+    () => (
       <Btn
         className="Btn--primary"
         data-tip="Tooltip"
         onClick={action('click')}
       >
         Button
-      </Btn>,
+      </Btn>
+    ),
     { inline: true }
   )
-  .add('examples', () =>
+  .add('examples', () => (
     <div>
       <h4>Primary with tooltip</h4>
       <style>{`
@@ -63,4 +64,4 @@ storiesOf('Btn', module)
         Button
       </Btn>
     </div>
-  );
+  ));

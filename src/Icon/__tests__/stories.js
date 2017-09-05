@@ -7,7 +7,7 @@ storiesOf('Icon', module)
   .addWithInfo('description', '', () => <Icon glyph="magnify" />, {
     inline: true,
   })
-  .add('examples', () =>
+  .add('examples', () => (
     <div>
       <h4>Default style</h4>
       <Icon glyph="magnify" />
@@ -25,4 +25,4 @@ storiesOf('Icon', module)
         <Icon glyph="loading" />
       </div>
     </div>
-  );
+  ));

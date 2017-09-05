@@ -7,16 +7,17 @@ storiesOf('FormFieldPassword', module)
   .addWithInfo(
     'description',
     '',
-    () =>
+    () => (
       <FormFieldPassword
         className=""
         label="Label"
         placeholder="Password"
         onChange={action('change')}
-      />,
+      />
+    ),
     { inline: true }
   )
-  .add('examples', () =>
+  .add('examples', () => (
     <div>
       <h4>Default style</h4>
       <div className="w2">
@@ -60,4 +61,4 @@ storiesOf('FormFieldPassword', module)
         <FormFieldPassword value="password" disabled />
       </div>
     </div>
-  );
+  ));

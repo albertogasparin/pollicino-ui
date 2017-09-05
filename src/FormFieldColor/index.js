@@ -151,10 +151,9 @@ class FormFieldColor extends Component {
 
     return (
       <div className={'FormField FormField--color ' + className} style={style}>
-        {typeof label !== 'undefined' &&
-          <label className="FormField-label">
-            {label}
-          </label>}
+        {typeof label !== 'undefined' && (
+          <label className="FormField-label">{label}</label>
+        )}
         <div className="FormField-field">
           <Dropdown
             className="Dropdown--field"
@@ -167,10 +166,7 @@ class FormFieldColor extends Component {
           >
             {this.renderDropdownContent()}
           </Dropdown>
-          {error &&
-            <p className="FormField-error">
-              {error}
-            </p>}
+          {error && <p className="FormField-error">{error}</p>}
         </div>
       </div>
     );

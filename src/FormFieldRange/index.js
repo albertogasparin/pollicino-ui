@@ -145,10 +145,11 @@ class FormFieldRange extends Component {
 
     return (
       <div className={'FormField FormField--range ' + className} style={style}>
-        {typeof label !== 'undefined' &&
+        {typeof label !== 'undefined' && (
           <label className="FormField-label" htmlFor={id}>
             {label}
-          </label>}
+          </label>
+        )}
         <div className="FormField-field">
           <input
             id={id}
@@ -161,10 +162,7 @@ class FormFieldRange extends Component {
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
           />
-          {error &&
-            <p className="FormField-error">
-              {error}
-            </p>}
+          {error && <p className="FormField-error">{error}</p>}
         </div>
       </div>
     );

@@ -7,17 +7,18 @@ storiesOf('FormFieldTick', module)
   .addWithInfo(
     'description',
     '',
-    () =>
+    () => (
       <FormFieldTick
         className=""
         label="Label"
         value=""
         checked
         onChange={action('change')}
-      />,
+      />
+    ),
     { inline: true }
   )
-  .add('examples', () =>
+  .add('examples', () => (
     <div>
       <h4>Default style, radiobox</h4>
       <div className="left w1">
@@ -130,4 +131,4 @@ storiesOf('FormFieldTick', module)
         disabled
       />
     </div>
-  );
+  ));

@@ -7,7 +7,7 @@ storiesOf('Dropdown', module)
   .addWithInfo(
     'description',
     '',
-    () =>
+    () => (
       <Dropdown
         className=""
         label="Label"
@@ -17,10 +17,11 @@ storiesOf('Dropdown', module)
         onClose={action('close')}
       >
         Content
-      </Dropdown>,
+      </Dropdown>
+    ),
     { inline: true }
   )
-  .add('examples', () =>
+  .add('examples', () => (
     <div>
       <h4>Default style with label</h4>
       <div className="left">
@@ -66,4 +67,4 @@ storiesOf('Dropdown', module)
         <Dropdown disabled label={<Icon glyph="magnify" />} />
       </div>
     </div>
-  );
+  ));

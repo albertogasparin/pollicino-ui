@@ -115,10 +115,9 @@ class Collapsible extends Component {
           </button>
         </header>
 
-        {(isExpanded || isAnimating) &&
-          <div className="Collapsible-content">
-            {children}
-          </div>}
+        {(isExpanded || isAnimating) && (
+          <div className="Collapsible-content">{children}</div>
+        )}
       </div>
     );
   }

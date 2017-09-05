@@ -7,15 +7,16 @@ storiesOf('FormFieldTextarea', module)
   .addWithInfo(
     'description',
     '',
-    () =>
+    () => (
       <FormFieldTextarea
         className=""
         placeholder="Type..."
         onChange={action('change')}
-      />,
+      />
+    ),
     { inline: true }
   )
-  .add('examples', () =>
+  .add('examples', () => (
     <div>
       <h4>Default style</h4>
       <div className="w2">
@@ -56,4 +57,4 @@ storiesOf('FormFieldTextarea', module)
       <h4>Disabled</h4>
       <FormFieldTextarea className="w2" value="text" disabled />
     </div>
-  );
+  ));

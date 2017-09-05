@@ -7,16 +7,17 @@ storiesOf('FormFieldSelectGroup', module)
   .addWithInfo(
     'description',
     '',
-    () =>
+    () => (
       <FormFieldSelectGroup
         className=""
         label="Label"
         options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
         onChange={action('change')}
-      />,
+      />
+    ),
     { inline: true }
   )
-  .add('examples', () =>
+  .add('examples', () => (
     <div>
       <div className="left" style={{ width: '45%', paddingRight: '5%' }}>
         <h4>Default style with search</h4>
@@ -181,4 +182,4 @@ storiesOf('FormFieldSelectGroup', module)
         <br />
       </div>
     </div>
-  );
+  ));

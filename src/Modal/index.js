@@ -53,21 +53,17 @@ class Modal extends Component {
         <div className="Modal-box">
           <header className={'Modal-header ' + headerClassName}>
             {icon && <Icon className="Icon--mR" glyph={icon} />}
-            <h3 className="Modal-title">
-              {title}
-            </h3>
+            <h3 className="Modal-title">{title}</h3>
           </header>
           <div className="Modal-message">
-            {typeof message === 'string'
-              ? message.split(/\s*\n\s*/).map((line, i) =>
-                  <p key={i}>
-                    {line}
-                  </p>
-                )
-              : message}
+            {typeof message === 'string' ? (
+              message.split(/\s*\n\s*/).map((line, i) => <p key={i}>{line}</p>)
+            ) : (
+              message
+            )}
           </div>
           <footer className="Modal-footer">
-            {buttons.map((btn, i) =>
+            {buttons.map((btn, i) => (
               <Btn
                 key={i}
                 className={'Btn--plain ' + (btn.className || '')}
@@ -78,7 +74,7 @@ class Modal extends Component {
               >
                 {btn.label}
               </Btn>
-            )}
+            ))}
           </footer>
         </div>
       </div>

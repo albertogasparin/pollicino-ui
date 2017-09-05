@@ -66,6 +66,14 @@
     display: block;
     padding-left: 1.7em;
     @include text-clip();
+
+    &:empty {
+      width: 1.35rem;
+
+      &::after {
+        content: '\200B';
+      }
+    }
   }
 }
 

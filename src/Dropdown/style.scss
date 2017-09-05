@@ -69,10 +69,10 @@
     cursor: auto;
     animation: DropdownOverlayClip 0.4s cubic-bezier(0.7, 0, 0.7, 1) 0s;
 
-    &[data-align="left"] {
+    &[data-align='left'] {
       left: -0.4em;
     }
-    &[data-align="right"] {
+    &[data-align='right'] {
       right: -0.75rem;
     }
 
@@ -94,13 +94,13 @@
       border-bottom-color: #fff;
     }
 
-    &[data-align="left"]::before,
-    &[data-align="left"]::after {
+    &[data-align='left']::before,
+    &[data-align='left']::after {
       left: 0.75rem;
     }
 
-    &[data-align="right"]::before,
-    &[data-align="right"]::after {
+    &[data-align='right']::before,
+    &[data-align='right']::after {
       right: 0.95rem;
     }
   }
@@ -146,10 +146,10 @@
   }
 
   &-overlay {
-    &[data-align="left"] {
+    &[data-align='left'] {
       left: -0.1em;
     }
-    &[data-align="right"] {
+    &[data-align='right'] {
       right: -0.2rem;
     }
   }

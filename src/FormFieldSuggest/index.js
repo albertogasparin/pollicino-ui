@@ -297,14 +297,10 @@ class FormFieldSuggest extends Component {
     opts = filterOptions([...opts], input, val);
 
     if (!opts.length) {
-      return (
-        <li className="FormField-noOptions">
-          {noOptionsText}
-        </li>
-      );
+      return <li className="FormField-noOptions">{noOptionsText}</li>;
     }
 
-    return opts.map((opt, i) =>
+    return opts.map((opt, i) => (
       <li
         key={opt[valueKey]}
         className={
@@ -314,13 +310,13 @@ class FormFieldSuggest extends Component {
         }
         onClick={() => this.handleSelect(opt)}
       >
-        {optionRenderer
-          ? optionRenderer(opt)
-          : <Btn className="Btn--plain Btn--line">
-              {opt[labelKey]}
-            </Btn>}
+        {optionRenderer ? (
+          optionRenderer(opt)
+        ) : (
+          <Btn className="Btn--plain Btn--line">{opt[labelKey]}</Btn>
+        )}
       </li>
-    );
+    ));
   };
 
   // eslint-disable-next-line complexity
@@ -343,10 +339,11 @@ class FormFieldSuggest extends Component {
         className={'FormField FormField--suggest ' + className}
         style={style}
       >
-        {typeof label !== 'undefined' &&
+        {typeof label !== 'undefined' && (
           <label className="FormField-label" htmlFor={id}>
             {label}
-          </label>}
+          </label>
+        )}
         <div className="FormField-field">
           <input
             id={id}
@@ -369,8 +366,8 @@ class FormFieldSuggest extends Component {
           {focused && this.renderOverlay()}
 
           {focused &&
-            allowAny &&
-            input &&
+          allowAny &&
+          input && (
             <span className="FormField-selectNew">
               <Btn
                 className="Btn--square"
@@ -378,12 +375,10 @@ class FormFieldSuggest extends Component {
               >
                 <Icon glyph="check" />
               </Btn>
-            </span>}
+            </span>
+          )}
 
-          {error &&
-            <p className="FormField-error">
-              {error}
-            </p>}
+          {error && <p className="FormField-error">{error}</p>}
         </div>
       </div>
     );

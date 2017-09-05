@@ -7,16 +7,17 @@ storiesOf('FormFieldRange', module)
   .addWithInfo(
     'description',
     '',
-    () =>
+    () => (
       <FormFieldRange
         className=""
         label="Label"
         value={50}
         onChange={action('change')}
-      />,
+      />
+    ),
     { inline: true }
   )
-  .add('examples', () =>
+  .add('examples', () => (
     <div>
       <h4>Default style</h4>
       <div className="w2">
@@ -72,4 +73,4 @@ storiesOf('FormFieldRange', module)
         <FormFieldRange className="FormField--invert" label="Label" disabled />
       </div>
     </div>
-  );
+  ));

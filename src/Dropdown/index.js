@@ -126,7 +126,7 @@ class Dropdown extends Component {
         style={style}
         ref={c => (this.el = c)}
       >
-        {typeof label !== 'undefined' &&
+        {typeof label !== 'undefined' && (
           <button
             className="Dropdown-btn"
             type="button"
@@ -135,12 +135,14 @@ class Dropdown extends Component {
             onClick={this.handleOpen.bind(this)}
           >
             {label}
-          </button>}
+          </button>
+        )}
 
-        {isOpen &&
+        {isOpen && (
           <div className="Dropdown-overlay" data-align={align}>
             {children}
-          </div>}
+          </div>
+        )}
       </div>
     );
   }

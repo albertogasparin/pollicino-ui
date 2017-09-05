@@ -56,7 +56,7 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
     animation: BtnClickedHideTip 0s ease 0s;
   }
 
-  &[data-tip]:not([data-tip=""])::after {
+  &[data-tip]:not([data-tip=''])::after {
     content: attr(data-tip);
   }
 

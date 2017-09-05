@@ -158,10 +158,11 @@ class FormFieldText extends Component {
       (iconRight ? 'FormField-control--iconRight ' : '');
     return (
       <div className={'FormField FormField--text ' + className} style={style}>
-        {typeof label !== 'undefined' &&
+        {typeof label !== 'undefined' && (
           <label className="FormField-label" htmlFor={id}>
             {label}
-          </label>}
+          </label>
+        )}
         <div className="FormField-field">
           <input
             id={id}
@@ -173,18 +174,9 @@ class FormFieldText extends Component {
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
           />
-          {iconLeft &&
-            <div className="FormField-iconLeft">
-              {iconLeft}
-            </div>}
-          {iconRight &&
-            <div className="FormField-iconRight">
-              {iconRight}
-            </div>}
-          {error &&
-            <p className="FormField-error">
-              {error}
-            </p>}
+          {iconLeft && <div className="FormField-iconLeft">{iconLeft}</div>}
+          {iconRight && <div className="FormField-iconRight">{iconRight}</div>}
+          {error && <p className="FormField-error">{error}</p>}
         </div>
       </div>
     );

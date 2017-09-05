@@ -150,10 +150,11 @@ class FormFieldSelect extends Component {
 
     return (
       <div className={'FormField FormField--select ' + className} style={style}>
-        {typeof label !== 'undefined' &&
+        {typeof label !== 'undefined' && (
           <label className="FormField-label" htmlFor={id}>
             {label}
-          </label>}
+          </label>
+        )}
         <div className="FormField-field">
           <span className="FormField-value">
             {valueRenderer(selectedOpt.label)}
@@ -167,16 +168,13 @@ class FormFieldSelect extends Component {
             onChange={this.handleChange}
             onFocus={this.handleFocus}
           >
-            {opts.map((o, i) =>
+            {opts.map((o, i) => (
               <option key={i} value={o.value}>
                 {o.label || o.value}
               </option>
-            )}
+            ))}
           </select>
-          {error &&
-            <p className="FormField-error">
-              {error}
-            </p>}
+          {error && <p className="FormField-error">{error}</p>}
         </div>
       </div>
     );

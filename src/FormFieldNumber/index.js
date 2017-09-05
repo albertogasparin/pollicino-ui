@@ -175,10 +175,11 @@ class FormFieldNumber extends Component {
     className += focused ? ' isFocused' : '';
     return (
       <div className={'FormField FormField--number ' + className} style={style}>
-        {typeof label !== 'undefined' &&
+        {typeof label !== 'undefined' && (
           <label className="FormField-label" htmlFor={id}>
             {label}
-          </label>}
+          </label>
+        )}
         <div className="FormField-field">
           <input
             id={id}
@@ -205,10 +206,7 @@ class FormFieldNumber extends Component {
             disabled={disabled}
             onClick={ev => this.handleChange(ev, this.preciseSum(val, -step))}
           />
-          {error &&
-            <p className="FormField-error">
-              {error}
-            </p>}
+          {error && <p className="FormField-error">{error}</p>}
         </div>
       </div>
     );

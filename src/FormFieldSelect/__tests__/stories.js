@@ -7,17 +7,18 @@ storiesOf('FormFieldSelect', module)
   .addWithInfo(
     'description',
     '',
-    () =>
+    () => (
       <FormFieldSelect
         className=""
         label="Label"
         placeholder="Select"
         options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
         onChange={action('change')}
-      />,
+      />
+    ),
     { inline: true }
   )
-  .add('examples', () =>
+  .add('examples', () => (
     <div>
       <h4>Default style</h4>
       <div className="w2">
@@ -56,4 +57,4 @@ storiesOf('FormFieldSelect', module)
       <h4>No options but disabled</h4>
       <FormFieldSelect className="w2" options={[]} disabled />
     </div>
-  );
+  ));

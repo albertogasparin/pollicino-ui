@@ -7,7 +7,7 @@ storiesOf('FormFieldDate', module)
   .addWithInfo(
     'description',
     '',
-    () =>
+    () => (
       <FormFieldDate
         className=""
         label="Label"
@@ -15,10 +15,11 @@ storiesOf('FormFieldDate', module)
         hidePlaceholder
         yearDropdown
         onChange={action('change')}
-      />,
+      />
+    ),
     { inline: true }
   )
-  .add('examples', () =>
+  .add('examples', () => (
     <div>
       <h4>Default style (single) with options</h4>
       <div>
@@ -83,4 +84,4 @@ storiesOf('FormFieldDate', module)
         value={['1990-01-01', '1991-01-01']}
       />
     </div>
-  );
+  ));

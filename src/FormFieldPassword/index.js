@@ -31,16 +31,17 @@ class FormFieldPassword extends Component {
         {...this.props}
         type={type}
         iconRight={
-          !disabled &&
-          <Btn
-            tagName="span"
-            className="Btn--square"
-            data-tip={type ? 'Show' : 'Hide'}
-            data-tip-right
-            onClick={this.handleTypeToggle}
-          >
-            <Icon glyph="eye" style={{ opacity: type ? 0.8 : 0.2 }} />
-          </Btn>
+          !disabled && (
+            <Btn
+              tagName="span"
+              className="Btn--square"
+              data-tip={type ? 'Show' : 'Hide'}
+              data-tip-right
+              onClick={this.handleTypeToggle}
+            >
+              <Icon glyph="eye" style={{ opacity: type ? 0.8 : 0.2 }} />
+            </Btn>
+          )
         }
       />
     );

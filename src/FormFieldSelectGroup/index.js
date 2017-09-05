@@ -195,7 +195,7 @@ class FormFieldSelectGroup extends Component {
             'FormField-groupList FormField-groupList--' + (inline || 'overflow')
           }
         >
-          {opts.map((opt, i) =>
+          {opts.map((opt, i) => (
             <li
               key={opt.value}
               className="FormField-groupItem"
@@ -213,7 +213,7 @@ class FormFieldSelectGroup extends Component {
                 onBlur={ev => inline && this.handleBlur(ev)}
               />
             </li>
-          )}
+          ))}
         </ul>
       </div>
     );
@@ -244,27 +244,25 @@ class FormFieldSelectGroup extends Component {
         className={'FormField FormField--selectGroup ' + className}
         style={style}
       >
-        {typeof label !== 'undefined' &&
-          <label className="FormField-label">
-            {label}
-          </label>}
+        {typeof label !== 'undefined' && (
+          <label className="FormField-label">{label}</label>
+        )}
         <div className="FormField-field">
-          {this.props.inline
-            ? this.renderSelectGroup(checkedOpts)
-            : <Dropdown
-                className="Dropdown--field"
-                ref={c => (this.dropdownEl = c)}
-                label={valueRenderer(multiple ? checkedOpts : checkedOpts[0])}
-                {..._pick(this.props, 'align', 'disabled')}
-                onOpen={this.handleFocus}
-                onClose={this.handleBlur}
-              >
-                {this.renderSelectGroup(checkedOpts)}
-              </Dropdown>}
-          {error &&
-            <p className="FormField-error">
-              {error}
-            </p>}
+          {this.props.inline ? (
+            this.renderSelectGroup(checkedOpts)
+          ) : (
+            <Dropdown
+              className="Dropdown--field"
+              ref={c => (this.dropdownEl = c)}
+              label={valueRenderer(multiple ? checkedOpts : checkedOpts[0])}
+              {..._pick(this.props, 'align', 'disabled')}
+              onOpen={this.handleFocus}
+              onClose={this.handleBlur}
+            >
+              {this.renderSelectGroup(checkedOpts)}
+            </Dropdown>
+          )}
+          {error && <p className="FormField-error">{error}</p>}
         </div>
       </div>
     );

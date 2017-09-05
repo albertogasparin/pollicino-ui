@@ -7,17 +7,18 @@ storiesOf('Collapsible', module)
   .addWithInfo(
     'description',
     '',
-    () =>
+    () => (
       <Collapsible
         header="Title"
         onCollapse={action('collapse')}
         onExpand={action('expand')}
       >
         Content
-      </Collapsible>,
+      </Collapsible>
+    ),
     { inline: true }
   )
-  .add('examples', () =>
+  .add('examples', () => (
     <div>
       <h4>Default style with label</h4>
       <div className="w2">
@@ -54,4 +55,4 @@ storiesOf('Collapsible', module)
         </Collapsible>
       </div>
     </div>
-  );
+  ));

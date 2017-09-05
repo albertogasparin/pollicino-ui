@@ -7,17 +7,18 @@ storiesOf('FormFieldNumber', module)
   .addWithInfo(
     'description',
     '',
-    () =>
+    () => (
       <FormFieldNumber
         className=""
         label="Label"
         value={7}
         min={5}
         onChange={action('change')}
-      />,
+      />
+    ),
     { inline: true }
   )
-  .add('examples', () =>
+  .add('examples', () => (
     <div>
       <h4>Default style</h4>
       <div className="w2">
@@ -66,4 +67,4 @@ storiesOf('FormFieldNumber', module)
         <FormFieldNumber disabled />
       </div>
     </div>
-  );
+  ));

@@ -1,13 +1,14 @@
 import React from 'react';
-import { storiesOf, action } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { withInfo } from '@storybook/addon-info';
 
 import { FormFieldTick } from '../..';
 
 storiesOf('FormFieldTick', module)
-  .addWithInfo(
+  .add(
     'description',
-    '',
-    () => (
+    withInfo()(() => (
       <FormFieldTick
         className=""
         label="Label"
@@ -15,8 +16,7 @@ storiesOf('FormFieldTick', module)
         checked
         onChange={action('change')}
       />
-    ),
-    { inline: true }
+    ))
   )
   .add('examples', () => (
     <div>

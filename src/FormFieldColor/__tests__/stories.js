@@ -1,13 +1,14 @@
 import React from 'react';
-import { storiesOf, action } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { withInfo } from '@storybook/addon-info';
 
 import { FormFieldColor, Btn } from '../..';
 
 storiesOf('FormFieldColor', module)
-  .addWithInfo(
+  .add(
     'description',
-    '',
-    () => (
+    withInfo()(() => (
       <FormFieldColor
         className=""
         label="Label"
@@ -15,8 +16,7 @@ storiesOf('FormFieldColor', module)
         align="left"
         onChange={action('change')}
       />
-    ),
-    { inline: true }
+    ))
   )
   .add('examples', () => (
     <div>

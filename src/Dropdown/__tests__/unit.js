@@ -55,22 +55,32 @@ describe('<Dropdown />', () => {
   describe('Lifecycle', () => {
     let props, wrapper;
 
-    it('should open on opened change', () => {
+    it('should open on opened change', done => {
       props = {};
       wrapper = shallow(<Dropdown {...props} />);
+      wrapper.instance().el = {};
       wrapper.setProps({ opened: true });
-      expect(wrapper.state()).to.eql({
-        isOpen: true,
-      });
+
+      setTimeout(() => {
+        expect(wrapper.state()).to.eql({
+          isOpen: true,
+        });
+        done();
+      }, 30);
     });
 
-    it('should close on opened change', () => {
+    it('should close on opened change', done => {
       props = { opened: true };
       wrapper = shallow(<Dropdown {...props} />);
+      wrapper.instance().el = {};
       wrapper.setProps({ opened: false });
-      expect(wrapper.state()).to.eql({
-        isOpen: false,
-      });
+
+      setTimeout(() => {
+        expect(wrapper.state()).to.eql({
+          isOpen: false,
+        });
+        done();
+      }, 30);
     });
   });
 

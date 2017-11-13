@@ -1,13 +1,14 @@
 import React from 'react';
-import { storiesOf, action } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { withInfo } from '@storybook/addon-info';
 
 import { FormFieldSelect, Btn } from '../..';
 
 storiesOf('FormFieldSelect', module)
-  .addWithInfo(
+  .add(
     'description',
-    '',
-    () => (
+    withInfo()(() => (
       <FormFieldSelect
         className=""
         label="Label"
@@ -15,8 +16,7 @@ storiesOf('FormFieldSelect', module)
         options={[{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]}
         onChange={action('change')}
       />
-    ),
-    { inline: true }
+    ))
   )
   .add('examples', () => (
     <div>

@@ -21,9 +21,14 @@ h4 {
   border-bottom: 1px solid #CCC;
 }
 
+pre {
+  overflow-x: auto !important;
+}
+
 table {
   margin-left: 0 !important;
   border-collapse: collapse !important;
+  width: 100%;
 
   th {
     width: 6em;
@@ -38,7 +43,6 @@ table {
   td:first-child { font: 400 0.917em/1.4 Consolas, "Liberation Mono", Menlo, monospace; }
   tbody tr:nth-child(2n+1) { background: #F7F7F9; }
 }
-
 
 .left { float: left; }
 .w1 { width: 10rem; }
@@ -67,8 +71,3 @@ table {
 
 @import '../src/Modal/style';
 .Modal { position: relative; padding: 2rem 0; }
-
-@import '../src/Sortable/style';
-@import '../src/StickyHeader/style';
-@import '../src/Toast/style';
-

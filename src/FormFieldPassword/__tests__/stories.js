@@ -1,21 +1,21 @@
 import React from 'react';
-import { storiesOf, action } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { withInfo } from '@storybook/addon-info';
 
 import { FormFieldPassword, Btn } from '../..';
 
 storiesOf('FormFieldPassword', module)
-  .addWithInfo(
+  .add(
     'description',
-    '',
-    () => (
+    withInfo()(() => (
       <FormFieldPassword
         className=""
         label="Label"
         placeholder="Password"
         onChange={action('change')}
       />
-    ),
-    { inline: true }
+    ))
   )
   .add('examples', () => (
     <div>
@@ -47,7 +47,8 @@ storiesOf('FormFieldPassword', module)
           size="14"
           touched
           validation={v =>
-            v.length < 6 && 'Your password should be at least 6 chars long'}
+            v.length < 6 && 'Your password should be at least 6 chars long'
+          }
           onChange={action('change')}
         />
         &nbsp;{' '}

@@ -23,12 +23,7 @@ import Dropdown from '../Dropdown';
       onChange?: Function
       onFocus?: Function
       validation?: Function
-    }, {
-      error: boolean
-      focused: boolean
-      touched: boolean
-      val?: string
-    }>}
+    }, any>}
  */
 class FormFieldColor extends Component {
   static propTypes = {

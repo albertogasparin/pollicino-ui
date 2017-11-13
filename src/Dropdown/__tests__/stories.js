@@ -1,13 +1,14 @@
 import React from 'react';
-import { storiesOf, action } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { withInfo } from '@storybook/addon-info';
 
 import { Icon, Dropdown } from '../..';
 
 storiesOf('Dropdown', module)
-  .addWithInfo(
+  .add(
     'description',
-    '',
-    () => (
+    withInfo()(() => (
       <Dropdown
         className=""
         label="Label"
@@ -18,8 +19,7 @@ storiesOf('Dropdown', module)
       >
         Content
       </Dropdown>
-    ),
-    { inline: true }
+    ))
   )
   .add('examples', () => (
     <div>

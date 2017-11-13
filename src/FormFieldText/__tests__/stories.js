@@ -1,20 +1,20 @@
 import React from 'react';
-import { storiesOf, action } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { withInfo } from '@storybook/addon-info';
 
 import { FormFieldText, Btn, Icon } from '../..';
 
 storiesOf('FormFieldText', module)
-  .addWithInfo(
+  .add(
     'description',
-    '',
-    () => (
+    withInfo()(() => (
       <FormFieldText
         className=""
         placeholder="Type..."
         onChange={action('change')}
       />
-    ),
-    { inline: true }
+    ))
   )
   .add('examples', () => (
     <div>

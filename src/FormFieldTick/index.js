@@ -18,7 +18,7 @@ const INPUT_PROPS = ['name', 'disabled', 'tabIndex', 'type'];
       id?: string
       label?
       name?: string
-      style?: Object
+      style?: any
       touched?: boolean
       type?: 'radio' | 'checkbox'
       value?: string
@@ -26,13 +26,7 @@ const INPUT_PROPS = ['name', 'disabled', 'tabIndex', 'type'];
       onChange?: Function
       onFocus?: Function
       validation?: Function
-    }, {
-      error: boolean
-      focused: boolean
-      id?: string
-      touched: boolean
-      checked?: boolean
-    }>}
+    }, any>}
  */
 class FormFieldTick extends Component {
   static propTypes = {

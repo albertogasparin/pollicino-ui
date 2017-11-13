@@ -28,13 +28,7 @@ const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'placeholder', 'autoFocus
       onChange?: Function
       onFocus?: Function
       validation?: Function
-    }, {
-      error: boolean
-      focused: boolean
-      id?: string
-      touched: boolean
-      val?: number
-    }>}
+    }, any>}
  */
 class FormFieldNumber extends Component {
   static propTypes = {
@@ -127,7 +121,7 @@ class FormFieldNumber extends Component {
     let { error, focused } = this.state;
     let isValProvided = typeof val === 'number';
     val = this.clamp(
-      isValProvided ? val : Number(ev.target.value.replace(/[^0-9\.]/g, ''))
+      isValProvided ? val : Number(ev.target.value.replace(/[^0-9.]/g, ''))
     );
 
     this.setState({

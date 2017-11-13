@@ -1,13 +1,14 @@
 import React from 'react';
-import { storiesOf, action } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { withInfo } from '@storybook/addon-info';
 
 import { Modal } from '../..';
 
 storiesOf('Modal', module)
-  .addWithInfo(
+  .add(
     'description',
-    '',
-    () => (
+    withInfo()(() => (
       <Modal
         className=""
         title="Title"
@@ -15,8 +16,7 @@ storiesOf('Modal', module)
         icon="alert"
         onClose={action('close')}
       />
-    ),
-    { inline: true }
+    ))
   )
   .add('examples', () => (
     <div>

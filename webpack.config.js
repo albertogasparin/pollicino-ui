@@ -9,6 +9,8 @@ var webpack = require('webpack');
 var path = require('path');
 var autoprefixer = require('autoprefixer');
 
+var supportedBrowsers = ['last 3 versions', 'IE >= 11', 'Android >= 4.4'];
+
 /**
  * Main config
  */
@@ -20,28 +22,53 @@ module.exports = {
     },
   },
   module: {
-    loaders: [
-      { // CSS/SASS loader + autoprefixer
-        test: /\.s?css$/,
-        loader: [
-          'style-loader',
-          'css-loader?'
-            + ['sourceMap', '-minimize', '-autoprefixer'].join('&'),
-          'postcss-loader',
-          'sass-loader?'
-            + ['sourceMap', 'outputStyle=expanded'].join('&'),
-        ].join('!'),
-      }, { // SVG Icons sprite loader
+    rules: [
+      {
+        // CSS/SASS loader + autoprefixer
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'style-loader',
+            options: { convertToAbsoluteUrls: true },
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: false,
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [autoprefixer({ browsers: supportedBrowsers })],
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              outputStyle: 'expanded',
+              sourceMap: true,
+            },
+          },
+        ],
+      },
+      {
+        // SVG Icons sprite loader
         test: /\.svg$/,
-        loader: [
-          'svg-sprite-loader?' + ['name=i-[name]'].join('&'),
-          'image-webpack-loader',
-        ].join('!'),
+        include: [path.join(root, 'assets', 'icons')],
+        use: [
+          {
+            loader: 'svg-sprite-loader',
+            options: { symbolId: 'i-[name]' },
+          },
+          {
+            loader: 'image-webpack-loader',
+          },
+        ],
       },
     ],
-  },
-  postcss: function () {
-    return [autoprefixer({ browsers: ['last 3 versions', 'IE >= 9', 'Android >= 4'] })];
   },
   plugins: [
     new webpack.ProvidePlugin({

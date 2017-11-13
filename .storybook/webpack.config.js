@@ -5,8 +5,7 @@ const webpackConfig = require('../webpack.config.js');
 module.exports = {
   resolve: webpackConfig.resolve,
   module: {
-    loaders: webpackConfig.module.loaders,
+    rules: webpackConfig.module.rules,
   },
-  postcss: webpackConfig.postcss,
   plugins: webpackConfig.plugins,
 };

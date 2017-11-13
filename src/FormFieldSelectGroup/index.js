@@ -22,7 +22,7 @@ import FormFieldTick from '../FormFieldTick';
       options: Array<{ label, value }>
       optionsPerRow?: number
       placeholder?: string
-      style?: Object
+      style?: any
       touched?: boolean
       value?
       onBlur?: Function
@@ -30,13 +30,7 @@ import FormFieldTick from '../FormFieldTick';
       onFocus?: Function
       validation?: Function
       valueRenderer?: Function
-    }, {
-      error: boolean
-      focused: boolean
-      opts?: Array<{ label, value }>
-      touched: boolean
-      val?: string
-    }>}
+    }, any>}
  */
 class FormFieldSelectGroup extends Component {
   static propTypes = {

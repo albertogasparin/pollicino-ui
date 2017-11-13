@@ -9,9 +9,7 @@ import FormFieldText from '../FormFieldText';
  * @augments {Component<{
       [x:string]: any
       disabled?: boolean
-    }, {
-      type?: string
-    }>}
+    }, any>}
  */
 class FormFieldPassword extends Component {
   state = {

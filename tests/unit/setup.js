@@ -1,11 +1,11 @@
 import td from 'testdouble';
 import chai from 'chai';
 import tdChai from 'testdouble-chai';
-// import chaiEnzyme from 'chai-enzyme';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
-// do not use until https://github.com/producthunt/chai-enzyme/issues/13
-// extend chai with enzyme
-// chai.use(chaiEnzyme());
+// Setup enzyme
+Enzyme.configure({ adapter: new Adapter() });
 
 // extend chai with td
 chai.use(tdChai(td));

@@ -15,9 +15,7 @@ import PropTypes from 'prop-types';
      tabIndex?: number
      onClose?: Function
      onOpen?: Function
-    }, {
-      isOpen: boolean
-    }>}
+    }, any>}
  */
 class Dropdown extends Component {
   static propTypes = {

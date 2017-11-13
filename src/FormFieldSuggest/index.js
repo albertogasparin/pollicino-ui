@@ -39,17 +39,7 @@ const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoFocus', 'tabIndex']
       onFocus?: Function
       optionRenderer?: Function
       validation?: Function
-    }, {
-      cache: Object
-      changed: boolean
-      error: boolean
-      focused: boolean
-      input?: string
-      isLoading: boolean
-      opts?: Array<{ label, value }>
-      touched: boolean
-      val?: string
-    }>}
+    }, any>}
  */
 class FormFieldSuggest extends Component {
   static propTypes = {
@@ -366,17 +356,17 @@ class FormFieldSuggest extends Component {
           {focused && this.renderOverlay()}
 
           {focused &&
-          allowAny &&
-          input && (
-            <span className="FormField-selectNew">
-              <Btn
-                className="Btn--square"
-                onClick={() => this.handleSelect(this.state.input)}
-              >
-                <Icon glyph="check" />
-              </Btn>
-            </span>
-          )}
+            allowAny &&
+            input && (
+              <span className="FormField-selectNew">
+                <Btn
+                  className="Btn--square"
+                  onClick={() => this.handleSelect(this.state.input)}
+                >
+                  <Icon glyph="check" />
+                </Btn>
+              </span>
+            )}
 
           {error && <p className="FormField-error">{error}</p>}
         </div>

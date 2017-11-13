@@ -1,13 +1,14 @@
 import React from 'react';
-import { storiesOf, action } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { withInfo } from '@storybook/addon-info';
 
 import { Btn, Icon } from '../..';
 
 storiesOf('Btn', module)
-  .addWithInfo(
+  .add(
     'description',
-    '',
-    () => (
+    withInfo()(() => (
       <Btn
         className="Btn--primary"
         data-tip="Tooltip"
@@ -15,8 +16,7 @@ storiesOf('Btn', module)
       >
         Button
       </Btn>
-    ),
-    { inline: true }
+    ))
   )
   .add('examples', () => (
     <div>

@@ -1,12 +1,12 @@
 import React from 'react';
-import { storiesOf } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
+// import { action } from '@storybook/addon-actions';
+import { withInfo } from '@storybook/addon-info';
 
 import { Icon } from '../..';
 
 storiesOf('Icon', module)
-  .addWithInfo('description', '', () => <Icon glyph="magnify" />, {
-    inline: true,
-  })
+  .add('description', withInfo()(() => <Icon glyph="magnify" />))
   .add('examples', () => (
     <div>
       <h4>Default style</h4>

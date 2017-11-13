@@ -26,13 +26,7 @@ const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'step', 'tabIndex'];
       onChange?: Function
       onFocus?: Function
       validation?: Function
-    }, {
-      error: boolean
-      focused: boolean
-      id?: string
-      touched: boolean
-      val?: number
-    }>}
+    }, any>}
  */
 class FormFieldRange extends Component {
   static propTypes = {

@@ -28,13 +28,7 @@ const INPUT_PROPS = [
       onChange?: Function
       onFocus?: Function
       validation?: Function
-    }, {
-      id?: string
-      error: boolean
-      focused: boolean
-      touched: boolean
-      val?: string
-    }>}
+    }, any>}
  */
 class FormFieldTextarea extends Component {
   static propTypes = {

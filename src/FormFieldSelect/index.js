@@ -25,14 +25,7 @@ const INPUT_PROPS = ['name', 'disabled', 'tabIndex'];
       onFocus?: Function
       validation?: Function
       valueRenderer?: Function
-    }, {
-      error: boolean
-      focused: boolean
-      id?: string
-      opts?: Array<{ label, value }>
-      touched: boolean
-      val?: string
-    }>}
+    }, any>}
  */
 class FormFieldSelect extends Component {
   static propTypes = {

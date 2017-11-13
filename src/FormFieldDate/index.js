@@ -34,15 +34,7 @@ import FormFieldSelect from '../FormFieldSelect';
       onChange?: Function
       onFocus?: Function
       validation?: Function
-    }, {
-      error: boolean
-      focused: boolean
-      month?: Date
-      opts?: Array<{ label, value }>
-      showPicker?: boolean
-      touched: boolean
-      val?: string | string[]
-    }>}
+    }, any>}
  */
 class FormFieldDate extends Component {
   static propTypes = {

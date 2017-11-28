@@ -63,5 +63,11 @@ storiesOf('Btn', module)
       <Btn className="Btn--primary" disabled>
         Button
       </Btn>
+      <h4>Disabled dark</h4>
+      <div className="dark w1">
+        <Btn className="Btn--primary" disabled>
+          Button
+        </Btn>
+      </div>
     </div>
   ));

@@ -8,6 +8,14 @@
 
 ## Usage
 
+### Install
+
+```
+npm i pollicino-ui
+```
+
+### Use
+
 This UI components are meant to be used independently.
 
 The recommended way of adding them to your project is to create a dedicated file, re-exporting all components that you need.  
@@ -28,7 +36,7 @@ Moreover, you will also need to include relevant scss styles. So, in your main s
 
 
 
-## Providing icons
+### Providing icons
 
 Some components (Icon, FormFieldPassword, ...) require SVG icons to work. In the examples, I'm using some Material Design icons, but you are free to use whatever set you like.
 Just configure Webpack to alias `assets/icons` and add an svg loader like `svg-sprite-loader` to ensure `require` works:
@@ -40,21 +48,25 @@ module.exports = {
   resolve: {
     alias: {
       // add an assets alias, and add icons your in assets/icons/*.svg
-      assets: path.join(root, 'assets'),
+      assets: path.join(__dirname, 'app', 'assets'),
     },
   },
   //...
-  { // SVG Icons sprite loader
-    test: /\.svg$/,
-    loader: 'svg-sprite-loader?' + ['name=i-[name]'].join('&'),
-  },
+  module: {
+    rules: [
+      { // SVG Icons sprite loader
+        test: /\.svg$/,
+        include: [path.join(__dirname, 'app', 'assets', 'icons')],
+        use: [{ loader: 'svg-sprite-loader', options: { symbolId: 'i-[name]' } }],
+      },
+      //...
 ```
 
 
 
-## Overriding styles
+### Overriding styles
 
-Colors and some other SCSS variables can be overridden. Just define them before importing the component’s styles. 
+Colors and some other SCSS variables can be overridden. Just define them before importing the component’s styles. For a full list look at `./scss/_variables.scss`
 
 ``` scss
 $Pollicino-color-primary: pink;

@@ -99,7 +99,8 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
   }
 
   &[disabled] {
-    opacity: 0.2;
+    opacity: 0.4;
+    filter: grayscale(100%);
 
     &[data-tip]::after {
       display: none;
@@ -138,22 +139,19 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
   line-height: $Pollicino-Btn-height;
 }
 
-.Btn--primary {
+.Btn--primary,
+.Btn--secondary {
   padding: 0 em($Pollicino-padding);
-  background-color: $Pollicino-color-primary;
   color: #fff;
   line-height: $Pollicino-Btn-height;
+}
 
-  &[disabled] {
-    background-color: $Pollicino-color-text;
-  }
+.Btn--primary {
+  background-color: $Pollicino-color-primary;
 }
 
 .Btn--secondary {
-  padding: 0 em($Pollicino-padding);
   background-color: $Pollicino-color-secondary;
-  color: #fff;
-  line-height: $Pollicino-Btn-height;
 }
 
 .Btn--outline {

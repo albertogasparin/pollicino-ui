@@ -15,6 +15,7 @@ import Dropdown from '../Dropdown';
       disabled?: boolean
       label?
       opacity?: boolean
+      readOnly?: boolean
       style?: Object
       tabIndex?: number
       touched?: boolean
@@ -34,6 +35,7 @@ class FormFieldColor extends Component {
     disabled: PropTypes.bool,
     label: PropTypes.node,
     opacity: PropTypes.bool,
+    readOnly: PropTypes.bool,
     style: PropTypes.object,
     tabIndex: PropTypes.number,
     touched: PropTypes.bool,
@@ -139,9 +141,18 @@ class FormFieldColor extends Component {
   };
 
   render() {
-    let { className, style, label, disabled, align, tabIndex } = this.props;
+    let {
+      className,
+      style,
+      label,
+      disabled,
+      readOnly,
+      align,
+      tabIndex,
+    } = this.props;
     let { error } = this.state;
     className += disabled ? ' isDisabled' : '';
+    className += readOnly ? ' isReadOnly' : '';
     className += error ? ' isInvalid' : '';
 
     return (
@@ -154,7 +165,7 @@ class FormFieldColor extends Component {
             className="Dropdown--field"
             label={this.renderFieldValue()}
             align={align}
-            disabled={disabled}
+            disabled={disabled || readOnly}
             tabIndex={tabIndex}
             onOpen={this.handleFocus}
             onClose={this.handleBlur}

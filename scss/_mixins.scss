@@ -157,6 +157,12 @@
       0 0 0 1px $Pollicino-color-primary;
   }
 
+  &:read-only {
+    border-style: dashed;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
   &::placeholder {
     color: lighten($Pollicino-color-light, 15);
   }

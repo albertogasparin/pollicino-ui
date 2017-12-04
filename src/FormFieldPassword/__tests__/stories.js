@@ -61,5 +61,10 @@ storiesOf('FormFieldPassword', module)
       <div className="w2">
         <FormFieldPassword value="password" disabled />
       </div>
+
+      <h4>Read-only</h4>
+      <div className="w2">
+        <FormFieldPassword value="password" readOnly />
+      </div>
     </div>
   ));

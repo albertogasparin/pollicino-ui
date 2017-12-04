@@ -16,6 +16,14 @@
 
 .FormField--color {
   @include FormField--modifiers;
+
+  &.isReadOnly .Dropdown--field .Dropdown-btn {
+    opacity: 1;
+
+    &::after {
+      opacity: 0.25;
+    }
+  }
 }
 
 .FormField--color .FormField {
@@ -25,6 +33,7 @@
     height: rem(24px);
     border: 1px solid $Pollicino-color-light;
     vertical-align: middle;
+    border-radius: $Pollicino-border-radius;
   }
 }
 

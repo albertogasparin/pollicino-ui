@@ -83,5 +83,12 @@ storiesOf('FormFieldDate', module)
         options={[{ label: '1990', value: ['1990-01-01', '1991-01-01'] }]}
         value={['1990-01-01', '1991-01-01']}
       />
+
+      <h4>Read-only</h4>
+      <FormFieldDate
+        label="Label"
+        readOnly
+        value={['1990-01-01', '1991-01-01']}
+      />
     </div>
   ));

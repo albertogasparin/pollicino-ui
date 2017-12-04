@@ -25,6 +25,20 @@
     }
   }
 
+  &.isReadOnly .FormField {
+    &-label {
+      cursor: auto;
+    }
+    &-tick {
+      opacity: 0.5 * 0.6;
+    }
+  }
+  &.isReadOnly:not(.isChecked) .FormField {
+    &-value {
+      opacity: 0.5;
+    }
+  }
+
   @include FormField--modifiers;
 }
 

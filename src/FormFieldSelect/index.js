@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
-const INPUT_PROPS = ['name', 'disabled', 'tabIndex'];
+const INPUT_PROPS = ['name', 'disabled', 'tabIndex', 'readOnly'];
 
 /**
  * @class FormFieldSelect
@@ -17,6 +17,7 @@ const INPUT_PROPS = ['name', 'disabled', 'tabIndex'];
       name?: string
       options: Array<{ label, value }>
       placeholder?: string
+      readOnly?: boolean
       style?: Object
       touched?: boolean
       value?: string
@@ -37,6 +38,7 @@ class FormFieldSelect extends Component {
     name: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.object).isRequired,
     placeholder: PropTypes.string,
+    readOnly: PropTypes.bool,
     style: PropTypes.object,
     touched: PropTypes.bool,
     value: PropTypes.string,
@@ -133,11 +135,20 @@ class FormFieldSelect extends Component {
     return { error };
   };
 
+  // eslint-disable-next-line complexity
   render() {
-    let { className, style, label, valueRenderer, disabled } = this.props;
+    let {
+      className,
+      style,
+      label,
+      valueRenderer,
+      disabled,
+      readOnly,
+    } = this.props;
     let { id, opts, val, error, focused } = this.state;
     let selectedOpt = this.findOption(val) || {};
     className += disabled ? ' isDisabled' : '';
+    className += readOnly ? ' isReadOnly' : '';
     className += error ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
 

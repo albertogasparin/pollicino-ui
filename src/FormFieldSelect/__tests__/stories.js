@@ -56,5 +56,8 @@ storiesOf('FormFieldSelect', module)
 
       <h4>No options but disabled</h4>
       <FormFieldSelect className="w2" options={[]} disabled />
+
+      <h4>No options but read-only</h4>
+      <FormFieldSelect className="w2" options={[]} readOnly />
     </div>
   ));

@@ -17,6 +17,21 @@
     &-field {
       @include FormField-isDisabled;
     }
+    &-value::after {
+      opacity: 0.5;
+    }
+  }
+
+  &.isReadOnly .FormField {
+    &-value {
+      cursor: auto;
+      &::after {
+        opacity: 0.25;
+      }
+    }
+    &-control {
+      display: none;
+    }
   }
 
   @include FormField--modifiers;

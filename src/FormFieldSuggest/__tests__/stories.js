@@ -100,5 +100,21 @@ storiesOf('FormFieldSuggest', module)
       <div className="w2">
         <FormFieldSuggest disabled value={{ value: '', label: 'Value' }} />
       </div>
+
+      <h4>Read-only</h4>
+      <div className="w1 left">
+        <FormFieldSuggest
+          size={12}
+          value={{ value: '', label: 'Value' }}
+          readOnly
+        />
+      </div>
+      <div className="w1 dark left">
+        <FormFieldSuggest
+          className="FormField--invert"
+          value={{ value: '', label: 'Value' }}
+          readOnly
+        />
+      </div>
     </div>
   ));

@@ -130,5 +130,45 @@ storiesOf('FormFieldTick', module)
         checked
         disabled
       />
+
+      <h4>Inline, read-only</h4>
+      <div className="left w1">
+        <FormFieldTick
+          className="FormField--inline"
+          name="ro1"
+          label="Label"
+          value=""
+          readOnly
+        />
+        &nbsp; &nbsp;
+        <FormFieldTick
+          className="FormField--inline"
+          name="ro2"
+          label="Label"
+          value=""
+          checked
+          readOnly
+        />
+      </div>
+      <div className="dark left">
+        <FormFieldTick
+          className="FormField--inline"
+          name="ro3"
+          label="Label"
+          value=""
+          type="checkbox"
+          readOnly
+        />
+        &nbsp; &nbsp;
+        <FormFieldTick
+          className="FormField--inline"
+          name="ro4"
+          label="Label"
+          value=""
+          type="checkbox"
+          checked
+          readOnly
+        />
+      </div>
     </div>
   ));

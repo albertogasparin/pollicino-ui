@@ -63,5 +63,13 @@ storiesOf('FormFieldText', module)
         <br />Disabled
       </h4>
       <FormFieldText className="w2" value="text" disabled />
+
+      <h4>Read-only</h4>
+      <div className="w1 left">
+        <FormFieldText size={12} value="text" readOnly />
+      </div>
+      <div className="w1 dark left">
+        <FormFieldText className="FormField--invert" value="text" readOnly />
+      </div>
     </div>
   ));

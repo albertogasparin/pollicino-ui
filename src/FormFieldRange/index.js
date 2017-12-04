@@ -17,6 +17,7 @@ const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'step', 'tabIndex'];
       max?: string | number
       min?: string | number
       name?: string
+      readOnly?: boolean
       size?: string | number
       step?: string | number
       style?: Object
@@ -38,6 +39,7 @@ class FormFieldRange extends Component {
     max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     name: PropTypes.string,
+    readOnly: PropTypes.bool,
     size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     style: PropTypes.object,
@@ -91,8 +93,12 @@ class FormFieldRange extends Component {
   };
 
   handleChange = ev => {
+    let { disabled, readOnly } = this.props;
     let { error, focused } = this.state;
     let val = Number(ev.target.value);
+    if (disabled || readOnly) {
+      return;
+    }
 
     this.setState({
       val,
@@ -130,10 +136,12 @@ class FormFieldRange extends Component {
     return { error };
   };
 
+  // eslint-disable-next-line complexity
   render() {
-    let { className, style, label, disabled, size } = this.props;
+    let { className, style, label, disabled, readOnly, size } = this.props;
     let { id, val, error, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
+    className += readOnly ? ' isReadOnly' : '';
     className += error ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
 

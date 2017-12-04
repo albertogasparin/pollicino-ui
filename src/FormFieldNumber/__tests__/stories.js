@@ -66,5 +66,10 @@ storiesOf('FormFieldNumber', module)
       <div className="w2">
         <FormFieldNumber disabled />
       </div>
+
+      <h4>No options but read-only</h4>
+      <div className="w2">
+        <FormFieldNumber readOnly />
+      </div>
     </div>
   ));

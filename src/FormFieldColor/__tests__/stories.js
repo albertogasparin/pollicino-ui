@@ -56,5 +56,8 @@ storiesOf('FormFieldColor', module)
 
       <h4>No options but disabled</h4>
       <FormFieldColor disabled />
+
+      <h4>Read-only</h4>
+      <FormFieldColor readOnly />
     </div>
   ));

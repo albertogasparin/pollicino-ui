@@ -22,6 +22,7 @@ import FormFieldTick from '../FormFieldTick';
       options: Array<{ label, value }>
       optionsPerRow?: number
       placeholder?: string
+      readOnly?: boolean,
       style?: any
       touched?: boolean
       value?
@@ -47,6 +48,7 @@ class FormFieldSelectGroup extends Component {
     options: PropTypes.arrayOf(PropTypes.object).isRequired,
     optionsPerRow: PropTypes.number,
     placeholder: PropTypes.string,
+    readOnly: PropTypes.bool,
     style: PropTypes.object,
     touched: PropTypes.bool,
     value: PropTypes.any,
@@ -201,7 +203,13 @@ class FormFieldSelectGroup extends Component {
                 debounce={0}
                 checked={checkedOpts.indexOf(opt) !== -1}
                 value={opt.value}
-                {..._pick(this.props, 'name', 'disabled', 'tabIndex')}
+                {..._pick(
+                  this.props,
+                  'name',
+                  'disabled',
+                  'tabIndex',
+                  'readOnly'
+                )}
                 onChange={this.handleChange}
                 onFocus={ev => inline && this.handleFocus(ev)}
                 onBlur={ev => inline && this.handleBlur(ev)}
@@ -220,8 +228,10 @@ class FormFieldSelectGroup extends Component {
       style,
       label,
       disabled,
+      readOnly,
       valueRenderer,
       placeholder,
+      align,
       multiple,
     } = this.props;
     let { val, error, focused } = this.state;
@@ -230,6 +240,7 @@ class FormFieldSelectGroup extends Component {
     ];
 
     className += disabled ? ' isDisabled' : '';
+    className += readOnly ? ' isReadOnly' : '';
     className += error ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
 
@@ -249,7 +260,8 @@ class FormFieldSelectGroup extends Component {
               className="Dropdown--field"
               ref={c => (this.dropdownEl = c)}
               label={valueRenderer(multiple ? checkedOpts : checkedOpts[0])}
-              {..._pick(this.props, 'align', 'disabled')}
+              align={align}
+              disabled={disabled || readOnly}
               onOpen={this.handleFocus}
               onClose={this.handleBlur}
             >

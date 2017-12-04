@@ -22,14 +22,15 @@ class FormFieldPassword extends Component {
   };
 
   render() {
-    let { disabled } = this.props;
+    let { disabled, readOnly } = this.props;
     let { type } = this.state;
     return (
       <FormFieldText
         {...this.props}
         type={type}
         iconRight={
-          !disabled && (
+          !disabled &&
+          !readOnly && (
             <Btn
               tagName="span"
               className="Btn--square"

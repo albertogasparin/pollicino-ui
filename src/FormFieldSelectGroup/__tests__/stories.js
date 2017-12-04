@@ -84,6 +84,14 @@ storiesOf('FormFieldSelectGroup', module)
           value={1}
           valueRenderer={opt => 'Nr. ' + opt.label}
         />
+
+        <h4>Read-only, value set</h4>
+        <FormFieldSelectGroup
+          label="Label"
+          readOnly
+          options={[{ label: 'One', value: 1 }]}
+          value={1}
+        />
       </div>
 
       <div className="left" style={{ width: '50%' }}>
@@ -177,6 +185,25 @@ storiesOf('FormFieldSelectGroup', module)
           placeholder="Any number"
           inline="tabbed"
           disabled
+          options={[{ label: '1 One', value: 1 }, { label: '2', value: 2 }]}
+        />
+        <br />
+
+        <h4>Inline, read-only</h4>
+        <FormFieldSelectGroup
+          inline
+          readOnly
+          label="Label"
+          options={[{ label: 'One', value: 1 }]}
+          value={1}
+        />
+
+        <h4>Inline tabbed read-only</h4>
+        <FormFieldSelectGroup
+          placeholder="Any number"
+          inline="tabbed"
+          readOnly
+          label="Label"
           options={[{ label: '1 One', value: 1 }, { label: '2', value: 2 }]}
         />
         <br />

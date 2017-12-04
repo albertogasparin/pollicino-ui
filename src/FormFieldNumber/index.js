@@ -6,7 +6,9 @@ import _pick from 'lodash/pick';
 import Btn from '../Btn';
 
 // prettier-ignore
-const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'placeholder', 'autoFocus', 'tabIndex'];
+const INPUT_PROPS = [
+  'name', 'disabled', 'min', 'max', 'placeholder', 'autoFocus', 'tabIndex', 'readOnly'
+];
 
 /**
  * @class FormFieldNumber
@@ -20,6 +22,7 @@ const INPUT_PROPS = ['name', 'disabled', 'min', 'max', 'placeholder', 'autoFocus
       max?: string | number
       min?: string | number
       name?: string
+      readOnly?: boolean
       size?: string | number
       style?: Object
       touched?: boolean
@@ -41,6 +44,7 @@ class FormFieldNumber extends Component {
     max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     name: PropTypes.string,
+    readOnly: PropTypes.bool,
     size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     step: PropTypes.number,
     style: PropTypes.object,
@@ -162,9 +166,18 @@ class FormFieldNumber extends Component {
   };
 
   render() {
-    let { className, style, label, disabled, size, step } = this.props;
+    let {
+      className,
+      style,
+      label,
+      disabled,
+      readOnly,
+      size,
+      step,
+    } = this.props;
     let { id, val, error, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
+    className += readOnly ? ' isReadOnly' : '';
     className += error ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
     return (
@@ -188,18 +201,28 @@ class FormFieldNumber extends Component {
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
           />
-          <Btn
-            tagName="span"
-            className="FormField-spin FormField-spin--plus"
-            disabled={disabled}
-            onClick={ev => this.handleChange(ev, this.preciseSum(val, step))}
-          />
-          <Btn
-            tagName="span"
-            className="FormField-spin FormField-spin--minus"
-            disabled={disabled}
-            onClick={ev => this.handleChange(ev, this.preciseSum(val, -step))}
-          />
+          {!disabled &&
+            !readOnly && (
+              <Btn
+                tagName="span"
+                className="FormField-spin FormField-spin--plus"
+                disabled={disabled}
+                onClick={ev =>
+                  this.handleChange(ev, this.preciseSum(val, step))
+                }
+              />
+            )}
+          {!disabled &&
+            !readOnly && (
+              <Btn
+                tagName="span"
+                className="FormField-spin FormField-spin--minus"
+                disabled={disabled}
+                onClick={ev =>
+                  this.handleChange(ev, this.preciseSum(val, -step))
+                }
+              />
+            )}
           {error && <p className="FormField-error">{error}</p>}
         </div>
       </div>

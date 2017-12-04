@@ -5,7 +5,7 @@ import _pick from 'lodash/pick';
 
 // prettier-ignore
 const INPUT_PROPS = [
-  'name', 'disabled', 'placeholder', 'type', 'pattern', 'tabIndex',
+  'name', 'disabled', 'placeholder', 'type', 'pattern', 'tabIndex', 'readOnly',
   'autoComplete', 'autoCapitalize', 'autoCorrect', 'autoFocus', 'spellCheck',
 ];
 
@@ -21,6 +21,7 @@ const INPUT_PROPS = [
       id?: string
       label?
       name?: string
+      readOnly?: boolean
       size?: string | number
       style?: Object
       touched?: boolean
@@ -41,6 +42,7 @@ class FormFieldText extends Component {
     id: PropTypes.string,
     label: PropTypes.node,
     name: PropTypes.string,
+    readOnly: PropTypes.bool,
     size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     style: PropTypes.object,
     touched: PropTypes.bool,
@@ -139,12 +141,14 @@ class FormFieldText extends Component {
       style,
       label,
       disabled,
+      readOnly,
       size,
       iconLeft,
       iconRight,
     } = this.props;
     let { id, val, error, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
+    className += readOnly ? ' isReadOnly' : '';
     className += error ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
     let controlCN =

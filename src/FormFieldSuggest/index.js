@@ -8,7 +8,9 @@ import Icon from '../Icon';
 import Dropdown from '../Dropdown';
 
 // prettier-ignore
-const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoFocus', 'tabIndex'];
+const INPUT_PROPS = [
+  'name', 'disabled', 'placeholder', 'autoFocus', 'tabIndex', 'readOnly'
+];
 
 /**
  * @class FormFieldSuggest
@@ -26,6 +28,7 @@ const INPUT_PROPS = ['name', 'disabled', 'placeholder', 'autoFocus', 'tabIndex']
       noOptionsText?: string
       options?: Array<Object>
       placeholder?: string
+      readOnly?: boolean
       rows?: string | number
       size?: string | number
       style?: Object
@@ -55,6 +58,7 @@ class FormFieldSuggest extends Component {
     noOptionsText: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.object),
     placeholder: PropTypes.string,
+    readOnly: PropTypes.bool,
     rows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     style: PropTypes.object,
@@ -316,12 +320,14 @@ class FormFieldSuggest extends Component {
       style,
       label,
       disabled,
+      readOnly,
       size,
       labelKey,
       allowAny,
     } = this.props;
     let { id, val, error, focused, input } = this.state;
     className += disabled ? ' isDisabled' : '';
+    className += readOnly ? ' isReadOnly' : '';
     className += error ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
     return (

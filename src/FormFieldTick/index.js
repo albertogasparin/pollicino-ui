@@ -18,6 +18,7 @@ const INPUT_PROPS = ['name', 'disabled', 'tabIndex', 'type'];
       id?: string
       label?
       name?: string
+      readOnly?: boolean
       style?: any
       touched?: boolean
       type?: 'radio' | 'checkbox'
@@ -37,6 +38,7 @@ class FormFieldTick extends Component {
     id: PropTypes.string,
     label: PropTypes.node,
     name: PropTypes.string,
+    readOnly: PropTypes.bool,
     style: PropTypes.object,
     touched: PropTypes.bool,
     type: PropTypes.oneOf(['radio', 'checkbox']),
@@ -91,9 +93,12 @@ class FormFieldTick extends Component {
   };
 
   handleChange = ev => {
-    let { type, value } = this.props;
+    let { type, value, disabled, readOnly } = this.props;
     let checked =
       type !== 'radio' || !this.state.checked ? !this.state.checked : true;
+    if (disabled || readOnly) {
+      return;
+    }
     this.setState({ checked, ...this.validate(checked, false) });
     this.triggerOnChange(value, checked);
   };
@@ -125,9 +130,18 @@ class FormFieldTick extends Component {
 
   // eslint-disable-next-line complexity
   render() {
-    let { className, style, label, value, type, disabled } = this.props;
+    let {
+      className,
+      style,
+      label,
+      value,
+      type,
+      disabled,
+      readOnly,
+    } = this.props;
     let { id, checked, error } = this.state;
     className += disabled ? ' isDisabled' : '';
+    className += readOnly ? ' isReadOnly' : '';
     className += checked ? ' isChecked' : '';
     className += error ? ' isInvalid' : '';
     let boxtype = type === 'radio' ? 'radiobox' : type;

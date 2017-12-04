@@ -72,5 +72,10 @@ storiesOf('FormFieldRange', module)
       <div className="w2 dark">
         <FormFieldRange className="FormField--invert" label="Label" disabled />
       </div>
+
+      <h4>No options but read-only</h4>
+      <div className="w2">
+        <FormFieldRange readOnly />
+      </div>
     </div>
   ));

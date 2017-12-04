@@ -17,6 +17,14 @@
 
 .FormField--selectGroup {
   @include FormField--modifiers;
+
+  &.isReadOnly .Dropdown--field .Dropdown-btn {
+    opacity: 1;
+
+    &::after {
+      opacity: 0.25;
+    }
+  }
 }
 
 .FormField--selectGroup .FormField {
@@ -97,6 +105,12 @@
 
     &.isDisabled .FormField-label {
       box-shadow: none;
+    }
+
+    &.isReadOnly .FormField-label {
+      border-style: dashed;
+      box-shadow: none;
+      background: transparent;
     }
   }
 

@@ -25,6 +25,7 @@ import FormFieldSelect from '../FormFieldSelect';
       name?: string
       options?: Array<{ label, value }>
       placeholder?: string
+      readOnly?: boolean
       style?: Object
       tabIndex?: number
       touched?: boolean
@@ -56,6 +57,7 @@ class FormFieldDate extends Component {
     name: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.object),
     placeholder: PropTypes.string,
+    readOnly: PropTypes.bool,
     style: PropTypes.object,
     tabIndex: PropTypes.number,
     touched: PropTypes.bool,
@@ -366,10 +368,20 @@ class FormFieldDate extends Component {
     );
   };
 
+  // eslint-disable-next-line complexity
   render() {
-    let { className, style, label, disabled, align, tabIndex } = this.props;
+    let {
+      className,
+      style,
+      label,
+      disabled,
+      readOnly,
+      align,
+      tabIndex,
+    } = this.props;
     let { val, error, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
+    className += readOnly ? ' isReadOnly' : '';
     className += error ? ' isInvalid' : '';
     className += focused ? ' isFocused' : '';
 
@@ -384,7 +396,7 @@ class FormFieldDate extends Component {
             ref={c => (this.dropdownEl = c)}
             label={this.renderFieldLabel(val)}
             align={align}
-            disabled={disabled}
+            disabled={disabled || readOnly}
             tabIndex={tabIndex}
             onOpen={this.handleFocus}
             onClose={this.handleBlur}

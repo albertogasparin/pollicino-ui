@@ -28,6 +28,22 @@
     }
   }
 
+  &.isReadOnly .FormField-control {
+    &::-webkit-slider-runnable-track {
+      background: transparent;
+      border: 1px dashed $Pollicino-color-lighter;
+    }
+    &::-moz-range-track {
+      background: transparent;
+      border: 1px dashed $Pollicino-color-lighter;
+    }
+    &::-ms-fill-lower,
+    &::-ms-fill-upper {
+      background: transparent;
+      border: 1px dashed $Pollicino-color-lighter;
+    }
+  }
+
   @include FormField--modifiers;
 }
 

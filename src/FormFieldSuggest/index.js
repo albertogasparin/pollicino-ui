@@ -359,9 +359,10 @@ class FormFieldSuggest extends Component {
             onBlur={this.handleBlur}
           />
 
-          {focused && this.renderOverlay()}
+          {focused && !readOnly && this.renderOverlay()}
 
           {focused &&
+            !readOnly &&
             allowAny &&
             input && (
               <span className="FormField-selectNew">

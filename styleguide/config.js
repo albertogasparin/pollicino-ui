@@ -2,6 +2,7 @@ const path = require('path');
 
 module.exports = {
   require: [path.join(__dirname, 'global.scss')],
+  styleguideDir: '../docs',
   components: '../src/*/*.js',
   sections: [
     {

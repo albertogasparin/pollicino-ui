@@ -20,6 +20,7 @@
   },
   "scripts": {
     "preversion": "npm run test -s",
+    "version": "npm run styleguide:build && git add -A docs",
     "postversion": "git push && git push --tags",
     "prepublish": "npm run build -s",
     "prebuild": "npm run clean -s && npm run test -s",

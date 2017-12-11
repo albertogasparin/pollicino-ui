@@ -10,7 +10,7 @@
 
 ### Install
 
-```
+``` sh
 npm i pollicino-ui
 ```
 
@@ -20,7 +20,7 @@ This UI components are meant to be used independently.
 
 The recommended way of adding them to your project is to create a dedicated file, re-exporting all components that you need.  
 
-```js
+``` js static
 export { default as Btn } from 'pollicino-ui/lib/Btn';
 export { default as Dropdown } from 'pollicino-ui/lib/Dropdown';
 //...
@@ -28,7 +28,7 @@ export { default as Dropdown } from 'pollicino-ui/lib/Dropdown';
 
 Moreover, you will also need to include relevant scss styles. So, in your main scss file, add:
 
-``` scss
+```scss
 @import '~pollicino-ui/lib/Btn/style';
 @import '~pollicino-ui/lib/Dropdown/style';
 //...
@@ -41,7 +41,7 @@ Moreover, you will also need to include relevant scss styles. So, in your main s
 Some components (Icon, FormFieldPassword, ...) require SVG icons to work. In the examples, I'm using some Material Design icons, but you are free to use whatever set you like.
 Just configure Webpack to alias `assets/icons` and add an svg loader like `svg-sprite-loader` to ensure `require` works:
 
-```js
+``` js static
 // webpack.config.js
 module.exports = {
   //...

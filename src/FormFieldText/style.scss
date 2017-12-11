@@ -52,16 +52,3 @@
     right: 0;
   }
 }
-
-/**
- * Modifiers
- */
-
-.FormField--text.FormField--invert {
-}
-
-.FormField--text.FormField--invert .FormField {
-  &-control {
-    @include FormField-control--inverted;
-  }
-}

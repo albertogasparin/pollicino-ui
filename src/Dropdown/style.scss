@@ -17,6 +17,8 @@
 
 .Dropdown {
   position: relative;
+  display: inline-flex;
+  max-width: 100%;
 
   &.isDisabled {
     .Dropdown-btn {
@@ -34,9 +36,11 @@
     @include button-reset;
     @include text-clip;
     position: relative;
+    flex-grow: 1;
     max-width: 100%;
     min-height: 1.1em;
     padding-right: 1.4em;
+    line-height: $Pollicino-FormField-height;
 
     &::after {
       content: '';
@@ -156,6 +160,7 @@
 }
 
 .Dropdown--cover {
+  display: block;
 }
 
 .Dropdown--cover .Dropdown {

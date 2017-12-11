@@ -67,16 +67,3 @@
     margin-top: -2px; // align
   }
 }
-
-/**
- * Modifiers
- */
-
-.FormField--suggest.FormField--invert {
-}
-
-.FormField--suggest.FormField--invert .FormField {
-  &-control {
-    @include FormField-control--inverted;
-  }
-}

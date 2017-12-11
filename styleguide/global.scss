@@ -1,0 +1,81 @@
+@import 'scss/core';
+
+/* PLAIN ELEMENTS STYLE
+   =============================================== */
+
+html {
+  font-family: Helvetica, sans-serif;
+  font-size: 15px;
+  // color: $color-text;
+  // touch-action: manipulation; // iOS fast tap
+  // background: $color-background;
+}
+
+h4 {
+  clear: both;
+  margin: 0 0 1rem;
+  padding: 2.5rem 0 0.5rem;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #999;
+  border-bottom: 1px solid #CCC;
+}
+
+pre {
+  overflow-x: auto !important;
+}
+
+table {
+  th {
+    &:nth-child(1) { width: 10em; }
+    &:nth-child(2) { width: 7em; }
+    &:nth-child(3) { width: 10em; }
+  }
+
+  tbody tr:nth-child(2n+1) { background: #F7F7F9; }
+}
+
+.preview-row {
+  display: flex;
+  flex-direction: row;
+}
+.preview-col-light,
+.preview-col-dark {
+  padding: 1rem;
+  flex-basis: 50%;
+  max-width: 50%;
+  box-sizing: border-box;
+}
+.preview-col-light {
+  color: #222;
+  background: #FFF;
+  border-radius: 3px 0 0 3px;
+}
+.preview-col-dark {
+  color: #FFF;
+  background: #333335;
+  border-radius: 0 3px 3px 0;
+}
+
+
+/* Modules imports
+   =============================================== */
+
+@import 'src/Btn/style';
+@import 'src/Collapsible/style';
+@import 'src/Dropdown/style';
+@import 'src/FormFieldColor/style';
+@import 'src/FormFieldDate/style';
+@import 'src/FormFieldNumber/style';
+@import 'src/FormFieldPassword/style';
+@import 'src/FormFieldRange/style';
+@import 'src/FormFieldSelect/style';
+@import 'src/FormFieldSelectGroup/style';
+@import 'src/FormFieldSuggest/style';
+@import 'src/FormFieldText/style';
+@import 'src/FormFieldTextarea/style';
+@import 'src/FormFieldTick/style';
+@import 'src/Icon/style';
+
+@import 'src/Modal/style';
+.Modal { box-sizing: border-box; position: relative; padding: 1rem 0; }

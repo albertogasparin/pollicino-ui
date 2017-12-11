@@ -33,7 +33,8 @@
     "lint": "eslint --ext .js,.jsx --ignore-path .gitignore . && (prettier --list-different \"{src,scss,test}/**/*.{js,scss}\" || (echo \"$(tput setaf 1)Linting failed, please check files above$(tput sgr0)\"; exit 1)) && stylelint --syntax scss \"src/**/*.scss\"",
     "clean": "rm -rf ./lib && rm -rf ./coverage && rm -rf ./.nyc_output",
     "prewatch": "npm run clean -s",
-    "watch": "start-storybook -p 9001"
+    "watch": "styleguidist server --config ./styleguide/config.js",
+    "styleguide:build": "styleguidist build --config ./styleguide/config.js"
   },
   "dependencies": {
     "lodash": "^4.1.0",
@@ -46,10 +47,6 @@
     "react-dom": "^15.0.0 || ^16.0.0"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "~3.2.15",
-    "@storybook/addon-info": "~3.2.15",
-    "@storybook/addon-options": "~3.2.15",
-    "@storybook/react": "~3.2.15",
     "autoprefixer": "~7.1.6",
     "babel-cli": "~6.26.0",
     "babel-core": "^6.24.0",
@@ -70,10 +67,11 @@
     "mocha": "~3.5.0",
     "node-sass": "~4.6.1",
     "postcss-loader": "~2.0.8",
-    "prettier": "~1.8.2",
     "react": "~16.1.0",
     "react-dom": "~16.1.0",
     "react-test-renderer": "~16.1.0",
+    "prettier": "~1.9.1",
+    "react-styleguidist": "~6.0.33",
     "require-hacker": "~2.1.4",
     "sass-loader": "~6.0.6",
     "style-loader": "~0.19.0",

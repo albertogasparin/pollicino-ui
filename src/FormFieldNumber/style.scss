@@ -75,16 +75,3 @@
     }
   }
 }
-
-/**
- * Modifiers
- */
-
-.FormField--number.FormField--invert {
-}
-
-.FormField--number.FormField--invert .FormField {
-  &-control {
-    @include FormField-control--inverted;
-  }
-}

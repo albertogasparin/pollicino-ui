@@ -33,16 +33,3 @@
     line-height: 1.5;
   }
 }
-
-/**
- * Field modifiers
- */
-
-.FormField--textarea.FormField--invert {
-}
-
-.FormField--textarea.FormField--invert .FormField {
-  &-control {
-    @include FormField-control--inverted;
-  }
-}

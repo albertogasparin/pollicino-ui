@@ -24,6 +24,19 @@ module.exports = {
   module: {
     rules: [
       {
+        // JS/JSX loader + hot reload
+        test: /\.jsx?$/,
+        include: path.join(root, 'src'),
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+            },
+          },
+        ],
+      },
+      {
         // CSS/SASS loader + autoprefixer
         test: /\.scss$/,
         use: [

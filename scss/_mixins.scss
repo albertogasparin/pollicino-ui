@@ -102,10 +102,6 @@
     }
   }
 
-  &-control {
-    line-height: 1.4;
-  }
-
   &.isInvalid .FormField {
     &-label {
       color: $Pollicino-color-error;
@@ -144,7 +140,7 @@
   padding: 0 rem($Pollicino-padding);
   border: 1px solid $Pollicino-color-lighter;
   border-radius: $Pollicino-border-radius;
-  background: #fff;
+  background: rgba(#fff, 0.15);
   box-shadow: inset 0 2px 5px rgba(#111, 0.15);
   appearance: none;
   font: inherit;
@@ -178,10 +174,6 @@
   &--iconLeft {
     padding-left: $Pollicino-FormField-height;
   }
-}
-
-@mixin FormField-control--inverted {
-  background: rgba(#fff, 0.15);
 }
 
 @mixin FormField-isDisabled {

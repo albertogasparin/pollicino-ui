@@ -341,7 +341,7 @@ class FormFieldDate extends Component {
         {yearDropdown && minYear !== maxYear ? (
           <FormFieldSelect
             className="DayPicker-yearField"
-            value={date.getFullYear()}
+            value={String(date.getFullYear())}
             options={_range(minYear, maxYear + 1).map(v => ({
               label: v,
               value: v,
@@ -360,7 +360,7 @@ class FormFieldDate extends Component {
         {...localization}
         firstDayOfWeek={firstDayOfWeek}
         modifiers={modifiers}
-        enableOutsideDays
+        showOutsideDays
         month={month}
         captionElement={DayPickerHeader}
         onDayClick={this.handleDayClick}

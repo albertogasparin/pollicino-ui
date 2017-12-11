@@ -45,9 +45,6 @@
     .DayPicker-wrapper {
       padding: 0.3rem 0 0;
     }
-    .DayPicker-NavBar {
-      top: 0.3rem;
-    }
 
     .DayPicker-Month {
       width: 100%;
@@ -55,8 +52,7 @@
     }
 
     .DayPicker-NavButton {
-      border: 0.3rem solid transparent;
-      box-sizing: border-box;
+      top: 0.2rem;
     }
 
     .DayPicker-Caption {
@@ -67,6 +63,7 @@
       display: inline-block;
       line-height: inherit;
       vertical-align: top;
+      font-size: inherit;
 
       .FormField-field {
         height: 1.5rem;
@@ -74,20 +71,29 @@
     }
 
     .DayPicker-Day {
+      border-radius: 0 !important;
+
       &--today {
         color: $Pollicino-color-secondary;
       }
       &--outside {
         color: $Pollicino-color-lighter;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #f0f8ff;
+        }
       }
 
       &--isDisabled {
-        background: #f4f4f4;
+        cursor: auto;
         color: $Pollicino-color-lighter;
+        background: none !important;
+        text-decoration: line-through;
       }
 
       &--isSelected {
-        background: $Pollicino-color-primary;
+        background: $Pollicino-color-primary !important;
         color: #fff;
       }
 

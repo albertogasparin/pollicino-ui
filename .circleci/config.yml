@@ -1,0 +1,49 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/pollicino-ui
+
+    docker:
+      - image: node:8.9
+
+    steps:
+      - checkout
+
+      - run:
+          name: Pre-Dependencies
+          command: mkdir -p ~/pollicino-ui/artifacts
+
+      - restore_cache:
+          key: pollicino-ui-{{ checksum "package.json" }}
+
+      - run:
+          name: Install Dependencies
+          command: npm i --silent
+
+      - run:
+          name: Install CI Dependencies
+          command: npm i --silent mocha-junit-reporter
+
+      - save_cache:
+          key: pollicino-ui-{{ checksum "package.json" }}
+          paths:
+            - "~/.npm"
+            - "~/pollicino-ui/node_modules"
+
+      - run:
+          name: Run Linting
+          command: npm run lint -s
+
+      - run:
+          name: Run Unit Tests
+          command: npm run test:unit -- --reporter mocha-junit-reporter
+          environment:
+            MOCHA_FILE: ./artifacts/unit-results.xml
+
+      - store_test_results:
+          path: ~/pollicino-ui/artifacts
+
+      - store_artifacts:
+          path: ~/pollicino-ui/artifacts
+          destination: artifacts
+

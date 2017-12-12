@@ -40,7 +40,7 @@
     max-width: 100%;
     min-height: 1.1em;
     padding-right: 1.4em;
-    line-height: $Pollicino-FormField-height;
+    line-height: $Pollicino-FormField-height / 1rem + 0em; // stylelint-disable-line length-zero-no-unit
 
     &::after {
       content: '';

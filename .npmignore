@@ -5,6 +5,7 @@
 .editorconfig
 .stylelintrc
 .eslintrc.js
+.circleci
 jsconfig.json
 webpack.config.js
 
@@ -17,3 +18,4 @@ assets
 # Ignore tests
 **/__tests__
 tests
+styleguide

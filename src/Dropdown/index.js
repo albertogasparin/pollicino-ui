@@ -60,7 +60,7 @@ class Dropdown extends Component {
     }
   }
 
-  handleClickOutside = ev => {
+  handleClickOutside = (ev) => {
     let isClickOutside =
       !this.el || !this.el.contains(ev.target) || this.el === ev.target;
     if (this.props.autoClose || isClickOutside) {
@@ -122,7 +122,7 @@ class Dropdown extends Component {
       <div
         className={'Dropdown ' + className}
         style={style}
-        ref={c => (this.el = c)}
+        ref={(c) => (this.el = c)}
       >
         {typeof label !== 'undefined' && (
           <button

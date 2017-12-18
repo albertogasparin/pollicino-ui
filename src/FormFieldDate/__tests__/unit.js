@@ -276,7 +276,7 @@ describe('<FormFieldDate />', () => {
       expect(props.onBlur).to.have.been.called;
     });
 
-    it('should call onChange prop', done => {
+    it('should call onChange prop', (done) => {
       setTimeout(() => {
         expect(props.onChange).to.have.been.called;
         done();

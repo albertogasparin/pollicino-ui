@@ -72,7 +72,7 @@ class FormFieldColor extends Component {
     this.setPropsToState(nextProps);
   }
 
-  setPropsToState = props => {
+  setPropsToState = (props) => {
     let val = props.value || props.defaultValue;
     this.setState(
       ({ touched }) => ({
@@ -87,17 +87,17 @@ class FormFieldColor extends Component {
     );
   };
 
-  handleChange = color => {
+  handleChange = (color) => {
     this.setState({ val: color, ...this.validate(color, false) });
     this.triggerOnChange(color);
   };
 
-  handleFocus = ev => {
+  handleFocus = (ev) => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
   };
 
-  handleBlur = ev => {
+  handleBlur = (ev) => {
     this.setState(({ val }) => ({
       focused: false,
       touched: true,

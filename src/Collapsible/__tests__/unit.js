@@ -68,7 +68,7 @@ describe('<Collapsible />', () => {
         expect(props.onExpand).to.have.been.called;
       });
 
-      it('should unset isAnimating after a delay', done => {
+      it('should unset isAnimating after a delay', (done) => {
         instance.handleToggle();
         instance.el = {};
         setTimeout(() => {

@@ -112,7 +112,7 @@ class FormFieldSuggest extends Component {
     this.setPropsToState(nextProps);
   }
 
-  setPropsToState = props => {
+  setPropsToState = (props) => {
     let val = props.value;
     let opts = [...props.options];
     this.setState(
@@ -131,12 +131,12 @@ class FormFieldSuggest extends Component {
     );
   };
 
-  getAsyncOptions = _debounce(input => {
+  getAsyncOptions = _debounce((input) => {
     return this.props
       .loadOptions(input)
-      .then(options => {
+      .then((options) => {
         if (this.controlEl) {
-          this.setState(prevState => ({
+          this.setState((prevState) => ({
             cache: { ...prevState.cache, [input]: options },
             isLoading: prevState.input === input ? false : prevState.isLoading,
           }));
@@ -149,7 +149,7 @@ class FormFieldSuggest extends Component {
       });
   }, this.props.debounceLoad);
 
-  handleInputChange = ev => {
+  handleInputChange = (ev) => {
     let { cache } = this.state;
     let input = ev.target.value;
     this.setState({ input });
@@ -160,7 +160,7 @@ class FormFieldSuggest extends Component {
     }
   };
 
-  handleSelect = option => {
+  handleSelect = (option) => {
     let { labelKey, valueKey } = this.props;
 
     if (!option) {
@@ -173,13 +173,13 @@ class FormFieldSuggest extends Component {
     this.setState({ val: option, changed: true });
   };
 
-  handleFocus = ev => {
+  handleFocus = (ev) => {
     this.setState({ focused: true });
     clearTimeout(this.blurTimeout);
     this.props.onFocus(ev);
   };
 
-  handleBlur = ev => {
+  handleBlur = (ev) => {
     ev.persist();
     // wait click
     this.blurTimeout = setTimeout(() => {
@@ -203,7 +203,7 @@ class FormFieldSuggest extends Component {
   };
 
   // eslint-disable-next-line complexity
-  handleKeyDown = ev => {
+  handleKeyDown = (ev) => {
     let { valueKey, allowAny } = this.props;
     let { val, input } = this.state;
 
@@ -279,7 +279,7 @@ class FormFieldSuggest extends Component {
     );
   };
 
-  renderOptions = opts => {
+  renderOptions = (opts) => {
     let {
       valueKey,
       labelKey,
@@ -347,7 +347,7 @@ class FormFieldSuggest extends Component {
               'FormField-control' +
               (allowAny && input ? ' FormField-control--iconR' : '')
             }
-            ref={c => (this.controlEl = c)}
+            ref={(c) => (this.controlEl = c)}
             style={{ width: `calc(${size}ch + 2em)` }}
             type="text"
             value={input || (val && val[labelKey]) || ''}

@@ -70,8 +70,8 @@ class FormFieldSelectGroup extends Component {
     onChange() {},
     onFocus() {},
     validation() {},
-    valueRenderer: op =>
-      Array.isArray(op) ? op.map(o => o.label).join(', ') : op.label,
+    valueRenderer: (op) =>
+      Array.isArray(op) ? op.map((o) => o.label).join(', ') : op.label,
   };
 
   state = {
@@ -88,7 +88,7 @@ class FormFieldSelectGroup extends Component {
     this.setPropsToState(nextProps);
   }
 
-  setPropsToState = props => {
+  setPropsToState = (props) => {
     let val = this.normalizeValue(props.value);
     let opts = [
       ...(props.hidePlaceholder
@@ -110,19 +110,19 @@ class FormFieldSelectGroup extends Component {
     );
   };
 
-  normalizeValue = value => {
+  normalizeValue = (value) => {
     if (!Array.isArray(value)) {
       value = typeof value !== 'undefined' ? [value] : [];
     }
     return value;
   };
 
-  returnValue = val => {
+  returnValue = (val) => {
     return this.props.multiple ? val : val[0];
   };
 
-  findOptions = val => {
-    let options = this.state.opts.filter(o => val.indexOf(o.value) !== -1);
+  findOptions = (val) => {
+    let options = this.state.opts.filter((o) => val.indexOf(o.value) !== -1);
     return options.length ? options : null;
   };
 
@@ -151,12 +151,12 @@ class FormFieldSelectGroup extends Component {
     this.triggerOnChange(this.returnValue(val));
   };
 
-  handleFocus = ev => {
+  handleFocus = (ev) => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
   };
 
-  handleBlur = ev => {
+  handleBlur = (ev) => {
     this.setState(({ val }) => ({
       focused: false,
       touched: true,
@@ -180,7 +180,7 @@ class FormFieldSelectGroup extends Component {
     return { error };
   };
 
-  renderSelectGroup = checkedOpts => {
+  renderSelectGroup = (checkedOpts) => {
     let { opts } = this.state;
     let { inline, multiple, optionsPerRow } = this.props;
 
@@ -211,8 +211,8 @@ class FormFieldSelectGroup extends Component {
                   'readOnly'
                 )}
                 onChange={this.handleChange}
-                onFocus={ev => inline && this.handleFocus(ev)}
-                onBlur={ev => inline && this.handleBlur(ev)}
+                onFocus={(ev) => inline && this.handleFocus(ev)}
+                onBlur={(ev) => inline && this.handleBlur(ev)}
               />
             </li>
           ))}
@@ -258,7 +258,7 @@ class FormFieldSelectGroup extends Component {
           ) : (
             <Dropdown
               className="Dropdown--field"
-              ref={c => (this.dropdownEl = c)}
+              ref={(c) => (this.dropdownEl = c)}
               label={valueRenderer(multiple ? checkedOpts : checkedOpts[0])}
               align={align}
               disabled={disabled || readOnly}

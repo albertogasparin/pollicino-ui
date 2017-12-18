@@ -74,7 +74,7 @@ class FormFieldTick extends Component {
     this.setPropsToState(nextProps);
   }
 
-  setPropsToState = props => {
+  setPropsToState = (props) => {
     let val = props.value;
     this.setState(
       ({ touched }) => ({
@@ -92,7 +92,7 @@ class FormFieldTick extends Component {
     );
   };
 
-  handleChange = ev => {
+  handleChange = (ev) => {
     let { type, value, disabled, readOnly } = this.props;
     let checked =
       type !== 'radio' || !this.state.checked ? !this.state.checked : true;
@@ -103,12 +103,12 @@ class FormFieldTick extends Component {
     this.triggerOnChange(value, checked);
   };
 
-  handleFocus = ev => {
+  handleFocus = (ev) => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
   };
 
-  handleBlur = ev => {
+  handleBlur = (ev) => {
     this.setState({ focused: false, touched: true });
     this.props.onBlur(ev);
   };

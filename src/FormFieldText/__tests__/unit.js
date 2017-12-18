@@ -88,7 +88,7 @@ describe('<FormFieldText />', () => {
       expect(instance.state.val).to.eql('a');
     });
 
-    it('should call onChange', done => {
+    it('should call onChange', (done) => {
       instance.handleChange(ev);
 
       setTimeout(() => {
@@ -97,7 +97,7 @@ describe('<FormFieldText />', () => {
       }, 10);
     });
 
-    it('should call updated prop onChange', done => {
+    it('should call updated prop onChange', (done) => {
       let onChange2 = td.func('onChange');
       wrapper.setProps({ onChange: onChange2 });
       instance.handleChange(ev);

@@ -171,7 +171,7 @@ describe('<FormFieldSelectGroup />', () => {
         expect(instance.state.val).to.eql(['a']);
       });
 
-      it('should call onChange', done => {
+      it('should call onChange', (done) => {
         instance.handleChange('a');
         setTimeout(() => {
           expect(props.onChange).to.have.been.calledWith('a');
@@ -204,7 +204,7 @@ describe('<FormFieldSelectGroup />', () => {
         expect(instance.state.val).to.eql(['a', 'c']);
       });
 
-      it('should call onChange', done => {
+      it('should call onChange', (done) => {
         instance.handleChange('a');
         setTimeout(() => {
           expect(props.onChange).to.have.been.calledWith(['a']);

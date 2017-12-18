@@ -100,7 +100,7 @@ class Collapsible extends Component {
       <div
         className={'Collapsible ' + className}
         style={style}
-        ref={c => (this.el = c)}
+        ref={(c) => (this.el = c)}
       >
         <header className="Collapsible-header">
           {header}

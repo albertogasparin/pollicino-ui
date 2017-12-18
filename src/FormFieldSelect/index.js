@@ -59,7 +59,7 @@ class FormFieldSelect extends Component {
     onChange() {},
     onFocus() {},
     validation() {},
-    valueRenderer: v => v,
+    valueRenderer: (v) => v,
   };
 
   state = {
@@ -76,7 +76,7 @@ class FormFieldSelect extends Component {
     this.setPropsToState(nextProps);
   }
 
-  setPropsToState = props => {
+  setPropsToState = (props) => {
     let val = props.value;
     let opts = [{ label: props.placeholder, value: '' }, ...props.options];
     this.setState(
@@ -94,15 +94,15 @@ class FormFieldSelect extends Component {
     );
   };
 
-  findOption = val => {
+  findOption = (val) => {
     let option = null;
     this.state.opts.some(
-      o => (String(o.value) === String(val) ? ((option = o), true) : false)
+      (o) => (String(o.value) === String(val) ? ((option = o), true) : false)
     );
     return option;
   };
 
-  handleChange = ev => {
+  handleChange = (ev) => {
     let { opts } = this.state;
     let val = opts[ev.target.selectedIndex].value;
 
@@ -110,12 +110,12 @@ class FormFieldSelect extends Component {
     this.triggerOnChange(val);
   };
 
-  handleFocus = ev => {
+  handleFocus = (ev) => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
   };
 
-  handleBlur = ev => {
+  handleBlur = (ev) => {
     this.setState({ focused: false, touched: true });
     this.props.onBlur(ev);
   };

@@ -114,14 +114,14 @@ describe('<FormFieldSuggest />', () => {
         instance.getAsyncOptions('a');
       });
 
-      it('should unset loading if input has not changed', done => {
+      it('should unset loading if input has not changed', (done) => {
         setTimeout(() => {
           expect(instance.state.isLoading).to.eql(false);
           done();
         }, 20);
       });
 
-      it('should not change loading if input has changed', done => {
+      it('should not change loading if input has changed', (done) => {
         instance.state.input = 'b';
         setTimeout(() => {
           expect(instance.state.isLoading).to.eql(true);
@@ -129,7 +129,7 @@ describe('<FormFieldSuggest />', () => {
         }, 20);
       });
 
-      it('should set cache key', done => {
+      it('should set cache key', (done) => {
         setTimeout(() => {
           expect(instance.state.cache).to.eql({
             a: [{ id: 'a' }],
@@ -140,7 +140,7 @@ describe('<FormFieldSuggest />', () => {
     });
 
     describe('on error', () => {
-      it('should unset loading if input has not changed', done => {
+      it('should unset loading if input has not changed', (done) => {
         td.when(props.loadOptions('a')).thenReject();
         instance.getAsyncOptions('a');
         setTimeout(() => {
@@ -225,7 +225,7 @@ describe('<FormFieldSuggest />', () => {
   describe('handleBlur()', () => {
     let props, instance;
 
-    beforeEach(done => {
+    beforeEach((done) => {
       props = {
         debounce: 0,
         onChange: td.func('onChange'),

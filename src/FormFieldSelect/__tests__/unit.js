@@ -117,7 +117,7 @@ describe('<FormFieldSelect />', () => {
       expect(instance.state.val).to.eql('a');
     });
 
-    it('should call onChange', done => {
+    it('should call onChange', (done) => {
       props = {
         value: '',
         options: [{ label: 'A', value: 'a' }],

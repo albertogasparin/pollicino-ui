@@ -31,7 +31,7 @@
     "test": "npm run test:unit -s",
     "test:unit": "NODE_ENV=test mocha $($npm_package_config_testfiles) $npm_package_config_mochaargs",
     "test:unit:watch": "npm run test:unit -- --watch --watch-extensions jsx,json --reporter nyan",
-    "lint": "eslint --ext .js,.jsx --ignore-path .gitignore \"!(docs|lib)/**/*.js\" && (prettier --list-different \"{src,scss,test}/**/*.{js,scss}\" || (echo \"$(tput setaf 1)Linting failed, please check files above$(tput sgr0)\"; exit 1)) && stylelint --syntax scss \"src/**/*.scss\"",
+    "lint": "eslint --ext .js,.jsx --ignore-path .gitignore \"!(docs|lib)/**/*.js\" && prettier --write \"{src,scss,test}/**/*.{js,scss}\" && stylelint --syntax scss \"src/**/*.scss\"",
     "clean": "rm -rf ./lib && rm -rf ./coverage && rm -rf ./.nyc_output",
     "prewatch": "npm run clean -s",
     "watch": "styleguidist server --config ./styleguide/config.js",

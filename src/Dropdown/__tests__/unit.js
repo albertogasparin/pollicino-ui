@@ -55,7 +55,7 @@ describe('<Dropdown />', () => {
   describe('Lifecycle', () => {
     let props, wrapper;
 
-    it('should open on opened change', done => {
+    it('should open on opened change', (done) => {
       props = {};
       wrapper = shallow(<Dropdown {...props} />);
       wrapper.instance().el = {};
@@ -69,7 +69,7 @@ describe('<Dropdown />', () => {
       }, 30);
     });
 
-    it('should close on opened change', done => {
+    it('should close on opened change', (done) => {
       props = { opened: true };
       wrapper = shallow(<Dropdown {...props} />);
       wrapper.instance().el = {};
@@ -93,7 +93,7 @@ describe('<Dropdown />', () => {
       instance.handleOpen();
     });
 
-    it('should lazily add a click ev listener on document', done => {
+    it('should lazily add a click ev listener on document', (done) => {
       setTimeout(() => {
         expect(global.document.addEventListener).to.have.been.calledWith(
           'click',
@@ -134,7 +134,7 @@ describe('<Dropdown />', () => {
       expect(props.onClose).to.have.been.called;
     });
 
-    it('should set isOpen state after a short delay', done => {
+    it('should set isOpen state after a short delay', (done) => {
       setTimeout(() => {
         expect(instance.state.isOpen).to.eql(false);
         done();

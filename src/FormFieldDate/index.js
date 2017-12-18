@@ -101,13 +101,13 @@ class FormFieldDate extends Component {
     this.setPropsToState(nextProps);
   }
 
-  setPropsToState = props => {
+  setPropsToState = (props) => {
     let val = this.normalizeValue(props.value);
     let opts = [
       ...(props.hidePlaceholder
         ? []
         : [{ label: props.placeholder, value: '' }]),
-      ...props.options.map(o => ({
+      ...props.options.map((o) => ({
         label: o.label,
         value: this.normalizeValue(o.value),
       })),
@@ -131,7 +131,7 @@ class FormFieldDate extends Component {
     );
   };
 
-  normalizeValue = value => {
+  normalizeValue = (value) => {
     if (!Array.isArray(value)) {
       value = value ? [value, value] : [];
     }
@@ -142,7 +142,7 @@ class FormFieldDate extends Component {
     return this.props.isRange ? val : val[0] || '';
   };
 
-  formatDate = day => {
+  formatDate = (day) => {
     return (
       day.getFullYear() +
       '-' +
@@ -152,7 +152,7 @@ class FormFieldDate extends Component {
     );
   };
 
-  isDayDisabled = day => {
+  isDayDisabled = (day) => {
     let { minDate, maxDate } = this.props;
     return (
       (minDate && this.formatDate(day) < this.formatDate(minDate)) ||
@@ -160,10 +160,10 @@ class FormFieldDate extends Component {
     );
   };
 
-  findOption = value => {
+  findOption = (value) => {
     let option = null;
     this.state.opts.some(
-      o =>
+      (o) =>
         o.value[0] === value[0] && o.value[1] === value[1]
           ? (option = o)
           : false
@@ -223,12 +223,12 @@ class FormFieldDate extends Component {
     this.setState({ month: new Date(y, date.getMonth()) });
   };
 
-  handleFocus = ev => {
+  handleFocus = (ev) => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
   };
 
-  handleBlur = ev => {
+  handleBlur = (ev) => {
     this.setState(({ val }) => ({
       focused: false,
       touched: true,
@@ -253,7 +253,7 @@ class FormFieldDate extends Component {
     return { error };
   };
 
-  renderFieldLabel = val => {
+  renderFieldLabel = (val) => {
     let checkedOpt = this.findOption(val);
     if (checkedOpt) {
       return checkedOpt.label;
@@ -295,7 +295,7 @@ class FormFieldDate extends Component {
             delay={0}
             checked={o === checkedOpt}
             value={o.value}
-            onChange={v => this.handleChange(false, v)}
+            onChange={(v) => this.handleChange(false, v)}
           />
         ))}
         {showCustomOpt && (
@@ -306,7 +306,7 @@ class FormFieldDate extends Component {
             delay={0}
             checked={showPicker || (!checkedOpt && val.length > 0)}
             value="custom"
-            onChange={v => this.handleChange(true, v)}
+            onChange={(v) => this.handleChange(true, v)}
           />
         )}
         {(showPicker || !showCustomOpt || (!checkedOpt && val.length > 0)) &&
@@ -326,7 +326,7 @@ class FormFieldDate extends Component {
     } = this.props;
     let { val, month } = this.state;
     let modifiers = {
-      isSelected: day => {
+      isSelected: (day) => {
         let d = this.formatDate(day);
         return isRange ? d >= val[0] && d <= val[1] : d === val[0];
       },
@@ -342,11 +342,11 @@ class FormFieldDate extends Component {
           <FormFieldSelect
             className="DayPicker-yearField"
             value={String(date.getFullYear())}
-            options={_range(minYear, maxYear + 1).map(v => ({
+            options={_range(minYear, maxYear + 1).map((v) => ({
               label: v,
               value: v,
             }))}
-            onChange={v => this.handleYearChange(date, v)}
+            onChange={(v) => this.handleYearChange(date, v)}
           />
         ) : (
           date.getFullYear()
@@ -393,7 +393,7 @@ class FormFieldDate extends Component {
         <div className="FormField-field">
           <Dropdown
             className="Dropdown--field"
-            ref={c => (this.dropdownEl = c)}
+            ref={(c) => (this.dropdownEl = c)}
             label={this.renderFieldLabel(val)}
             align={align}
             disabled={disabled || readOnly}

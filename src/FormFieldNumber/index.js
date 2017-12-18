@@ -83,7 +83,7 @@ class FormFieldNumber extends Component {
     this.setPropsToState(nextProps);
   }
 
-  setPropsToState = props => {
+  setPropsToState = (props) => {
     let val = Number(props.value);
     this.setState(
       ({ touched }) => ({
@@ -99,7 +99,7 @@ class FormFieldNumber extends Component {
     );
   };
 
-  clamp = val => {
+  clamp = (val) => {
     let { min, max, decimals } = this.props;
     val = Number(val.toFixed(decimals));
     if (typeof min !== 'undefined' && val < min) {
@@ -121,6 +121,7 @@ class FormFieldNumber extends Component {
     return Number((val1 + val2).toFixed(decimals));
   };
 
+  // eslint-disable-next-line complexity
   handleChange = (ev, val) => {
     let { error, focused } = this.state;
     let isValProvided = typeof val === 'number';
@@ -143,7 +144,7 @@ class FormFieldNumber extends Component {
     this.triggerOnChange(val);
   };
 
-  handleFocus = ev => {
+  handleFocus = (ev) => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
   };
@@ -220,7 +221,7 @@ class FormFieldNumber extends Component {
                 tagName="span"
                 className="FormField-spin FormField-spin--plus"
                 disabled={disabled}
-                onClick={ev =>
+                onClick={(ev) =>
                   this.handleChange(ev, this.preciseSum(val, step))
                 }
               />
@@ -231,7 +232,7 @@ class FormFieldNumber extends Component {
                 tagName="span"
                 className="FormField-spin FormField-spin--minus"
                 disabled={disabled}
-                onClick={ev =>
+                onClick={(ev) =>
                   this.handleChange(ev, this.preciseSum(val, -step))
                 }
               />

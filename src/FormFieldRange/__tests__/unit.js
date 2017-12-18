@@ -79,7 +79,7 @@ describe('<FormFieldRange />', () => {
       expect(instance.state.val).to.eql(1);
     });
 
-    it('should call onChange', done => {
+    it('should call onChange', (done) => {
       props = { value: 0, onChange: td.func('onChange'), debounce: 0 };
       instance = shallow(<FormFieldRange {...props} />).instance();
       instance.handleChange(ev);

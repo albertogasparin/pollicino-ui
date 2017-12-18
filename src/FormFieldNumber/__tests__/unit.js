@@ -77,7 +77,7 @@ describe('<FormFieldNumber />', () => {
       { value: 1, step: -0.0001, result: 0.9999, decimals: 5 },
     ];
 
-    tests.forEach(t =>
+    tests.forEach((t) =>
       it(`should handle ${t.value} + ${t.step} sum nicely`, () => {
         props = { value: t.value, decimals: t.decimals };
         instance = shallow(<FormFieldNumber {...props} />).instance();
@@ -123,7 +123,7 @@ describe('<FormFieldNumber />', () => {
       expect(instance.state.val).to.eql(-2);
     });
 
-    it('should call onChange', done => {
+    it('should call onChange', (done) => {
       props = { value: 1, onChange: td.func('onChange'), debounce: 0 };
       instance = shallow(<FormFieldNumber {...props} />).instance();
       instance.handleChange(ev);

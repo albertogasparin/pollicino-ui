@@ -78,7 +78,7 @@ class FormFieldText extends Component {
     this.setPropsToState(nextProps);
   }
 
-  setPropsToState = props => {
+  setPropsToState = (props) => {
     let val = props.value;
     this.setState(
       ({ touched }) => ({
@@ -94,7 +94,7 @@ class FormFieldText extends Component {
     );
   };
 
-  handleChange = ev => {
+  handleChange = (ev) => {
     let { error, focused } = this.state;
     let val = ev.target.value;
 
@@ -105,12 +105,12 @@ class FormFieldText extends Component {
     this.triggerOnChange(val);
   };
 
-  handleFocus = ev => {
+  handleFocus = (ev) => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
   };
 
-  handleBlur = ev => {
+  handleBlur = (ev) => {
     this.setState(({ val }) => ({
       focused: false,
       touched: true,
@@ -168,7 +168,7 @@ class FormFieldText extends Component {
             style={{ width: `calc(${size}ch + 2em)` }}
             value={val}
             {..._pick(this.props, INPUT_PROPS)}
-            onChange={ev => this.handleChange(ev)}
+            onChange={(ev) => this.handleChange(ev)}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
           />

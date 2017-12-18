@@ -84,7 +84,7 @@ describe('<FormFieldColor />', () => {
       expect(instance.state.val).to.eql(color);
     });
 
-    it('should call onChange', done => {
+    it('should call onChange', (done) => {
       instance.handleChange(color);
 
       setTimeout(() => {

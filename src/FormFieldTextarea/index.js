@@ -77,7 +77,7 @@ class FormFieldTextarea extends Component {
     this.setPropsToState(nextProps);
   }
 
-  setPropsToState = props => {
+  setPropsToState = (props) => {
     let val = props.value;
     this.setState(
       ({ touched }) => ({
@@ -93,7 +93,7 @@ class FormFieldTextarea extends Component {
     );
   };
 
-  handleChange = ev => {
+  handleChange = (ev) => {
     let { error, focused } = this.state;
     let val = ev.target.value;
 
@@ -104,12 +104,12 @@ class FormFieldTextarea extends Component {
     this.triggerOnChange(val);
   };
 
-  handleFocus = ev => {
+  handleFocus = (ev) => {
     this.setState({ focused: true });
     this.props.onFocus(ev);
   };
 
-  handleBlur = ev => {
+  handleBlur = (ev) => {
     this.setState(({ val }) => ({
       focused: false,
       touched: true,

@@ -124,9 +124,16 @@ class FormFieldNumber extends Component {
   handleChange = (ev, val) => {
     let { error, focused } = this.state;
     let isValProvided = typeof val === 'number';
-    val = this.clamp(
-      isValProvided ? val : Number(ev.target.value.replace(/[^0-9.]/g, ''))
-    );
+    let { target } = ev;
+    if (isValProvided) {
+      val = this.clamp(val);
+    } else {
+      if (target.value === '') {
+        window.requestAnimationFrame(() => (target.value = ''));
+        return;
+      }
+      val = Number(target.value.replace(/[^\d.-]/g, ''));
+    }
 
     this.setState({
       val,
@@ -141,12 +148,18 @@ class FormFieldNumber extends Component {
     this.props.onFocus(ev);
   };
 
-  handleBlur = ev => {
-    this.setState(({ val }) => ({
+  handleBlur = (ev) => {
+    let { val } = this.state;
+    let clamped = this.clamp(val);
+    if (clamped !== val) {
+      this.triggerOnChange(clamped);
+    }
+    this.setState({
       focused: false,
       touched: true,
-      ...this.validate(val, false),
-    }));
+      val: clamped,
+      ...this.validate(clamped, false),
+    });
     this.props.onBlur(ev);
   };
 
@@ -192,7 +205,7 @@ class FormFieldNumber extends Component {
             id={id}
             className="FormField-control"
             type="number"
-            pattern="[0-9\.]*"
+            pattern="[\d.-]*"
             style={{ width: `calc(${size}ch + 2em)` }}
             autoComplete="off"
             value={val}

@@ -4,7 +4,7 @@ Default style with min, max
 <FormFieldNumber
   name={state.uid}
   label="Label"
-  min={5}
+  min={-10}
   max={10}
   value={state.value}
   onChange={v => setState({ value: v })}

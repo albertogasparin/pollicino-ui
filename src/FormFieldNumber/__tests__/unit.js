@@ -107,18 +107,18 @@ describe('<FormFieldNumber />', () => {
       expect(instance.state.val).to.eql(2);
     });
 
-    it('should clamp value based on min', () => {
+    it('should clamp provided value based on min', () => {
       props = { value: 0, min: 2 };
       instance = shallow(<FormFieldNumber {...props} />).instance();
-      instance.handleChange(ev);
+      instance.handleChange(ev, 2);
 
       expect(instance.state.val).to.eql(2);
     });
 
-    it('should clamp value based on max', () => {
+    it('should clamp provided value based on max', () => {
       props = { value: 0, max: -2 };
       instance = shallow(<FormFieldNumber {...props} />).instance();
-      instance.handleChange(ev);
+      instance.handleChange(ev, 2);
 
       expect(instance.state.val).to.eql(-2);
     });
@@ -168,11 +168,21 @@ describe('<FormFieldNumber />', () => {
     beforeEach(() => {
       props = {
         value: 0,
+        min: 1,
+        onChange: td.func('onChange'),
         onBlur: td.func('onBlur'),
         validation: td.func('validation'),
+        debounce: 0,
       };
       instance = shallow(<FormFieldNumber {...props} />).instance();
       instance.handleBlur();
+    });
+
+    it('should call onChange if clamped value differs', (done) => {
+      setTimeout(() => {
+        expect(props.onChange).to.have.been.calledWith(1);
+        done();
+      }, 10);
     });
 
     it('should unset focused state', () => {

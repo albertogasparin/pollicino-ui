@@ -74,7 +74,8 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
     z-index: $Pollicino-Btn-tip-zIndex; // over other stuff
   }
 
-  &:hover {
+  &:hover,
+  &[aria-selected='true'] {
     background-image: linear-gradient(transparent, currentColor);
     background-size: 100% 5000%;
     background-position: 50% 8%;

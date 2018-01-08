@@ -102,6 +102,7 @@ class FormFieldSuggest extends Component {
     input: '',
     isLoading: false,
     touched: false,
+    kbdFocusIdx: -1,
   };
 
   componentWillMount() {
@@ -139,24 +140,29 @@ class FormFieldSuggest extends Component {
           this.setState((prevState) => ({
             cache: { ...prevState.cache, [input]: options },
             isLoading: prevState.input === input ? false : prevState.isLoading,
+            opts: options,
           }));
         }
       })
       .catch(() => {
         if (this.controlEl && this.state.input === input) {
-          this.setState({ isLoading: false });
+          this.setState({ isLoading: false, opts: [] });
         }
       });
   }, this.props.debounceLoad);
 
   handleInputChange = (ev) => {
-    let { cache } = this.state;
+    let { options, filterOptions } = this.props;
+    let { cache, val } = this.state;
     let input = ev.target.value;
-    this.setState({ input });
 
+    this.setState({ input, kbdFocusIdx: -1 });
     if (this.props.loadOptions && !cache[input]) {
       this.setState({ isLoading: true });
       this.getAsyncOptions(input);
+    }
+    if (!this.props.loadOptions) {
+      this.setState({ opts: filterOptions([...options], input, val) });
     }
   };
 
@@ -171,6 +177,7 @@ class FormFieldSuggest extends Component {
     }
 
     this.setState({ val: option, changed: true });
+    this.controlEl.blur(); // trigger field blur
   };
 
   handleFocus = (ev) => {
@@ -190,7 +197,8 @@ class FormFieldSuggest extends Component {
           focused: false,
           touched: true,
           changed: false,
-          input: '',
+          kbdFocusIdx: -1,
+          ...(!val ? { input: '', opts: this.props.options } : {}),
           ...this.validate(val, false),
         });
       }
@@ -205,21 +213,28 @@ class FormFieldSuggest extends Component {
   // eslint-disable-next-line complexity
   handleKeyDown = (ev) => {
     let { valueKey, allowAny } = this.props;
-    let { val, input } = this.state;
-
+    let { val, input, kbdFocusIdx, opts } = this.state;
     switch (ev.keyCode) {
       case 13: // enter
         ev.preventDefault(); // don't submit the form
-        if (allowAny) {
+        if (opts[kbdFocusIdx]) {
+          this.handleSelect(opts[kbdFocusIdx]);
+        } else if (allowAny) {
           this.handleSelect(input);
-          this.controlEl.blur(); // trigger field blur
         }
         break;
       case 8: // backspace
       case 46: // canc
-        if ((val && !val.isNewOption) || input.length === 1) {
-          this.setState({ val: null, input: '', changed: true });
+        if (val) {
+          this.setState({ val: null, changed: true });
         }
+        break;
+      case 38: // up
+      case 40: // down
+        kbdFocusIdx += ev.keyCode === 38 ? -1 : 1;
+        kbdFocusIdx = Math.max(0, Math.min(kbdFocusIdx, opts.length - 1));
+        this.setState({ kbdFocusIdx });
+        ev.preventDefault();
         break;
       default:
         if (val && val.isNewOption) {
@@ -239,9 +254,28 @@ class FormFieldSuggest extends Component {
     return { error };
   };
 
+  kbdScrollIntoView = (el) => {
+    let parent = el.parentNode;
+    let eDim = el.getBoundingClientRect();
+    let pDim = parent.getBoundingClientRect();
+    let startY = parent.scrollTop;
+    let endY = startY;
+    let offsetY = startY + eDim.top - pDim.top;
+    let topEdge = offsetY - 20;
+    let bottomEdge = offsetY + eDim.height - pDim.height + 20;
+
+    if (topEdge < startY) {
+      endY = topEdge;
+    }
+    if (bottomEdge > startY) {
+      endY = bottomEdge;
+    }
+    parent.scrollTop = endY;
+  };
+
   renderOverlay = () => {
-    let { loadOptions, rows } = this.props;
-    let { opts } = this.state;
+    let { loadOptions, rows, noInputText } = this.props;
+    let { isLoading, input } = this.state;
     return (
       <Dropdown
         className="Dropdown--cover Dropdown--field"
@@ -253,42 +287,21 @@ class FormFieldSuggest extends Component {
           className="FormField-options"
           style={{ maxHeight: Number(rows) * 2.26 + 'rem' }}
         >
-          {loadOptions ? this.renderAsyncOptions() : this.renderOptions(opts)}
+          {loadOptions && (isLoading || !input) ? (
+            <li className="FormField-noOptions">
+              {isLoading ? <Icon glyph="loading" /> : noInputText}
+            </li>
+          ) : (
+            this.renderOptions()
+          )}
         </ul>
       </Dropdown>
     );
   };
 
-  renderAsyncOptions = () => {
-    let { noInputText } = this.props;
-    let { input, val, isLoading, cache } = this.state;
-
-    if (val && !input) {
-      return this.renderOptions([val]);
-    }
-
-    let opts = cache[input];
-    if (opts) {
-      return this.renderOptions(opts);
-    }
-
-    return (
-      <li className="FormField-noOptions">
-        {input && isLoading ? <Icon glyph="loading" /> : noInputText}
-      </li>
-    );
-  };
-
-  renderOptions = (opts) => {
-    let {
-      valueKey,
-      labelKey,
-      filterOptions,
-      optionRenderer,
-      noOptionsText,
-    } = this.props;
-    let { input, val } = this.state;
-    opts = filterOptions([...opts], input, val);
+  renderOptions = () => {
+    let { valueKey, labelKey, optionRenderer, noOptionsText } = this.props;
+    let { opts, val, kbdFocusIdx } = this.state;
 
     if (!opts.length) {
       return <li className="FormField-noOptions">{noOptionsText}</li>;
@@ -297,17 +310,24 @@ class FormFieldSuggest extends Component {
     return opts.map((opt, i) => (
       <li
         key={opt[valueKey]}
+        ref={(c) => c && kbdFocusIdx === i && this.kbdScrollIntoView(c)}
         className={
           'FormField-option ' +
           (val && val[valueKey] === opt[valueKey] ? ' isSelected' : '') +
-          (opt.isNewOption ? ' isNew' : '')
+          (opt.isNewOption ? ' isNew' : '') +
+          (kbdFocusIdx === i ? ' isFocused' : '')
         }
         onClick={() => this.handleSelect(opt)}
       >
         {optionRenderer ? (
           optionRenderer(opt)
         ) : (
-          <Btn className="Btn--plain Btn--line">{opt[labelKey]}</Btn>
+          <Btn
+            className="Btn--plain Btn--line"
+            aria-selected={kbdFocusIdx === i}
+          >
+            {opt[labelKey]}
+          </Btn>
         )}
       </li>
     ));
@@ -350,7 +370,7 @@ class FormFieldSuggest extends Component {
             ref={(c) => (this.controlEl = c)}
             style={{ width: `calc(${size}ch + 2em)` }}
             type="text"
-            value={input || (val && val[labelKey]) || ''}
+            value={val ? val[labelKey] : input}
             {..._pick(this.props, INPUT_PROPS)}
             autoComplete="off"
             onKeyDown={this.handleKeyDown}

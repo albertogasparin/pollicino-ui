@@ -18,7 +18,7 @@ Default style
     { label: 'Eleven', value: 11 },
   ]}
   value={state.value}
-  onChange={v => setState({ value: v })}
+  onChange={(v) => setState({ value: v })}
 />
 ```
 
@@ -32,21 +32,21 @@ Block level label, custom placeholder, async options
   placeholder="Select a user"
   valueKey="id"
   labelKey="login"
-  loadOptions={v => {
+  loadOptions={(v) => {
     if (!v) {
       return Promise.resolve(null);
     }
     return window
       .fetch(`https://api.github.com/search/users?q=${v}`)
-      .then(resp => resp.json())
-      .then(json => {
+      .then((resp) => resp.json())
+      .then((json) => {
         return json.items;
       });
   }}
 />
 ```
 
-Invalid, inline, custom size, allowAny, labelKey, valueKey, rows
+Invalid, inline, custom size, allowAny, labelKey, valueKey, rows, filter
 
 ```js
 <div>
@@ -59,6 +59,11 @@ Invalid, inline, custom size, allowAny, labelKey, valueKey, rows
     allowAny
     rows="3.5"
     size="10"
+    filterOptions={(opts, input) =>
+      opts.filter(
+        (o) => o.lb.includes(input) || String(o.vl).includes(input)
+      )
+    }
     options={[
       { lb: 'One', vl: 1 },
       { lb: 'Two', vl: 2 },
@@ -73,7 +78,7 @@ Invalid, inline, custom size, allowAny, labelKey, valueKey, rows
       { lb: 'Eleven', vl: 11 },
     ]}
     touched
-    validation={o => (!o || o.vl > 10) && 'Please chose a number < 10'}
+    validation={(o) => (!o || o.vl > 10) && 'Please chose a number < 10'}
   />
   <span> &nbsp; </span>
   <Btn className="Btn--primary" disabled>

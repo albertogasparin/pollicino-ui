@@ -7,25 +7,33 @@ import td from 'testdouble';
 
 import FormFieldSuggest from '..';
 
+const render = (props) => {
+  let wrapper = shallow(<FormFieldSuggest {...props} />);
+  return {
+    wrapper,
+    instance: /** @type {FormFieldSuggest} */ (wrapper.instance()),
+  };
+};
+
 describe('<FormFieldSuggest />', () => {
   describe('DOM', () => {
     it('should render', () => {
       let props = {};
-      let wrapper = shallow(<FormFieldSuggest {...props} />);
+      let { wrapper } = render(props);
 
       expect(wrapper.type()).to.equal('div');
     });
 
     it('should be valid by default', () => {
       let props = {};
-      let wrapper = shallow(<FormFieldSuggest {...props} />);
+      let { wrapper } = render(props);
       expect(wrapper.hasClass('isInvalid')).to.eql(false);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(0);
     });
 
     it('should show error if any', () => {
       let props = {};
-      let wrapper = shallow(<FormFieldSuggest {...props} />);
+      let { wrapper } = render(props);
       wrapper.setState({ error: 'Error' });
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
@@ -41,7 +49,7 @@ describe('<FormFieldSuggest />', () => {
         value: { id: 1 },
         validation: td.func('validation'),
       };
-      wrapper = shallow(<FormFieldSuggest {...props} />);
+      ({ wrapper } = render(props));
     });
 
     it('should set state', () => {
@@ -56,6 +64,7 @@ describe('<FormFieldSuggest />', () => {
         val: { id: 1 },
         cache: {},
         changed: false,
+        kbdFocusIdx: -1,
       });
     });
 
@@ -72,6 +81,7 @@ describe('<FormFieldSuggest />', () => {
         val: { id: 1 },
         cache: {},
         changed: false,
+        kbdFocusIdx: -1,
       });
     });
 
@@ -89,6 +99,7 @@ describe('<FormFieldSuggest />', () => {
         val: { id: 2 },
         cache: {},
         changed: false,
+        kbdFocusIdx: -1,
       });
     });
 
@@ -103,8 +114,8 @@ describe('<FormFieldSuggest />', () => {
 
     beforeEach(() => {
       props = { debounceLoad: 0, loadOptions: td.func('loadOptions') };
-      instance = shallow(<FormFieldSuggest {...props} />).instance();
-      instance.controlEl = {};
+      ({ instance } = render(props));
+      instance.controlEl = td.object(['blur']);
       instance.setState({ input: 'a', isLoading: true });
     });
 
@@ -141,7 +152,7 @@ describe('<FormFieldSuggest />', () => {
 
     describe('on error', () => {
       it('should unset loading if input has not changed', (done) => {
-        td.when(props.loadOptions('a')).thenReject();
+        td.when(props.loadOptions('a')).thenReject(new Error());
         instance.getAsyncOptions('a');
         setTimeout(() => {
           expect(instance.state.isLoading).to.eql(false);
@@ -152,20 +163,19 @@ describe('<FormFieldSuggest />', () => {
   });
 
   describe('handleInputChange()', () => {
-    let props, instance;
     let ev = { target: { value: '3' } };
 
     it('should update input state', () => {
-      props = { value: { id: 1 } };
-      instance = shallow(<FormFieldSuggest {...props} />).instance();
+      let props = { value: { id: 1 } };
+      let { instance } = render(props);
       instance.handleInputChange(ev);
 
       expect(instance.state.input).to.eql('3');
     });
 
     it('should set loading if async options', () => {
-      props = { loadOptions: td.func('loadOptions') };
-      instance = shallow(<FormFieldSuggest {...props} />).instance();
+      let props = { loadOptions: td.func('loadOptions') };
+      let { instance } = render(props);
       instance.getAsyncOptions = td.func('getAsyncOptions');
       instance.handleInputChange(ev);
 
@@ -173,8 +183,8 @@ describe('<FormFieldSuggest />', () => {
     });
 
     it('should call loadOptions if async options', () => {
-      props = { loadOptions: td.func('loadOptions') };
-      instance = shallow(<FormFieldSuggest {...props} />).instance();
+      let props = { loadOptions: td.func('loadOptions') };
+      let { instance } = render(props);
       instance.getAsyncOptions = td.func('getAsyncOptions');
       instance.handleInputChange(ev);
 
@@ -191,7 +201,8 @@ describe('<FormFieldSuggest />', () => {
         onBlur: td.func('onBlur'),
         validation: td.func('validation'),
       };
-      instance = shallow(<FormFieldSuggest {...props} />).instance();
+      ({ instance } = render(props));
+      instance.controlEl = td.object(['blur']);
       instance.handleSelect({ id: 1 });
     });
 
@@ -209,7 +220,7 @@ describe('<FormFieldSuggest />', () => {
 
     beforeEach(() => {
       props = { onFocus: td.func('onFocus') };
-      instance = shallow(<FormFieldSuggest {...props} />).instance();
+      ({ instance } = render(props));
       instance.handleFocus();
     });
 
@@ -232,11 +243,11 @@ describe('<FormFieldSuggest />', () => {
         onBlur: td.func('onBlur'),
         validation: td.func('validation'),
       };
-      instance = shallow(<FormFieldSuggest {...props} />).instance();
-      instance.controlEl = {};
+      ({ instance } = render(props));
+      instance.controlEl = td.object(['blur']);
       instance.handleFocus();
       instance.handleSelect(null);
-      instance.handleBlur({ persist() {} });
+      instance.handleBlur(td.object(['persist']));
       setTimeout(done, 320); // some calls are async
     });
 
@@ -264,7 +275,7 @@ describe('<FormFieldSuggest />', () => {
 
     beforeEach(() => {
       props = { value: null, validation: td.func('validation') };
-      instance = shallow(<FormFieldSuggest {...props} />).instance();
+      ({ instance } = render(props));
     });
 
     it('should call validation prop', () => {

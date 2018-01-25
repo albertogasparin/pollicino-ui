@@ -84,7 +84,7 @@
 
   &--radiobox {
     display: block;
-    line-height: calc($Pollicino-FormField-height - 2px);
+    line-height: calc(#{$Pollicino-FormField-height} - 2px);
 
     .FormField {
       &-tick {

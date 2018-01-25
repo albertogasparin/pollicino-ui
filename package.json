@@ -1,6 +1,6 @@
 {
   "name": "pollicino-ui",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "description": "Clean, Material Design inspired React UI component library",
   "author": "Alberto Gasparin",
   "main": "lib/index.js",

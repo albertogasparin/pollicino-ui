@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
+import { withDebounce, withValidation } from '../HOC';
 import Btn from '../Btn';
 import Icon from '../Icon';
 import Dropdown from '../Dropdown';
@@ -20,6 +21,7 @@ const INPUT_PROPS = [
       className?: string
       debounceLoad?: number
       disabled?: boolean
+      error?: any
       id?: string
       label?
       labelKey?: string
@@ -32,7 +34,6 @@ const INPUT_PROPS = [
       rows?: string | number
       size?: string | number
       style?: Object
-      touched?: boolean
       value?: Object
       valueKey?: string
       filterOptions?: Function
@@ -41,7 +42,6 @@ const INPUT_PROPS = [
       onChange?: Function
       onFocus?: Function
       optionRenderer?: Function
-      validation?: Function
     }, any>}
  */
 class FormFieldSuggest extends Component {
@@ -50,6 +50,7 @@ class FormFieldSuggest extends Component {
     className: PropTypes.string,
     debounceLoad: PropTypes.number,
     disabled: PropTypes.bool,
+    error: PropTypes.any,
     id: PropTypes.string,
     label: PropTypes.node,
     labelKey: PropTypes.string,
@@ -62,7 +63,6 @@ class FormFieldSuggest extends Component {
     rows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     style: PropTypes.object,
-    touched: PropTypes.bool,
     value: PropTypes.object,
     valueKey: PropTypes.string,
     filterOptions: PropTypes.func,
@@ -71,7 +71,6 @@ class FormFieldSuggest extends Component {
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     optionRenderer: PropTypes.func,
-    validation: PropTypes.func,
   };
 
   static defaultProps = {
@@ -91,17 +90,14 @@ class FormFieldSuggest extends Component {
     onChange() {},
     onFocus() {},
     optionRenderer: null,
-    validation() {},
   };
 
   state = {
     cache: {},
     changed: false,
-    error: null,
     focused: false,
     input: '',
     isLoading: false,
-    touched: false,
     kbdFocusIdx: -1,
   };
 
@@ -115,21 +111,12 @@ class FormFieldSuggest extends Component {
 
   setPropsToState = (props) => {
     let val = props.value;
-    let opts = [...props.options];
-    this.setState(
-      ({ touched, val: prevVal }) => ({
-        val,
-        opts,
-        id: props.id || (props.name && 'ff-suggest-' + props.name),
-        ...(prevVal !== props.value ? { input: '' } : {}),
-        ...(props.touched ? { touched: true } : {}),
-      }),
-      () => {
-        if (this.state.touched) {
-          this.validate();
-        }
-      }
-    );
+    this.setState(({ val: prevVal, opts }) => ({
+      val,
+      opts: props.options.length ? props.options : opts || [],
+      id: props.id || (props.name && 'ff-suggest-' + props.name),
+      ...(prevVal !== props.value ? { input: '' } : {}),
+    }));
   };
 
   getAsyncOptions = _debounce((input) => {
@@ -195,14 +182,11 @@ class FormFieldSuggest extends Component {
         // still mounted
         this.setState({
           focused: false,
-          touched: true,
           changed: false,
           kbdFocusIdx: -1,
           ...(!val ? { input: '', opts: this.props.options } : {}),
-          ...this.validate(val, false),
         });
       }
-
       if (changed) {
         this.props.onChange(val);
       }
@@ -244,14 +228,6 @@ class FormFieldSuggest extends Component {
           ev.preventDefault();
         }
     }
-  };
-
-  validate = (val = this.state.val, updateState = true) => {
-    let error = this.props.validation(val) || null;
-    if (updateState && error !== this.state.error) {
-      this.setState({ error });
-    }
-    return { error };
   };
 
   kbdScrollIntoView = (el) => {
@@ -344,8 +320,9 @@ class FormFieldSuggest extends Component {
       size,
       labelKey,
       allowAny,
+      error,
     } = this.props;
-    let { id, val, error, focused, input } = this.state;
+    let { id, val, focused, input } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += readOnly ? ' isReadOnly' : '';
     className += error ? ' isInvalid' : '';
@@ -395,11 +372,12 @@ class FormFieldSuggest extends Component {
               </span>
             )}
 
-          {error && <p className="FormField-error">{error}</p>}
+          {error && <div className="FormField-error">{error}</div>}
         </div>
       </div>
     );
   }
 }
 
-export default FormFieldSuggest;
+export default withDebounce(withValidation(FormFieldSuggest));
+export { FormFieldSuggest };

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import _debounce from 'lodash/debounce';
 import ColorPicker from 'react-simple-colorpicker';
 
+import { withDebounce, withValidation } from '../HOC';
 import Dropdown from '../Dropdown';
 
 /**
@@ -10,58 +10,50 @@ import Dropdown from '../Dropdown';
  * @augments {Component<{
       align?: 'left' | 'right'
       className?: string
-      debounce?: number
       defaultValue?: string
       disabled?: boolean
-      label?
+      error?: any
+      label?: any
       opacity?: boolean
       readOnly?: boolean
       style?: Object
       tabIndex?: number
-      touched?: boolean
       value?: string
       onBlur?: Function
       onChange?: Function
       onFocus?: Function
-      validation?: Function
     }, any>}
  */
 class FormFieldColor extends Component {
   static propTypes = {
     align: PropTypes.oneOf(['left', 'right']),
     className: PropTypes.string,
-    debounce: PropTypes.number,
     defaultValue: PropTypes.string,
     disabled: PropTypes.bool,
+    error: PropTypes.any,
     label: PropTypes.node,
     opacity: PropTypes.bool,
     readOnly: PropTypes.bool,
     style: PropTypes.object,
     tabIndex: PropTypes.number,
-    touched: PropTypes.bool,
     value: PropTypes.string,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
-    validation: PropTypes.func,
   };
 
   static defaultProps = {
     align: 'left',
     className: '',
-    debounce: 200,
     defaultValue: 'rgba(0,0,0,1)',
     value: '',
     onBlur() {},
     onChange() {},
     onFocus() {},
-    validation() {},
   };
 
   state = {
-    error: null,
     focused: false,
-    touched: false,
   };
 
   componentWillMount() {
@@ -74,22 +66,12 @@ class FormFieldColor extends Component {
 
   setPropsToState = (props) => {
     let val = props.value || props.defaultValue;
-    this.setState(
-      ({ touched }) => ({
-        val,
-        ...(props.touched ? { touched: true } : {}),
-      }),
-      () => {
-        if (this.state.touched) {
-          this.validate();
-        }
-      }
-    );
+    this.setState({ val });
   };
 
   handleChange = (color) => {
-    this.setState({ val: color, ...this.validate(color, false) });
-    this.triggerOnChange(color);
+    this.setState({ val: color });
+    this.props.onChange(color);
   };
 
   handleFocus = (ev) => {
@@ -98,27 +80,8 @@ class FormFieldColor extends Component {
   };
 
   handleBlur = (ev) => {
-    this.setState(({ val }) => ({
-      focused: false,
-      touched: true,
-      ...this.validate(val, false),
-    }));
+    this.setState({ focused: false });
     this.props.onBlur(ev);
-  };
-
-  triggerOnChange = _debounce((...args) => {
-    this.props.onChange(...args); // call the fresh prop
-  }, this.props.debounce);
-
-  /*
-   * @public
-   */
-  validate = (val = this.state.val, updateState = true) => {
-    let error = this.props.validation(val) || null;
-    if (updateState && error !== this.state.error) {
-      this.setState({ error });
-    }
-    return { error };
   };
 
   renderFieldValue = () => {
@@ -146,11 +109,12 @@ class FormFieldColor extends Component {
       style,
       label,
       disabled,
+      error,
       readOnly,
       align,
       tabIndex,
     } = this.props;
-    let { error } = this.state;
+
     className += disabled ? ' isDisabled' : '';
     className += readOnly ? ' isReadOnly' : '';
     className += error ? ' isInvalid' : '';
@@ -172,11 +136,12 @@ class FormFieldColor extends Component {
           >
             {this.renderDropdownContent()}
           </Dropdown>
-          {error && <p className="FormField-error">{error}</p>}
+          {error && <div className="FormField-error">{error}</div>}
         </div>
       </div>
     );
   }
 }
 
-export default FormFieldColor;
+export default withDebounce(withValidation(FormFieldColor));
+export { FormFieldColor };

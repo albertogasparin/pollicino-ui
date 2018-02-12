@@ -4,16 +4,16 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
 
 @keyframes BtnClicked {
   0% {
-    transform: scale(1);
+    transform: scaleY(1);
   }
   30% {
-    transform: scale(0.9);
+    transform: scaleY(0.8);
   }
   70% {
-    transform: scale(1.05);
+    transform: scaleY(1.1);
   }
   100% {
-    transform: scale(1);
+    transform: scaleY(1);
   }
 }
 

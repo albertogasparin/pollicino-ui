@@ -27,7 +27,7 @@ Invalid, inline
     className="FormField--inline"
     touched
     label="Label"
-    validation={v => v === 'rgba(0,0,0,1)' && 'Black\u00A0not\u00A0allowed'}
+    validation={v => (!v || v === 'rgba(0,0,0,1)') && 'Black\u00A0not\u00A0allowed'}
   />
   <span> &nbsp; </span>
   <Btn className="Btn--primary" disabled>

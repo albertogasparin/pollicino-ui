@@ -37,7 +37,9 @@ Invalid, inline, custom size, icon left
     size="14"
     iconLeft={<Icon glyph="magnify" />}
     touched
-    validation={v => v.length < 3 && 'Write at least 3 chars'}
+    value={state.value}
+    onChange={v => setState({ value: v })}
+    validation={v => (!v || v.length < 3) && 'Write at least 3 chars'}
   />
   <span>&nbsp; </span>
   <Btn className="Btn--primary" disabled>

@@ -23,7 +23,7 @@ Smaller with right tooltip
 Custom tagName, secondary and line
 
 ```js
-<Btn tagName="a" href="javascript:void()" className="Btn--secondary Btn--line">
+<Btn tagName="a" href="javascript:" className="Btn--secondary Btn--line">
   Button long
 </Btn>
 ```

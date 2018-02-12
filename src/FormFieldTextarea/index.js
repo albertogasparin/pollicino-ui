@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
+
+import { withDebounce, withValidation } from '../HOC';
 
 // prettier-ignore
 const INPUT_PROPS = [
@@ -15,58 +16,50 @@ const INPUT_PROPS = [
       [x:string]: any
       className?: string
       cols?: string | number
-      debounce?: number
       disabled?: boolean
+      error?: any
       id?: string
       label?
       name?: string
       readOnly?: boolean
       rows?: string | number
       style?: Object
-      touched?: boolean
       value?: string
       onBlur?: Function
       onChange?: Function
       onFocus?: Function
-      validation?: Function
     }, any>}
  */
 class FormFieldTextarea extends Component {
   static propTypes = {
     className: PropTypes.string,
     cols: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    debounce: PropTypes.number,
     disabled: PropTypes.bool,
+    error: PropTypes.any,
     id: PropTypes.string,
     label: PropTypes.node,
     name: PropTypes.string,
     readOnly: PropTypes.bool,
     rows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     style: PropTypes.object,
-    touched: PropTypes.bool,
     value: PropTypes.string,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
-    validation: PropTypes.func,
   };
 
   static defaultProps = {
     className: '',
     cols: 100,
-    debounce: 200,
     value: '',
     rows: 3,
     onBlur() {},
     onChange() {},
     onFocus() {},
-    validation() {},
   };
 
   state = {
-    error: null,
     focused: false,
-    touched: false,
   };
 
   componentWillMount() {
@@ -79,29 +72,16 @@ class FormFieldTextarea extends Component {
 
   setPropsToState = (props) => {
     let val = props.value;
-    this.setState(
-      ({ touched }) => ({
-        val,
-        id: props.id || (props.name && 'ff-textarea-' + props.name),
-        ...(props.touched ? { touched: true } : {}),
-      }),
-      () => {
-        if (this.state.touched) {
-          this.validate();
-        }
-      }
-    );
+    this.setState({
+      val,
+      id: props.id || (props.name && 'ff-textarea-' + props.name),
+    });
   };
 
   handleChange = (ev) => {
-    let { error, focused } = this.state;
     let val = ev.target.value;
-
-    this.setState({
-      val,
-      ...(error && focused ? this.validate(val, false) : {}),
-    });
-    this.triggerOnChange(val);
+    this.setState({ val });
+    this.props.onChange(val);
   };
 
   handleFocus = (ev) => {
@@ -110,27 +90,8 @@ class FormFieldTextarea extends Component {
   };
 
   handleBlur = (ev) => {
-    this.setState(({ val }) => ({
-      focused: false,
-      touched: true,
-      ...this.validate(val, false),
-    }));
+    this.setState({ focused: false });
     this.props.onBlur(ev);
-  };
-
-  triggerOnChange = _debounce((...args) => {
-    this.props.onChange(...args); // call the fresh prop
-  }, this.props.debounce);
-
-  /*
-   * @public
-   */
-  validate = (val = this.state.val, updateState = true) => {
-    let error = this.props.validation(val) || null;
-    if (updateState && error !== this.state.error) {
-      this.setState({ error });
-    }
-    return { error };
   };
 
   render() {
@@ -142,8 +103,9 @@ class FormFieldTextarea extends Component {
       readOnly,
       cols,
       rows,
+      error,
     } = this.props;
-    let { id, val, error, focused } = this.state;
+    let { id, val, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += readOnly ? ' isReadOnly' : '';
     className += error ? ' isInvalid' : '';
@@ -172,11 +134,12 @@ class FormFieldTextarea extends Component {
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
           />
-          {error && <p className="FormField-error">{error}</p>}
+          {error && <div className="FormField-error">{error}</div>}
         </div>
       </div>
     );
   }
 }
 
-export default FormFieldTextarea;
+export default withDebounce(withValidation(FormFieldTextarea));
+export { FormFieldTextarea };

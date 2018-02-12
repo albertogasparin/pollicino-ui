@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
+import { withDebounce, withValidation } from '../HOC';
 import Dropdown from '../Dropdown';
 import FormFieldTick from '../FormFieldTick';
 
@@ -11,8 +11,8 @@ import FormFieldTick from '../FormFieldTick';
  * @augments {Component<{
       align?: 'left' | 'right'
       className?: string
-      debounce?: number
       disabled?: boolean
+      error?: any
       hidePlaceholder?: boolean
       id?: string
       inline?: 'tabbed' | boolean
@@ -24,12 +24,10 @@ import FormFieldTick from '../FormFieldTick';
       placeholder?: string
       readOnly?: boolean,
       style?: any
-      touched?: boolean
       value?
       onBlur?: Function
       onChange?: Function
       onFocus?: Function
-      validation?: Function
       valueRenderer?: Function
     }, any>}
  */
@@ -37,8 +35,8 @@ class FormFieldSelectGroup extends Component {
   static propTypes = {
     align: PropTypes.oneOf(['left', 'right']),
     className: PropTypes.string,
-    debounce: PropTypes.number,
     disabled: PropTypes.bool,
+    error: PropTypes.any,
     hidePlaceholder: PropTypes.bool,
     id: PropTypes.string,
     inline: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
@@ -50,34 +48,28 @@ class FormFieldSelectGroup extends Component {
     placeholder: PropTypes.string,
     readOnly: PropTypes.bool,
     style: PropTypes.object,
-    touched: PropTypes.bool,
     value: PropTypes.any,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
-    validation: PropTypes.func,
     valueRenderer: PropTypes.func,
   };
 
   static defaultProps = {
     align: 'left',
     className: '',
-    debounce: 200,
     optionsPerRow: 1,
     placeholder: '— Select —',
     value: '',
     onBlur() {},
     onChange() {},
     onFocus() {},
-    validation() {},
     valueRenderer: (op) =>
       Array.isArray(op) ? op.map((o) => o.label).join(', ') : op.label,
   };
 
   state = {
-    error: null,
     focused: false,
-    touched: false,
   };
 
   componentWillMount() {
@@ -96,18 +88,10 @@ class FormFieldSelectGroup extends Component {
         : [{ label: props.placeholder, value: '' }]),
       ...props.options,
     ];
-    this.setState(
-      ({ touched }) => ({
-        val,
-        opts,
-        ...(props.touched ? { touched: true } : {}),
-      }),
-      () => {
-        if (this.state.touched) {
-          this.validate();
-        }
-      }
-    );
+    this.setState({
+      val,
+      opts,
+    });
   };
 
   normalizeValue = (value) => {
@@ -126,9 +110,9 @@ class FormFieldSelectGroup extends Component {
     return options.length ? options : null;
   };
 
-  handleChange = (value, checked) => {
+  handleChange = (value) => {
     let { multiple } = this.props;
-    let { val, error } = this.state;
+    let { val } = this.state;
 
     if (multiple) {
       let idx = val.indexOf(value);
@@ -140,15 +124,12 @@ class FormFieldSelectGroup extends Component {
       val = [value];
     }
 
-    this.setState({
-      val,
-      ...(error ? this.validate(val, false) : {}),
-    });
+    this.setState({ val });
 
     if (this.dropdownEl) {
       this.dropdownEl.handleClose();
     }
-    this.triggerOnChange(this.returnValue(val));
+    this.props.onChange(this.returnValue(val));
   };
 
   handleFocus = (ev) => {
@@ -157,27 +138,8 @@ class FormFieldSelectGroup extends Component {
   };
 
   handleBlur = (ev) => {
-    this.setState(({ val }) => ({
-      focused: false,
-      touched: true,
-      ...this.validate(val, false),
-    }));
+    this.setState({ focused: false });
     this.props.onBlur(ev);
-  };
-
-  triggerOnChange = _debounce((...args) => {
-    this.props.onChange(...args); // call the fresh prop
-  }, this.props.debounce);
-
-  /*
-   * @public
-   */
-  validate = (val = this.state.val, updateState = true) => {
-    let error = this.props.validation(this.returnValue(val)) || null;
-    if (updateState && error !== this.state.error) {
-      this.setState({ error });
-    }
-    return { error };
   };
 
   renderSelectGroup = (checkedOpts) => {
@@ -200,7 +162,6 @@ class FormFieldSelectGroup extends Component {
               <FormFieldTick
                 type={multiple ? 'checkbox' : 'radio'}
                 label={opt.label}
-                debounce={0}
                 checked={checkedOpts.indexOf(opt) !== -1}
                 value={opt.value}
                 {..._pick(
@@ -210,7 +171,7 @@ class FormFieldSelectGroup extends Component {
                   'tabIndex',
                   'readOnly'
                 )}
-                onChange={this.handleChange}
+                onChange={() => this.handleChange(opt.value)}
                 onFocus={(ev) => inline && this.handleFocus(ev)}
                 onBlur={(ev) => inline && this.handleBlur(ev)}
               />
@@ -233,8 +194,9 @@ class FormFieldSelectGroup extends Component {
       placeholder,
       align,
       multiple,
+      error,
     } = this.props;
-    let { val, error, focused } = this.state;
+    let { val, focused } = this.state;
     let checkedOpts = this.findOptions(val) || [
       { label: placeholder, value: val },
     ];
@@ -248,6 +210,7 @@ class FormFieldSelectGroup extends Component {
       <div
         className={'FormField FormField--selectGroup ' + className}
         style={style}
+        data-inline={String(this.props.inline)}
       >
         {typeof label !== 'undefined' && (
           <label className="FormField-label">{label}</label>
@@ -268,11 +231,14 @@ class FormFieldSelectGroup extends Component {
               {this.renderSelectGroup(checkedOpts)}
             </Dropdown>
           )}
-          {error && <p className="FormField-error">{error}</p>}
+          {error && <div className="FormField-error">{error}</div>}
         </div>
       </div>
     );
   }
 }
 
-export default FormFieldSelectGroup;
+export default withDebounce(
+  withValidation(FormFieldSelectGroup, { immediate: true })
+);
+export { FormFieldSelectGroup };

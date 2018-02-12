@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
 
+import { withDebounce, withValidation } from '../HOC';
 import Icon from '../Icon';
 
 const INPUT_PROPS = ['name', 'disabled', 'tabIndex', 'type'];
@@ -13,57 +13,49 @@ const INPUT_PROPS = ['name', 'disabled', 'tabIndex', 'type'];
       [x:string]: any
       checked?: boolean
       className?: string
-      debounce?: number
       disabled?: boolean
+      error?: any
       id?: string
       label?
       name?: string
       readOnly?: boolean
       style?: any
-      touched?: boolean
       type?: 'radio' | 'checkbox'
       value?: string
       onBlur?: Function
       onChange?: Function
       onFocus?: Function
-      validation?: Function
     }, any>}
  */
 class FormFieldTick extends Component {
   static propTypes = {
     checked: PropTypes.bool,
     className: PropTypes.string,
-    debounce: PropTypes.number,
     disabled: PropTypes.bool,
+    error: PropTypes.any,
     id: PropTypes.string,
     label: PropTypes.node,
     name: PropTypes.string,
     readOnly: PropTypes.bool,
     style: PropTypes.object,
-    touched: PropTypes.bool,
     type: PropTypes.oneOf(['radio', 'checkbox']),
     value: PropTypes.any,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
-    validation: PropTypes.func,
   };
 
   static defaultProps = {
     checked: false,
     className: '',
-    debounce: 50,
     type: 'radio',
     onBlur() {},
     onChange() {},
     onFocus() {},
-    validation() {},
   };
 
   state = {
-    error: null,
     focused: false,
-    touched: false,
   };
 
   componentWillMount() {
@@ -76,31 +68,23 @@ class FormFieldTick extends Component {
 
   setPropsToState = (props) => {
     let val = props.value;
-    this.setState(
-      ({ touched }) => ({
-        id:
-          props.id ||
-          'ff-tick-' + props.name + '-' + String(val).replace(/[^\w]/g, ''),
-        checked: props.checked,
-        ...(props.touched ? { touched: true } : {}),
-      }),
-      () => {
-        if (this.state.touched) {
-          this.validate();
-        }
-      }
-    );
+    this.setState({
+      id:
+        props.id ||
+        'ff-tick-' + props.name + '-' + String(val).replace(/[^\w]/g, ''),
+      checked: props.checked,
+    });
   };
 
   handleChange = (ev) => {
-    let { type, value, disabled, readOnly } = this.props;
+    let { type, disabled, readOnly } = this.props;
     let checked =
       type !== 'radio' || !this.state.checked ? !this.state.checked : true;
     if (disabled || readOnly) {
       return;
     }
-    this.setState({ checked, ...this.validate(checked, false) });
-    this.triggerOnChange(value, checked);
+    this.setState({ checked });
+    this.props.onChange(checked);
   };
 
   handleFocus = (ev) => {
@@ -109,23 +93,8 @@ class FormFieldTick extends Component {
   };
 
   handleBlur = (ev) => {
-    this.setState({ focused: false, touched: true });
+    this.setState({ focused: false });
     this.props.onBlur(ev);
-  };
-
-  triggerOnChange = _debounce((...args) => {
-    this.props.onChange(...args); // call the fresh prop
-  }, this.props.debounce);
-
-  /*
-   * @public
-   */
-  validate = (checked = this.state.checked, updateState = true) => {
-    let error = this.props.validation(checked) || null;
-    if (updateState && error !== this.state.error) {
-      this.setState({ error });
-    }
-    return { error };
   };
 
   // eslint-disable-next-line complexity
@@ -138,8 +107,9 @@ class FormFieldTick extends Component {
       type,
       disabled,
       readOnly,
+      error,
     } = this.props;
-    let { id, checked, error } = this.state;
+    let { id, checked } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += readOnly ? ' isReadOnly' : '';
     className += checked ? ' isChecked' : '';
@@ -166,11 +136,18 @@ class FormFieldTick extends Component {
             </i>
             <span className="FormField-value">{label || value}</span>
           </label>
-          {error && <p className="FormField-error">{error}</p>}
+          {error && <div className="FormField-error">{error}</div>}
         </div>
       </div>
     );
   }
 }
 
-export default FormFieldTick;
+export default withDebounce(
+  withValidation(FormFieldTick, {
+    valueProp: 'checked',
+    immediate: true,
+  }),
+  { valueProp: 'checked' }
+);
+export { FormFieldTick };

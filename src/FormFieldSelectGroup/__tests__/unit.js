@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import td from 'testdouble';
 
-import FormFieldSelectGroup from '..';
+import { FormFieldSelectGroup } from '..';
 
 describe('<FormFieldSelectGroup />', () => {
   describe('DOM', () => {
@@ -26,7 +26,7 @@ describe('<FormFieldSelectGroup />', () => {
     it('should show error if any', () => {
       let props = { options: [], value: '' };
       let wrapper = shallow(<FormFieldSelectGroup {...props} />);
-      wrapper.setState({ error: 'Error' });
+      wrapper.setProps({ error: 'Error' });
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
@@ -53,16 +53,13 @@ describe('<FormFieldSelectGroup />', () => {
         value: 'a',
         options: [],
         placeholder: 'select',
-        validation: td.func('validation'),
       };
       wrapper = shallow(<FormFieldSelectGroup {...props} />);
     });
 
     it('should set state', () => {
       expect(wrapper.state()).to.eql({
-        touched: false,
         focused: false,
-        error: null,
         val: ['a'],
         opts: [{ label: 'select', value: '' }],
       });
@@ -75,17 +72,10 @@ describe('<FormFieldSelectGroup />', () => {
         hidePlaceholder: true,
       });
       expect(wrapper.state()).to.eql({
-        touched: false,
         focused: false,
-        error: null,
         val: ['a'],
         opts: [{ value: 'a' }],
       });
-    });
-
-    it('should validate on prop change if touched', () => {
-      wrapper.setProps({ value: 'b', touched: true });
-      expect(props.validation).to.have.been.calledWith('b');
     });
   });
 
@@ -157,10 +147,8 @@ describe('<FormFieldSelectGroup />', () => {
       beforeEach(() => {
         props = {
           value: null,
-          debounce: 0,
           options: [],
           onChange: td.func('onChange'),
-          validation: td.func('validation'),
         };
         instance = shallow(<FormFieldSelectGroup {...props} />).instance();
         instance.refs = { dropdown: td.object(['handleClose']) };
@@ -171,12 +159,9 @@ describe('<FormFieldSelectGroup />', () => {
         expect(instance.state.val).to.eql(['a']);
       });
 
-      it('should call onChange', (done) => {
+      it('should call onChange', () => {
         instance.handleChange('a');
-        setTimeout(() => {
-          expect(props.onChange).to.have.been.calledWith('a');
-          done();
-        }, 10);
+        expect(props.onChange).to.have.been.calledWith('a');
       });
     });
 
@@ -185,7 +170,6 @@ describe('<FormFieldSelectGroup />', () => {
         props = {
           multiple: true,
           value: [],
-          debounce: 0,
           options: [],
           onChange: td.func('onChange'),
         };
@@ -204,12 +188,9 @@ describe('<FormFieldSelectGroup />', () => {
         expect(instance.state.val).to.eql(['a', 'c']);
       });
 
-      it('should call onChange', (done) => {
+      it('should call onChange', () => {
         instance.handleChange('a');
-        setTimeout(() => {
-          expect(props.onChange).to.have.been.calledWith(['a']);
-          done();
-        }, 10);
+        expect(props.onChange).to.have.been.calledWith(['a']);
       });
     });
   });
@@ -240,7 +221,6 @@ describe('<FormFieldSelectGroup />', () => {
         value: '',
         options: [],
         onBlur: td.func('onBlur'),
-        validation: td.func('validation'),
       };
       instance = shallow(<FormFieldSelectGroup {...props} />).instance();
       instance.handleBlur();
@@ -250,41 +230,8 @@ describe('<FormFieldSelectGroup />', () => {
       expect(instance.state.focused).to.eql(false);
     });
 
-    it('should set touched state', () => {
-      expect(instance.state.touched).to.eql(true);
-    });
-
     it('should call onBlur prop', () => {
       expect(props.onBlur).to.have.been.called;
-    });
-
-    it('should validate value', () => {
-      expect(props.validation).to.have.been.called;
-    });
-  });
-
-  describe('validate()', () => {
-    let props, instance;
-
-    beforeEach(() => {
-      props = { options: [], value: null, validation: td.func('validation') };
-      instance = shallow(<FormFieldSelectGroup {...props} />).instance();
-    });
-
-    it('should call validation prop', () => {
-      instance.validate([{ id: 1 }]);
-      expect(props.validation).to.have.been.calledWith({ id: 1 });
-    });
-
-    it('should set error state', () => {
-      td.when(props.validation({ id: 1 })).thenReturn('Error');
-      instance.validate([{ id: 1 }]);
-      expect(instance.state.error).to.eql('Error');
-    });
-
-    it('should use state value if no arguments', () => {
-      instance.validate();
-      expect(props.validation).to.have.been.calledWith(null);
     });
   });
 });

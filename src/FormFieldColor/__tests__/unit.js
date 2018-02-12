@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import td from 'testdouble';
 
-import FormFieldColor from '..';
+import { FormFieldColor } from '..';
 
 describe('<FormFieldColor />', () => {
   describe('DOM', () => {
@@ -26,7 +26,7 @@ describe('<FormFieldColor />', () => {
     it('should show error if any', () => {
       let props = { value: '' };
       let wrapper = shallow(<FormFieldColor {...props} />);
-      wrapper.setState({ error: 'Error' });
+      wrapper.setProps({ error: 'Error' });
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
@@ -36,15 +36,13 @@ describe('<FormFieldColor />', () => {
     let props, wrapper;
 
     beforeEach(() => {
-      props = { value: 'rgb(0,0,0)', validation: td.func('validation') };
+      props = { value: 'rgb(0,0,0)' };
       wrapper = shallow(<FormFieldColor {...props} />);
     });
 
     it('should set state', () => {
       expect(wrapper.state()).to.eql({
-        touched: false,
         focused: false,
-        error: null,
         val: 'rgb(0,0,0)',
       });
     });
@@ -52,16 +50,9 @@ describe('<FormFieldColor />', () => {
     it('should update state on prop change', () => {
       wrapper.setProps({ value: 'rgb(255,0,0)' });
       expect(wrapper.state()).to.eql({
-        touched: false,
         focused: false,
-        error: null,
         val: 'rgb(255,0,0)',
       });
-    });
-
-    it('should validate on prop change if touched', () => {
-      wrapper.setProps({ value: 'rgba(255,0,0,1)', touched: true });
-      expect(props.validation).to.have.been.calledWith('rgba(255,0,0,1)');
     });
   });
 
@@ -72,7 +63,6 @@ describe('<FormFieldColor />', () => {
     beforeEach(() => {
       props = {
         value: 'rgb(0,0,0)',
-        debounce: 0,
         onChange: td.func('onChange'),
       };
       instance = shallow(<FormFieldColor {...props} />).instance();
@@ -84,13 +74,9 @@ describe('<FormFieldColor />', () => {
       expect(instance.state.val).to.eql(color);
     });
 
-    it('should call onChange', (done) => {
+    it('should call onChange', () => {
       instance.handleChange(color);
-
-      setTimeout(() => {
-        expect(props.onChange).to.have.been.calledWith(color);
-        done();
-      }, 10);
+      expect(props.onChange).to.have.been.calledWith(color);
     });
   });
 
@@ -119,7 +105,6 @@ describe('<FormFieldColor />', () => {
       props = {
         value: '',
         onBlur: td.func('onBlur'),
-        validation: td.func('validation'),
       };
       instance = shallow(<FormFieldColor {...props} />).instance();
       instance.handleBlur();
@@ -127,10 +112,6 @@ describe('<FormFieldColor />', () => {
 
     it('should unset focused state', () => {
       expect(instance.state.focused).to.eql(false);
-    });
-
-    it('should set touched state', () => {
-      expect(instance.state.touched).to.eql(true);
     });
 
     it('should call onBlur prop', () => {

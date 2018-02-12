@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import td from 'testdouble';
 
-import FormFieldSelect from '..';
+import { FormFieldSelect } from '..';
 
 describe('<FormFieldSelect />', () => {
   describe('DOM', () => {
@@ -26,7 +26,7 @@ describe('<FormFieldSelect />', () => {
     it('should show error if any', () => {
       let props = { value: '', options: [] };
       let wrapper = shallow(<FormFieldSelect {...props} />);
-      wrapper.setState({ error: 'Error' });
+      wrapper.setProps({ error: 'Error' });
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
@@ -41,16 +41,13 @@ describe('<FormFieldSelect />', () => {
         placeholder: 'select',
         value: 'a',
         options: [],
-        validation: td.func('validation'),
       };
       wrapper = shallow(<FormFieldSelect {...props} />);
     });
 
     it('should set state', () => {
       expect(wrapper.state()).to.eql({
-        touched: false,
         focused: false,
-        error: null,
         id: 'ff-select-a',
         val: 'a',
         opts: [{ label: 'select', value: '' }],
@@ -64,18 +61,11 @@ describe('<FormFieldSelect />', () => {
         options: [{ label: 'A', value: 'a' }],
       });
       expect(wrapper.state()).to.eql({
-        touched: false,
         focused: false,
-        error: null,
         id: 'a',
         val: 'b',
         opts: [{ label: 'select', value: '' }, { label: 'A', value: 'a' }],
       });
-    });
-
-    it('should validate on prop change if touched', () => {
-      wrapper.setProps({ value: 'b', touched: true });
-      expect(props.validation).to.have.been.calledWith('b');
     });
   });
 
@@ -117,32 +107,16 @@ describe('<FormFieldSelect />', () => {
       expect(instance.state.val).to.eql('a');
     });
 
-    it('should call onChange', (done) => {
+    it('should call onChange', () => {
       props = {
         value: '',
         options: [{ label: 'A', value: 'a' }],
         onChange: td.func('onChange'),
-        debounce: 0,
       };
       instance = shallow(<FormFieldSelect {...props} />).instance();
       instance.handleChange(ev);
 
-      setTimeout(() => {
-        expect(props.onChange).to.have.been.calledWith('a');
-        done();
-      }, 10);
-    });
-
-    it('should validate', () => {
-      props = {
-        value: '',
-        options: [{ label: 'A', value: 'a' }],
-        validation: td.func('validation'),
-      };
-      instance = shallow(<FormFieldSelect {...props} />).instance();
-      instance.handleChange(ev);
-
-      expect(props.validation).to.have.been.called;
+      expect(props.onChange).to.have.been.calledWith('a');
     });
   });
 
@@ -177,37 +151,8 @@ describe('<FormFieldSelect />', () => {
       expect(instance.state.focused).to.eql(false);
     });
 
-    it('should set touched state', () => {
-      expect(instance.state.touched).to.eql(true);
-    });
-
     it('should call onBlur prop', () => {
       expect(props.onBlur).to.have.been.called;
-    });
-  });
-
-  describe('validate()', () => {
-    let props, instance;
-
-    beforeEach(() => {
-      props = { value: 'a', options: [], validation: td.func('validation') };
-      instance = shallow(<FormFieldSelect {...props} />).instance();
-    });
-
-    it('should call validation prop', () => {
-      instance.validate('');
-      expect(props.validation).to.have.been.calledWith('');
-    });
-
-    it('should set error state', () => {
-      td.when(props.validation('')).thenReturn('Error');
-      instance.validate('');
-      expect(instance.state.error).to.eql('Error');
-    });
-
-    it('should use state value if no arguments', () => {
-      instance.validate();
-      expect(props.validation).to.have.been.calledWith('a');
     });
   });
 });

@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import td from 'testdouble';
 
-import FormFieldNumber from '..';
+import { FormFieldNumber } from '..';
 
 describe('<FormFieldNumber />', () => {
   describe('DOM', () => {
@@ -26,7 +26,7 @@ describe('<FormFieldNumber />', () => {
     it('should show error if any', () => {
       let props = { value: 1 };
       let wrapper = shallow(<FormFieldNumber {...props} />);
-      wrapper.setState({ error: 'Error' });
+      wrapper.setProps({ error: 'Error' });
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
@@ -36,15 +36,13 @@ describe('<FormFieldNumber />', () => {
     let props, wrapper;
 
     beforeEach(() => {
-      props = { name: 'a', validation: td.func('validation') };
+      props = { name: 'a' };
       wrapper = shallow(<FormFieldNumber {...props} />);
     });
 
     it('should set state', () => {
       expect(wrapper.state()).to.eql({
-        touched: false,
         focused: false,
-        error: null,
         id: 'ff-number-a',
         val: 0,
       });
@@ -53,17 +51,10 @@ describe('<FormFieldNumber />', () => {
     it('should update state on prop change', () => {
       wrapper.setProps({ id: 'a', value: 2 });
       expect(wrapper.state()).to.eql({
-        touched: false,
         focused: false,
-        error: null,
         id: 'a',
         val: 2,
       });
-    });
-
-    it('should validate on prop change if touched', () => {
-      wrapper.setProps({ value: 2, touched: true });
-      expect(props.validation).to.have.been.calledWith(2);
     });
   });
 
@@ -123,24 +114,11 @@ describe('<FormFieldNumber />', () => {
       expect(instance.state.val).to.eql(-2);
     });
 
-    it('should call onChange', (done) => {
-      props = { value: 1, onChange: td.func('onChange'), debounce: 0 };
+    it('should call onChange', () => {
+      props = { value: 1, onChange: td.func('onChange') };
       instance = shallow(<FormFieldNumber {...props} />).instance();
       instance.handleChange(ev);
-
-      setTimeout(() => {
-        expect(props.onChange).to.have.been.calledWith(1);
-        done();
-      }, 10);
-    });
-
-    it('should validate if focused and with error', () => {
-      props = { value: 0, validation: td.func('validation') };
-      instance = shallow(<FormFieldNumber {...props} />).instance();
-      instance.setState({ focused: true, error: 'Error' });
-      instance.handleChange(ev);
-
-      expect(props.validation).to.have.been.called;
+      expect(props.onChange).to.have.been.calledWith(1);
     });
   });
 
@@ -171,59 +149,21 @@ describe('<FormFieldNumber />', () => {
         min: 1,
         onChange: td.func('onChange'),
         onBlur: td.func('onBlur'),
-        validation: td.func('validation'),
-        debounce: 0,
       };
       instance = shallow(<FormFieldNumber {...props} />).instance();
       instance.handleBlur();
     });
 
-    it('should call onChange if clamped value differs', (done) => {
-      setTimeout(() => {
-        expect(props.onChange).to.have.been.calledWith(1);
-        done();
-      }, 10);
+    it('should call onChange if clamped value differs', () => {
+      expect(props.onChange).to.have.been.calledWith(1);
     });
 
     it('should unset focused state', () => {
       expect(instance.state.focused).to.eql(false);
     });
 
-    it('should set touched state', () => {
-      expect(instance.state.touched).to.eql(true);
-    });
-
     it('should call onBlur prop', () => {
       expect(props.onBlur).to.have.been.called;
-    });
-
-    it('should validate value', () => {
-      expect(props.validation).to.have.been.called;
-    });
-  });
-
-  describe('validate()', () => {
-    let props, instance;
-
-    beforeEach(() => {
-      props = { value: 1, validation: td.func('validation') };
-      instance = shallow(<FormFieldNumber {...props} />).instance();
-    });
-
-    it('should call validation prop', () => {
-      instance.validate(0);
-      expect(props.validation).to.have.been.calledWith(0);
-    });
-
-    it('should set error state', () => {
-      td.when(props.validation(0)).thenReturn('Error');
-      instance.validate(0);
-      expect(instance.state.error).to.eql('Error');
-    });
-
-    it('should use state value if no arguments', () => {
-      instance.validate();
-      expect(props.validation).to.have.been.calledWith(1);
     });
   });
 });

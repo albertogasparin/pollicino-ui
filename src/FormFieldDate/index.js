@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DayPicker, { DateUtils, LocaleUtils } from 'react-day-picker';
-import _debounce from 'lodash/debounce';
 import _range from 'lodash/range';
 
+import { withDebounce, withValidation } from '../HOC';
 import Dropdown from '../Dropdown';
 import FormFieldTick from '../FormFieldTick';
 import FormFieldSelect from '../FormFieldSelect';
@@ -13,8 +13,8 @@ import FormFieldSelect from '../FormFieldSelect';
  * @augments {Component<{
       align?: 'left' | 'right'
       className?: string
-      debounce?: number
       disabled?: boolean
+      error?: any
       firstDayOfWeek?: 0 | 1 | 2 | 3 | 4 | 5 | 6
       hidePlaceholder?: boolean
       isRange?: boolean
@@ -28,21 +28,19 @@ import FormFieldSelect from '../FormFieldSelect';
       readOnly?: boolean
       style?: Object
       tabIndex?: number
-      touched?: boolean
       value?: string | string[]
       yearDropdown?: boolean
       onBlur?: Function
       onChange?: Function
       onFocus?: Function
-      validation?: Function
     }, any>}
  */
 class FormFieldDate extends Component {
   static propTypes = {
     align: PropTypes.oneOf(['left', 'right']),
     className: PropTypes.string,
-    debounce: PropTypes.number,
     disabled: PropTypes.bool,
+    error: PropTypes.any,
     firstDayOfWeek: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6]),
     hidePlaceholder: PropTypes.bool,
     isRange: PropTypes.bool,
@@ -60,7 +58,6 @@ class FormFieldDate extends Component {
     readOnly: PropTypes.bool,
     style: PropTypes.object,
     tabIndex: PropTypes.number,
-    touched: PropTypes.bool,
     value: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.arrayOf(PropTypes.string),
@@ -69,13 +66,11 @@ class FormFieldDate extends Component {
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
-    validation: PropTypes.func,
   };
 
   static defaultProps = {
     align: 'left',
     className: '',
-    debounce: 200,
     firstDayOfWeek: 1,
     localization: {},
     options: [],
@@ -84,13 +79,10 @@ class FormFieldDate extends Component {
     onBlur() {},
     onChange() {},
     onFocus() {},
-    validation() {},
   };
 
   state = {
-    error: null,
     focused: false,
-    touched: false,
   };
 
   componentWillMount() {
@@ -112,23 +104,15 @@ class FormFieldDate extends Component {
         value: this.normalizeValue(o.value),
       })),
     ];
-    this.setState(
-      ({ touched, showPicker }) => ({
-        val,
-        opts,
-        month: val[0] ? new Date(val[0]) : new Date(),
-        showPicker:
-          typeof showPicker === 'undefined'
-            ? props.options.length === 0
-            : showPicker,
-        ...(props.touched ? { touched: true } : {}),
-      }),
-      () => {
-        if (this.state.touched) {
-          this.validate();
-        }
-      }
-    );
+    this.setState(({ showPicker }) => ({
+      val,
+      opts,
+      month: val[0] ? new Date(val[0]) : new Date(),
+      showPicker:
+        typeof showPicker === 'undefined'
+          ? props.options.length === 0
+          : showPicker,
+    }));
   };
 
   normalizeValue = (value) => {
@@ -183,7 +167,6 @@ class FormFieldDate extends Component {
         showPicker,
         val,
         month: val[0] ? new Date(val[0]) : new Date(),
-        ...this.validate(val, false),
       },
       () => {
         if ((!isFromCustom && !this.props.isRange) || !showPicker) {
@@ -229,28 +212,9 @@ class FormFieldDate extends Component {
   };
 
   handleBlur = (ev) => {
-    this.setState(({ val }) => ({
-      focused: false,
-      touched: true,
-      ...this.validate(val, false),
-    }));
-    this.triggerOnChange(this.returnValue());
+    this.setState({ focused: false });
+    this.props.onChange(this.returnValue());
     this.props.onBlur(ev);
-  };
-
-  triggerOnChange = _debounce((...args) => {
-    this.props.onChange(...args); // call the fresh prop
-  }, this.props.debounce);
-
-  /*
-   * @public
-   */
-  validate = (val = this.state.val, updateState = true) => {
-    let error = this.props.validation(this.returnValue(val)) || null;
-    if (updateState && error !== this.state.error) {
-      this.setState({ error });
-    }
-    return { error };
   };
 
   renderFieldLabel = (val) => {
@@ -264,17 +228,8 @@ class FormFieldDate extends Component {
 
     let [from, to] = val;
     return (
-      from
-        .split('-')
-        .reverse()
-        .join('/') +
-      (to && to !== from
-        ? ' — ' +
-          to
-            .split('-')
-            .reverse()
-            .join('/')
-        : '')
+      new Date(from).toLocaleDateString() +
+      (to && to !== from ? ' — ' + new Date(to).toLocaleDateString() : '')
     );
   };
 
@@ -295,7 +250,7 @@ class FormFieldDate extends Component {
             delay={0}
             checked={o === checkedOpt}
             value={o.value}
-            onChange={(v) => this.handleChange(false, v)}
+            onChange={(v) => this.handleChange(false, o.value)}
           />
         ))}
         {showCustomOpt && (
@@ -306,7 +261,7 @@ class FormFieldDate extends Component {
             delay={0}
             checked={showPicker || (!checkedOpt && val.length > 0)}
             value="custom"
-            onChange={(v) => this.handleChange(true, v)}
+            onChange={(v) => this.handleChange(true, 'custom')}
           />
         )}
         {(showPicker || !showCustomOpt || (!checkedOpt && val.length > 0)) &&
@@ -378,8 +333,9 @@ class FormFieldDate extends Component {
       readOnly,
       align,
       tabIndex,
+      error,
     } = this.props;
-    let { val, error, focused } = this.state;
+    let { val, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += readOnly ? ' isReadOnly' : '';
     className += error ? ' isInvalid' : '';
@@ -403,11 +359,12 @@ class FormFieldDate extends Component {
           >
             {this.renderDropdownContent()}
           </Dropdown>
-          {error && <p className="FormField-error">{error}</p>}
+          {error && <div className="FormField-error">{error}</div>}
         </div>
       </div>
     );
   }
 }
 
-export default FormFieldDate;
+export default withDebounce(withValidation(FormFieldDate, { immediate: true }));
+export { FormFieldDate };

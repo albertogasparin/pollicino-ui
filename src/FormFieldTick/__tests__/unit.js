@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import td from 'testdouble';
 
-import FormFieldTick from '..';
+import { FormFieldTick } from '..';
 
 describe('<FormFieldTick />', () => {
   describe('DOM', () => {
@@ -38,7 +38,7 @@ describe('<FormFieldTick />', () => {
     it('should show error if any', () => {
       let props = { value: '' };
       let wrapper = shallow(<FormFieldTick {...props} />);
-      wrapper.setState({ error: 'Error' });
+      wrapper.setProps({ error: 'Error' });
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
@@ -48,7 +48,7 @@ describe('<FormFieldTick />', () => {
     let props, wrapper;
 
     beforeEach(() => {
-      props = { name: 'a', value: 'a', validation: td.func('validation') };
+      props = { name: 'a', value: 'a' };
       wrapper = shallow(<FormFieldTick {...props} />);
     });
 
@@ -56,9 +56,7 @@ describe('<FormFieldTick />', () => {
       expect(wrapper.state()).to.eql({
         checked: false,
         focused: false,
-        error: null,
         id: 'ff-tick-a-a',
-        touched: false,
       });
     });
 
@@ -67,15 +65,8 @@ describe('<FormFieldTick />', () => {
       expect(wrapper.state()).to.eql({
         checked: true,
         focused: false,
-        error: null,
         id: 'a',
-        touched: false,
       });
-    });
-
-    it('should validate on prop change if touched', () => {
-      wrapper.setProps({ checked: true, touched: true });
-      expect(props.validation).to.have.been.calledWith(true);
     });
   });
 
@@ -83,31 +74,25 @@ describe('<FormFieldTick />', () => {
     let props, instance;
 
     beforeEach(() => {
-      props = { value: 'a', onChange: td.func('onChange'), debounce: 0 };
+      props = { value: 'a', onChange: td.func('onChange') };
     });
 
-    it('should set checked if radio and call on change', (done) => {
+    it('should set checked if radio and call on change', () => {
       props = { ...props, type: 'radio' };
       instance = shallow(<FormFieldTick {...props} />).instance();
       instance.handleChange();
 
       expect(instance.state.checked).to.eql(true);
-      setTimeout(() => {
-        expect(props.onChange).to.have.been.calledWith('a', true);
-        done();
-      }, 10);
+      expect(props.onChange).to.have.been.calledWith(true);
     });
 
-    it('should toggle checked if checkbox and call on change', (done) => {
+    it('should toggle checked if checkbox and call on change', () => {
       props = { ...props, type: 'checkbox', checked: true };
       instance = shallow(<FormFieldTick {...props} />).instance();
       instance.handleChange();
 
       expect(instance.state.checked).to.eql(false);
-      setTimeout(() => {
-        expect(props.onChange).to.have.been.calledWith('a', false);
-        done();
-      }, 10);
+      expect(props.onChange).to.have.been.calledWith(false);
     });
   });
 
@@ -140,10 +125,6 @@ describe('<FormFieldTick />', () => {
 
     it('should unset focused state', () => {
       expect(instance.state.focused).to.eql(false);
-    });
-
-    it('should set touched state', () => {
-      expect(instance.state.touched).to.eql(true);
     });
 
     it('should call onBlur prop', () => {

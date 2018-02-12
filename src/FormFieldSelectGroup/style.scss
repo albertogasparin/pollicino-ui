@@ -67,6 +67,12 @@
  * Modifiers
  */
 
+.FormField--selectGroup[data-inline='true'] .FormField {
+  &-error {
+    margin-left: -0.45rem;
+  }
+}
+
 .FormField--selectGroup .FormField-groupList--tabbed {
   display: flex;
   width: 100em;

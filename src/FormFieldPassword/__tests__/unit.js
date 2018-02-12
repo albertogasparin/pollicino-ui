@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import td from 'testdouble';
 
-import FormFieldPassword from '..';
+import { FormFieldPassword } from '..';
 
 describe('<FormFieldPassword />', () => {
   describe('DOM', () => {
@@ -21,7 +21,7 @@ describe('<FormFieldPassword />', () => {
     let props, wrapper;
 
     beforeEach(() => {
-      props = { value: 'a', validation: td.func('validation') };
+      props = { value: 'a' };
       wrapper = shallow(<FormFieldPassword {...props} />);
     });
 

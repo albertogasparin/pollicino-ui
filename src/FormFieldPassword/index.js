@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
+import { withDebounce, withValidation } from '../HOC';
 import Btn from '../Btn';
 import Icon from '../Icon';
-import FormFieldText from '../FormFieldText';
+import { FormFieldText } from '../FormFieldText';
 
 /**
  * @class FormFieldPassword
@@ -47,4 +48,5 @@ class FormFieldPassword extends Component {
   }
 }
 
-export default FormFieldPassword;
+export default withDebounce(withValidation(FormFieldPassword));
+export { FormFieldPassword };

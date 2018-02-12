@@ -33,7 +33,7 @@ Invalid, custom size
     className="FormField--inline"
     label="Label"
     size="4"
-    validation={v => v === 0 && 'Required'}
+    validation={v => (!v || v === 0) && 'Required'}
     touched
   />
   <span> &nbsp; </span> 

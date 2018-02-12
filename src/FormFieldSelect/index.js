@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import _debounce from 'lodash/debounce';
 import _pick from 'lodash/pick';
+
+import { withDebounce, withValidation } from '../HOC';
 
 const INPUT_PROPS = ['name', 'disabled', 'tabIndex', 'readOnly'];
 
@@ -10,8 +11,8 @@ const INPUT_PROPS = ['name', 'disabled', 'tabIndex', 'readOnly'];
  * @augments {Component<{
       [x:string]: any
       className?: string
-      debounce?: number
       disabled?: boolean
+      error?: any
       id?: string
       label?
       name?: string
@@ -19,20 +20,18 @@ const INPUT_PROPS = ['name', 'disabled', 'tabIndex', 'readOnly'];
       placeholder?: string
       readOnly?: boolean
       style?: Object
-      touched?: boolean
       value?: string
       onBlur?: Function
       onChange?: Function
       onFocus?: Function
-      validation?: Function
       valueRenderer?: Function
     }, any>}
  */
 class FormFieldSelect extends Component {
   static propTypes = {
     className: PropTypes.string,
-    debounce: PropTypes.number,
     disabled: PropTypes.bool,
+    error: PropTypes.any,
     id: PropTypes.string,
     label: PropTypes.node,
     name: PropTypes.string,
@@ -51,21 +50,17 @@ class FormFieldSelect extends Component {
 
   static defaultProps = {
     className: '',
-    debounce: 50,
     placeholder: '— Select —',
     size: '',
     value: '',
     onBlur() {},
     onChange() {},
     onFocus() {},
-    validation() {},
     valueRenderer: (v) => v,
   };
 
   state = {
-    error: null,
     focused: false,
-    touched: false,
   };
 
   componentWillMount() {
@@ -79,19 +74,11 @@ class FormFieldSelect extends Component {
   setPropsToState = (props) => {
     let val = props.value;
     let opts = [{ label: props.placeholder, value: '' }, ...props.options];
-    this.setState(
-      ({ touched }) => ({
-        val,
-        opts,
-        id: props.id || (props.name && 'ff-select-' + props.name),
-        ...(props.touched ? { touched: true } : {}),
-      }),
-      () => {
-        if (this.state.touched) {
-          this.validate();
-        }
-      }
-    );
+    this.setState({
+      val,
+      opts,
+      id: props.id || (props.name && 'ff-select-' + props.name),
+    });
   };
 
   findOption = (val) => {
@@ -105,9 +92,8 @@ class FormFieldSelect extends Component {
   handleChange = (ev) => {
     let { opts } = this.state;
     let val = opts[ev.target.selectedIndex].value;
-
-    this.setState({ val, ...this.validate(val, false) });
-    this.triggerOnChange(val);
+    this.setState({ val });
+    this.props.onChange(val);
   };
 
   handleFocus = (ev) => {
@@ -116,23 +102,8 @@ class FormFieldSelect extends Component {
   };
 
   handleBlur = (ev) => {
-    this.setState({ focused: false, touched: true });
+    this.setState({ focused: false });
     this.props.onBlur(ev);
-  };
-
-  triggerOnChange = _debounce((...args) => {
-    this.props.onChange(...args); // call the fresh prop
-  }, this.props.debounce);
-
-  /*
-   * @public
-   */
-  validate = (val = this.state.val, updateState = true) => {
-    let error = this.props.validation(val) || null;
-    if (updateState && error !== this.state.error) {
-      this.setState({ error });
-    }
-    return { error };
   };
 
   // eslint-disable-next-line complexity
@@ -144,8 +115,9 @@ class FormFieldSelect extends Component {
       valueRenderer,
       disabled,
       readOnly,
+      error,
     } = this.props;
-    let { id, opts, val, error, focused } = this.state;
+    let { id, opts, val, focused } = this.state;
     let selectedOpt = this.findOption(val) || {};
     className += disabled ? ' isDisabled' : '';
     className += readOnly ? ' isReadOnly' : '';
@@ -178,11 +150,14 @@ class FormFieldSelect extends Component {
               </option>
             ))}
           </select>
-          {error && <p className="FormField-error">{error}</p>}
+          {error && <div className="FormField-error">{error}</div>}
         </div>
       </div>
     );
   }
 }
 
-export default FormFieldSelect;
+export default withDebounce(
+  withValidation(FormFieldSelect, { immediate: true })
+);
+export { FormFieldSelect };

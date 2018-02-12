@@ -35,6 +35,10 @@
     vertical-align: middle;
     border-radius: $Pollicino-border-radius;
   }
+
+  &-error {
+    margin: 0 0 0 -0.3rem;
+  }
 }
 
 .FormField--color .colorpicker {

@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import td from 'testdouble';
 
-import FormFieldSuggest from '..';
+import { FormFieldSuggest } from '..';
 
 const render = (props) => {
   let wrapper = shallow(<FormFieldSuggest {...props} />);
@@ -34,7 +34,7 @@ describe('<FormFieldSuggest />', () => {
     it('should show error if any', () => {
       let props = {};
       let { wrapper } = render(props);
-      wrapper.setState({ error: 'Error' });
+      wrapper.setProps({ error: 'Error' });
       expect(wrapper.hasClass('isInvalid')).to.eql(true);
       expect(wrapper.find('.FormField-error')).to.have.lengthOf(1);
     });
@@ -47,16 +47,13 @@ describe('<FormFieldSuggest />', () => {
       props = {
         name: 'a',
         value: { id: 1 },
-        validation: td.func('validation'),
       };
       ({ wrapper } = render(props));
     });
 
     it('should set state', () => {
       expect(wrapper.state()).to.eql({
-        touched: false,
         focused: false,
-        error: null,
         isLoading: false,
         input: '',
         id: 'ff-suggest-a',
@@ -71,9 +68,7 @@ describe('<FormFieldSuggest />', () => {
     it('should update state on prop change', () => {
       wrapper.setProps({ id: 'a', options: [{ id: 1 }] });
       expect(wrapper.state()).to.eql({
-        touched: false,
         focused: false,
-        error: null,
         isLoading: false,
         input: '',
         id: 'a',
@@ -89,9 +84,7 @@ describe('<FormFieldSuggest />', () => {
       wrapper.setState({ input: 'asd' });
       wrapper.setProps({ id: 'a', value: { id: 2 }, options: [{ id: 1 }] });
       expect(wrapper.state()).to.eql({
-        touched: false,
         focused: false,
-        error: null,
         isLoading: false,
         input: '',
         id: 'a',
@@ -101,11 +94,6 @@ describe('<FormFieldSuggest />', () => {
         changed: false,
         kbdFocusIdx: -1,
       });
-    });
-
-    it('should validate on prop change if touched', () => {
-      wrapper.setProps({ value: { id: 2 }, touched: true });
-      expect(props.validation).to.have.been.calledWith({ id: 2 });
     });
   });
 
@@ -199,7 +187,6 @@ describe('<FormFieldSuggest />', () => {
       props = {
         value: null,
         onBlur: td.func('onBlur'),
-        validation: td.func('validation'),
       };
       ({ instance } = render(props));
       instance.controlEl = td.object(['blur']);
@@ -238,10 +225,8 @@ describe('<FormFieldSuggest />', () => {
 
     beforeEach((done) => {
       props = {
-        debounce: 0,
         onChange: td.func('onChange'),
         onBlur: td.func('onBlur'),
-        validation: td.func('validation'),
       };
       ({ instance } = render(props));
       instance.controlEl = td.object(['blur']);
@@ -253,7 +238,6 @@ describe('<FormFieldSuggest />', () => {
 
     it('should unset state props', () => {
       expect(instance.state.focused).to.eql(false);
-      expect(instance.state.touched).to.eql(true);
       expect(instance.state.changed).to.eql(false);
     });
 
@@ -261,37 +245,8 @@ describe('<FormFieldSuggest />', () => {
       expect(props.onBlur).to.have.been.called;
     });
 
-    it('should validate value', () => {
-      expect(props.validation).to.have.been.called;
-    });
-
     it('should call onChange', () => {
       expect(props.onChange).to.have.been.calledWith(null);
-    });
-  });
-
-  describe('validate()', () => {
-    let props, instance;
-
-    beforeEach(() => {
-      props = { value: null, validation: td.func('validation') };
-      ({ instance } = render(props));
-    });
-
-    it('should call validation prop', () => {
-      instance.validate({ id: 1 });
-      expect(props.validation).to.have.been.calledWith({ id: 1 });
-    });
-
-    it('should set error state', () => {
-      td.when(props.validation({ id: 1 })).thenReturn('Error');
-      instance.validate({ id: 1 });
-      expect(instance.state.error).to.eql('Error');
-    });
-
-    it('should use state value if no arguments', () => {
-      instance.validate();
-      expect(props.validation).to.have.been.calledWith(null);
     });
   });
 });

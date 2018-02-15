@@ -97,7 +97,6 @@ class FormFieldTick extends Component {
     this.props.onBlur(ev);
   };
 
-  // eslint-disable-next-line complexity
   render() {
     let {
       className,

@@ -182,7 +182,6 @@ class FormFieldSelectGroup extends Component {
     );
   };
 
-  // eslint-disable-next-line complexity
   render() {
     let {
       className,

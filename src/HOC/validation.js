@@ -25,7 +25,7 @@ export class Validation extends Component {
     render: PropTypes.func,
     validation: PropTypes.func,
     children: PropTypes.func,
-  }
+  };
 
   static defaultProps = {
     onBlur() {},

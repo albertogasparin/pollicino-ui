@@ -194,7 +194,6 @@ class FormFieldSuggest extends Component {
     }, 320);
   };
 
-  // eslint-disable-next-line complexity
   handleKeyDown = (ev) => {
     let { valueKey, allowAny } = this.props;
     let { val, input, kbdFocusIdx, opts } = this.state;
@@ -309,7 +308,6 @@ class FormFieldSuggest extends Component {
     ));
   };
 
-  // eslint-disable-next-line complexity
   render() {
     let {
       className,

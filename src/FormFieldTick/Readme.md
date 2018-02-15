@@ -1,3 +1,5 @@
+The default exported component is enhanced with [Debounce](#debounce) and [Validation](#validation), so it inherits additional props to the above ones.
+
 Default style, radiobox
 
 ```js
@@ -51,7 +53,7 @@ Inline, disabled
     value=""
     disabled
   />
-  <span> &nbsp; </span>
+  <span>{' \u00A0 '}</span>
   <FormFieldTick
     className="FormField--inline"
     name={state.uid}
@@ -60,7 +62,7 @@ Inline, disabled
     checked
     disabled
   />
-  <span> &nbsp; &nbsp; &nbsp; </span>
+  <span>{' \u00A0 \u00A0 \u00A0 '}</span>
   <FormFieldTick
     className="FormField--inline"
     name={state.uid}
@@ -69,7 +71,7 @@ Inline, disabled
     type="checkbox"
     disabled
   />
-  <span> &nbsp; </span>
+  <span>{' \u00A0 '}</span>
   <FormFieldTick
     className="FormField--inline"
     name={state.uid}
@@ -93,7 +95,7 @@ Inline, read-only
     value=""
     readOnly
   />
-  <span> &nbsp; </span>
+  <span>{' \u00A0 '}</span>
   <FormFieldTick
     className="FormField--inline"
     name="ro2"
@@ -102,7 +104,7 @@ Inline, read-only
     checked
     readOnly
   />
-  <span> &nbsp; &nbsp; &nbsp; </span>
+  <span>{' \u00A0 \u00A0 \u00A0 '}</span>
   <FormFieldTick
     className="FormField--inline"
     name="ro3"
@@ -111,7 +113,7 @@ Inline, read-only
     type="checkbox"
     readOnly
   />
-  <span> &nbsp; </span>
+  <span>{' \u00A0 '}</span>
   <FormFieldTick
     className="FormField--inline"
     name="ro4"

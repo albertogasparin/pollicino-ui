@@ -1,3 +1,5 @@
+The default exported component is enhanced with [Debounce](#debounce) and [Validation](#validation), so it inherits additional props to the above ones.
+
 Default style (single) with options
 
 ```js
@@ -45,7 +47,7 @@ Invalid, inline
     touched
     validation={v => !v && 'Required'}
   />
-  <span> &nbsp; </span>
+  <span>{' \u00A0 '}</span>
   <Btn className="Btn--primary" disabled>
     next
   </Btn>

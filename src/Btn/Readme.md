@@ -37,7 +37,7 @@ Outline, square
       <Icon glyph="magnify" />
     </Btn>
   </span>
-  <span>&nbsp;&nbsp;&nbsp;</span>
+  <span>{' \u00A0 '}</span>
   <Btn className="Btn--square">
     <Icon glyph="magnify" />
   </Btn>
@@ -51,7 +51,7 @@ Loading
   <Btn className="Btn--primary" loading data-tip="Tooltip">
     Button loading
   </Btn>
-  <span>&nbsp;&nbsp;&nbsp;</span>
+  <span>{' \u00A0 '}</span>
   <Btn className="Btn--outline Btn--square" loading>
     <Icon glyph="magnify" />
   </Btn>

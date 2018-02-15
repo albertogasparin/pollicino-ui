@@ -176,7 +176,6 @@ class FormFieldDate extends Component {
     );
   };
 
-  // eslint-disable-next-line complexity
   handleDayClick = (day, modifiers, ev) => {
     let { val } = this.state;
 
@@ -323,7 +322,6 @@ class FormFieldDate extends Component {
     );
   };
 
-  // eslint-disable-next-line complexity
   render() {
     let {
       className,

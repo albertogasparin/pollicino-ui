@@ -1,3 +1,5 @@
+The default exported component is enhanced with [Debounce](#debounce) and [Validation](#validation), so it inherits additional props to the above ones.
+
 Default style
 
 ```js
@@ -38,7 +40,7 @@ Invalid, inline, custom size
     touched
     validation={v => !v && 'Please select a non-zero value'}
   />
-  <span> &nbsp; </span>
+  <span>{' \u00A0 '}</span>
   <Btn className="Btn--primary" disabled>
     next
   </Btn>

@@ -22,7 +22,7 @@ export class Debounce extends Component {
     onChange: PropTypes.func,
     render: PropTypes.func,
     children: PropTypes.func,
-  }
+  };
 
   static defaultProps = {
     onChange() {},
@@ -66,15 +66,20 @@ export class Debounce extends Component {
 }
 
 export const withDebounce = (MyComponent, { valueProp = 'value' } = {}) =>
-  function WithDebounce({ debounce = 0, onChange, [valueProp]: value, ...props }) {
+  function WithDebounce({
+    debounce = 0,
+    onChange,
+    [valueProp]: value,
+    ...props
+  }) {
     return (
       <Debounce debounce={debounce} value={value} onChange={onChange}>
         {(val, handleChange) => {
           let hocProps = {
             [valueProp]: val,
             onChange: handleChange,
-          }
-          return <MyComponent {...props} {...hocProps} />
+          };
+          return <MyComponent {...props} {...hocProps} />;
         }}
       </Debounce>
     );

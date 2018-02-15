@@ -11,20 +11,22 @@ module.exports = {
     },
     {
       name: 'Components',
-      components: '../src/!(FormField)*/*.js',
+      components: '../src/!(FormField|HOC)*/*.js',
     },
     {
       name: 'FormFields',
       components: '../src/FormField*/*.js',
     },
+    {
+      name: 'Enhancers',
+      components: '../src/HOC/!(index)*.js',
+    }
   ],
   getComponentPathLine(componentPath) {
-    const [name] = path
-      .dirname(componentPath)
-      .split('/')
-      .reverse();
+    let [, name, importName] = componentPath.match(/(\w+)\/(\w+)\.js$/) || [];
+    importName = importName === 'index' ? name : `* as ${name}`;
     return (
-      `JS:   import ${name} from 'pollicino-ui/lib/${name}'\n` +
+      `JS:   import ${importName} from 'pollicino-ui/lib/${name}'\n` +
       `SCSS: @import '~pollicino-ui/lib/${name}/style'`
     );
   },

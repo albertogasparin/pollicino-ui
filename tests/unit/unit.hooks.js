@@ -6,7 +6,7 @@ import td from 'testdouble';
  * Global mocks
  */
 
-function setGlobalMocks () {
+function setGlobalMocks() {
   // define window
   global.window = {};
   // define document

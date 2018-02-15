@@ -77,7 +77,6 @@ class Collapsible extends Component {
     }, this.props.animation);
   };
 
-  // eslint-disable-next-line complexity
   render() {
     let {
       className,

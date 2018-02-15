@@ -61,7 +61,7 @@ module.exports = {
 
     /* Coding helpers rules
     */
-    complexity: ['warn', 5],
+    // complexity: ['warn', 5],
     'max-depth': ['warn', 5],
     'max-nested-callbacks': ['warn', 4],
     'max-len': ['warn', 100, 4, { ignoreComments: true }],

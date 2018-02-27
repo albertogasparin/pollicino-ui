@@ -171,12 +171,12 @@ describe('<FormFieldDate />', () => {
       });
     });
 
-    describe('on custom option click', () => {
+    describe('on other option click', () => {
       beforeEach(() => {
         props = {};
         instance = shallow(<FormFieldDate {...props} />).instance();
         instance.dropdownEl = td.object(['handleClose']);
-        instance.handleChange(true, 'custom');
+        instance.handleChange(true, 'other');
       });
 
       it('should not replace val', () => {

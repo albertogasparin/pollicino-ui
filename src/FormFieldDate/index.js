@@ -157,8 +157,8 @@ class FormFieldDate extends Component {
 
   handleChange = (showPicker, value) => {
     let { val } = this.state;
-    let isFromCustom = showPicker && value === 'custom';
-    if (!isFromCustom) {
+    let isOther = showPicker && value === 'other';
+    if (!isOther) {
       val = value;
     }
 
@@ -169,7 +169,7 @@ class FormFieldDate extends Component {
         month: val[0] ? new Date(val[0]) : new Date(),
       },
       () => {
-        if ((!isFromCustom && !this.props.isRange) || !showPicker) {
+        if ((!isOther && !this.props.isRange) || !showPicker) {
           this.dropdownEl.handleClose();
         }
       }
@@ -235,8 +235,8 @@ class FormFieldDate extends Component {
   renderDropdownContent = () => {
     let { val, opts, showPicker } = this.state;
     let { isRange, align, name, options } = this.props;
-    let showCustomOpt = options.length > 0;
-    let checkedOpt = !(showCustomOpt && showPicker) && this.findOption(val);
+    let showOtherOpt = options.length > 0;
+    let checkedOpt = !(showOtherOpt && showPicker) && this.findOption(val);
 
     return (
       <div className="FormField-options" data-align={align}>
@@ -252,18 +252,18 @@ class FormFieldDate extends Component {
             onChange={(v) => this.handleChange(false, o.value)}
           />
         ))}
-        {showCustomOpt && (
+        {showOtherOpt && (
           <FormFieldTick
             type="radio"
             name={name}
-            label={'Custom ' + (isRange ? 'range' : '')}
+            label={'Other' + (isRange ? ' range' : '')}
             delay={0}
             checked={showPicker || (!checkedOpt && val.length > 0)}
-            value="custom"
-            onChange={(v) => this.handleChange(true, 'custom')}
+            value="other"
+            onChange={(v) => this.handleChange(true, 'other')}
           />
         )}
-        {(showPicker || !showCustomOpt || (!checkedOpt && val.length > 0)) &&
+        {(showPicker || !showOtherOpt || (!checkedOpt && val.length > 0)) &&
           this.renderDayPicker()}
       </div>
     );

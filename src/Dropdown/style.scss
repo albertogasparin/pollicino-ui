@@ -59,6 +59,7 @@
   &-overlay {
     position: absolute;
     top: 100%;
+    right: -0.75rem;
     min-width: 12rem;
     margin-bottom: rem($Pollicino-padding);
     padding: rem($Pollicino-padding);
@@ -73,39 +74,39 @@
     cursor: auto;
     animation: DropdownOverlayClip 0.4s cubic-bezier(0.7, 0, 0.7, 1) 0s;
 
-    &[data-align='left'] {
+    &[data-align*='left'] {
       left: -0.4em;
+      right: auto;
     }
-    &[data-align='right'] {
-      right: -0.75rem;
+    &[data-align*='top'] {
+      top: auto;
+      bottom: 100%;
+      margin-bottom: 0;
+      margin-top: rem($Pollicino-padding);
     }
 
     &::before {
       content: '';
       position: absolute;
-      top: -13px;
-      height: 0;
-      border: 6px solid transparent;
-      border-bottom-color: rgba(#000, 0.3);
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
       top: -12px;
+      right: 0.95rem;
       height: 0;
       border: 6px solid transparent;
       border-bottom-color: #fff;
+      filter: drop-shadow(0 -1px rgba(#000, 0.3));
     }
 
-    &[data-align='left']::before,
-    &[data-align='left']::after {
+    &[data-align*='left']::before {
       left: 0.75rem;
+      right: auto;
     }
 
-    &[data-align='right']::before,
-    &[data-align='right']::after {
-      right: 0.95rem;
+    &[data-align*='top']::before {
+      top: auto;
+      bottom: -12px;
+      border-bottom-color: transparent;
+      border-top-color: #fff;
+      filter: drop-shadow(0 1px rgba(#000, 0.3));
     }
   }
 }

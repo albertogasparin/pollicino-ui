@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 /**
  * @class Dropdown
  * @augments {Component<{
-     align?: 'left' | 'right'
+     align?: 'left' | 'right' | 'top' | 'top left' | 'top right'
      autoClose?: boolean
      className?: string
      disabled?: boolean
@@ -19,7 +19,7 @@ import PropTypes from 'prop-types';
  */
 class Dropdown extends Component {
   static propTypes = {
-    align: PropTypes.oneOf(['left', 'right']),
+    align: PropTypes.oneOf(['left', 'right', 'top', 'top left', 'top right']),
     autoClose: PropTypes.bool,
     className: PropTypes.string,
     disabled: PropTypes.bool,
@@ -33,7 +33,6 @@ class Dropdown extends Component {
   };
 
   static defaultProps = {
-    align: 'right',
     className: '',
     modal: true,
     onClose() {},

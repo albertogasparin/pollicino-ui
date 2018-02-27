@@ -24,17 +24,38 @@ Default style with label
 </Dropdown>
 ```
 
-Left, no modal overlay
+Other positions, no modal overlay
 
 ```js
 <Dropdown
-  label="Locked dropdown with a really long long long long long label"
+  label="Locked dropdown aligned bottom left"
   align="left"
-  autoClose
   opened
   modal={false}
 >
-  Cannot close this
+  I'm bottom left
+</Dropdown>
+```
+
+```js
+<Dropdown
+  label="Locked dropdown aligned top"
+  align="top"
+  opened
+  modal={false}
+>
+  I'm top right
+</Dropdown>
+```
+
+```js
+<Dropdown
+  label="Locked dropdown aligned top left"
+  align="top left"
+  opened
+  modal={false}
+>
+  I'm top left
 </Dropdown>
 ```
 
@@ -43,7 +64,7 @@ No arrow
 ```js
 <Dropdown
   className="Dropdown--noArrow"
-  label="Click to open"
+  label="Click to open with a really long long long long long label"
   align="left"
   autoClose
 >

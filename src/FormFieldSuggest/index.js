@@ -301,7 +301,7 @@ class FormFieldSuggest extends Component {
         onClick={() => this.handleSelect(opt)}
       >
         {optionRenderer ? (
-          optionRenderer(opt)
+          optionRenderer(opt, kbdFocusIdx === i)
         ) : (
           <Btn
             className="Btn--plain Btn--line"

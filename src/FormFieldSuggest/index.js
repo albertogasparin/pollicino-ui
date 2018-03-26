@@ -123,6 +123,9 @@ class FormFieldSuggest extends Component {
     return this.props
       .loadOptions(input)
       .then((options) => {
+        if (!Array.isArray(options)) {
+          throw new Error('Options must be an array');
+        }
         if (this.controlEl) {
           this.setState((prevState) => ({
             cache: { ...prevState.cache, [input]: options },
@@ -144,11 +147,14 @@ class FormFieldSuggest extends Component {
     let input = ev.target.value;
 
     this.setState({ input, kbdFocusIdx: -1 });
-    if (this.props.loadOptions && !cache[input]) {
-      this.setState({ isLoading: true });
-      this.getAsyncOptions(input);
-    }
-    if (!this.props.loadOptions) {
+    if (this.props.loadOptions) {
+      if (cache[input]) {
+        this.setState({ isLoading: false, opts: cache[input] });
+      } else {
+        this.setState({ isLoading: true });
+        this.getAsyncOptions(input);
+      }
+    } else {
       this.setState({ opts: filterOptions([...options], input, val) });
     }
   };

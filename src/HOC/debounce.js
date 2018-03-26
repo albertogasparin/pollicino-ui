@@ -11,6 +11,7 @@ function getWrappedChange(onChange, debounce) {
  * @augments {Component<{
       value?: any
       debounce?: number
+      holdValue?: boolean
       onChange: Function
       render?: Function
     }, any>}
@@ -19,12 +20,14 @@ export class Debounce extends Component {
   static propTypes = {
     value: PropTypes.any,
     debounce: PropTypes.number,
+    holdValue: PropTypes.bool,
     onChange: PropTypes.func,
     render: PropTypes.func,
     children: PropTypes.func,
   };
 
   static defaultProps = {
+    holdValue: false,
     onChange() {},
   };
 
@@ -35,11 +38,11 @@ export class Debounce extends Component {
   isChanging = false;
 
   componentWillReceiveProps(nextProps) {
-    let { debounce, value } = this.props;
+    let { debounce } = this.props;
     if (nextProps.debounce !== debounce) {
       this.wrappedChange = getWrappedChange(this.onChange, nextProps.debounce);
     }
-    if (nextProps.value !== value && !this.isChanging) {
+    if (!this.isChanging && !nextProps.holdValue) {
       this.setState({ value: nextProps.value });
     }
   }

@@ -64,7 +64,10 @@ describe('<FormFieldSelect />', () => {
         focused: false,
         id: 'a',
         val: 'b',
-        opts: [{ label: 'select', value: '' }, { label: 'A', value: 'a' }],
+        opts: [
+          { label: 'select', value: '' },
+          { label: 'A', value: 'a' },
+        ],
       });
     });
   });
@@ -74,7 +77,10 @@ describe('<FormFieldSelect />', () => {
 
     beforeEach(() => {
       props = {
-        options: [{ label: 'A', value: 'a' }, { label: '1', value: 1 }],
+        options: [
+          { label: 'A', value: 'a' },
+          { label: '1', value: 1 },
+        ],
       };
       instance = shallow(<FormFieldSelect {...props} />).instance();
     });

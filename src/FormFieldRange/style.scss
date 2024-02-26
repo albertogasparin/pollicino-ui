@@ -19,9 +19,11 @@
     &::-webkit-slider-runnable-track {
       background: rgba($Pollicino-color-light, 0.25);
     }
+
     &::-moz-range-track {
       background: rgba($Pollicino-color-light, 0.25);
     }
+
     &::-ms-fill-lower,
     &::-ms-fill-upper {
       background: rgba($Pollicino-color-light, 0.25);
@@ -33,10 +35,12 @@
       background: transparent;
       border: 1px dashed $Pollicino-color-lighter;
     }
+
     &::-moz-range-track {
       background: transparent;
       border: 1px dashed $Pollicino-color-lighter;
     }
+
     &::-ms-fill-lower,
     &::-ms-fill-upper {
       background: transparent;
@@ -59,26 +63,34 @@
     font-size: 1em;
 
     &::-webkit-slider-runnable-track {
-      @include FormField--range-track();
+      @include FormField--range-track;
+
       width: 100%;
       height: rem(8px);
     }
+
     &::-webkit-slider-thumb {
-      @include FormField--range-thumb();
+      @include FormField--range-thumb;
+
       margin-top: rem(-8px);
       appearance: none;
     }
+
     &::-moz-range-track {
-      @include FormField--range-track();
+      @include FormField--range-track;
+
       width: 100%;
       height: rem(8px);
     }
+
     &::-moz-range-thumb {
-      @include FormField--range-thumb();
+      @include FormField--range-thumb;
     }
+
     &::-moz-focus-outer {
       border: 0;
     }
+
     &::-ms-track {
       width: 100%;
       height: rem(8px);
@@ -88,27 +100,34 @@
       border-bottom-width: rem(8px + 2px);
       color: transparent;
     }
+
     &::-ms-fill-lower,
     &::-ms-fill-upper {
-      @include FormField--range-track();
+      @include FormField--range-track;
     }
+
     &::-ms-thumb {
-      @include FormField--range-thumb();
+      @include FormField--range-thumb;
     }
 
     &:focus {
       outline: none;
 
       &::-webkit-slider-thumb {
-        box-shadow: 0 0 0 2px $Pollicino-color-primary,
+        box-shadow:
+          0 0 0 2px $Pollicino-color-primary,
           0 0 8px $Pollicino-color-primary;
       }
+
       &::-moz-range-thumb {
-        box-shadow: 0 0 0 2px $Pollicino-color-primary,
+        box-shadow:
+          0 0 0 2px $Pollicino-color-primary,
           0 0 8px $Pollicino-color-primary;
       }
+
       &::-ms-thumb {
-        box-shadow: 0 0 0 2px $Pollicino-color-primary,
+        box-shadow:
+          0 0 0 2px $Pollicino-color-primary,
           0 0 8px $Pollicino-color-primary;
       }
     }

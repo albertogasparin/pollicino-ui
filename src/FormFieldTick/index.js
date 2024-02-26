@@ -58,11 +58,11 @@ class FormFieldTick extends Component {
     focused: false,
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setPropsToState(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setPropsToState(nextProps);
   }
 
@@ -98,16 +98,8 @@ class FormFieldTick extends Component {
   };
 
   render() {
-    let {
-      className,
-      style,
-      label,
-      value,
-      type,
-      disabled,
-      readOnly,
-      error,
-    } = this.props;
+    let { className, style, label, value, type, disabled, readOnly, error } =
+      this.props;
     let { id, checked } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += readOnly ? ' isReadOnly' : '';

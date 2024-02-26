@@ -49,7 +49,7 @@ class Dropdown extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.opened !== this.props.opened) {
       if (nextProps.opened) {
         this.handleOpen();

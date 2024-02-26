@@ -61,11 +61,11 @@ class FormFieldRange extends Component {
     focused: false,
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setPropsToState(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setPropsToState(nextProps);
   }
 
@@ -99,15 +99,8 @@ class FormFieldRange extends Component {
   };
 
   render() {
-    let {
-      className,
-      style,
-      label,
-      disabled,
-      error,
-      readOnly,
-      size,
-    } = this.props;
+    let { className, style, label, disabled, error, readOnly, size } =
+      this.props;
     let { id, val, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += readOnly ? ' isReadOnly' : '';

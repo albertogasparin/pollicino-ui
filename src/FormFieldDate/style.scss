@@ -1,5 +1,4 @@
 @import '../../scss/core';
-
 @import '../Dropdown/style';
 @import '../FormFieldTick/style';
 @import '../FormFieldSelect/style';
@@ -76,12 +75,13 @@
       &--today {
         color: $Pollicino-color-secondary;
       }
+
       &--outside {
         color: $Pollicino-color-lighter;
         cursor: pointer;
 
         &:hover {
-          background-color: rgba(200, 215, 228, 0.4);
+          background-color: rgb(200 215 228 / 40%);
         }
       }
 

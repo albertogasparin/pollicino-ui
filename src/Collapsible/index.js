@@ -50,7 +50,7 @@ class Collapsible extends Component {
     isExpanded: this.props.expanded || false,
   };
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.expanded !== this.props.expanded) {
       this.handleToggle(null, nextProps.expanded);
     }

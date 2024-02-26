@@ -17,6 +17,7 @@
     &-field {
       @include FormField-isDisabled;
     }
+
     &-control {
       box-shadow: none;
     }
@@ -28,6 +29,7 @@
 .FormField--suggest .FormField {
   &-control {
     @include FormField-control;
+
     margin-bottom: 1px;
   }
 

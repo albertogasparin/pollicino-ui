@@ -149,7 +149,8 @@
   &:focus {
     outline: none;
     border-color: $Pollicino-color-primary;
-    box-shadow: inset 0 2px 5px rgba(#111, 0.15),
+    box-shadow:
+      inset 0 2px 5px rgba(#111, 0.15),
       0 0 0 1px $Pollicino-color-primary;
   }
 
@@ -187,7 +188,9 @@
   background: currentColor;
   border: none;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px rgba(#000, 0.15), 0 0 8px rgba(#000, 0.3);
+  box-shadow:
+    0 0 0 1px rgba(#000, 0.15),
+    0 0 8px rgba(#000, 0.3);
   cursor: pointer;
 }
 

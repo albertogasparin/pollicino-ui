@@ -1,5 +1,4 @@
 @import '../../scss/core';
-
 @import '../Dropdown/style';
 @import '../FormFieldTick/style';
 
@@ -96,9 +95,11 @@
       &-tick {
         display: none;
       }
+
       &-value {
         padding: 0 rem($Pollicino-padding);
       }
+
       &-label {
         border: 1px solid $Pollicino-color-lighter; // apply to label so disabled works
         border-right-width: 0;

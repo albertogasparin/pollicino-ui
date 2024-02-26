@@ -1,5 +1,4 @@
 @import '../../scss/core';
-
 @import '../Icon/style';
 
 /**
@@ -20,6 +19,7 @@
     &-label {
       @include FormField-isDisabled;
     }
+
     &-tick {
       opacity: 0.6;
     }
@@ -29,10 +29,12 @@
     &-label {
       cursor: auto;
     }
+
     &-tick {
       opacity: 0.5 * 0.6;
     }
   }
+
   &.isReadOnly:not(.isChecked) .FormField {
     &-value {
       opacity: 0.5;
@@ -79,7 +81,8 @@
   &-value {
     display: block;
     padding-left: 1.7em;
-    @include text-clip();
+
+    @include text-clip;
 
     &:empty {
       width: 1.35rem;

@@ -63,11 +63,11 @@ class FormFieldSelect extends Component {
     focused: false,
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setPropsToState(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setPropsToState(nextProps);
   }
 
@@ -83,8 +83,8 @@ class FormFieldSelect extends Component {
 
   findOption = (val) => {
     let option = null;
-    this.state.opts.some(
-      (o) => (String(o.value) === String(val) ? ((option = o), true) : false)
+    this.state.opts.some((o) =>
+      String(o.value) === String(val) ? ((option = o), true) : false
     );
     return option;
   };
@@ -107,15 +107,8 @@ class FormFieldSelect extends Component {
   };
 
   render() {
-    let {
-      className,
-      style,
-      label,
-      valueRenderer,
-      disabled,
-      readOnly,
-      error,
-    } = this.props;
+    let { className, style, label, valueRenderer, disabled, readOnly, error } =
+      this.props;
     let { id, opts, val, focused } = this.state;
     let selectedOpt = this.findOption(val) || {};
     className += disabled ? ' isDisabled' : '';

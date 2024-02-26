@@ -17,6 +17,7 @@
     &-field {
       @include FormField-isDisabled;
     }
+
     &-control {
       box-shadow: none;
     }
@@ -40,6 +41,7 @@
     & > .Icon {
       pointer-events: none;
     }
+
     & > .Btn {
       vertical-align: top;
     }
@@ -48,6 +50,7 @@
   &-iconLeft {
     left: 0;
   }
+
   &-iconRight {
     right: 0;
   }

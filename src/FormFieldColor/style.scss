@@ -1,5 +1,4 @@
 @import '../../scss/core';
-
 @import '../Dropdown/style';
 
 /**
@@ -49,10 +48,7 @@
 
   .map {
     position: absolute;
-    top: 8px;
-    bottom: 8px;
-    right: 28px;
-    left: 8px;
+    inset: 8px 28px 8px 8px;
     overflow: hidden;
     user-select: none;
 
@@ -74,6 +70,7 @@
     &.dark .pointer {
       border-color: #fff;
     }
+
     &.light .pointer {
       border-color: #000;
     }
@@ -90,10 +87,7 @@
         content: '';
         display: block;
         position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
+        inset: 0;
       }
 
       &::after {
@@ -158,7 +152,9 @@
       margin-bottom: -8px;
       border-radius: 50%;
       background: #fff;
-      box-shadow: inset 0 0 0 1px #ccc, 0 1px 2px #ccc;
+      box-shadow:
+        inset 0 0 0 1px #ccc,
+        0 1px 2px #ccc;
       will-change: left, bottom;
     }
   }
@@ -212,6 +208,7 @@
     .map {
       bottom: 28px;
     }
+
     .hue-slider {
       bottom: 28px;
     }

@@ -6,7 +6,7 @@
   height: em(24px);
   line-height: 1;
   vertical-align: middle;
-  fill: currentColor;
+  fill: currentcolor;
 }
 
 /**
@@ -36,6 +36,7 @@
   10% {
     transform: scale(1.1);
   }
+
   20% {
     transform: scale(0.6);
   }
@@ -51,7 +52,7 @@
     height: 0.8em;
     transform: scale(0.6);
     margin: #{(1.6em - 0.8em) / 2} 0.03em;
-    background: currentColor;
+    background: currentcolor;
     border-radius: 50%;
     animation: Icon--loading 3.5s linear 0s infinite both;
   }
@@ -59,6 +60,7 @@
   b:nth-child(2) {
     animation-delay: 0.2s;
   }
+
   b:nth-child(3) {
     animation-delay: 0.4s;
   }

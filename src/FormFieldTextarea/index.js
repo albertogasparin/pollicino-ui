@@ -62,11 +62,11 @@ class FormFieldTextarea extends Component {
     focused: false,
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setPropsToState(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setPropsToState(nextProps);
   }
 
@@ -95,16 +95,8 @@ class FormFieldTextarea extends Component {
   };
 
   render() {
-    let {
-      className,
-      style,
-      label,
-      disabled,
-      readOnly,
-      cols,
-      rows,
-      error,
-    } = this.props;
+    let { className, style, label, disabled, readOnly, cols, rows, error } =
+      this.props;
     let { id, val, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += readOnly ? ' isReadOnly' : '';

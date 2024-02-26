@@ -67,11 +67,11 @@ class FormFieldNumber extends Component {
     focused: false,
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setPropsToState(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setPropsToState(nextProps);
   }
 
@@ -138,16 +138,8 @@ class FormFieldNumber extends Component {
   };
 
   render() {
-    let {
-      className,
-      style,
-      label,
-      disabled,
-      readOnly,
-      size,
-      step,
-      error,
-    } = this.props;
+    let { className, style, label, disabled, readOnly, size, step, error } =
+      this.props;
     let { id, val, focused } = this.state;
     className += disabled ? ' isDisabled' : '';
     className += readOnly ? ' isReadOnly' : '';
@@ -174,28 +166,26 @@ class FormFieldNumber extends Component {
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
           />
-          {!disabled &&
-            !readOnly && (
-              <Btn
-                tagName="span"
-                className="FormField-spin FormField-spin--plus"
-                disabled={disabled}
-                onClick={(ev) =>
-                  this.handleChange(ev, this.preciseSum(val, step))
-                }
-              />
-            )}
-          {!disabled &&
-            !readOnly && (
-              <Btn
-                tagName="span"
-                className="FormField-spin FormField-spin--minus"
-                disabled={disabled}
-                onClick={(ev) =>
-                  this.handleChange(ev, this.preciseSum(val, -step))
-                }
-              />
-            )}
+          {!disabled && !readOnly && (
+            <Btn
+              tagName="span"
+              className="FormField-spin FormField-spin--plus"
+              disabled={disabled}
+              onClick={(ev) =>
+                this.handleChange(ev, this.preciseSum(val, step))
+              }
+            />
+          )}
+          {!disabled && !readOnly && (
+            <Btn
+              tagName="span"
+              className="FormField-spin FormField-spin--minus"
+              disabled={disabled}
+              onClick={(ev) =>
+                this.handleChange(ev, this.preciseSum(val, -step))
+              }
+            />
+          )}
           {error && <div className="FormField-error">{error}</div>}
         </div>
       </div>

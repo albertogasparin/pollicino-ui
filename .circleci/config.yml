@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/pollicino-ui
 
     docker:
-      - image: node:8.9
+      - image: node:18
 
     steps:
       - checkout

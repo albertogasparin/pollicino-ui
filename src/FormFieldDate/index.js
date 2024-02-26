@@ -85,11 +85,11 @@ class FormFieldDate extends Component {
     focused: false,
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setPropsToState(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setPropsToState(nextProps);
   }
 
@@ -146,11 +146,8 @@ class FormFieldDate extends Component {
 
   findOption = (value) => {
     let option = null;
-    this.state.opts.some(
-      (o) =>
-        o.value[0] === value[0] && o.value[1] === value[1]
-          ? (option = o)
-          : false
+    this.state.opts.some((o) =>
+      o.value[0] === value[0] && o.value[1] === value[1] ? (option = o) : false
     );
     return option;
   };
@@ -226,9 +223,16 @@ class FormFieldDate extends Component {
     }
 
     let [from, to] = val;
+    const fromDate = new Date(from);
+    const toDate = to ? new Date(to) : '';
     return (
-      new Date(from).toLocaleDateString() +
-      (to && to !== from ? ' — ' + new Date(to).toLocaleDateString() : '')
+      `${fromDate.getFullYear()}-${
+        fromDate.getMonth() + 1
+      }-${fromDate.getDate()}` +
+      (to && to !== from
+        ? ' — ' +
+          `${toDate.getFullYear()}-${toDate.getMonth() + 1}-${toDate.getDate()}`
+        : '')
     );
   };
 

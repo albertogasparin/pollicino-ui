@@ -1,8 +1,66 @@
 // Blacklist confusing globals set by ESLint browser: true setting (use them by prepending `window.`)
-var restrictedGlobals = ['addEventListener', 'blur', 'close', 'closed', 'confirm', 'defaultStatus', 'defaultstatus', 'event', 'external', 'find', 'focus', 'frameElement', 'frames', 'history', 'innerHeight', 'innerWidth', 'length', 'location', 'locationbar', 'menubar', 'moveBy', 'moveTo', 'name', 'onblur', 'onerror', 'onfocus', 'onload', 'onresize', 'onunload', 'open', 'opener', 'opera', 'outerHeight', 'outerWidth', 'pageXOffset', 'pageYOffset', 'parent', 'print', 'removeEventListener', 'resizeBy', 'resizeTo', 'screen', 'screenLeft', 'screenTop', 'screenX', 'screenY', 'scroll', 'scrollbars', 'scrollBy', 'scrollTo', 'scrollX', 'scrollY', 'self', 'status', 'statusbar', 'stop', 'toolbar', 'top'];
+var restrictedGlobals = [
+  'addEventListener',
+  'blur',
+  'close',
+  'closed',
+  'confirm',
+  'defaultStatus',
+  'defaultstatus',
+  'event',
+  'external',
+  'find',
+  'focus',
+  'frameElement',
+  'frames',
+  'history',
+  'innerHeight',
+  'innerWidth',
+  'length',
+  'location',
+  'locationbar',
+  'menubar',
+  'moveBy',
+  'moveTo',
+  'name',
+  'onblur',
+  'onerror',
+  'onfocus',
+  'onload',
+  'onresize',
+  'onunload',
+  'open',
+  'opener',
+  'opera',
+  'outerHeight',
+  'outerWidth',
+  'pageXOffset',
+  'pageYOffset',
+  'parent',
+  'print',
+  'removeEventListener',
+  'resizeBy',
+  'resizeTo',
+  'screen',
+  'screenLeft',
+  'screenTop',
+  'screenX',
+  'screenY',
+  'scroll',
+  'scrollbars',
+  'scrollBy',
+  'scrollTo',
+  'scrollX',
+  'scrollY',
+  'self',
+  'status',
+  'statusbar',
+  'stop',
+  'toolbar',
+  'top',
+];
 
 module.exports = {
-
   /*
    * Environments
    */
@@ -27,17 +85,14 @@ module.exports = {
   /*
    * Plugins for additional rules
    */
-  plugins: [
-    'react',
-  ],
+  plugins: ['react'],
 
   /*
    * Rules
    */
   rules: {
-
     /* Code checks
-    */
+     */
     eqeqeq: ['error', 'smart'],
     'no-func-assign': ['error'],
     'no-inner-declarations': ['error'],
@@ -60,7 +115,7 @@ module.exports = {
     'require-yield': ['off'],
 
     /* Coding helpers rules
-    */
+     */
     // complexity: ['warn', 5],
     'max-depth': ['warn', 5],
     'max-nested-callbacks': ['warn', 4],
@@ -75,13 +130,13 @@ module.exports = {
     // ],
 
     /* ES2015+ rules
-    */
+     */
     'object-shorthand': ['warn', 'always'],
     'no-this-before-super': ['warn'],
     'no-duplicate-imports': ['warn', { includeExports: true }],
 
     /* React plugin rules
-    */
+     */
     'react/no-children-prop': ['error'],
     'react/no-deprecated': ['error'],
     'react/no-direct-mutation-state': ['error'],
@@ -102,5 +157,4 @@ module.exports = {
     'react/jsx-uses-react': ['error'],
     'react/jsx-uses-vars': ['error'],
   },
-
 };

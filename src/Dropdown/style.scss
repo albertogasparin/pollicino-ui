@@ -5,12 +5,15 @@
     opacity: 0.2;
     clip: rect(-2em 60em 0 -2em);
   }
+
   70% {
     opacity: 1;
   }
+
   100% {
     clip: rect(-2em 60em 60em -2em);
   }
+
   // 0% { clip-path: polygon(-2em -2em, 60em -2em, 60em -1em, -2em -1em); }
   // 100% { clip-path: polygon(-2em -2em, 60em -2em, 60em 60em, -2em 60em); }
 }
@@ -35,6 +38,7 @@
   &-btn {
     @include button-reset;
     @include text-clip;
+
     position: relative;
     flex-grow: 1;
     max-width: 100%;
@@ -64,7 +68,9 @@
     margin-bottom: rem($Pollicino-padding);
     padding: rem($Pollicino-padding);
     background: #fff;
-    box-shadow: 0 0 0 1px rgba(#000, 0.1), 0 0 15px 1px rgba(#000, 0.3);
+    box-shadow:
+      0 0 0 1px rgba(#000, 0.1),
+      0 0 15px 1px rgba(#000, 0.3);
     border-radius: $Pollicino-border-radius;
     color: $Pollicino-color-text;
     font-size: 1rem;
@@ -78,6 +84,7 @@
       left: -0.4em;
       right: auto;
     }
+
     &[data-align*='top'] {
       top: auto;
       bottom: 100%;
@@ -154,6 +161,7 @@
     &[data-align='left'] {
       left: -0.1em;
     }
+
     &[data-align='right'] {
       right: -0.2rem;
     }

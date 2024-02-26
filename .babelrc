@@ -1,11 +1,17 @@
 {
   "presets": [
-    ["env", { "targets": { "browsers": ["last 3 versions", "IE >= 11", "Android >= 4.4"] } }],
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": ["last 3 versions", "IE >= 11", "Android >= 4.4"]
+        }
+      }
+    ],
     "react",
     "stage-1"
   ],
   "plugins": [],
   "retainLines": true,
-  "env": {
-  }
+  "env": {}
 }

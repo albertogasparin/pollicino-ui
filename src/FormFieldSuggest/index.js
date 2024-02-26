@@ -101,11 +101,11 @@ class FormFieldSuggest extends Component {
     kbdFocusIdx: -1,
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setPropsToState(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setPropsToState(nextProps);
   }
 
@@ -362,19 +362,16 @@ class FormFieldSuggest extends Component {
 
           {focused && !readOnly && this.renderOverlay()}
 
-          {focused &&
-            !readOnly &&
-            allowAny &&
-            input && (
-              <span className="FormField-selectNew">
-                <Btn
-                  className="Btn--square"
-                  onClick={() => this.handleSelect(this.state.input)}
-                >
-                  <Icon glyph="check" />
-                </Btn>
-              </span>
-            )}
+          {focused && !readOnly && allowAny && input && (
+            <span className="FormField-selectNew">
+              <Btn
+                className="Btn--square"
+                onClick={() => this.handleSelect(this.state.input)}
+              >
+                <Icon glyph="check" />
+              </Btn>
+            </span>
+          )}
 
           {error && <div className="FormField-error">{error}</div>}
         </div>

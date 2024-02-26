@@ -6,12 +6,15 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
   0% {
     transform: scaleY(1);
   }
+
   30% {
     transform: scaleY(0.8);
   }
+
   70% {
     transform: scaleY(1.1);
   }
+
   100% {
     transform: scaleY(1);
   }
@@ -21,6 +24,7 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 0;
   }
@@ -28,6 +32,7 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
 
 .Btn {
   @include button-reset;
+
   position: relative;
   display: inline-block;
   vertical-align: middle;
@@ -38,6 +43,7 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
 
   &[data-tip]::after {
     @include text-clip;
+
     position: absolute;
     top: 50%;
     left: 100%;
@@ -67,7 +73,9 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
   }
 
   &[data-tip]:hover::after {
-    transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
+    transition:
+      opacity 0.3s ease 0.3s,
+      transform 0.3s ease 0.3s;
     max-height: none;
     opacity: 1;
     transform: translate(0, -50%);
@@ -76,7 +84,7 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
 
   &:hover,
   &[aria-selected='true'] {
-    background-image: linear-gradient(transparent, currentColor);
+    background-image: linear-gradient(transparent, currentcolor);
     background-size: 100% 5000%;
     background-position: 50% 8%;
   }
@@ -115,9 +123,11 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
     & > :not(.Icon--loading) {
       opacity: 0;
     }
+
     &::first-line {
       color: rgba(#000, 0);
     }
+
     &[data-tip]::after {
       display: none;
     }
@@ -177,6 +187,7 @@ $Pollicino-Btn-height: $Pollicino-FormField-height / 1rem + 0em !default; // sty
 
 .Btn--line {
   @include text-clip;
+
   width: 100%;
   text-align: left;
 }

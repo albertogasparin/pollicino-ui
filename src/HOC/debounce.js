@@ -37,7 +37,7 @@ export class Debounce extends Component {
 
   isChanging = false;
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     let { debounce } = this.props;
     if (nextProps.debounce !== debounce) {
       this.wrappedChange = getWrappedChange(this.onChange, nextProps.debounce);
